@@ -7,7 +7,7 @@ interface MenuMob{
 }
 
 export const Container = styled.header(
-  (props:MenuMob)=>`
+  (props: MenuMob) => `
   width: 100%;
   background-color: var(--primary-color);
   color:#fff;
@@ -20,6 +20,7 @@ export const Container = styled.header(
     align-items: center;
     padding-inline: 1rem;
     justify-content: space-between;
+    gap:1rem;
     position: relative;
 
     .logo {
@@ -33,16 +34,84 @@ export const Container = styled.header(
       }
     }
     .search {
-      width: 500px;
+      width:40%;
       height: 35px;
       display: flex;
       align-items: center;
       background-color: #fff;
       border-radius: 7px;
-      overflow: hidden;
-      span {
+
+      .filterContainer{
+        cursor:pointer;
+        position:relative;
+        display:flex;
+        flex-direction:column;
+        #filter{
+          height:35px;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          font-size:0.9rem;
+          border-right:1px solid #000000;
+          padding:0.5rem;
+          color:#000000;
+          svg{
+            transform:rotate(-90deg);
+            transition:1s;
+          }
+        }
+        .options{
+          position:absolute;
+          z-index:50;
+          color:#000000;
+          top:100%;
+          font-size:0.9rem;
+          width:100%;
+          background-color:#fff;
+          border-radius:7px;
+          padding:1rem 0.5rem;
+          transform:translate3d(0px,-15px,0);
+          transition:1s;
+          opacity:0;
+          pointer-events:none;
+          display:flex;
+          flex-direction:column;
+          gap:1rem;
+
+          .option{
+            display:flex;
+            align-items:center;
+            gap:0.3rem;
+            svg{
+              transition:1s;
+            }
+
+            &:hover{
+              svg{
+                fill:#000000;
+              }
+            }
+          }
+
+
+        }
+        &:hover{
+          #filter{
+            svg{
+              transform:rotate(90deg);
+            }
+          }
+          .options{
+            transform:initial;
+            opacity:initial;
+            pointer-events:inherit;
+          }
+        }
+      }
+      #icon {
         display: block;
         padding: 0.2rem;
+        border-radius:0px 7px 7px 0px;
         width: 10%;
         height: 100%;
         display: flex;
@@ -58,7 +127,7 @@ export const Container = styled.header(
     }
     input {
       height: 100%;
-      width: 90%;
+      flex:1;
       font-size: 1.1rem;
       border-radius: 15px;
       border: none;
@@ -68,12 +137,24 @@ export const Container = styled.header(
     .actions {
       display: flex;
       align-items: center;
+      font-size:0.9rem;
       gap: 1rem;
+      font-family: 'Lato', sans-serif;
       a {
         display: flex;
         align-items: center;
         svg {
           margin-right: 0.5rem;
+        }
+      }
+      .list{
+        svg{
+          transition:1s;
+        }
+        &:hover{
+          svg{
+          fill:#ffa500;
+          }
         }
       }
     }
@@ -100,20 +181,30 @@ export const Container = styled.header(
     }
   }
   @media (max-width: 955px) {
-    nav .actions {
+    nav {
+    flex-wrap:wrap;
+    .logo{
+      order:1;
+    }
+    .search{
+      width:100%;
+      order:3;
+    }
+    .actions{
       transition:1s;
       position: absolute;
       z-index:50;
       background-color: var(--primary-color);
       padding:1rem;
-      height:350px;
+      
       gap:1.5rem;
-      top:100%;
+      top:calc(100% - 1px);
+      right:0px;
       width:50%;
-      border-radius:0px 0px 7px 0px;
+      border-radius:0px 0px 7px 7px;
       transform:${props.values.active ? 'initial' : 'translate3d(0,-30px,0)'};
       opacity:${props.values.active ? 'initial' : '0'};
-      pointer-events:${props.values.active ? 'initial': 'none'};
+      pointer-events:${props.values.active ? 'initial' : 'none'};
       margin-left:-1rem;
       align-items:initial;
       flex-direction:column;
@@ -123,6 +214,7 @@ export const Container = styled.header(
       }
     }
   }
+}
 `
 )
 
@@ -133,9 +225,11 @@ export const userActions = styled.ul`
       cursor: pointer;
       display: flex;
       align-items: center;
-      font-size: 1.1rem;
       gap: 0.5rem;
       padding: 0.5rem;
+      svg{
+        transition:1s;
+      }
       #arrow {
         transform: rotate(90deg);
         transition: 1s ease;
@@ -157,13 +251,15 @@ export const userActions = styled.ul`
         display: block;
         width: calc(100% - 1rem);
         background-color: var(--second-color);
-        font-weight: bold;
+        font-family: 'Lato', sans-serif;
+
         color: #000000;
         padding: 0.5rem 0.7rem;
         border-radius: 7px;
         margin: 0 auto;
       }
       a {
+        font-family: 'Lato', sans-serif;
         margin-top: 1rem;
         color: black;
         padding-inline: 0.5rem;
@@ -175,6 +271,10 @@ export const userActions = styled.ul`
         #arrow {
           transform: rotate(-90deg);
         }
+        #user{
+        fill: #ffa500;
+        }
+        
       }
       .links {
         transform: initial;
@@ -199,6 +299,7 @@ export const userActions = styled.ul`
         a {
           padding: 0px;
           margin-top: 1.5rem;
+          font-family: 'Lato', sans-serif;
           color: #fff;
           font-weight: inherit;
           border-bottom: transparent;
@@ -259,6 +360,7 @@ display:none;
   }
   @media (max-width:955px){
     display:block;
+    order:2;
   }
 `
 )

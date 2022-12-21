@@ -17,10 +17,11 @@ export const container = styled.article`
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content:space-between;
+    justify-content: space-between;
     position: relative;
     p {
-      font-size: 0.9rem;
+      font-size: 0.8125rem;
+      color: #363636;
       text-align: center;
     }
     #author {
@@ -37,7 +38,7 @@ export const container = styled.article`
       transition: 1s;
       color: var(--primary-color);
       font-weight: bold;
-      font-size: 0.9rem;
+      font-size: 0.875rem;
       text-align: center;
     }
   }
