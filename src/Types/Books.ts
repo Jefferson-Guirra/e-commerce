@@ -1,3 +1,5 @@
+
+
 type AcessInfo= {
   accessViewStatus: string,
   country: string,
@@ -28,33 +30,37 @@ saleability: string,
 }
 
 type VolumeInfo = {
-allowAnonLogging: 'boolean'
-authors:string[],
-canonicalVolumeLink:string,
-categories:string[],
-contentVersion:string,
-description:string,
-imageLinks: {
-  smallThumbnail:string, 
-  thumbnail:string, 
-  small: string, 
-  medium:string, 
-  large:string,
-  extraLarge:string
-}
-industryIdentifiers:  Array<{type:string,identifier:string}>
-infoLink:string,
-language:string,
-maturityRating:string,
-pageCount:number,
-panelizationSummary: {containsEpubBubbles: boolean, containsImageBubbles: boolean}
-previewLink: string,
-printType:string,
-printedPageCount: number,
-publishedDate:string,
-publisher:string,
-readingModes: {text: string, image: string},
-title:string
+  allowAnonLogging: 'boolean'
+  authors: string[]
+  canonicalVolumeLink: string
+  categories: string[]
+  contentVersion: string
+  description: string
+  averageRating:number,
+  imageLinks: {
+    smallThumbnail: string
+    thumbnail: string
+    small: string
+    medium: string
+    large: string
+    extraLarge: string
+  }
+  industryIdentifiers: Array<{ type: string; identifier: string }>
+  infoLink: string
+  language: string
+  maturityRating: string
+  pageCount: number
+  panelizationSummary: {
+    containsEpubBubbles: boolean
+    containsImageBubbles: boolean
+  }
+  previewLink: string
+  printType: string
+  printedPageCount: number
+  publishedDate: string
+  publisher: string
+  readingModes: { text: string; image: string }
+  title: string
 }
 
 export  type Book = {
@@ -68,3 +74,5 @@ layerInfo: {layers: Array<{layerId: string, volumeAnnotationsVersion: string}>}
 saleInfo:SaleInfo
 
 }
+
+

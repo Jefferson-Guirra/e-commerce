@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState,FormEvent} from 'react'
 import * as C from './styles'
 import Link from 'next/link'
 import { SiBookstack } from 'react-icons/si'
@@ -9,6 +9,12 @@ import { MdOutlineNavigateNext } from 'react-icons/md'
 
 const navBar = () => {
   const [menu,setMenu] = useState(false)
+  const [input,setInput] = useState('')
+  const [filter,setFilter] = useState('')
+  const handleSubmit = (event:FormEvent<HTMLFormElement>)=>{
+    event.preventDefault()
+    console.log('teste')
+  }
   return (
     <C.Container values={{ active: menu }}>
       <nav>
@@ -24,19 +30,19 @@ const navBar = () => {
           <SiBookstack size={55} color="#fff" />
           Literando
         </Link>
-        <div className="search">
+        <form onSubmit={handleSubmit} className="search">
           <ul>
             <li className="filterContainer">
               <span id="filter">
-                <p>Autor ou Título</p>
+                <p>{filter === '' ? 'Autor ou Título' : filter}</p>
                 <MdOutlineNavigateNext size={25} />
               </span>
               <div className="options">
-                <div className="option">
+                <div onClick={() => setFilter('Autor')} className="option">
                   <BiUser size={18} color="#ffa500" />
                   <p>Autor</p>
                 </div>
-                <div className="option">
+                <div onClick={() => setFilter('Livro')} className="option">
                   <BiBookAlt size={18} color="#ffa500" />
                   <p>Livro</p>
                 </div>
@@ -44,11 +50,16 @@ const navBar = () => {
             </li>
           </ul>
 
-          <input type="text" placeholder="buscar..." />
-          <span id="icon">
-            <BiSearch size={35} color="#ffa500" />
-          </span>
-        </div>
+          <input
+            type="text"
+            value={input}
+            onChange={({ target }) => setInput(target.value)}
+            placeholder="buscar..."
+          />
+          <button type="submit" id="icon">
+            <BiSearch size={30} color="#001f3f" />
+          </button>
+        </form>
         <div className="actions">
           <Link className="list" href="/">
             <AiOutlineHeart size={25} />
@@ -57,7 +68,7 @@ const navBar = () => {
           <C.userActions>
             <li>
               <p>
-                <BiUser id='user' size={25} />
+                <BiUser id="user" size={25} />
                 Olá, usuário <MdOutlineNavigateNext id="arrow" size={25} />
               </p>
               <div className="links">

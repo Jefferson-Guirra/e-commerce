@@ -2,12 +2,12 @@ import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import React from 'react'
 import * as C from '../styles/home'
-import Slider from './components/Slider'
+import Slider from '../components/Slider'
 import { SwiperSlide, SwiperProps } from 'swiper/react'
 import { Pagination } from "swiper";
 import {NEW_BOOKS, SEARCH_BOOKS_ID,SEARCH_BOOKS_GENRES} from '../Api'
 import { Book } from '../Types/Books'
-import SliderBooks from './components/SliderBooks'
+import SliderBooks from '../components/SliderBooks'
 
 interface Props {
   book?: Book

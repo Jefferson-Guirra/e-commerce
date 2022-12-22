@@ -8,6 +8,7 @@ export const container = styled.article`
   flex-direction: column;
   border: 1px solid #d9d9d9;
   border-radius: 7px;
+  cursor:pointer;
   transition: 1s;
   img {
     border-radius: 7px !important;

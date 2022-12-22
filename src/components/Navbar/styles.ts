@@ -55,6 +55,7 @@ export const Container = styled.header(
           border-right:1px solid #000000;
           padding:0.5rem;
           color:#000000;
+         
           svg{
             transform:rotate(-90deg);
             transition:1s;
@@ -81,6 +82,7 @@ export const Container = styled.header(
           .option{
             display:flex;
             align-items:center;
+            width:100%;
             gap:0.3rem;
             svg{
               transition:1s;
@@ -118,10 +120,13 @@ export const Container = styled.header(
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        background-color: #343840;
+        background-color: var(--second-color);
         transition: 1s ease;
         &:hover {
-          background-color: var(--primary-color);
+          background-color: #363636;
+          svg{
+            fill:var(--second-color);
+          }
         }
       }
     }
