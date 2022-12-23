@@ -60,7 +60,8 @@ type VolumeInfo = {
   publishedDate: string
   publisher: string
   readingModes: { text: string; image: string }
-  title: string
+  title: string,
+  subtitle?:string;
 }
 
 export  type Book = {
@@ -73,6 +74,12 @@ volumeInfo:VolumeInfo,
 layerInfo: {layers: Array<{layerId: string, volumeAnnotationsVersion: string}>}
 saleInfo:SaleInfo
 
+}
+
+export type Books = {
+  kind: string
+  totalItems: number
+  items: Book[]
 }
 
 

@@ -4,8 +4,7 @@ import React from 'react'
 import * as C from '../styles/home'
 import Slider from '../components/Slider'
 import { SwiperSlide, SwiperProps } from 'swiper/react'
-import { Pagination } from "swiper";
-import {NEW_BOOKS, SEARCH_BOOKS_ID,SEARCH_BOOKS_GENRES} from '../Api'
+import {SEARCH_BOOKS_GENRES} from '../Api'
 import { Book } from '../Types/Books'
 import SliderBooks from '../components/SliderBooks'
 
@@ -32,17 +31,11 @@ interface Props {
 
 
 export default function Home({fictionBooks,dramaBooks,fantasyBooks}:Props) {
-  console.log(dramaBooks)
+  
     const settings : SwiperProps = {
       //config swiper slide
       slidesPerView: 1,
       pagination:{clickable:true}
-    }
-    const booksSettings : SwiperProps = {
-      slidesPerView: 3,
-      spaceBetween:100,
-      navigation:true,
-      pagination: { clickable: true }
     }
   return (
     <>
@@ -66,33 +59,33 @@ export default function Home({fictionBooks,dramaBooks,fantasyBooks}:Props) {
             </SwiperSlide>
           </Slider>
         </section>
-        {fictionBooks && (
+        
           <section className="newBooks">
             <h1 className="title">Ficção</h1>
             <SliderBooks books={fictionBooks} />
           </section>
-        )}
-        {dramaBooks && (
+        
+        
           <section className="dramaBooks">
             <h1 className="title">Dramas</h1>
             <SliderBooks books={dramaBooks} />
           </section>
-        )}
-        {fantasyBooks && (
+        
+        
           <section className="fantasyBooks">
-            <h1 className="title">Fatasia</h1>
+            <h1 className="title">Fantasia</h1>
             <SliderBooks books={fantasyBooks} />
           </section>
-        )}
+        
       </C.Container>
     </>
   )
 }
 
 export const getStaticProps:GetStaticProps = async () =>{
-  const fictionBooks = await SEARCH_BOOKS_GENRES('fiction')
-  const dramaBooks = await SEARCH_BOOKS_GENRES('drama')
-  const fantasyBooks = await SEARCH_BOOKS_GENRES('fantasy')
+  const fictionBooks = await SEARCH_BOOKS_GENRES(['fiction'])
+  const dramaBooks = await SEARCH_BOOKS_GENRES(['drama'])
+  const fantasyBooks = await SEARCH_BOOKS_GENRES(['fantasy'])
   return{
     props:{
       fictionBooks,

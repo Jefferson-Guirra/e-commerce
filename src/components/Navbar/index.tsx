@@ -6,14 +6,25 @@ import { BiSearch, BiBookAlt, BiUser } from 'react-icons/bi'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { FiShoppingCart } from 'react-icons/fi'
 import { MdOutlineNavigateNext } from 'react-icons/md'
+import { useRouter } from 'next/router'
+
 
 const navBar = () => {
   const [menu,setMenu] = useState(false)
   const [input,setInput] = useState('')
   const [filter,setFilter] = useState('')
+  const router = useRouter()
+
   const handleSubmit = (event:FormEvent<HTMLFormElement>)=>{
     event.preventDefault()
-    console.log('teste')
+    if(filter !==''){
+      filter === 'Autor'
+        ? router.push(`/search?q=inauthor:${input}`)
+        : router.push(`/search?q=intitle:${input}`)
+    }
+    else{
+      alert('Informe um filtro')
+    }
   }
   return (
     <C.Container values={{ active: menu }}>

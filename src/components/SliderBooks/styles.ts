@@ -8,7 +8,7 @@ export const container = styled.article`
   flex-direction: column;
   border: 1px solid #d9d9d9;
   border-radius: 7px;
-  cursor:pointer;
+  cursor: pointer;
   transition: 1s;
   img {
     border-radius: 7px !important;
@@ -41,6 +41,15 @@ export const container = styled.article`
       font-weight: bold;
       font-size: 0.875rem;
       text-align: center;
+      @media (max-width: 650px) {
+        font-size: 0.8rem;
+      }
+      @media (max-width: 565px) {
+        font-size: 0.7rem;
+      }
+      @media (max-width: 525px) {
+        font-size: 0.81rem;
+      }
     }
   }
 
