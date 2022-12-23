@@ -83,9 +83,9 @@ export default function Home({fictionBooks,dramaBooks,fantasyBooks}:Props) {
 }
 
 export const getStaticProps:GetStaticProps = async () =>{
-  const fictionBooks = await SEARCH_BOOKS_GENRES(['fiction'])
-  const dramaBooks = await SEARCH_BOOKS_GENRES(['drama'])
-  const fantasyBooks = await SEARCH_BOOKS_GENRES(['fantasy'])
+  const fictionBooks = await SEARCH_BOOKS_GENRES(['fiction']).init()
+  const dramaBooks = await SEARCH_BOOKS_GENRES(['drama']).init()
+  const fantasyBooks = await SEARCH_BOOKS_GENRES(['fantasy']).init()
   return{
     props:{
       fictionBooks,

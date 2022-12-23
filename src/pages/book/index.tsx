@@ -15,7 +15,8 @@ interface Props {
 
 
 type Params = {
-  q: string
+  q: string,
+  v:string
 }
 
 const book = ({ book,volums }: Props) => {
@@ -91,7 +92,7 @@ const book = ({ book,volums }: Props) => {
                   <div className="itemBuy">
                     <p>Ano: </p>
                     <span>
-                      {formatBook.volumeInfo.publishedDate.replace(
+                      {formatBook.volumeInfo.publishedDate?.replace(
                         /-\d{2}/g,
                         ''
                       )}
@@ -116,11 +117,11 @@ const book = ({ book,volums }: Props) => {
             </C.buyContainer>
           </article>
         </section>
-        <C.resultBooks>
+        {formatVolums.totalItems !== 0 && <C.resultBooks>
           <h1 className="title">Títulos Similares</h1>
           <SliderBooks books={formatVolums} />
-        </C.resultBooks>
-      </C.Container>
+        </C.resultBooks>}
+      </C.Container> 
     </>
   )
 }
@@ -128,9 +129,9 @@ const book = ({ book,volums }: Props) => {
 export default book
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const { q } = query as Params
+  const {q} = query as Params
   const book:Book = await SEARCH_BOOKS_ID(q)
-  const volums = await SEARCH_BOOKS_GENRES(book.volumeInfo.categories)
+  const volums = await SEARCH_BOOKS_GENRES(book.volumeInfo.categories,book.volumeInfo.title).init()
 
   if (!q) {
     return {
