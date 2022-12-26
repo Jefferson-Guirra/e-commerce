@@ -33,4 +33,8 @@ export const container = styled.div`
     font-size: 0.875rem;
     margin-top: 0.25rem;
   }
+
+  @media (max-width:550px){
+    margin-bottom:1.5rem;
+  }
 `
