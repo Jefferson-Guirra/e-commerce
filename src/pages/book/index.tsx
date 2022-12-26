@@ -96,6 +96,7 @@ const book = ({ book,volums }: Props) => {
                         /-\d{2}/g,
                         ''
                       )}
+                      
                     </span>
                   </div>
                   <div className="itemBuy">

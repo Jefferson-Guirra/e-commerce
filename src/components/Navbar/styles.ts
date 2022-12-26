@@ -27,10 +27,19 @@ export const Container = styled.header(
       font-size: 2rem;
       display: flex;
       align-items: center;
+      gap:0.2rem;
       font-weight: bold;
       color: #eee;
+      transition:1s;
       svg {
+        transition:1s;
         margin-right: 0.5rem;
+      }
+      &:hover{
+        color:#ffa500;
+        svg{
+          fill:#fff;
+        }
       }
     }
     .search {
@@ -169,6 +178,7 @@ export const Container = styled.header(
       display: flex;
       align-items: center;
       height: fit-content;
+      
       span {
         display: flex;
         align-items: center;
@@ -201,7 +211,7 @@ export const Container = styled.header(
       z-index:50;
       background-color: var(--primary-color);
       padding:1rem;
-      
+      font-size:1rem;
       gap:1.5rem;
       top:calc(100% - 1px);
       right:0px;
@@ -232,8 +242,8 @@ export const userActions = styled.ul`
       align-items: center;
       gap: 0.5rem;
       padding: 0.5rem;
-      svg{
-        transition:1s;
+      svg {
+        transition: 1s;
       }
       #arrow {
         transform: rotate(90deg);
@@ -276,10 +286,9 @@ export const userActions = styled.ul`
         #arrow {
           transform: rotate(-90deg);
         }
-        #user{
-        fill: #ffa500;
+        #user {
+          fill: #ffa500;
         }
-        
       }
       .links {
         transform: initial;
@@ -301,24 +310,33 @@ export const userActions = styled.ul`
       .links {
         padding: 0px;
         background-color: transparent;
+        font-size: 1rem;
+        font-family: 'Lato', sans-serif;
+        color: #fff;
         a {
           padding: 0px;
           margin-top: 1.5rem;
-          font-family: 'Lato', sans-serif;
           color: #fff;
           font-weight: inherit;
           border-bottom: transparent;
+          transition: 1s;
+          &:hover {
+            color: var(--second-color);
+          }
         }
         button {
           font-weight: inherit;
-          font-size: 1.2rem;
-
+          font-size: 1rem;
           text-align: left;
           padding: 0px;
           color: #fff;
           margin: inherit;
           margin-top: 1.5rem;
           background-color: transparent;
+          transition:1s;
+          &:hover {
+            color: var(--second-color);
+          }
         }
         opacity: 1;
         position: static;

@@ -38,7 +38,7 @@ const navBar = () => {
           <span className="line3"></span>
         </C.hamburguer>
         <Link href="/" className="logo">
-          <SiBookstack size={55} color="#fff" />
+          <SiBookstack size={55} color="#ffa500" />
           Literando
         </Link>
         <form onSubmit={handleSubmit} className="search">
@@ -83,7 +83,7 @@ const navBar = () => {
                 Olá, usuário <MdOutlineNavigateNext id="arrow" size={25} />
               </p>
               <div className="links">
-                <button>Entrar</button>
+                <button onClick={()=>router.push('/Login')}>Entrar</button>
                 <Link href="/">Cadastre-se</Link>
                 <Link href="/">Meus pedidos</Link>
                 <Link href="/">Minha conta</Link>

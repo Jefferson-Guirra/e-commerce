@@ -22,7 +22,7 @@ export const container = styled.article`
     position: relative;
     p {
       font-size: 0.8125rem;
-      color: #363636;
+      color: var(--four-color);
       text-align: center;
     }
     #author {

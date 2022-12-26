@@ -5,26 +5,15 @@ import * as C from '../styles/home'
 import Slider from '../components/Slider'
 import { SwiperSlide, SwiperProps } from 'swiper/react'
 import {SEARCH_BOOKS_GENRES} from '../Api'
-import { Book } from '../Types/Books'
+import { Book, Books } from '../Types/Books'
+import {BiBookOpen} from 'react-icons/bi'
 import SliderBooks from '../components/SliderBooks'
 
 interface Props {
   book?: Book
-  fictionBooks: {
-    kind: string
-    totalItems: number
-    items: Book[]
-  }
-  dramaBooks: {
-    kind: string
-    totalItems: number
-    items: Book[]
-  },
-  fantasyBooks: {
-    kind: string
-    totalItems: number
-    items: Book[]
-  }
+  fictionBooks:Books
+  dramaBooks:Books,
+  fantasyBooks:Books
 }
 
 
@@ -59,24 +48,31 @@ export default function Home({fictionBooks,dramaBooks,fantasyBooks}:Props) {
             </SwiperSlide>
           </Slider>
         </section>
-        
-          <section className="newBooks">
-            <h1 className="title">Ficção</h1>
-            <SliderBooks books={fictionBooks} />
-          </section>
-        
-        
-          <section className="dramaBooks">
-            <h1 className="title">Dramas</h1>
-            <SliderBooks books={dramaBooks} />
-          </section>
-        
-        
-          <section className="fantasyBooks">
-            <h1 className="title">Fantasia</h1>
-            <SliderBooks books={fantasyBooks} />
-          </section>
-        
+
+        <section className="newBooks">
+          <div className="title">
+            <BiBookOpen size={40} />
+            <h1>Ficção</h1>
+          </div>
+          <SliderBooks books={fictionBooks} />
+        </section>
+
+        <section className="dramaBooks">
+          <div className="title">
+            <BiBookOpen size={45} />
+            <h1>Dramas</h1>
+          </div>
+          <SliderBooks books={dramaBooks} />
+        </section>
+
+        <section className="fantasyBooks">
+          <div className="title">
+            <BiBookOpen size={40} />
+            <h1>Fantasia</h1>
+          </div>
+
+          <SliderBooks books={fantasyBooks} />
+        </section>
       </C.Container>
     </>
   )

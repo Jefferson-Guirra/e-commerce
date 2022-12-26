@@ -1,6 +1,7 @@
-import { GetServerSideProps } from 'next'
-import React from 'react'
+import { GetServerSideProps} from 'next'
+import {useEffect, useState} from 'react'
 import { GET_BOOKS_PARAMS } from '../../Api'
+import { BiBookOpen } from 'react-icons/bi'
 import { Books } from '../../Types/Books'
 import * as C from '../../styles/search'
 import Head from 'next/head'
@@ -16,16 +17,40 @@ interface Props{
 }
 const search = ({books,q}:Props) => {
   const bookFormat:Books = JSON.parse(books)
+  const [bookResults,setBookResults]= useState(bookFormat)
+  const title = q.replace(/\w+:/g, '')
+  const [filter,setFilter] = useState(1)
+  const maxPagination = Math.floor((bookFormat.totalItems/15))
+  const pagination = Array.from({ length: Number(maxPagination) }, (_, i = 1) => i + 1)
+  
+
+  const handlePagination = async (value:number)=>{
+    const newBooks = await GET_BOOKS_PARAMS(q, value * 15, 15)
+    setFilter(value)
+    setBookResults(newBooks)
+
+  }
+
+
+  useEffect(()=>{
+    setBookResults(bookFormat)
+  },[q])
+
+  
   return (
     <>
       <Head>
         <title>
-          {q.replace(/\w+:/g, '')}
+          {title}
         </title>
       </Head>
       <C.container>
+        <div className='title'>
+          <BiBookOpen size={40} />
+            <h1>{title}</h1>
+        </div>
         <section className="containerBook">
-          {bookFormat.items.map((item, index) => (
+          {bookResults.items.map((item, index) => (
             <article key={index} className="contentBook">
               <Link href={`/book?q=${item.id}`} className="cardBook">
                 <img
@@ -43,6 +68,14 @@ const search = ({books,q}:Props) => {
             </article>
           ))}
         </section>
+
+
+        <C.Pagination>
+          <div className='containerPagination'>
+            {pagination.filter((item)=> item>=filter -1 && item < filter+7).map((item)=><button onClick={()=>handlePagination(item)} key={item}>{item}</button>)}
+
+          </div>
+        </C.Pagination>
       </C.container>
     </>
   )
@@ -53,8 +86,7 @@ export default search
 
 export const getServerSideProps:GetServerSideProps = async ({query})=>{
   const {q}= query as Params
-  console.log(q)
-  const books = JSON.stringify(await GET_BOOKS_PARAMS(q))
+  const books = JSON.stringify(await GET_BOOKS_PARAMS(q,0,15))
   return{
     props:{
       books,

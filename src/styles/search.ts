@@ -72,3 +72,44 @@ export const container = styled.main`
     }
   }
 ` 
+
+export const navigation = styled.article`
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 2rem;
+  button {
+    background-color: var(--primary-color);
+    border-radius: 7px;
+    padding: 0.7rem 1rem;
+    border: 2px solid var(--primary-color);
+    transition:1s;
+    color: #fff;
+
+    &:hover {
+      background-color: transparent;
+      border: 2px solid var(--primary-color);
+      color:#000000;
+    }
+  }
+`
+
+export const Pagination = styled.section`
+max-width:1200px;
+margin:0 auto;
+margin-top:2rem;
+.containerPagination{
+  display:flex;
+  align-items:center; 
+  justify-content:center;
+  gap:0.5rem;
+
+  button{
+    padding:0.5rem;
+    background-color:var(--primary-color);
+    color:#fff;
+    border-radius:7px;
+  }
+}
+
+`

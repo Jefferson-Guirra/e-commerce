@@ -9,6 +9,7 @@
   --primary-color:  #001f3f;
   --second-color:#ffa500;
   --three-color:#343840;
+  --four-color:#363636;
 }
 
 body{
@@ -42,8 +43,22 @@ button{
 }
 
 .title{
-  font-size:3rem;
+  display:flex;
+  gap: 0.5rem;
+  align-items: center;
   margin-bottom:2rem;
+
+}
+.title svg{
+  transition: 1s;
+}
+.title:hover svg{
+  fill: var(--second-color);
+}
+
+.title h1{
+  font-size:3rem;
+
 }
 
 .swiper-button-prev,
