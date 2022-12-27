@@ -3,17 +3,28 @@ import * as C from './styles'
 import Link from 'next/link'
 import { SiBookstack } from 'react-icons/si'
 import { BiSearch, BiBookAlt, BiUser } from 'react-icons/bi'
+import {useEffect} from 'react'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { FiShoppingCart } from 'react-icons/fi'
 import { MdOutlineNavigateNext } from 'react-icons/md'
 import { useRouter } from 'next/router'
+
+type User = {
+  username:string,
+  token:string;
+}
 
 
 const navBar = () => {
   const [menu,setMenu] = useState(false)
   const [input,setInput] = useState('')
   const [filter,setFilter] = useState('')
+  const [user,setUser] = useState<User | null>(null)
   const router = useRouter()
+  useEffect(()=>{
+    setUser(JSON.parse(localStorage.getItem('user') || '{}') as User)
+  },[])
+
 
   const handleSubmit = (event:FormEvent<HTMLFormElement>)=>{
     event.preventDefault()
@@ -83,8 +94,14 @@ const navBar = () => {
                 Olá, usuário <MdOutlineNavigateNext id="arrow" size={25} />
               </p>
               <div className="links">
-                <button onClick={()=>router.push('/Login')}>Entrar</button>
-                <Link href="/">Cadastre-se</Link>
+                {!user?.token ? (
+                  <button onClick={() => router.push('/Login')}>Entrar</button>
+                ) : (
+                  <button>Sair</button>
+                )}
+                {!user?.token && (
+                  <Link href="/Login/Cadastrar">Cadastre-se</Link>
+                )}
                 <Link href="/">Meus pedidos</Link>
                 <Link href="/">Minha conta</Link>
               </div>

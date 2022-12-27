@@ -6,7 +6,6 @@ export const container = styled.main`
   align-items: center;
   justify-content: center;
 
-
   .content {
     max-width: 1220px;
     padding-inline: 1rem;
@@ -31,6 +30,11 @@ export const container = styled.main`
     form {
       margin: 0 auto;
       width: 330px;
+      .error {
+        color: #f31;
+        font-size: 0.875rem;
+        margin-top:-2rem;
+      }
     }
     @media (max-width: 550px) {
       button {

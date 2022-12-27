@@ -1,21 +1,34 @@
 import * as C from '../../styles/loginForm'
 import useForm from '../../Hooks/useForm'
 import Input from '../../components/Input'
+import {useState} from 'react'
 import {GiBookshelf} from 'react-icons/gi'
 import {FcGoogle} from 'react-icons/fc'
 import { useRouter } from 'next/router'
+import { GET_USER } from '../../services/helper/FirebaseFunctions'
 
 const Login = () => {
   const password = useForm('password')
   const username = useForm('')
   const router = useRouter()
   const email = useForm('email')
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [error,setError] = useState<boolean | string>(false)
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if(email.validate() && password.validate() ){
+    const validateInputs = email.validate() && password.validate()
+    const {error,validate,user} = await GET_USER(email.value,password.value).validateLogin
+
+    if( validateInputs && validate ){
+      const userLogin = {
+        username:user?.username,
+        token:user?.id
+      }
+      localStorage.setItem('user',JSON.stringify(userLogin))
       router.push('/')
     }
-    
+    else if(validateInputs){
+      setError(error)
+    }
   }
   return (
     <C.container>
@@ -25,6 +38,7 @@ const Login = () => {
         <form onSubmit={handleSubmit}>
           <Input label="Email:" name="username" type="text" {...email} />
           <Input label="Senha:" name="password" type="password" {...password} />
+          {error && <p className='error'>{error}</p>}
           <p>
             Ainda não possui conta?{' '}
             <span
