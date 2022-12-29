@@ -8,6 +8,9 @@ import { useRouter } from "next/router"
 import { useState } from "react"
 import Head from "next/head"
 import { VALIDATE_USER_CREATE,CREATE_USER } from "../../services/helper/FirebaseFunctions"
+import { GetServerSideProps } from "next"
+import { getSession } from "next-auth/react"
+import { SessionUser } from "../../Types/User"
 
 const Cadastrar = () => {
   const router = useRouter()
@@ -32,7 +35,7 @@ const Cadastrar = () => {
   return (
     <>
       <Head>
-        <title>Literando | cadastrar</title>
+        <title>Literando | Cadastrar</title>
       </Head>
       <C.container>
         <section id="create" className="content">
@@ -47,7 +50,7 @@ const Cadastrar = () => {
               label="Senha:"
               {...password}
             />
-            {error && <p className='error'>{error}</p>}
+            {error && <p className='userError'>{error}</p>}
             <button type="submit">Entrar</button>
             <button id="googleLogin"> <FcGoogle size={25} /> Entrar com Google</button>
           </form>
@@ -58,5 +61,20 @@ const Cadastrar = () => {
 }
 
 export default Cadastrar
+
+export const getServerSideProps: GetServerSideProps = async({req})=>{
+  const session = await getSession({req}) as SessionUser
+  if(session?.id){
+    return{
+      redirect:{
+        destination:'/',
+        permanent:false
+      }
+    }
+  }
+  return{
+    props:{}
+  }
+}
 
 

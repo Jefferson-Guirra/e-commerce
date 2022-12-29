@@ -12,14 +12,24 @@ export const container = styled.article`
   transition: 1s;
   img {
     border-radius: 7px !important;
+    height: 250px;
   }
 
   .info {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap:0.5rem;
     position: relative;
+    .titleBook {
+      text-align: center;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      z-index: 50;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     p {
       font-size: 0.8125rem;
       color: var(--four-color);
@@ -41,6 +51,7 @@ export const container = styled.article`
       font-weight: bold;
       font-size: 0.875rem;
       text-align: center;
+      margin-top:auto;
       @media (max-width: 650px) {
         font-size: 0.8rem;
       }

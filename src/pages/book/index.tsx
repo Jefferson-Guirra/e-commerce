@@ -1,27 +1,48 @@
 import React from 'react'
 import { GetServerSideProps } from 'next'
-import { SEARCH_BOOKS_ID, GET_VOLUME_TITLE_BOOKS, SEARCH_BOOKS_GENRES } from '../../Api'
+import { SEARCH_BOOKS_ID, SEARCH_BOOKS_GENRES } from '../../Api'
+import {useState,useEffect} from 'react'
 import * as C from '../../styles/book'
 import { Book, Books } from '../../Types/Books'
 import Head from 'next/head'
 import { AiFillStar } from 'react-icons/ai'
 import { BsFillHeartFill } from 'react-icons/bs'
 import SliderBooks from '../../components/SliderBooks'
+import { parseCookies } from 'nookies'
+import { GET_BOOK_DATABASE, ADD_BOOK_DATABASE } from '../../services/helper/FirebaseFunctions'
+
 
 interface Props {
-  book: string,
-  volums:string
+  book: string
+  volums: string
+  query: string
+  user: string
+  validateFavoriteBooks: boolean,
+  token:string
 }
-
 
 type Params = {
-  q: string,
-  v:string
+  q: string
 }
 
-const book = ({ book,volums }: Props) => {
+const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
   const formatBook: Book = JSON.parse(book)
   const formatVolums: Books = JSON.parse(volums)
+  const [favoriteBooks,setFavoriteBooks] = useState(validateFavoriteBooks)
+  const [showDescription,setSwhowDescription] = useState(false)
+  console.log(formatBook)
+
+  const handleAddBookDatabase = async (idBook: string) => {
+    if(!token){
+      alert('É necessario efetuar o Login')
+    }
+    else{
+      await ADD_BOOK_DATABASE({book:formatBook,idBook:query,tokenUser:token})
+      setFavoriteBooks(true)
+    }
+  }
+
+
 
   return (
     <>
@@ -33,15 +54,25 @@ const book = ({ book,volums }: Props) => {
           <article className="contentBook">
             <div className="infoBook">
               <img
-                src={`https://books.google.com/books/publisher/content/images/frontcover/${formatBook.id}?fife=w340-h400&source=gbs_api`}
+                src={`https://books.google.com/books/publisher/content/images/frontcover/${formatBook.id}?fife=w340-h800&source=gbs_api`}
                 alt={`Imagem do livro ${formatBook.volumeInfo.title}`}
               />
               <div className="textBook">
                 <h2>{formatBook.volumeInfo.title}</h2>
                 <p id="subTitle">{formatBook.volumeInfo.subtitle}</p>
-                <p className="itemText" id="list">
-                  <BsFillHeartFill size={15} color="#999999" /> Minha lista
-                </p>
+                {!favoriteBooks ? (
+                  <button
+                    onClick={() => handleAddBookDatabase(query)}
+                    className="itemText"
+                    id="list"
+                  >
+                    <BsFillHeartFill size={15} color="#999999" /> Minha lista
+                  </button>
+                ) : (
+                  <button className="itemText" id="list">
+                    <BsFillHeartFill size={15} color="#f31" /> Minha lista
+                  </button>
+                )}
                 <div>
                   <span>{'Autor(a): '}</span>
                   {formatBook.volumeInfo.authors ? (
@@ -68,11 +99,19 @@ const book = ({ book,volums }: Props) => {
                 </p>
                 <p className="itemText">Descrição:</p>
                 <div
-                  className="description"
+                  className={
+                    showDescription ? 'showDescription' : 'description'
+                  }
                   dangerouslySetInnerHTML={{
                     __html: formatBook.volumeInfo.description
                   }}
                 ></div>
+                <button
+                  onClick={() => setSwhowDescription(state => !state)}
+                  className="buttonShowDescription"
+                >
+                  ler mais...
+                </button>
               </div>
             </div>
             <C.buyContainer>
@@ -96,7 +135,6 @@ const book = ({ book,volums }: Props) => {
                         /-\d{2}/g,
                         ''
                       )}
-                      
                     </span>
                   </div>
                   <div className="itemBuy">
@@ -118,22 +156,21 @@ const book = ({ book,volums }: Props) => {
             </C.buyContainer>
           </article>
         </section>
-        {formatVolums.totalItems !== 0 && <C.resultBooks>
-          <h1 className="title">Títulos Similares</h1>
-          <SliderBooks books={formatVolums} />
-        </C.resultBooks>}
-      </C.Container> 
+        {formatVolums.totalItems !== 0 && (
+          <C.resultBooks>
+            <h1 className="title">Títulos Similares</h1>
+            <SliderBooks books={formatVolums} />
+          </C.resultBooks>
+        )}
+      </C.Container>
     </>
   )
 }
 
-export default book
+export default Book
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const {q} = query as Params
-  const book:Book = await SEARCH_BOOKS_ID(q)
-  const volums = await SEARCH_BOOKS_GENRES(book.volumeInfo.categories,book.volumeInfo.title).init()
-
+export const getServerSideProps: GetServerSideProps = async ctx => {
+  const { q } = ctx.query as Params
   if (!q) {
     return {
       redirect: {
@@ -142,10 +179,32 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       }
     }
   }
+  const token: string | null = GET_COOKIE_USER()
+  const book: Book = await SEARCH_BOOKS_ID(q)
+  const volums = await SEARCH_BOOKS_GENRES(
+    book.volumeInfo.categories,
+    book.volumeInfo.title
+  ).getData
+  const validateFavoriteBooks = token
+    ? await GET_BOOK_DATABASE({ idBook: q, tokenUser: token })
+    : false
+
+  function GET_COOKIE_USER() {
+    const cookies = parseCookies(ctx)
+    if (cookies.user) {
+      return JSON.parse(cookies.user).token as string
+    }
+    return null
+  }
+
+
   return {
     props: {
       book: JSON.stringify(book),
-      volums: JSON.stringify(volums)
+      volums: JSON.stringify(volums),
+      query: q,
+      token: token,
+      validateFavoriteBooks
     }
   }
 }

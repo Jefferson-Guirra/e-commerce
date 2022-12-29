@@ -70,7 +70,6 @@ export default function Home({fictionBooks,dramaBooks,fantasyBooks}:Props) {
             <BiBookOpen size={40} />
             <h1>Fantasia</h1>
           </div>
-
           <SliderBooks books={fantasyBooks} />
         </section>
       </C.Container>
@@ -79,9 +78,9 @@ export default function Home({fictionBooks,dramaBooks,fantasyBooks}:Props) {
 }
 
 export const getStaticProps:GetStaticProps = async () =>{
-  const fictionBooks = await SEARCH_BOOKS_GENRES(['fiction']).init()
-  const dramaBooks = await SEARCH_BOOKS_GENRES(['drama']).init()
-  const fantasyBooks = await SEARCH_BOOKS_GENRES(['fantasy']).init()
+  const fictionBooks = await SEARCH_BOOKS_GENRES(['fiction']).getData
+  const dramaBooks = await SEARCH_BOOKS_GENRES(['drama']).getData
+  const fantasyBooks = await SEARCH_BOOKS_GENRES(['fantasy']).getData
   return{
     props:{
       fictionBooks,

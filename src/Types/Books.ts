@@ -64,7 +64,7 @@ type VolumeInfo = {
   subtitle?:string;
 }
 
-export  type Book = {
+export  interface Book {
 kind: string, 
 id: string, 
 etag: string, 

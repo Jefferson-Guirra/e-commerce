@@ -12,10 +12,10 @@ export const Container = styled.main`
     .contentBook {
       display: flex;
       gap: 2rem;
-      width:100%;
+      width: 100%;
       .infoBook {
         display: flex;
-        flex-shrink:0;
+        flex-shrink: 0;
         gap: 1rem;
         width: 70%;
         img {
@@ -34,12 +34,30 @@ export const Container = styled.main`
             gap: 0.2rem;
           }
           #list {
+            font-size: 1rem;
+            background-color: transparent;
             cursor: pointer;
           }
           .description {
             text-align: justify;
             line-height: 150%;
             font-size: 0.8rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 6;
+            z-index: 50;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .showDescription {
+            text-align: justify;
+            line-height: 150%;
+            font-size: 0.8rem;
+          }
+          .buttonShowDescription {
+            background-color: transparent;
+            font-size: 1rem;
           }
         }
       }
@@ -61,15 +79,16 @@ export const Container = styled.main`
           flex-direction: column;
           img {
             margin: 0 auto;
-            width: 50%;
+            height:350px;
+            width: 300px;
           }
           .textBook {
             font-size: 1rem;
             h2 {
               text-align: center;
             }
-            #subTitle{
-              text-align:center;
+            #subTitle {
+              text-align: center;
             }
           }
         }
@@ -83,7 +102,7 @@ export const buyContainer = styled.section`
   background-color: #f7f7f7;
   border: 1px solid #d9d9d9;
   border-radius: 7px;
-  height:fit-content;
+  height: fit-content;
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -121,6 +140,7 @@ export const buyContainer = styled.section`
         p {
           font-weight: bold;
         }
+
       }
     }
   }
@@ -135,17 +155,16 @@ export const buyContainer = styled.section`
       width: 100%;
       padding-block: 0.7rem;
       border-radius: 15px;
-      transition:1s;
-      &:hover{
-        background-color:var(--primary-color) !important;
-        color:#fff;
+      transition: 1s;
+      &:hover {
+        background-color: var(--primary-color) !important;
+        color: #fff;
       }
     }
   }
-  @media (max-width:1200px){
-    width:100%;
-    .infoBuy{
-
+  @media (max-width: 1200px) {
+    width: 100%;
+    .infoBuy {
     }
   }
 `

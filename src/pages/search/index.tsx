@@ -15,7 +15,7 @@ interface Props{
   books:string,
   q:string
 }
-const search = ({books,q}:Props) => {
+const Search = ({books,q}:Props) => {
   const bookFormat:Books = JSON.parse(books)
   const [bookResults,setBookResults]= useState(bookFormat)
   const title = q.replace(/\w+:/g, '')
@@ -81,7 +81,7 @@ const search = ({books,q}:Props) => {
   )
 }
 
-export default search
+export default Search
 
 
 export const getServerSideProps:GetServerSideProps = async ({query})=>{

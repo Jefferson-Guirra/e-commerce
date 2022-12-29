@@ -41,18 +41,19 @@ const SliderBooks = ({books}:Props) => {
     <Slider settings={settings}>
       {books.items.map((item, index) => (
         <SwiperSlide key={index}>
-          <C.container onClick={() => router.push(`/book?q=${item.id}`)}>
+          <C.container onClick={() => router.push(`/Book?q=${item.id}`)}>
             <img
               src={`https://books.google.com/books/publisher/content/images/frontcover/${item.id}?fife=w340-h600&source=gbs_api`}
               alt={`Imagem do Livro ${item.volumeInfo.title}`}
             />
             <div className="info">
-              <div className="text">
-                <p>{item.volumeInfo.title}</p>
+                <div className='titleBook'>
+                  <p>{item.volumeInfo.title}</p>
+                </div>
                 {item.volumeInfo?.authors && (
                   <p id="author">{item.volumeInfo?.authors[0]}</p>
                 )}
-              </div>
+              
               <button>
                 {`A partir de R$ ${
                   item.saleInfo.listPrice?.amount.toFixed(1)} ` 

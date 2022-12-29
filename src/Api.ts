@@ -36,8 +36,9 @@ export function SEARCH_BOOKS_GENRES(genre: string[],title?:string) {
       }
       return books
     }
+    const getData = init()
   return{
-    init
+    getData
   }
   
 }
@@ -65,3 +66,5 @@ export async function GET_BOOKS_PARAMS(params: string, index: number = 0,maxResu
   const data = await response.json()
   return data
 }
+
+

@@ -3,10 +3,13 @@ import {
   collection,
   query,
   getDocs,
+  getDoc,
   where,
   setDoc,
+  orderBy,
   doc
 } from 'firebase/firestore'
+import { Book } from '../../Types/Books'
 
 type Users = {
   username?:string,
@@ -17,6 +20,12 @@ type User = {
   username:string,
   email:string,
   password:string,
+}
+
+type GetBookDatabase ={
+  idBook:string,
+  tokenUser:string,
+  book?:Book
 }
 
 export const VALIDATE_USER_CREATE = ({username,email}:Users)=>{
@@ -132,4 +141,42 @@ export const GET_USER = (email:string,password:string)=>{
       validateLogin
     }
 }
+
+export const GET_BOOK_DATABASE = async ({idBook,tokenUser}:GetBookDatabase)=>{
+  const docRef = doc(db, 'books', idBook + tokenUser)
+  const docSnap = await getDoc(docRef)
+
+  if (docSnap.exists()) {
+    return true
+  } else {
+    return false
+  }
+}
+
+export const ADD_BOOK_DATABASE = async ({idBook,tokenUser,book}:GetBookDatabase)=>{
+  await setDoc(doc(db, 'books', idBook + tokenUser),{
+    ...book,
+    created:new Date(),
+    userId:tokenUser
+  })
+
+}
+
+
+export const GET_BOOKS_LIST = async (id:string) =>{
+  const ref = collection(db, 'books')
+   const books  = await getDocs(
+     query(ref, where('userId', '==', id), orderBy('created', 'desc'))
+   ).then(querySnapshot => {
+     const newData = querySnapshot.docs.map(doc => ({
+       ...doc.data()
+     }))
+     return newData
+   })
+
+   return books
+
+}
+
+
 
