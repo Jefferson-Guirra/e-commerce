@@ -5,6 +5,7 @@ import {
   getDocs,
   getDoc,
   where,
+  deleteDoc,
   setDoc,
   orderBy,
   doc
@@ -157,6 +158,7 @@ export const ADD_BOOK_DATABASE = async ({idBook,tokenUser,book}:GetBookDatabase)
   await setDoc(doc(db, 'books', idBook + tokenUser),{
     ...book,
     created:new Date(),
+    idDoc:idBook + tokenUser,
     userId:tokenUser
   })
 
@@ -175,6 +177,11 @@ export const GET_BOOKS_LIST = async (id:string) =>{
    })
 
    return books
+
+}
+
+export const REMOVE_BOOK_LIST = async (id:string) =>{
+  await deleteDoc(doc(db, 'books', id))
 
 }
 

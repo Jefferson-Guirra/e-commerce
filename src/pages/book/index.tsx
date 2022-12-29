@@ -28,9 +28,8 @@ type Params = {
 const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
   const formatBook: Book = JSON.parse(book)
   const formatVolums: Books = JSON.parse(volums)
-  const [favoriteBooks,setFavoriteBooks] = useState(validateFavoriteBooks)
+  const [favoriteBooks,setFavoriteBooks] = useState<null | boolean>(null)
   const [showDescription,setSwhowDescription] = useState(false)
-  console.log(formatBook)
 
   const handleAddBookDatabase = async (idBook: string) => {
     if(!token){
@@ -41,6 +40,9 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
       setFavoriteBooks(true)
     }
   }
+  useEffect(()=>{
+    setFavoriteBooks(validateFavoriteBooks)
+  },[query])
 
 
 

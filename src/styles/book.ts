@@ -37,6 +37,7 @@ export const Container = styled.main`
             font-size: 1rem;
             background-color: transparent;
             cursor: pointer;
+            font-family: 'Lato', sans-serif;
           }
           .description {
             text-align: justify;
@@ -79,7 +80,7 @@ export const Container = styled.main`
           flex-direction: column;
           img {
             margin: 0 auto;
-            height:350px;
+            height: 350px;
             width: 300px;
           }
           .textBook {

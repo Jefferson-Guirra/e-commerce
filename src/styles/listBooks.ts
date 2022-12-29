@@ -18,7 +18,33 @@ export const contentBooks = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   justify-content: center;
+  background-color: #eee;
+  border: 1px solid #d9d9d9;
+  box-shadow: 0px 0px 5px 1px rgba(217, 217, 217, 0.57);
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(217, 217, 217, 0.57);
+  -moz-box-shadow: 0px 0px 5px 1px rgba(217, 217, 217, 0.57);
+  border-radius: 7px;
+  padding: 2rem;
   gap: 2rem;
+  .search {
+    grid-column: 1/-1;
+    display: flex;
+    input {
+      font-size: 1.3rem;
+      border-radius: 7px 0px 0px 7px;
+      max-width: 300px;
+      border: 1px solid #d9d9d9;
+      padding: 0.2rem;
+    }
+
+    span {
+      border-radius: 0px 7px 7px 0px;
+      display: flex;
+      padding: 0.2rem;
+      align-items: center;
+      background-color: var(--second-color);
+    }
+  }
 
   .cardBooks {
     width: 100%;
@@ -53,6 +79,26 @@ export const contentBooks = styled.section`
         font-size: 0.7rem;
         color: gray;
       }
+      .remove {
+        font-family: 'Lato', sans-serif;
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: 7px;
+        background-color: transparent;
+        cursor: pointer;
+        border: 2px solid var(--primary-color);
+        transition: 1s;
+        color: var(--primary-color);
+        font-weight: bold;
+        font-size: 0.875rem;
+        text-align: center;
+        margin-top: auto;
+
+        &:hover {
+          background-color: var(--primary-color);
+          color: #fff;
+        }
+      }
     }
   }
 
@@ -67,11 +113,11 @@ export const contentBooks = styled.section`
   }
   @media (max-width: 450px) {
     grid-template-columns: 1fr;
-    .cardBooks{
-      padding:2rem;
+    .cardBooks {
+      padding: 2rem;
 
-      img{
-        height:350px;
+      img {
+        height: 350px;
       }
     }
   }
