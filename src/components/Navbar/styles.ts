@@ -208,7 +208,7 @@ export const Container = styled.header(
     .actions{
       transition:1s;
       position: absolute;
-      z-index:50;
+      z-index:100;
       background-color: var(--primary-color);
       padding:1rem;
       font-size:1rem;

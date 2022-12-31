@@ -9,7 +9,7 @@ import { AiFillStar } from 'react-icons/ai'
 import { BsFillHeartFill } from 'react-icons/bs'
 import SliderBooks from '../../components/SliderBooks'
 import { parseCookies } from 'nookies'
-import { GET_BOOK_DATABASE, ADD_BOOK_DATABASE } from '../../services/helper/FirebaseFunctions'
+import { GET_BOOK_DATABASE, ADD_BOOK_DATABASE, ADD_BOOK_BUY_LIST } from '../../services/helper/FirebaseFunctions'
 
 
 interface Props {
@@ -31,15 +31,22 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
   const [favoriteBooks,setFavoriteBooks] = useState<null | boolean>(null)
   const [showDescription,setSwhowDescription] = useState(false)
 
-  const handleAddBookDatabase = async (idBook: string) => {
+  const handleAddBookDatabase = async (idBook: string,collection:string) => {
     if(!token){
       alert('É necessario efetuar o Login')
     }
     else{
-      await ADD_BOOK_DATABASE({book:formatBook,idBook:query,tokenUser:token})
+      await ADD_BOOK_DATABASE({book:formatBook,idBook:query,tokenUser:token,collection:collection})
       setFavoriteBooks(true)
     }
   }
+
+  const handleAddBuyListDatabase = () =>{
+    ADD_BOOK_BUY_LIST({userId:token,book:formatBook})
+
+
+  }
+
   useEffect(()=>{
     setFavoriteBooks(validateFavoriteBooks)
   },[query])
@@ -64,7 +71,7 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
                 <p id="subTitle">{formatBook.volumeInfo.subtitle}</p>
                 {!favoriteBooks ? (
                   <button
-                    onClick={() => handleAddBookDatabase(query)}
+                    onClick={() => handleAddBookDatabase(query,'books')}
                     className="itemText"
                     id="list"
                   >
@@ -150,7 +157,7 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
                   <span>R$</span>
                   {formatBook.saleInfo.listPrice.amount}
                 </p>
-                <button style={{ backgroundColor: '#ffd814' }}>
+                <button onClick={handleAddBuyListDatabase} style={{ backgroundColor: '#ffd814' }}>
                   Adicionar ao carrinho
                 </button>
                 <button style={{ backgroundColor: '#ffa500' }}>Comprar</button>

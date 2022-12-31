@@ -133,8 +133,8 @@ const navBar = () => {
                 {user === undefined && (
                   <Link href="/Login/Cadastrar">Cadastre-se</Link>
                 )}
-                <Link href="/">Meus pedidos</Link>
-                <Link href="/List">Minha Lista</Link>
+                <Link href="/Buy">Meu carrinho</Link>
+                <Link href="/List">Minha lista</Link>
               </div>
             </li>
           </C.userActions>

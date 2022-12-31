@@ -1,7 +1,7 @@
 import * as C from '../../styles/listBooks'
 import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
-import { GET_BOOKS_LIST, REMOVE_BOOK_LIST } from '../../services/helper/FirebaseFunctions'
+import { GET_BOOKS_DATABASE, REMOVE_BOOK_DATABASE } from '../../services/helper/FirebaseFunctions'
 import { Book } from '../../Types/Books'
 import { BiSearch } from 'react-icons/bi'
 import { Timestamp } from 'firebase/firestore'
@@ -48,10 +48,10 @@ const List = ({ books, username }: Props) => {
   filtredMovies = bookList.filter(item =>
     item.volumeInfo.title.toLowerCase().includes(input.toLowerCase())
   ) as BookList[]
-  console.log(filtredMovies)
+  
   const handleSubmit = () => {}
   const handleExclude = (id:string) =>{
-    REMOVE_BOOK_LIST(id)
+    REMOVE_BOOK_DATABASE({id,idCollection:'books'})
     const newBooks = bookList.filter(item=> item.idDoc !== id)
     setBookList(newBooks)
   }
@@ -148,7 +148,7 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
     }
   }
 
-  const books = JSON.stringify(await GET_BOOKS_LIST(user.token))
+  const books = JSON.stringify(await GET_BOOKS_DATABASE({id:user.token,idCollection:'books'}))
   function GET_COOKIE_USER() {
     const cookies = parseCookies(ctx)
     if (cookies.user) {
