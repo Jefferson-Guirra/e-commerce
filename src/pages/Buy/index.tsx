@@ -1,41 +1,74 @@
 import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
 import * as C from '../../styles/buyList'
-import {useState,useEffect} from 'react'
+import {useState} from 'react'
 import { IoClose } from 'react-icons/io5'
-import { GET_BOOKS_BUY_LIST, REMOVE_BOOK_DATABASE } from '../../services/helper/FirebaseFunctions'
-import { Book } from '../../Types/Books'
+import { DataBook, GET_BOOKS_DATABASE, REMOVE_BOOK_DATABASE } from '../../services/helper/FirebaseFunctions'
 import { UserCookie } from '../../Types/User'
-import Link from 'next/link'
+import {doc,updateDoc} from 'firebase/firestore'
+import { db } from '../../services/firebaseConnection'
+import { MdAdd, MdRemove } from 'react-icons/md'
+import { UserContext } from '../../UserContext'
+import {useContext} from 'react'
+
 
 interface Props{
   books:string
 }
 
-interface BookFormat extends Book{
-  docId:string
-}
+
 
 const Buy = ({books}:Props) => {
-  const booksFormat: BookFormat[] = JSON.parse(books)
-  const price = booksFormat.reduce(
-    (acc, v) => acc + v.saleInfo.listPrice.amount
-  ,0)
+  const booksFormat: DataBook[] = JSON.parse(books)
   const [bookList, setBookList] = useState(booksFormat)
-
+  const { updatedBuyList } = useContext(UserContext)
+  const price = bookList.reduce(
+    (acc, v) => acc + v.saleInfo.listPrice.amount * v.qtd,
+    0
+  )
   const handleExclude = (id:string)=>{
+    updatedBuyList('remove')
     REMOVE_BOOK_DATABASE({id,idCollection:'buyBooks'})
-    const newBooks = bookList.filter(item=> item.docId !== id)
+    const newBooks = bookList.filter(item=> item.idDoc !== id)
     setBookList(newBooks)
-
   }
+
+  const handleNext = async (idDoc:string,) =>{
+      const updatedBooks = [...bookList]
+      const index = updatedBooks.findIndex(item => item.idDoc === idDoc)
+      const docRef = doc(db, 'buyBooks', idDoc)
+      
+      
+        await updateDoc(docRef, {
+          qtd: updatedBooks[index].qtd + 1
+        })
+        updatedBooks[index].qtd = updatedBooks[index].qtd + 1
+        setBookList(updatedBooks)
+      
+  }
+
+  const handlePrev = async (idDoc: string) => {
+    const updatedBooks = [...bookList]
+    const index = updatedBooks.findIndex(item => item.idDoc === idDoc)
+    const docRef = doc(db, 'buyBooks', idDoc)
+    
+    if (updatedBooks[index].qtd >1) {
+      await updateDoc(docRef, {
+        qtd: updatedBooks[index].qtd - 1
+      })
+      updatedBooks[index].qtd = updatedBooks[index].qtd - 1
+      setBookList(updatedBooks)
+    }
+  }
+
+
   return (
-    <C.container>
+   <C.container>
       <div className="content">
         <h1>Meu Carrinho</h1>
 
         {bookList.map(item => (
-          <C.cardContent key={item.docId}>
+          <C.cardContent key={item.idDoc}>
             <h2>{item.volumeInfo.publisher}</h2>
             <article className="infoBook">
               <div className="img">
@@ -47,20 +80,25 @@ const Buy = ({books}:Props) => {
               </div>
               <article className="dataBook">
                 <div className="header">
-                  <div className='bookTitle'>
+                  <div className="bookTitle">
                     <p>{item.volumeInfo.title}</p>
                   </div>
                   <div className="actions">
-                    <Link href={`/Book?q=${item.id}`}>
-                      vizualizar livro
-                    </Link>
+                    <button className="qtd">
+                      <MdRemove onClick={()=>handlePrev(item.idDoc)} size={20} color="#363636" />
+                      <p>{item.qtd}</p>
+                      <MdAdd onClick={()=>handleNext(item.idDoc)} size={20} color="#363636" />
+                    </button>
                     <p>
                       R$:{' '}
-                      {item.saleInfo.listPrice.amount
+                      {(item.saleInfo.listPrice.amount * item.qtd).toFixed(2)
                         .toString()
                         .replace('.', ',')}
                     </p>
-                    <button onClick={()=> handleExclude(item.docId)}>
+                    <button
+                      className="btnExclude"
+                      onClick={() => handleExclude(item.idDoc)}
+                    >
                       <IoClose size={20} color="#363636" />
                     </button>
                   </div>
@@ -84,22 +122,23 @@ const Buy = ({books}:Props) => {
             <C.buyInfoCard>
               <h2>Entrega Básica</h2>
               <div className="infoBuy">
-                <span id='free'>Frete grátis </span>
+                <span id="free">Frete grátis </span>
                 <p>neste vendedor nas compras a partir de</p>
-                <span> R$ 100,00.</span>
+                <span> R$ {item.shipping.toFixed(2).toString().replace('.',',')}</span>
               </div>
             </C.buyInfoCard>
           </C.cardContent>
         ))}
       </div>
       <article className="price">
-        <p>Total do carrinho: R${price.toString().replace('.', ',')}</p>
+        <p>Total do carrinho: R${price.toFixed(2).toString().replace('.', ',')}</p>
       </article>
-      <article className="checkout">
-        <button id='addButton'>ESCOLHER MAIS LIVROS</button>
-        <button id='buyButton'>FINALIZAR PEDIDO</button>
-      </article>
+      { bookList.length > 0 && <article className="checkout">
+        <button id="addButton">ESCOLHER MAIS LIVROS</button>
+        <button id="buyButton">FINALIZAR PEDIDO</button>
+      </article>}
     </C.container>
+    
   )
 }
 
@@ -116,7 +155,7 @@ export const getServerSideProps:GetServerSideProps = async (ctx)=>{
     }
   }
   const user = JSON.parse(cookies.user) as UserCookie
-  const books = JSON.stringify(await GET_BOOKS_BUY_LIST({id:user.token,idCollection:'buyBooks'}))
+  const books = JSON.stringify(await GET_BOOKS_DATABASE({id:user.token,idCollection:'buyBooks'}))
   
   
   return{

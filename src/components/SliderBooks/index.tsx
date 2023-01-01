@@ -56,7 +56,7 @@ const SliderBooks = ({books}:Props) => {
               
               <button>
                 {`A partir de R$ ${
-                  item.saleInfo.listPrice?.amount.toFixed(1)} ` 
+                  item.saleInfo.listPrice?.amount.toFixed(2).toString().replace('.',',')} ` 
                 }
               </button>
             </div>

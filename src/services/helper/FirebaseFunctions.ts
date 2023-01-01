@@ -7,6 +7,7 @@ import {
   where,
   deleteDoc,
   addDoc,
+  updateDoc,
   setDoc,
   orderBy,
   doc
@@ -32,7 +33,8 @@ type User = {
 
 type GetBookDatabase = {
   idBook: string
-  tokenUser: string
+  tokenUser: string,
+  collection:string
 
 }
 type AddBookDatabase = {
@@ -42,9 +44,14 @@ type AddBookDatabase = {
   collection: string
 }
 
-type AddBookBuyList = {
-  userId:string,
-  book:Book
+
+
+export interface DataBook extends Book {
+  created: Date
+  idDoc: string
+  userId: string
+  qtd: number
+  shipping:number
 }
 
 export const VALIDATE_USER_CREATE = ({ username, email }: Users) => {
@@ -171,9 +178,10 @@ export const GET_USER = (email: string, password: string) => {
 
 export const GET_BOOK_DATABASE = async ({
   idBook,
-  tokenUser
+  tokenUser,
+  collection
 }: GetBookDatabase) => {
-  const docRef = doc(db, 'books', idBook + tokenUser)
+  const docRef = doc(db, collection, idBook + tokenUser)
   const docSnap = await getDoc(docRef)
 
   if (docSnap.exists()) {
@@ -189,11 +197,14 @@ export const ADD_BOOK_DATABASE = async ({
   book,
   collection 
 }: AddBookDatabase) => {
+  const number = Math.floor(Math.random() * (30 - 100) + 100)
   await setDoc(doc(db, collection, idBook + tokenUser), {
     ...book,
     created: new Date(),
     idDoc: idBook + tokenUser,
-    userId: tokenUser
+    userId: tokenUser,
+    qtd:1,
+    shipping:number + .9
   })
 }
 
@@ -218,26 +229,12 @@ export const REMOVE_BOOK_DATABASE = async ({
   await deleteDoc(doc(db, idCollection, id))
 }
 
+export const UPDATE_BOOK_DATABASE = async({idBook,collection,tokenUser}:GetBookDatabase)=>{
+  const docRef = doc(db, collection, idBook + tokenUser)
+  const docSnap = await getDoc(docRef)
+  const dataBook = docSnap.data() as DataBook
 
-export const ADD_BOOK_BUY_LIST = async ({book,userId}:AddBookBuyList)=>{
-  await addDoc(collection(db, 'buyBooks'),{
-    ...book,
-    created:new Date(),
-    userId
+  await updateDoc(docRef, {
+    qtd: dataBook.qtd + 1
   })
-}
-
-export const GET_BOOKS_BUY_LIST = async ({id,idCollection}:Arguments) => {
-  const ref = collection(db, idCollection)
-  const books = await getDocs(
-    query(ref, where('userId', '==', id), orderBy('created', 'desc'))
-  ).then(querySnapshot => {
-    const newData = querySnapshot.docs.map(doc => ({
-      ...doc.data(),
-      docId:doc.id
-    }))
-    return newData
-  })
-
-  return books
 }

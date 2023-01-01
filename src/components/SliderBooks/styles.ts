@@ -41,7 +41,7 @@ export const container = styled.article`
     }
     button {
       width: 100%;
-      padding: 0.5rem;
+      padding: 0.5rem 0.2rem;
       border-radius: 7px;
       background-color: transparent;
       cursor: pointer;
@@ -52,15 +52,11 @@ export const container = styled.article`
       font-size: 0.875rem;
       text-align: center;
       margin-top:auto;
-      @media (max-width: 650px) {
-        font-size: 0.8rem;
+
+      @media (max-width:640px){
+        font-size:0.8rem;
       }
-      @media (max-width: 565px) {
-        font-size: 0.7rem;
-      }
-      @media (max-width: 525px) {
-        font-size: 0.81rem;
-      }
+
     }
   }
 

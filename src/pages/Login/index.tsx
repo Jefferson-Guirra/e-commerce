@@ -54,7 +54,7 @@ const Login = () => {
           <form onSubmit={handleSubmit}>
             <Input label="Email:" name="username" type="email" {...email} />
             <Input label="Senha:" name="password" type="password" {...password} />
-            {error && <p className='userErro'>{error}</p>}
+            {error && !email.erro && !password.erro && <p className='userErro'>{error}</p>}
             <p>
               Ainda não possui conta?{' '}
               <span

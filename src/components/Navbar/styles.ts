@@ -180,18 +180,21 @@ export const Container = styled.header(
       height: fit-content;
       
       span {
-        display: flex;
-        align-items: center;
-        justify-content: center;
         font-size: 0.8rem;
+        padding:0px;
+        display:flex;
         position: absolute;
         top: -5px;
         left: 100%;
         transform: translate3d(-50%, -50%, 0);
         background-color: var(--second-color);
-        width: 20px;
-        height: 20px;
+        padding:1px 5px;
         border-radius: 50%;
+
+        p{
+         padding:0px;
+         margin:auto;
+        }
       }
     }
   }

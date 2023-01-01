@@ -1,57 +1,97 @@
 import React from 'react'
 import { GetServerSideProps } from 'next'
 import { SEARCH_BOOKS_ID, SEARCH_BOOKS_GENRES } from '../../Api'
-import {useState,useEffect} from 'react'
+import { useState, useEffect,useContext } from 'react'
 import * as C from '../../styles/book'
+import {doc,getDoc} from 'firebase/firestore'
 import { Book, Books } from '../../Types/Books'
+import { db } from '../../services/firebaseConnection'
 import Head from 'next/head'
 import { AiFillStar } from 'react-icons/ai'
 import { BsFillHeartFill } from 'react-icons/bs'
 import SliderBooks from '../../components/SliderBooks'
 import { parseCookies } from 'nookies'
-import { GET_BOOK_DATABASE, ADD_BOOK_DATABASE, ADD_BOOK_BUY_LIST } from '../../services/helper/FirebaseFunctions'
+import { UserContext } from '../../UserContext'
 
+import {
+  GET_BOOK_DATABASE,
+  ADD_BOOK_DATABASE,
+  UPDATE_BOOK_DATABASE
+} from '../../services/helper/FirebaseFunctions'
 
 interface Props {
   book: string
   volums: string
   query: string
   user: string
-  validateFavoriteBooks: boolean,
-  token:string
+  validateFavoriteBooks: boolean
+  token: string
 }
 
 type Params = {
   q: string
 }
 
-const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
+const Book = ({
+  book,
+  volums,
+  query,
+  token,
+  validateFavoriteBooks,
+  
+}: Props) => {
   const formatBook: Book = JSON.parse(book)
   const formatVolums: Books = JSON.parse(volums)
-  const [favoriteBooks,setFavoriteBooks] = useState<null | boolean>(null)
-  const [showDescription,setSwhowDescription] = useState(false)
+  const [favoriteBooks, setFavoriteBooks] = useState<null | boolean>(null)
+  const [showDescription, setSwhowDescription] = useState(false)
+  const { updatedBuyList } = useContext(UserContext)
 
-  const handleAddBookDatabase = async (idBook: string,collection:string) => {
-    if(!token){
+
+
+  const handleAddBookDatabase = async (idBook: string, collection: string) => {
+    if (!token) {
       alert('É necessario efetuar o Login')
-    }
-    else{
-      await ADD_BOOK_DATABASE({book:formatBook,idBook:query,tokenUser:token,collection:collection})
+    } else {
+      await ADD_BOOK_DATABASE({
+        book: formatBook,
+        idBook: query,
+        tokenUser: token,
+        collection: collection
+      })
       setFavoriteBooks(true)
     }
   }
 
-  const handleAddBuyListDatabase = () =>{
-    ADD_BOOK_BUY_LIST({userId:token,book:formatBook})
+  const handleAddBuyListDatabase = async () => {
+    if (token) {
+      const docRef = doc(db, 'buyBooks', query + token)
+      const docSnap = await getDoc(docRef)
+      if(docSnap.exists()){
+        UPDATE_BOOK_DATABASE({
+            collection: 'buyBooks',
+            idBook: query,
+            tokenUser: token
+          })
 
+      }
+      else{
+        updatedBuyList('add')
+        ADD_BOOK_DATABASE({
+          book: formatBook,
+          collection: 'buyBooks',
+          idBook: query,
+          tokenUser: token
+        })
+      }
 
+    } else {
+      alert('É necessario efetuar o login.')
+    }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     setFavoriteBooks(validateFavoriteBooks)
-  },[query])
-
-
+  }, [query])
 
   return (
     <>
@@ -71,7 +111,7 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
                 <p id="subTitle">{formatBook.volumeInfo.subtitle}</p>
                 {!favoriteBooks ? (
                   <button
-                    onClick={() => handleAddBookDatabase(query,'books')}
+                    onClick={() => handleAddBookDatabase(query, 'books')}
                     className="itemText"
                     id="list"
                   >
@@ -157,7 +197,10 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
                   <span>R$</span>
                   {formatBook.saleInfo.listPrice.amount}
                 </p>
-                <button onClick={handleAddBuyListDatabase} style={{ backgroundColor: '#ffd814' }}>
+                <button
+                  onClick={handleAddBuyListDatabase}
+                  style={{ backgroundColor: '#ffd814' }}
+                >
                   Adicionar ao carrinho
                 </button>
                 <button style={{ backgroundColor: '#ffa500' }}>Comprar</button>
@@ -194,9 +237,7 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
     book.volumeInfo.categories,
     book.volumeInfo.title
   ).getData
-  const validateFavoriteBooks = token
-    ? await GET_BOOK_DATABASE({ idBook: q, tokenUser: token })
-    : false
+
 
   function GET_COOKIE_USER() {
     const cookies = parseCookies(ctx)
@@ -206,6 +247,13 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
     return null
   }
 
+  const validateFavoriteBooks = token
+    ? await GET_BOOK_DATABASE({
+        idBook: q,
+        collection: 'books',
+        tokenUser: token
+      })
+    : false
 
   return {
     props: {

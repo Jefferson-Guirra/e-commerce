@@ -20,7 +20,7 @@ const navBar = () => {
   const [input,setInput] = useState('')
   const [filter,setFilter] = useState('')
   const router = useRouter()
-  const { user, deleteCookie, createCookie } = useContext(UserContext)
+  const { user, deleteCookie, createCookie, buyBooks } = useContext(UserContext)
   const {data:session,status} = useSession()
   
 
@@ -140,7 +140,7 @@ const navBar = () => {
           </C.userActions>
           <div className="cart">
             <FiShoppingCart size={25} />
-            <span>0</span>
+            <span><p>{buyBooks}</p></span>
           </div>
         </div>
       </nav>

@@ -134,17 +134,30 @@ export const cardContent = styled.section`
           gap: 20%;
           position: relative;
           height: 1rem;
-          a {
-            color: #f31;
-            padding-inline: 0.5rem;
+          .qtd {
+            display:flex;
+            align-items:center;
+            border: 1px solid #d9d9d9;
+            overflow:hidden;
+            justify-content: space-between;
+            background-color:#fff;
+            border-radius:12px;
+            cursor:inherit;
             transition: 1s;
+            p{
+              padding-inline:0.5rem;
+            }
+            svg{
+              cursor:pointer;
+              background-color:#f4f4f4;
+            }
 
             &:hover {
               color: var(--four-color);
             }
           }
 
-          button {
+          .btnExclude {
             border-radius: 50%;
             width: 30px;
             height: 30px;
