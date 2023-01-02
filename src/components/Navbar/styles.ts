@@ -9,6 +9,9 @@ interface MenuMob{
 export const Container = styled.header(
   (props: MenuMob) => `
   width: 100%;
+  top:0;
+  position:fixed;
+  z-index:500;
   background-color: var(--primary-color);
   color:#fff;
 
@@ -211,12 +214,11 @@ export const Container = styled.header(
     .actions{
       transition:1s;
       position: absolute;
-      z-index:100;
       background-color: var(--primary-color);
       padding:1rem;
       font-size:1rem;
       gap:1.5rem;
-      top:calc(100% - 1px);
+      top:calc(100% - .5px);
       right:0px;
       width:50%;
       border-radius:0px 0px 7px 7px;
@@ -227,8 +229,11 @@ export const Container = styled.header(
       align-items:initial;
       flex-direction:column;
       border-top:1px solid gray;
+      .list{
+        display:none;
+      }
       .cart span{
-        left:35px;
+        left:32px;
       }
     }
   }

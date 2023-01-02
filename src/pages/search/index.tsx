@@ -86,10 +86,19 @@ export default Search
 
 export const getServerSideProps:GetServerSideProps = async ({query})=>{
   const {q}= query as Params
-  const books = JSON.stringify(await GET_BOOKS_PARAMS(q,0,15))
+  const books = await GET_BOOKS_PARAMS(q,0,15) as Books
+  if(books.totalItems === 0){
+    return{
+      redirect:{
+        destination:'/NotFound',
+        permanent:false
+        
+      }
+    }
+  }
   return{
     props:{
-      books,
+      books:JSON.stringify(books),
       q
     }
   }

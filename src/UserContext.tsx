@@ -14,6 +14,7 @@ type Context = {
   createCookie: (name: string, value: string) => void
   deleteCookie: (value: string) => void,
   updatedBuyList:(value:string)=>void,
+  clearPurchaseList:()=>void,
   buyBooks: number
 }
 
@@ -44,6 +45,10 @@ export const UserStorage = ({ children }: Props) => {
     value === 'add' ? setBuyBooks(state => state + 1) : setBuyBooks(state => state - 1)
   }
 
+  const clearPurchaseList = ()=>{
+    setBuyBooks(0)
+  }
+
 
 
 useEffect(()=>{
@@ -61,7 +66,7 @@ useEffect(()=>{
 
   return (
     <UserContext.Provider
-      value={{ user, createCookie, deleteCookie, buyBooks, updatedBuyList }}
+      value={{ user, createCookie, deleteCookie, buyBooks, updatedBuyList,clearPurchaseList }}
     >
       {children}
     </UserContext.Provider>

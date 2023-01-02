@@ -34,7 +34,8 @@ type User = {
 type GetBookDatabase = {
   idBook: string
   tokenUser: string,
-  collection:string
+  collection:string,
+  value?:any
 
 }
 type AddBookDatabase = {
@@ -229,12 +230,10 @@ export const REMOVE_BOOK_DATABASE = async ({
   await deleteDoc(doc(db, idCollection, id))
 }
 
-export const UPDATE_BOOK_DATABASE = async({idBook,collection,tokenUser}:GetBookDatabase)=>{
+export const UPDATE_BOOK_DATABASE = async({idBook,collection,tokenUser,value}:GetBookDatabase)=>{
   const docRef = doc(db, collection, idBook + tokenUser)
-  const docSnap = await getDoc(docRef)
-  const dataBook = docSnap.data() as DataBook
 
   await updateDoc(docRef, {
-    qtd: dataBook.qtd + 1
+    qtd: value + 1
   })
 }

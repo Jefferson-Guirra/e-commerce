@@ -1,9 +1,9 @@
 import React from 'react'
 import { GetServerSideProps } from 'next'
 import { SEARCH_BOOKS_ID, SEARCH_BOOKS_GENRES } from '../../Api'
-import { useState, useEffect,useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import * as C from '../../styles/book'
-import {doc,getDoc} from 'firebase/firestore'
+import { doc, getDoc } from 'firebase/firestore'
 import { Book, Books } from '../../Types/Books'
 import { db } from '../../services/firebaseConnection'
 import Head from 'next/head'
@@ -16,7 +16,9 @@ import { UserContext } from '../../UserContext'
 import {
   GET_BOOK_DATABASE,
   ADD_BOOK_DATABASE,
-  UPDATE_BOOK_DATABASE
+  UPDATE_BOOK_DATABASE,
+  REMOVE_BOOK_DATABASE,
+  DataBook
 } from '../../services/helper/FirebaseFunctions'
 
 interface Props {
@@ -32,21 +34,13 @@ type Params = {
   q: string
 }
 
-const Book = ({
-  book,
-  volums,
-  query,
-  token,
-  validateFavoriteBooks,
-  
-}: Props) => {
+const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
   const formatBook: Book = JSON.parse(book)
   const formatVolums: Books = JSON.parse(volums)
   const [favoriteBooks, setFavoriteBooks] = useState<null | boolean>(null)
   const [showDescription, setSwhowDescription] = useState(false)
   const { updatedBuyList } = useContext(UserContext)
-
-
+  console.log(formatBook)
 
   const handleAddBookDatabase = async (idBook: string, collection: string) => {
     if (!token) {
@@ -66,15 +60,15 @@ const Book = ({
     if (token) {
       const docRef = doc(db, 'buyBooks', query + token)
       const docSnap = await getDoc(docRef)
-      if(docSnap.exists()){
+      if (docSnap.exists()) {
+        const book = docSnap.data() as DataBook
         UPDATE_BOOK_DATABASE({
-            collection: 'buyBooks',
-            idBook: query,
-            tokenUser: token
-          })
-
-      }
-      else{
+          collection: 'buyBooks',
+          idBook: query,
+          tokenUser: token,
+          value: book.qtd
+        })
+      } else {
         updatedBuyList('add')
         ADD_BOOK_DATABASE({
           book: formatBook,
@@ -83,10 +77,14 @@ const Book = ({
           tokenUser: token
         })
       }
-
     } else {
       alert('É necessario efetuar o login.')
     }
+  }
+
+  const handleExcludeBookFavoriteList = async (idCollection: string) => {
+    REMOVE_BOOK_DATABASE({ id: query + token, idCollection: idCollection })
+    setFavoriteBooks(null)
   }
 
   useEffect(() => {
@@ -118,7 +116,11 @@ const Book = ({
                     <BsFillHeartFill size={15} color="#999999" /> Minha lista
                   </button>
                 ) : (
-                  <button className="itemText" id="list">
+                  <button
+                    onClick={() => handleExcludeBookFavoriteList('books')}
+                    className="itemText"
+                    id="list"
+                  >
                     <BsFillHeartFill size={15} color="#f31" /> Minha lista
                   </button>
                 )}
@@ -130,7 +132,7 @@ const Book = ({
                         style={{ color: '#001f3f', fontWeight: 'bold' }}
                         key={index}
                       >
-                        {item}
+                        {item + '.  '}
                       </span>
                     ))
                   ) : (
@@ -172,10 +174,14 @@ const Book = ({
                   alt={`Imagem do livro ${formatBook.volumeInfo.title}`}
                 />
                 <div className="textBuy">
-                  <h2>{formatBook.volumeInfo.title}</h2>
+                  <div className="resizeTitle">
+                    <h2>{formatBook.volumeInfo.title}</h2>
+                  </div>
                   <div className="itemBuy">
                     <p>Editora: </p>
-                    <span>{formatBook.volumeInfo.publisher}</span>
+                    <div className="resizeTitle">
+                      <span>{formatBook.volumeInfo.publisher}</span>
+                    </div>
                   </div>
                   <div className="itemBuy">
                     <p>Ano: </p>
@@ -192,10 +198,11 @@ const Book = ({
                   </div>
                 </div>
               </article>
-              <article className="actionsBuy">
+
+              {formatBook.saleInfo?.listPrice?.amount ?<article className="actionsBuy">
                 <p className="price">
                   <span>R$</span>
-                  {formatBook.saleInfo.listPrice.amount}
+                  {formatBook.saleInfo.listPrice?.amount.toFixed(2).toString().replace('.',',')}
                 </p>
                 <button
                   onClick={handleAddBuyListDatabase}
@@ -204,7 +211,7 @@ const Book = ({
                   Adicionar ao carrinho
                 </button>
                 <button style={{ backgroundColor: '#ffa500' }}>Comprar</button>
-              </article>
+              </article>:<p style={{color:'#f31', textAlign:'center'}}>Indisponível</p>}
             </C.buyContainer>
           </article>
         </section>
@@ -237,7 +244,6 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
     book.volumeInfo.categories,
     book.volumeInfo.title
   ).getData
-
 
   function GET_COOKIE_USER() {
     const cookies = parseCookies(ctx)

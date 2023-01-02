@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const container = styled.main`
   max-width: 1200px;
+  position:relative;
   margin: 0 auto;
   padding: 5rem 1rem;
   min-height: calc(100vh - 103px);
@@ -207,10 +208,13 @@ export const cardContent = styled.section`
           justify-content: flex-start;
           align-items: flex-start;
           .bookTitle {
+            order:1;
             width: 100%;
           }
 
           .actions {
+            order:0;
+            margin-bottom:1rem;
             width: 100%;
             justify-content: flex-start;
 

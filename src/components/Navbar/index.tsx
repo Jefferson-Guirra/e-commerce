@@ -51,6 +51,7 @@ const navBar = () => {
       filter === 'Autor'
         ? router.push(`/Search?q=inauthor:${input}`)
         : router.push(`/Search?q=intitle:${input}`)
+        setInput('')
     }
     else{
       alert('Informe um filtro')
@@ -118,29 +119,48 @@ const navBar = () => {
             <li>
               <p>
                 <BiUser id="user" size={25} />
-                Olá, {user === undefined ? 'usuário' : `${user.username}`} <MdOutlineNavigateNext id="arrow" size={25} />
+                Olá, {user === undefined ? 'usuário' : `${user.username}`}{' '}
+                <MdOutlineNavigateNext id="arrow" size={25} />
               </p>
               <div className="links">
                 {user === undefined ? (
-                  <button onClick={() => router.push('/Login')}>Entrar</button>
+                  <button
+                    onClick={() => {
+                      setMenu(false)
+                      router.push('/Login')
+                    }}
+                  >
+                    Entrar
+                  </button>
                 ) : (
                   <button
-                    onClick={handleLoggout}
+                    onClick={() => {
+                      setMenu(false)
+                      handleLoggout()
+                    }}
                   >
                     Sair
                   </button>
                 )}
                 {user === undefined && (
-                  <Link href="/Login/Cadastrar">Cadastre-se</Link>
+                  <Link href="/Login/Cadastrar" onClick={() => setMenu(false)}>
+                    Cadastre-se
+                  </Link>
                 )}
-                <Link href="/Buy">Meu carrinho</Link>
-                <Link href="/List">Minha lista</Link>
+                <Link href="/Buy" onClick={() => setMenu(false)}>
+                  Meu carrinho
+                </Link>
+                <Link href="/List" onClick={() => setMenu(false)}>
+                  Minha lista
+                </Link>
               </div>
             </li>
           </C.userActions>
           <div className="cart">
             <FiShoppingCart size={25} />
-            <span><p>{buyBooks}</p></span>
+            <span>
+              <p>{buyBooks}</p>
+            </span>
           </div>
         </div>
       </nav>

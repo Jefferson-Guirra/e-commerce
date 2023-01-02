@@ -13,12 +13,15 @@
 }
 
 body{
+  color:#8080805d;
   color:rgba(217, 217, 217, 0.582);
   color: #000000;
   font-size: 1.2rem;
+  padding-top: 103px;
   font-family: 'Lato', sans-serif;
   background-color: #fafafa;
 }
+
 
 ul{
   list-style: none;
@@ -59,7 +62,16 @@ button{
 
 .title h1{
   font-size:3rem;
+}
 
+.resizeTitle{
+  text-align: left;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  z-index: 50;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .swiper-button-prev,
@@ -69,4 +81,10 @@ button{
 
 .swiper-pagination-bullet-active{
   background-color: var(--primary-color) !important;
+}
+
+@media (max-width:955px){
+  body{
+    padding-top:154px;
+  }
 }
