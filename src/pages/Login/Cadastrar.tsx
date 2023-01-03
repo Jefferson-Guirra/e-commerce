@@ -12,7 +12,7 @@ import {
   CREATE_USER
 } from '../../services/helper/FirebaseFunctions'
 import { GetServerSideProps } from 'next'
-import { getSession } from 'next-auth/react'
+import { getSession,signIn } from 'next-auth/react'
 import { SessionUser } from '../../Types/User'
 
 const Cadastrar = () => {
@@ -68,13 +68,15 @@ const Cadastrar = () => {
             {!loading ? (
               <button type="submit">Cadastrar</button>
             ) : (
-              <button disabled type="submit">Cadastrando...</button>
+              <button disabled type="submit">
+                Cadastrando...
+              </button>
             )}
-            <button id="googleLogin">
-              {' '}
-              <FcGoogle size={25} /> Entrar com Google
-            </button>
           </form>
+          <button id="googleLogin" onClick={()=>signIn()}>
+            {' '}
+            <FcGoogle size={25} /> Entrar com Google
+          </button>
         </section>
       </C.container>
     </>

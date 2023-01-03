@@ -85,7 +85,7 @@ const navBar = () => {
           <ul>
             <li className="filterContainer">
               <span id="filter">
-                <p>{filter === '' ? 'Autor ou Título' : filter}</p>
+                <p>{filter === '' ? 'Filtrar' : filter}</p>
                 <MdOutlineNavigateNext size={25} />
               </span>
               <div className="options">

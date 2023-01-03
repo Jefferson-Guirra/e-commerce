@@ -82,12 +82,14 @@ const Login = () => {
             {!loading ? (
               <button type="submit">Entrar</button>
             ) : (
-              <button type="submit" disabled>Entando...</button>
+              <button type="submit" disabled>
+                Entando...
+              </button>
             )}
-            <button id="googleLogin" onClick={() => signIn()}>
-              <FcGoogle size={25} /> Entrar com Google
-            </button>
           </form>
+          <button id="googleLogin" onClick={() => signIn()}>
+            <FcGoogle size={25} /> Entrar com Google
+          </button>
         </section>
       </C.container>
     </>

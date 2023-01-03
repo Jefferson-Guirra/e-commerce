@@ -59,6 +59,7 @@ export const container = styled.main`
   }
   #googleLogin {
     display: flex;
+    width:330px;
     align-items: center;
     padding-block: 0.5rem;
     justify-content: center;
