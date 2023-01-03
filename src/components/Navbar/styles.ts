@@ -208,7 +208,7 @@ export const Container = styled.header(
       order:1;
     }
     .search{
-      width:100%;
+      flex:1;
       order:3;
     }
     .actions{

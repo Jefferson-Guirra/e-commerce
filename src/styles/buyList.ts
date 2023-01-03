@@ -196,8 +196,9 @@ export const cardContent = styled.section`
 
   @media (max-width: 810px) {
     .infoBook {
+      flex-direction:column;
       .img {
-        display: none;
+        margin:0 auto;
       }
 
       .dataBook {

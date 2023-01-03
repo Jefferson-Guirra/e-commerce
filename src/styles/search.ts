@@ -95,21 +95,22 @@ export const navigation = styled.article`
 `
 
 export const Pagination = styled.section`
-max-width:1200px;
-margin:0 auto;
-margin-top:2rem;
-.containerPagination{
-  display:flex;
-  align-items:center; 
-  justify-content:center;
-  gap:0.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 2rem;
+  .containerPagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
 
-  button{
-    padding:0.5rem;
-    background-color:var(--primary-color);
-    color:#fff;
-    border-radius:7px;
+    button {
+      font-family: 'Lato', sans-serif;
+      width: 35px;
+      height: 35px;
+      background-color: var(--primary-color);
+      color: #fff;
+      border-radius: 7px;
+    }
   }
-}
-
 `

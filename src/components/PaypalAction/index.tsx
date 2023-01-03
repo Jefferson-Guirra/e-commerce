@@ -2,7 +2,6 @@ import React from 'react'
 import {PayPalButtons} from '@paypal/react-paypal-js'
 import * as C from './styles'
 import { IoClose } from 'react-icons/io5'
-import {useEffect} from 'react'
 import { Dispatch, SetStateAction } from 'react'
 
 

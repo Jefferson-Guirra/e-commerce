@@ -1,5 +1,4 @@
-import styled from "styled-components";
-
+import styled from 'styled-components'
 
 export const Container = styled.main`
   .sliderPresentation {
@@ -8,18 +7,18 @@ export const Container = styled.main`
     img {
       width: 100%;
       height: 350px;
-      border-radius:inherit;
+      border-radius: inherit;
     }
   }
   .dramaBooks,
   .fantasyBooks,
-  .newBooks{
-  padding-inline:1rem;
-  padding-top:5rem;
-  max-width:1200px;
-  margin:0 auto;
+  .newBooks {
+    padding-inline: 1rem;
+    padding-top: 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
   }
-  .fantasyBooks{
-    padding-bottom:5rem;
+  .fantasyBooks {
+    padding-bottom: 5rem;
   }
 `

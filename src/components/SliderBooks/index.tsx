@@ -3,14 +3,11 @@ import { Book } from '../../Types/Books'
 import { useRouter } from 'next/router'
 import Slider from '../Slider'
 import { SwiperProps,SwiperSlide } from 'swiper/react'
+import { BOOKS_API } from '../../Api'
 
 
 type Props = {
-  books:{
-    kind:string,
-    totalItems:number,
-    items:Book[]
-  }
+  bookList:BOOKS_API
 }
 const settings: SwiperProps = {
   slidesPerView: 6,
@@ -34,29 +31,29 @@ const settings: SwiperProps = {
 
 }
 
-const SliderBooks = ({books}:Props) => {
+const SliderBooks = ({bookList}:Props) => {
   
   const router = useRouter()
   return (
     <Slider settings={settings}>
-      {books.items.map((item, index) => (
+      {bookList.books.map((item, index) => (
         <SwiperSlide key={index}>
           <C.container onClick={() => router.push(`/Book/${item.id}`)}>
             <img
               src={`https://books.google.com/books/publisher/content/images/frontcover/${item.id}?fife=w340-h600&source=gbs_api`}
-              alt={`Imagem do Livro ${item.volumeInfo.title}`}
+              alt={`Imagem do Livro ${item.title}`}
             />
             <div className="info">
                 <div className='titleBook'>
-                  <p>{item.volumeInfo.title}</p>
+                  <p>{item.title}</p>
                 </div>
-                {item.volumeInfo?.authors && (
-                  <p id="author">{item.volumeInfo?.authors[0]}</p>
+                {item?.authors && (
+                  <p id="author">{item?.authors[0]}</p>
                 )}
               
               <button>
                 {`A partir de R$ ${
-                  item.saleInfo.listPrice?.amount.toFixed(2).toString().replace('.',',')} ` 
+                  item.price.toFixed(2).toString().replace('.',',')} ` 
                 }
               </button>
             </div>

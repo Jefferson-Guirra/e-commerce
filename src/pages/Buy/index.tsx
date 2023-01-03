@@ -16,6 +16,7 @@ import { UserContext } from '../../UserContext'
 import { useContext } from 'react'
 import PaypalAction from '../../components/PaypalAction'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import Head from 'next/head'
 
 //Sandbox-id:AbJhKpgKw6gr0oH9PRqCr35jMcfKfaKYtRF_LGoDeOeiQhrsBsEsL_N_fXggNgGFnCFtyS55WsZJB4tI
@@ -32,7 +33,7 @@ const Buy = ({ books,user }: Props) => {
   const router = useRouter()
   const { updatedBuyList,clearPurchaseList } = useContext(UserContext)
   const price = bookList.reduce(
-    (acc, v) => acc + v.saleInfo.listPrice.amount * v.qtd,
+    (acc, v) => acc + v.price * v.qtd,
     0
   )
   const handleExclude = (id: string) => {
@@ -80,7 +81,7 @@ const Buy = ({ books,user }: Props) => {
     <>
       <Head>
         <title>
-          Meu Carrinho | {user.username}
+          {`Meu Carrinho | ${user.username}`}
         </title>
       </Head>
       <C.container>
@@ -89,19 +90,19 @@ const Buy = ({ books,user }: Props) => {
 
           {bookList.map(item => (
             <C.cardContent key={item.idDoc}>
-              <h2>{item.volumeInfo.publisher}</h2>
+              <h2>{item.publisher}</h2>
               <article className="infoBook">
-                <div className="img">
+                <Link href={`/Book/${item.id}`} className="img">
                   <img
                     src={`https://books.google.com/books/publisher/content/images/frontcover/${item.id}?fife=w340-h600&source=gbs_api`}
                     height="150px"
-                    alt={`Imagem do livro ${item.volumeInfo.title}`}
+                    alt={`Imagem do livro ${item.title}`}
                   />
-                </div>
+                </Link>
                 <article className="dataBook">
                   <div className="header">
                     <div className="bookTitle">
-                      <p>{item.volumeInfo.title}</p>
+                      <p>{item.title}</p>
                     </div>
                     <div className="actions">
                       <button className="qtd">
@@ -119,7 +120,7 @@ const Buy = ({ books,user }: Props) => {
                       </button>
                       <p>
                         R$:{' '}
-                        {(item.saleInfo.listPrice.amount * item.qtd)
+                        {(item.price * item.qtd)
                           .toFixed(2)
                           .toString()
                           .replace('.', ',')}
@@ -135,16 +136,16 @@ const Buy = ({ books,user }: Props) => {
                   <div className="textInfo">
                     <p>Ano: </p>
                     <span>
-                      {item.volumeInfo.publishedDate.replace(/\-\d+/g, '')}
+                      {item.publisherDate.replace(/\-\d+/g, '')}
                     </span>
                   </div>
                   <div className="textInfo">
                     <p className="textInfo">Páginas: </p>
-                    <span>{item.volumeInfo.pageCount}</span>
+                    <span>{item.pageCount}</span>
                   </div>
                   <div className="textInfo">
                     <p>Idioma: </p>
-                    <span>{item.volumeInfo.language}</span>
+                    <span>{item.language}</span>
                   </div>
                 </article>
               </article>
@@ -202,7 +203,7 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
     }
   }
   const user = JSON.parse(cookies.user) as UserCookie
-  const books = JSON.stringify(
+  const books  = JSON.stringify(
     await GET_BOOKS_DATABASE({ id: user.token, idCollection: 'buyBooks' })
   )
 

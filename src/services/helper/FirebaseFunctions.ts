@@ -13,6 +13,7 @@ import {
   doc
 } from 'firebase/firestore'
 import { Book } from '../../Types/Books'
+import { Time } from '../../pages/List'
 
 
 type Arguments = {
@@ -47,12 +48,22 @@ type AddBookDatabase = {
 
 
 
-export interface DataBook extends Book {
-  created: Date
-  idDoc: string
-  userId: string
-  qtd: number
-  shipping:number
+export interface DataBook {
+    title:string,
+    language:string,
+    price:number,
+    id:string,
+    publisher:string,
+    publisherDate:string,
+    authors:string[],
+    categories:string[],
+    pageCount:number,
+    avarege:number,
+    created: Time,
+    idDoc: string,
+    userId: string,
+    qtd:number,
+    shipping:number
 }
 
 export const VALIDATE_USER_CREATE = ({ username, email }: Users) => {
@@ -200,7 +211,16 @@ export const ADD_BOOK_DATABASE = async ({
 }: AddBookDatabase) => {
   const number = Math.floor(Math.random() * (30 - 100) + 100)
   await setDoc(doc(db, collection, idBook + tokenUser), {
-    ...book,
+    title:book.volumeInfo.title,
+    language:book.volumeInfo.language,
+    price:book.saleInfo.listPrice.amount,
+    id:book.id,
+    publisher:book.volumeInfo.publisher,
+    publisherDate:book.volumeInfo.publishedDate,
+    authors:book.volumeInfo.authors,
+    categories:book.volumeInfo.categories,
+    pageCount:book.volumeInfo.pageCount,
+    avarege:book.volumeInfo.averageRating,
     created: new Date(),
     idDoc: idBook + tokenUser,
     userId: tokenUser,

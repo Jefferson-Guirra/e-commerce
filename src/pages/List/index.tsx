@@ -1,15 +1,14 @@
 import * as C from '../../styles/listBooks'
 import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
-import { GET_BOOKS_DATABASE, REMOVE_BOOK_DATABASE } from '../../services/helper/FirebaseFunctions'
-import { Book } from '../../Types/Books'
+import { DataBook, GET_BOOKS_DATABASE, REMOVE_BOOK_DATABASE } from '../../services/helper/FirebaseFunctions'
 import { BiSearch } from 'react-icons/bi'
 import { Timestamp } from 'firebase/firestore'
 import { useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 
-type Time = {
+ export type Time = {
   nanoseconds: number
   seconds: number
 }
@@ -19,11 +18,6 @@ type User = {
   token: string
 }
 
-interface BookList extends Book {
-  created: Time
-  userId: string,
-  idDoc:string
-}
 
 interface Props {
   books: string
@@ -41,13 +35,13 @@ const handleTime = (time: Time) => {
 }
 
 const List = ({ books, username }: Props) => {
-  const booksFormat: BookList[] = JSON.parse(books)
+  const booksFormat: DataBook[] = JSON.parse(books)
   const [bookList,setBookList] = useState(booksFormat)
   const [input, setInput] = useState('')
   let filtredMovies = []
   filtredMovies = bookList.filter(item =>
-    item.volumeInfo.title.toLowerCase().includes(input.toLowerCase())
-  ) as BookList[]
+    item.title.toLowerCase().includes(input.toLowerCase())
+  ) as DataBook[]
   
   const handleSubmit = () => {}
   const handleExclude = (id:string) =>{
@@ -60,7 +54,7 @@ const List = ({ books, username }: Props) => {
   return (
     <>
       <Head>
-        <title>Minha Lista | {username}</title>
+        <title>{`Minha Lista | ${username}`}</title>
       </Head>
       <C.container>
         <div className="content">
@@ -81,17 +75,17 @@ const List = ({ books, username }: Props) => {
             {filtredMovies.length > 0
               ? filtredMovies.map(item => (
                   <article key={item.id} className="cardBooks">
-                    <Link href={`/Book?q=${item.id}`}>
+                    <Link href={`/Book/${item.id}`}>
                       <img
                         src={`https://books.google.com/books/publisher/content/images/frontcover/${item.id}?fife=w340-h600&source=gbs_api`}
-                        alt={`Imagem do Livro ${item.volumeInfo.title}`}
+                        alt={`Imagem do Livro ${item.title}`}
                       />
                     </Link>
                     <div className="info">
                       <div className="titleBook">
-                        <p>{item.volumeInfo.title}</p>
+                        <p>{item.title}</p>
                       </div>
-                      <p id="author">{item.volumeInfo.authors[0]}</p>
+                      <p id="author">{item.authors[0]}</p>
                       <p>Adicionado: {handleTime(item.created)}</p>
                       <button
                         className="remove"
@@ -107,14 +101,14 @@ const List = ({ books, username }: Props) => {
                     <Link href={`/Book?q=${item.id}`}>
                       <img
                         src={`https://books.google.com/books/publisher/content/images/frontcover/${item.id}?fife=w340-h600&source=gbs_api`}
-                        alt={`Imagem do Livro ${item.volumeInfo.title}`}
+                        alt={`Imagem do Livro ${item.title}`}
                       />
                     </Link>
                     <div className="info">
                       <div className="titleBook">
-                        <p>{item.volumeInfo.title}</p>
+                        <p>{item.title}</p>
                       </div>
-                      <p id="author">{item.volumeInfo.authors[0]}</p>
+                      <p id="author">{item.authors[0]}</p>
                       <p>Adicionado: {handleTime(item.created)}</p>
                       <button
                         className="remove"

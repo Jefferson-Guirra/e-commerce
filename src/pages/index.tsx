@@ -4,16 +4,15 @@ import React from 'react'
 import * as C from '../styles/home'
 import Slider from '../components/Slider'
 import { SwiperSlide, SwiperProps } from 'swiper/react'
-import {SEARCH_BOOKS_GENRES} from '../Api'
-import { Book, Books } from '../Types/Books'
+import {BOOKS_API, SEARCH_BOOKS_GENRES} from '../Api'
 import {BiBookOpen} from 'react-icons/bi'
 import SliderBooks from '../components/SliderBooks'
 
 interface Props {
-  book?: Book
-  fictionBooks:Books
-  dramaBooks:Books,
-  fantasyBooks:Books
+  book?: string,
+  fictionBooks:string,
+  dramaBooks:string,
+  fantasyBooks:string
 }
 
 
@@ -26,6 +25,10 @@ export default function Home({fictionBooks,dramaBooks,fantasyBooks}:Props) {
       slidesPerView: 1,
       autoplay:{delay:4000,disableOnInteraction:false},
       pagination:{clickable:true}
+    }
+
+    const handleFormatBook = (bookList:string)=>{
+      return JSON.parse(bookList) as BOOKS_API
     }
   return (
     <>
@@ -55,7 +58,7 @@ export default function Home({fictionBooks,dramaBooks,fantasyBooks}:Props) {
             <BiBookOpen size={40} />
             <h1>Ficção</h1>
           </div>
-          <SliderBooks books={fictionBooks} />
+          <SliderBooks bookList={handleFormatBook(fictionBooks)} />
         </section>
 
         <section className="dramaBooks">
@@ -63,7 +66,7 @@ export default function Home({fictionBooks,dramaBooks,fantasyBooks}:Props) {
             <BiBookOpen size={45} />
             <h1>Dramas</h1>
           </div>
-          <SliderBooks books={dramaBooks} />
+          <SliderBooks bookList={handleFormatBook(dramaBooks)} />
         </section>
 
         <section className="fantasyBooks">
@@ -71,7 +74,7 @@ export default function Home({fictionBooks,dramaBooks,fantasyBooks}:Props) {
             <BiBookOpen size={40} />
             <h1>Fantasia</h1>
           </div>
-          <SliderBooks books={fantasyBooks} />
+          <SliderBooks bookList={handleFormatBook(fantasyBooks)} />
         </section>
       </C.Container>
     </>
@@ -79,9 +82,9 @@ export default function Home({fictionBooks,dramaBooks,fantasyBooks}:Props) {
 }
 
 export const getStaticProps:GetStaticProps = async () =>{
-  const fictionBooks = await SEARCH_BOOKS_GENRES(['fiction']).getData
-  const dramaBooks = await SEARCH_BOOKS_GENRES(['drama']).getData
-  const fantasyBooks = await SEARCH_BOOKS_GENRES(['fantasy']).getData
+  const fictionBooks = JSON.stringify(await SEARCH_BOOKS_GENRES(['fiction']).getData)
+  const dramaBooks = JSON.stringify(await SEARCH_BOOKS_GENRES(['drama']).getData)
+  const fantasyBooks = JSON.stringify(await SEARCH_BOOKS_GENRES(['fantasy']).getData)
   return{
     props:{
       fictionBooks,

@@ -1,6 +1,6 @@
 import React from 'react'
 import { GetServerSideProps } from 'next'
-import { SEARCH_BOOKS_ID, SEARCH_BOOKS_GENRES } from '../../Api'
+import { SEARCH_BOOKS_ID, SEARCH_BOOKS_GENRES, BOOKS_API } from '../../Api'
 import { useState, useEffect, useContext } from 'react'
 import * as C from '../../styles/book'
 import { doc, getDoc } from 'firebase/firestore'
@@ -36,7 +36,7 @@ type Params = {
 
 const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
   const formatBook: Book = JSON.parse(book)
-  const formatVolums: Books = JSON.parse(volums)
+  const formatVolums: BOOKS_API = JSON.parse(volums)
   const [favoriteBooks, setFavoriteBooks] = useState<null | boolean>(null)
   const [showDescription, setSwhowDescription] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -240,7 +240,7 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
         {formatVolums.totalItems !== 0 && (
           <C.resultBooks>
             <h1 className="title">Títulos Similares</h1>
-            <SliderBooks books={formatVolums} />
+            <SliderBooks bookList={formatVolums} />
           </C.resultBooks>
         )}
       </C.Container>
