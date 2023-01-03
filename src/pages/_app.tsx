@@ -6,9 +6,10 @@ import { UserStorage } from '../UserContext'
 import { SessionProvider } from 'next-auth/react'
 import {PayPalScriptProvider} from '@paypal/react-paypal-js'
 
+const id = process.env.PAYPAL_ID  as string
+
 const initialOptions = {
-  "client-id":
-    "AbJhKpgKw6gr0oH9PRqCr35jMcfKfaKYtRF_LGoDeOeiQhrsBsEsL_N_fXggNgGFnCFtyS55WsZJB4tI",
+  "client-id":"AbJhKpgKw6gr0oH9PRqCr35jMcfKfaKYtRF_LGoDeOeiQhrsBsEsL_N_fXggNgGFnCFtyS55WsZJB4tI",
   currency: "BRL",
   intent: "capture"
 }

@@ -162,6 +162,11 @@ export const buyContainer = styled.section`
         color: #fff;
       }
     }
+
+    button:disabled{
+      cursor:wait;
+      opacity:0.5;
+    }
   }
   @media (max-width: 1200px) {
     width: 100%;

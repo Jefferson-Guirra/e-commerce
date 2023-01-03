@@ -39,8 +39,8 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
   const formatVolums: Books = JSON.parse(volums)
   const [favoriteBooks, setFavoriteBooks] = useState<null | boolean>(null)
   const [showDescription, setSwhowDescription] = useState(false)
+  const [loading, setLoading] = useState(false)
   const { updatedBuyList } = useContext(UserContext)
-  console.log(formatBook)
 
   const handleAddBookDatabase = async (idBook: string, collection: string) => {
     if (!token) {
@@ -57,6 +57,7 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
   }
 
   const handleAddBuyListDatabase = async () => {
+    setLoading(true)
     if (token) {
       const docRef = doc(db, 'buyBooks', query + token)
       const docSnap = await getDoc(docRef)
@@ -80,6 +81,7 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
     } else {
       alert('É necessario efetuar o login.')
     }
+    setLoading(false)
   }
 
   const handleExcludeBookFavoriteList = async (idCollection: string) => {
@@ -199,19 +201,39 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
                 </div>
               </article>
 
-              {formatBook.saleInfo?.listPrice?.amount ?<article className="actionsBuy">
-                <p className="price">
-                  <span>R$</span>
-                  {formatBook.saleInfo.listPrice?.amount.toFixed(2).toString().replace('.',',')}
+              {formatBook.saleInfo?.listPrice?.amount ? (
+                <article className="actionsBuy">
+                  <p className="price">
+                    <span>R$</span>
+                    {formatBook.saleInfo.listPrice?.amount
+                      .toFixed(2)
+                      .toString()
+                      .replace('.', ',')}
+                  </p>
+                  {!loading ? (
+                    <button
+                      onClick={handleAddBuyListDatabase}
+                      style={{ backgroundColor: '#ffd814' }}
+                    >
+                      Adicionar ao carrinho
+                    </button>
+                  ) : (
+                    <button
+                      disabled
+                      style={{ backgroundColor: '#ffd814' }}
+                    >
+                      Adicionando...
+                    </button>
+                  )}
+                  <button style={{ backgroundColor: '#ffa500' }}>
+                    Comprar
+                  </button>
+                </article>
+              ) : (
+                <p style={{ color: '#f31', textAlign: 'center' }}>
+                  Indisponível
                 </p>
-                <button
-                  onClick={handleAddBuyListDatabase}
-                  style={{ backgroundColor: '#ffd814' }}
-                >
-                  Adicionar ao carrinho
-                </button>
-                <button style={{ backgroundColor: '#ffa500' }}>Comprar</button>
-              </article>:<p style={{color:'#f31', textAlign:'center'}}>Indisponível</p>}
+              )}
             </C.buyContainer>
           </article>
         </section>

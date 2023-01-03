@@ -24,6 +24,7 @@ export default function Home({fictionBooks,dramaBooks,fantasyBooks}:Props) {
     const settings : SwiperProps = {
       //config swiper slide
       slidesPerView: 1,
+      autoplay:{delay:4000,disableOnInteraction:false},
       pagination:{clickable:true}
     }
   return (
@@ -38,13 +39,13 @@ export default function Home({fictionBooks,dramaBooks,fantasyBooks}:Props) {
         <section className="sliderPresentation">
           <Slider settings={settings}>
             <SwiperSlide>
-              <img src="/images/prop1.webp" alt="" />
+              <img src="/images/propaganda-1.png" alt="" />
             </SwiperSlide>
             <SwiperSlide>
-              <img src="/images/prop2.png" alt="" />
+              <img src="/images/propaganda-2.jpg" alt="" />
             </SwiperSlide>
             <SwiperSlide>
-              <img src="/images/prop3.webp" alt="" />
+              <img src="/images/propaganda-3.jpg" alt="" />
             </SwiperSlide>
           </Slider>
         </section>

@@ -21,7 +21,7 @@ const Login = () => {
   const router = useRouter()
   const email = useForm('email')
   const [error,setError] = useState<boolean | string>(false)
-  const {createCookie} = useContext(UserContext)
+  const {createCookie,getPurchaseList} = useContext(UserContext)
   
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -34,7 +34,7 @@ const Login = () => {
         token:user.id
       }
       createCookie('user',JSON.stringify(userLogin))
-      
+      getPurchaseList({id:user.id,idCollection:'buyBooks'})
       router.push('/')
     }
     else if(validateInputs){

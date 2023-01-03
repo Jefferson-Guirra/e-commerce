@@ -8,13 +8,18 @@ import { async } from '@firebase/util'
 interface Props {
   children: ReactNode
 }
+type GetPurchaseList = {
+  id:string,
+  idCollection:string
+}
 
 type Context = {
   user: UserCookie | undefined
   createCookie: (name: string, value: string) => void
-  deleteCookie: (value: string) => void,
-  updatedBuyList:(value:string)=>void,
-  clearPurchaseList:()=>void,
+  deleteCookie: (value: string) => void
+  updatedBuyList: (value: string) => void
+  clearPurchaseList: () => void
+  getPurchaseList: (props:GetPurchaseList) => void,
   buyBooks: number
 }
 
@@ -49,16 +54,21 @@ export const UserStorage = ({ children }: Props) => {
     setBuyBooks(0)
   }
 
+  const getPurchaseList = async ({id,idCollection}:GetPurchaseList)=>{
+    const books = await GET_BOOKS_DATABASE({id,idCollection})
+    setBuyBooks(books.length)
+  }
+
 
 
 useEffect(()=>{
     const cookies = parseCookies()
     if(cookies.user !==undefined){
       const user = JSON.parse(cookies.user)
-      const updatetdList = async()=>{
+      const updatedList = async()=>{
         await getBuyList(user.token, 'buyBooks')
       }
-      updatetdList()
+      updatedList()
       setUser(JSON.parse(cookies.user))
 
     }
@@ -66,7 +76,7 @@ useEffect(()=>{
 
   return (
     <UserContext.Provider
-      value={{ user, createCookie, deleteCookie, buyBooks, updatedBuyList,clearPurchaseList }}
+      value={{ user, createCookie, deleteCookie, buyBooks, updatedBuyList,clearPurchaseList,getPurchaseList }}
     >
       {children}
     </UserContext.Provider>

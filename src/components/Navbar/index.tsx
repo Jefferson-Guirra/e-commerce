@@ -20,7 +20,7 @@ const navBar = () => {
   const [input,setInput] = useState('')
   const [filter,setFilter] = useState('')
   const router = useRouter()
-  const { user, deleteCookie, createCookie, buyBooks } = useContext(UserContext)
+  const { user, deleteCookie, createCookie, buyBooks, getPurchaseList } = useContext(UserContext)
   const {data:session,status} = useSession()
   
 
@@ -30,6 +30,7 @@ const navBar = () => {
       token:attributes.id,
       username:attributes.user.name.replace(/\s\w+/g,'')
     }
+    getPurchaseList({id:user.token,idCollection:'buyBooks'})
     createCookie('user',JSON.stringify(user))
   }
 

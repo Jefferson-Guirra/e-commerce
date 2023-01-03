@@ -1,5 +1,5 @@
 import { Swiper,SwiperProps } from 'swiper/react'
-import { Pagination,Navigation } from "swiper";
+import { Pagination,Navigation,Autoplay } from "swiper";
 
 import {ReactNode} from 'react'
 import 'swiper/css'
@@ -12,5 +12,5 @@ interface Props {
   settings: SwiperProps;
 }
 export default function Slider({ children, settings }:Props) {
-  return <Swiper modules={[Navigation,Pagination]} {...settings}>{children}</Swiper>
+  return <Swiper modules={[Navigation,Pagination,Autoplay]} {...settings}>{children}</Swiper>
 }

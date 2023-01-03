@@ -4,10 +4,10 @@ import styled from "styled-components";
 export const Container = styled.main`
   .sliderPresentation {
     width: 100%;
-    height: 250px;
+    height: 350px;
     img {
       width: 100%;
-      height: 250px;
+      height: 350px;
       border-radius:inherit;
     }
   }
