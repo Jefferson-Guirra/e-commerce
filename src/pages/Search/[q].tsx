@@ -52,7 +52,7 @@ const Search = ({books,q}:Props) => {
         <section className="containerBook">
           {bookResults.items.map((item, index) => (
             <article key={index} className="contentBook">
-              <Link href={`/book?q=${item.id}`} className="cardBook">
+              <Link href={`/Book/${item.id}`} className="cardBook">
                 <img
                   src={`https://books.google.com/books/publisher/content/images/frontcover/${item.id}?fife=w340-h600&source=gbs_api`}
                   alt={`Imagem do Livro ${item.volumeInfo.title}`}
@@ -86,6 +86,7 @@ export default Search
 
 export const getServerSideProps:GetServerSideProps = async ({query})=>{
   const {q}= query as Params
+  console.log(q)
   const books = await GET_BOOKS_PARAMS(q,0,15) as Books
   if(books.totalItems === 0){
     return{

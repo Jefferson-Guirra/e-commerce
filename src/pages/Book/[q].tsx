@@ -251,7 +251,7 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
 export default Book
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
-  const { q } = ctx.query as Params
+  const { q } = ctx.params as Params
   if (!q) {
     return {
       redirect: {

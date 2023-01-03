@@ -41,7 +41,7 @@ const SliderBooks = ({books}:Props) => {
     <Slider settings={settings}>
       {books.items.map((item, index) => (
         <SwiperSlide key={index}>
-          <C.container onClick={() => router.push(`/Book?q=${item.id}`)}>
+          <C.container onClick={() => router.push(`/Book/${item.id}`)}>
             <img
               src={`https://books.google.com/books/publisher/content/images/frontcover/${item.id}?fife=w340-h600&source=gbs_api`}
               alt={`Imagem do Livro ${item.volumeInfo.title}`}

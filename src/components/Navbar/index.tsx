@@ -50,8 +50,8 @@ const navBar = () => {
     event.preventDefault()
     if(filter !==''){
       filter === 'Autor'
-        ? router.push(`/Search?q=inauthor:${input}`)
-        : router.push(`/Search?q=intitle:${input}`)
+        ? router.push(`/Search/inauthor:${input}`)
+        : router.push(`/Search/intitle:${input}`)
         setInput('')
     }
     else{

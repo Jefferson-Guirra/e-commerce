@@ -16,13 +16,16 @@ import { UserContext } from '../../UserContext'
 import { useContext } from 'react'
 import PaypalAction from '../../components/PaypalAction'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 
 //Sandbox-id:AbJhKpgKw6gr0oH9PRqCr35jMcfKfaKYtRF_LGoDeOeiQhrsBsEsL_N_fXggNgGFnCFtyS55WsZJB4tI
+
 interface Props {
-  books: string
+  books: string,
+  user: UserCookie
 }
 
-const Buy = ({ books }: Props) => {
+const Buy = ({ books,user }: Props) => {
   const booksFormat: DataBook[] = JSON.parse(books)
   const [bookList, setBookList] = useState(booksFormat)
   const [purchase, setPurchase] = useState(false)
@@ -75,6 +78,11 @@ const Buy = ({ books }: Props) => {
 
   return (
     <>
+      <Head>
+        <title>
+          Meu Carrinho | {user.username}
+        </title>
+      </Head>
       <C.container>
         <div className="content">
           <h1>Meu Carrinho</h1>
@@ -200,7 +208,8 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
 
   return {
     props: {
-      books
+      books,
+      user
     }
   }
 }
