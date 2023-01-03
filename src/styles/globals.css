@@ -46,6 +46,11 @@ button{
   cursor:pointer;
 }
 
+button:disabled{
+  cursor: wait;
+  opacity: 0.5;
+}
+
 .title{
   display:flex;
   gap: 0.5rem;
