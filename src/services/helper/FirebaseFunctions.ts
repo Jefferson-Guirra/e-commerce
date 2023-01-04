@@ -12,8 +12,8 @@ import {
   orderBy,
   doc
 } from 'firebase/firestore'
-import { Book } from '../../Types/Books'
 import { Time } from '../../pages/List'
+import { BOOK_API } from '../../Api'
 
 
 type Arguments = {
@@ -42,7 +42,7 @@ type GetBookDatabase = {
 type AddBookDatabase = {
   idBook: string
   tokenUser: string
-  book: Book
+  book: BOOK_API
   collection: string
 }
 
@@ -211,16 +211,14 @@ export const ADD_BOOK_DATABASE = async ({
 }: AddBookDatabase) => {
   const number = Math.floor(Math.random() * (30 - 100) + 100)
   await setDoc(doc(db, collection, idBook + tokenUser), {
-    title:book.volumeInfo.title,
-    language:book.volumeInfo.language,
-    price:book.saleInfo.listPrice.amount,
+    title:book.title,
+    language:book.language,
+    price:book.price,
     id:book.id,
-    publisher:book.volumeInfo.publisher,
-    publisherDate:book.volumeInfo.publishedDate,
-    authors:book.volumeInfo.authors,
-    categories:book.volumeInfo.categories,
-    pageCount:book.volumeInfo.pageCount,
-    avarege:book.volumeInfo.averageRating,
+    publisher:book.publisher,
+    publisherDate:book.publisherDate,
+    authors:book.authors,
+    pageCount:book.pageCount,
     created: new Date(),
     idDoc: idBook + tokenUser,
     userId: tokenUser,

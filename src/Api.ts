@@ -1,13 +1,30 @@
-import { Books } from "./Types/Books"
+import { Books,Book } from "./Types/Books"
 
 const apiKey = 'AIzaSyBMfQlCfLea2FkXRsq7KMd0JrqN2YkmyDo'
 
-export interface BOOK_API {
-  authors: string[],
-  title: string,
-  price: number,
-  id:string,
+export interface BOOK_ID_SEARCH {
+  title: string
+  language: string
+  price: number
+  id: string
+  publisher: string
+  publisherDate: string
+  authors: string[]
+  categories: string[]
+  pageCount: number
+  avarege: number
+  subtitle:string | undefined,
+  description:string,
 }
+
+export type BOOK_API = {
+  title:string,
+  id:string,
+  price:number,
+  authors:string[]
+}
+
+
 
 export interface BOOKS_API {
   totalItems:number,
@@ -27,8 +44,23 @@ export async function SEARCH_BOOKS_ID(id :string){
   const response = await fetch(
     `https://www.googleapis.com/books/v1/volumes/${id}`
   )
-  const data = response.json()
-  return data
+      const data: Book = await response.json()
+      const booksList: BOOK_ID_SEARCH = {
+        title: data.volumeInfo.title,
+        language: data.volumeInfo.language,
+        price: data.saleInfo.listPrice.amount,
+        id: data.id,
+        publisher: data.volumeInfo.publisher,
+        publisherDate: data.volumeInfo.publishedDate,
+        authors: data.volumeInfo.authors,
+        categories: data.volumeInfo.categories,
+        pageCount: data.volumeInfo.pageCount,
+        avarege: data.volumeInfo.averageRating,
+        subtitle: data.volumeInfo.subtitle,
+        description: data.volumeInfo.description,
+      }
+       
+      return booksList
 }
 
 export function SEARCH_BOOKS_GENRES(genre: string[],title?:string) {
@@ -38,13 +70,13 @@ export function SEARCH_BOOKS_GENRES(genre: string[],title?:string) {
       `https://www.googleapis.com/books/v1/volumes?q=subject:${genreFormat}&maxResults=40&filter=paid-ebooks&orderBy=relevance&key=${apiKey}`
     )
       const data : Books = await response.json()
+      
       const booksList:BOOK_API[] = data?.items?.map(item=>{
         const book = {
-          id:item.id,
-          authors:item.volumeInfo.authors,
-          title:item.volumeInfo.title,
-          price:item.saleInfo.listPrice.amount,
-          totalItems:data.totalItems
+            title:item.volumeInfo.title,
+            id:item.id,
+            price:item.saleInfo.listPrice?.amount,
+            authors:item.volumeInfo.authors
         }
         return book
       })
@@ -85,12 +117,10 @@ export async function GET_VOLUME_TITLE_BOOKS(title:string,){
   
   const books: BOOK_API[] = data.items.map(item => {
     const book = {
-      id:item.id,
-      authors: item.volumeInfo.authors,
       title: item.volumeInfo.title,
+      id: item.id,
       price: item.saleInfo.listPrice.amount,
-          totalItems:data.totalItems
-
+      authors: item.volumeInfo.authors
     }
     return book
   }) 
@@ -109,10 +139,10 @@ export async function GET_BOOKS_PARAMS(params: string, index: number = 0,maxResu
   const data: Books = await response.json()
   const booksList: BOOK_API[] = data.items.map(item => {
     const book = {
-      id: item.id,
-      authors: item.volumeInfo.authors,
       title: item.volumeInfo.title,
-      price: item.saleInfo.listPrice.amount
+      id: item.id,
+      price: item.saleInfo.listPrice.amount,
+      authors: item.volumeInfo.authors
     }
     return book
   })

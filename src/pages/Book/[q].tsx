@@ -1,10 +1,9 @@
 import React from 'react'
 import { GetServerSideProps } from 'next'
-import { SEARCH_BOOKS_ID, SEARCH_BOOKS_GENRES, BOOKS_API } from '../../Api'
+import { SEARCH_BOOKS_ID, SEARCH_BOOKS_GENRES, BOOKS_API, BOOK_ID_SEARCH } from '../../Api'
 import { useState, useEffect, useContext } from 'react'
 import * as C from '../../styles/book'
 import { doc, getDoc } from 'firebase/firestore'
-import { Book, Books } from '../../Types/Books'
 import { db } from '../../services/firebaseConnection'
 import Head from 'next/head'
 import { AiFillStar } from 'react-icons/ai'
@@ -35,12 +34,14 @@ type Params = {
 }
 
 const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
-  const formatBook: Book = JSON.parse(book)
+  const formatBook: BOOK_ID_SEARCH = JSON.parse(book)
   const formatVolums: BOOKS_API = JSON.parse(volums)
   const [favoriteBooks, setFavoriteBooks] = useState<null | boolean>(null)
   const [showDescription, setSwhowDescription] = useState(false)
   const [loading, setLoading] = useState(false)
   const { updatedBuyList } = useContext(UserContext)
+
+  console.log(formatVolums)
 
   const handleAddBookDatabase = async (idBook: string, collection: string) => {
     if (!token) {
@@ -96,7 +97,7 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
   return (
     <>
       <Head>
-        <title>{formatBook.volumeInfo.title}</title>
+        <title>{formatBook.title}</title>
       </Head>
       <C.Container>
         <section className="aboutBook">
@@ -104,11 +105,11 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
             <div className="infoBook">
               <img
                 src={`https://books.google.com/books/publisher/content/images/frontcover/${formatBook.id}?fife=w340-h800&source=gbs_api`}
-                alt={`Imagem do livro ${formatBook.volumeInfo.title}`}
+                alt={`Imagem do livro ${formatBook.title}`}
               />
               <div className="textBook">
-                <h2>{formatBook.volumeInfo.title}</h2>
-                <p id="subTitle">{formatBook.volumeInfo.subtitle}</p>
+                <h2>{formatBook.title}</h2>
+                <p id="subTitle">{formatBook.subtitle}</p>
                 {!favoriteBooks ? (
                   <button
                     onClick={() => handleAddBookDatabase(query, 'books')}
@@ -128,8 +129,8 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
                 )}
                 <div>
                   <span>{'Autor(a): '}</span>
-                  {formatBook.volumeInfo.authors ? (
-                    formatBook.volumeInfo.authors.map((item, index) => (
+                  {formatBook.authors ? (
+                    formatBook.authors.map((item, index) => (
                       <span
                         style={{ color: '#001f3f', fontWeight: 'bold' }}
                         key={index}
@@ -145,8 +146,8 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
                 </div>
 
                 <p className="itemText">
-                  {formatBook.volumeInfo.averageRating
-                    ? formatBook.volumeInfo.averageRating.toFixed(1)
+                  {formatBook.avarege
+                    ? formatBook.avarege.toFixed(1)
                     : '0.0'}
                   <AiFillStar size={18} color="#ffa500" />
                 </p>
@@ -156,7 +157,7 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
                     showDescription ? 'showDescription' : 'description'
                   }
                   dangerouslySetInnerHTML={{
-                    __html: formatBook.volumeInfo.description
+                    __html: formatBook.description
                   }}
                 ></div>
                 <button
@@ -173,22 +174,22 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
                 <img
                   src={`https://books.google.com/books/publisher/content/images/frontcover/${formatBook.id}?fife=w340-h600&source=gbs_api`}
                   height="150px"
-                  alt={`Imagem do livro ${formatBook.volumeInfo.title}`}
+                  alt={`Imagem do livro ${formatBook.title}`}
                 />
                 <div className="textBuy">
                   <div className="resizeTitle">
-                    <h2>{formatBook.volumeInfo.title}</h2>
+                    <h2>{formatBook.title}</h2>
                   </div>
                   <div className="itemBuy">
                     <p>Editora: </p>
                     <div className="resizeTitle">
-                      <span>{formatBook.volumeInfo.publisher}</span>
+                      <span>{formatBook.publisher}</span>
                     </div>
                   </div>
                   <div className="itemBuy">
                     <p>Ano: </p>
                     <span>
-                      {formatBook.volumeInfo.publishedDate?.replace(
+                      {formatBook.publisherDate?.replace(
                         /-\d{2}/g,
                         ''
                       )}
@@ -196,16 +197,16 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
                   </div>
                   <div className="itemBuy">
                     <p>Páginas: </p>
-                    <span>{formatBook.volumeInfo.pageCount}</span>
+                    <span>{formatBook.pageCount}</span>
                   </div>
                 </div>
               </article>
 
-              {formatBook.saleInfo?.listPrice?.amount ? (
+              {formatBook.price ? (
                 <article className="actionsBuy">
                   <p className="price">
                     <span>R$</span>
-                    {formatBook.saleInfo.listPrice?.amount
+                    {formatBook.price
                       .toFixed(2)
                       .toString()
                       .replace('.', ',')}
@@ -218,10 +219,7 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
                       Adicionar ao carrinho
                     </button>
                   ) : (
-                    <button
-                      disabled
-                      style={{ backgroundColor: '#ffd814' }}
-                    >
+                    <button disabled style={{ backgroundColor: '#ffd814' }}>
                       Adicionando...
                     </button>
                   )}
@@ -261,10 +259,9 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
     }
   }
   const token: string | null = GET_COOKIE_USER()
-  const book: Book = await SEARCH_BOOKS_ID(q)
+  const bookList = await SEARCH_BOOKS_ID(q)
   const volums = await SEARCH_BOOKS_GENRES(
-    book.volumeInfo.categories,
-    book.volumeInfo.title
+    bookList.categories
   ).getData
 
   function GET_COOKIE_USER() {
@@ -285,7 +282,7 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
 
   return {
     props: {
-      book: JSON.stringify(book),
+      book: JSON.stringify(bookList),
       volums: JSON.stringify(volums),
       query: q,
       token: token,

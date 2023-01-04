@@ -79,7 +79,7 @@ const navBar = () => {
         </C.hamburguer>
         <Link href="/" className="logo">
           <SiBookstack size={55} color="#ffa500" />
-          Literando
+          <p>Literando</p>
         </Link>
         <form onSubmit={handleSubmit} className="search">
           <ul>
