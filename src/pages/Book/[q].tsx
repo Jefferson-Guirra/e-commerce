@@ -41,7 +41,6 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
   const [loading, setLoading] = useState(false)
   const { updatedBuyList } = useContext(UserContext)
 
-  console.log(formatVolums)
 
   const handleAddBookDatabase = async (idBook: string, collection: string) => {
     if (!token) {

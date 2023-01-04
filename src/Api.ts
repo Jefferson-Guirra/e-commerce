@@ -18,10 +18,14 @@ export interface BOOK_ID_SEARCH {
 }
 
 export type BOOK_API = {
-  title:string,
-  id:string,
-  price:number,
-  authors:string[]
+  title: string
+  id: string
+  price: number
+  language: string
+  publisher: string
+  pageCount:number
+  publisherDate: string
+  authors: string[]
 }
 
 
@@ -73,10 +77,14 @@ export function SEARCH_BOOKS_GENRES(genre: string[],title?:string) {
       
       const booksList:BOOK_API[] = data?.items?.map(item=>{
         const book = {
-            title:item.volumeInfo.title,
-            id:item.id,
-            price:item.saleInfo.listPrice?.amount,
-            authors:item.volumeInfo.authors
+          title: item.volumeInfo.title,
+          id: item.id,
+          price: item.saleInfo.listPrice?.amount,
+          authors: item.volumeInfo.authors,
+          language: item.volumeInfo.language,
+          publisher: item.volumeInfo.publisher,
+          publisherDate: item.volumeInfo.publishedDate,
+          pageCount: item.volumeInfo.pageCount
         }
         return book
       })
@@ -119,8 +127,12 @@ export async function GET_VOLUME_TITLE_BOOKS(title:string,){
     const book = {
       title: item.volumeInfo.title,
       id: item.id,
-      price: item.saleInfo.listPrice.amount,
-      authors: item.volumeInfo.authors
+      price: item.saleInfo.listPrice?.amount,
+      authors: item.volumeInfo.authors,
+      language: item.volumeInfo.language,
+      publisher: item.volumeInfo.publisher,
+      publisherDate: item.volumeInfo.publishedDate,
+      pageCount: item.volumeInfo.pageCount
     }
     return book
   }) 
@@ -141,8 +153,12 @@ export async function GET_BOOKS_PARAMS(params: string, index: number = 0,maxResu
     const book = {
       title: item.volumeInfo.title,
       id: item.id,
-      price: item.saleInfo.listPrice.amount,
-      authors: item.volumeInfo.authors
+      price: item.saleInfo.listPrice?.amount,
+      authors: item.volumeInfo.authors,
+      language: item.volumeInfo.language,
+      publisher: item.volumeInfo.publisher,
+      publisherDate: item.volumeInfo.publishedDate,
+      pageCount: item.volumeInfo.pageCount
     }
     return book
   })
