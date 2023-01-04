@@ -97,6 +97,7 @@ export function SEARCH_BOOKS_GENRES(genre: string[],title?:string) {
 
     async function init(){
       let books :BOOKS_API = await searchTitleGenre()
+
       if(books.totalItems === 0 && title){
         books = await  GET_VOLUME_TITLE_BOOKS(title.replace(/\s\w+/g,''))
       }

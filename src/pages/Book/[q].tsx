@@ -1,7 +1,7 @@
 import React from 'react'
 import { GetServerSideProps } from 'next'
 import { SEARCH_BOOKS_ID, SEARCH_BOOKS_GENRES, BOOKS_API, BOOK_ID_SEARCH } from '../../Api'
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext,useRef } from 'react'
 import * as C from '../../styles/book'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../../services/firebaseConnection'
@@ -22,7 +22,6 @@ import {
 
 interface Props {
   book: string
-  volums: string
   query: string
   user: string
   validateFavoriteBooks: boolean
@@ -33,13 +32,19 @@ type Params = {
   q: string
 }
 
-const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
+const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
   const formatBook: BOOK_ID_SEARCH = JSON.parse(book)
-  const formatVolums: BOOKS_API = JSON.parse(volums)
   const [favoriteBooks, setFavoriteBooks] = useState<null | boolean>(null)
+  const [similarBooks, setSimilarBooks] = useState<BOOKS_API | null>(null)
   const [showDescription, setSwhowDescription] = useState(false)
   const [loading, setLoading] = useState(false)
   const { updatedBuyList } = useContext(UserContext)
+
+
+  const getSimillarBooks = async()=>{
+    const books = await  SEARCH_BOOKS_GENRES(formatBook.categories,formatBook.title).getData
+    setSimilarBooks(books)
+  }
 
 
   const handleAddBookDatabase = async (idBook: string, collection: string) => {
@@ -91,6 +96,8 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
 
   useEffect(() => {
     setFavoriteBooks(validateFavoriteBooks)
+
+    getSimillarBooks()
   }, [query])
 
   return (
@@ -234,10 +241,10 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
             </C.buyContainer>
           </article>
         </section>
-        {formatVolums.totalItems !== 0 && (
+        {similarBooks?.totalItems !== 0 && similarBooks && (
           <C.resultBooks>
             <h1 className="title">Títulos Similares</h1>
-            <SliderBooks bookList={formatVolums} />
+            <SliderBooks bookList={similarBooks} />
           </C.resultBooks>
         )}
       </C.Container>
@@ -259,9 +266,6 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
   }
   const token: string | null = GET_COOKIE_USER()
   const bookList = await SEARCH_BOOKS_ID(q)
-  const volums = await SEARCH_BOOKS_GENRES(
-    bookList.categories
-  ).getData
 
   function GET_COOKIE_USER() {
     const cookies = parseCookies(ctx)
@@ -282,7 +286,6 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
   return {
     props: {
       book: JSON.stringify(bookList),
-      volums: JSON.stringify(volums),
       query: q,
       token: token,
       validateFavoriteBooks
