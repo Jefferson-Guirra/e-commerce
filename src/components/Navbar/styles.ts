@@ -144,7 +144,7 @@ export const Container = styled.header(
     }
     input {
       height: 100%;
-      flex:1;
+      width:calc(100% - 88px);
       font-size: 1.1rem;
       border-radius: 15px;
       border: none;
