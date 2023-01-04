@@ -102,10 +102,10 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
         <section className="aboutBook">
           <article className="contentBook">
             <div className="infoBook">
-              <img
-                src={`https://books.google.com/books/publisher/content/images/frontcover/${formatBook.id}?fife=w340-h800&source=gbs_api`}
-                alt={`Imagem do livro ${formatBook.title}`}
-              />
+                <img
+                  src={`https://books.google.com/books/publisher/content/images/frontcover/${formatBook.id}?fife=w340-h400&source=gbs_api`}
+                  alt={`Imagem do livro ${formatBook.title}`}
+                />
               <div className="textBook">
                 <h2>{formatBook.title}</h2>
                 <p id="subTitle">{formatBook.subtitle}</p>
@@ -171,7 +171,7 @@ const Book = ({ book, volums, query, token, validateFavoriteBooks }: Props) => {
               <span className="alert">Menor preço</span>
               <article className="infoBuy">
                 <img
-                  src={`https://books.google.com/books/publisher/content/images/frontcover/${formatBook.id}?fife=w340-h600&source=gbs_api`}
+                  src={`https://books.google.com/books/publisher/content/images/frontcover/${formatBook.id}?fife=w340-h200&source=gbs_api`}
                   height="150px"
                   alt={`Imagem do livro ${formatBook.title}`}
                 />

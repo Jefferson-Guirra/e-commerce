@@ -7,6 +7,7 @@ import { SwiperSlide, SwiperProps } from 'swiper/react'
 import {BOOKS_API, SEARCH_BOOKS_GENRES} from '../Api'
 import {BiBookOpen} from 'react-icons/bi'
 import SliderBooks from '../components/SliderBooks'
+import Image from 'next/image'
 
 interface Props {
   book?: string,
@@ -42,13 +43,46 @@ export default function Home({fictionBooks,dramaBooks,fantasyBooks}:Props) {
         <section className="sliderPresentation">
           <Slider settings={settings}>
             <SwiperSlide>
-              <img src="/images/propaganda-1.png" alt="" />
+              <div
+                style={{ width: '100%', height: '350px', position: 'relative' }}
+              >
+                <Image
+                  quality={100}
+                  priority
+                  fill
+                  style={{ objectPosition: 'center' }}
+                  src="/images/propaganda-1.png"
+                  alt=""
+                />
+              </div>
             </SwiperSlide>
             <SwiperSlide>
-              <img src="/images/propaganda-2.jpg" alt="" />
+              <div
+                style={{ width: '100%', height: '350px', position: 'relative' }}
+              >
+                <Image
+                  priority
+                  quality={100}
+                  fill
+                  style={{ objectPosition: 'center' }}
+                  src="/images/propaganda-2.jpg"
+                  alt=""
+                />
+              </div>
             </SwiperSlide>
             <SwiperSlide>
-              <img src="/images/propaganda-3.jpg" alt="" />
+              <div
+                style={{ width: '100%', height: '350px', position: 'relative' }}
+              >
+                <Image
+                  priority
+                  quality={100}
+                  style={{ objectPosition: 'center' }}
+                  fill
+                  src="/images/propaganda-3.jpg"
+                  alt=""
+                />
+              </div>
             </SwiperSlide>
           </Slider>
         </section>

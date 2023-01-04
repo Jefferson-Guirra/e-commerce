@@ -1,5 +1,6 @@
 import * as C from './styles'
 import { Book } from '../../Types/Books'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Slider from '../Slider'
 import { SwiperProps, SwiperSlide } from 'swiper/react'
@@ -36,10 +37,14 @@ const SliderBooks = ({ bookList }: Props) => {
       {bookList.books.map((item, index) => (
         <SwiperSlide key={index}>
           <C.container onClick={() => router.push(`/Book/${item.id}`)}>
-            <img
-              src={`https://books.google.com/books/publisher/content/images/frontcover/${item.id}?fife=w340-h600&source=gbs_api`}
-              alt={`Imagem do Livro ${item.title}`}
-            />
+            <div
+              style={{ width: '100%', height: '250px', position: 'relative' }}
+            >
+              <img
+                src={`https://books.google.com/books/publisher/content/images/frontcover/${item.id}?fife=w340-h300&source=gbs_api`}
+                alt={`Imagem do Livro ${item.title}`}
+              />
+            </div>
             <div className="info">
               <div className="titleBook">
                 <p>{item.title}</p>
