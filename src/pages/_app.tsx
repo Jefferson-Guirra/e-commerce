@@ -5,8 +5,8 @@ import Footer from '../components/Footer'
 import { UserStorage } from '../UserContext'
 import { SessionProvider } from 'next-auth/react'
 import {PayPalScriptProvider} from '@paypal/react-paypal-js'
-
-const id = process.env.PAYPAL_ID  as string
+import { useState,useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 const initialOptions = {
   "client-id":"AbJhKpgKw6gr0oH9PRqCr35jMcfKfaKYtRF_LGoDeOeiQhrsBsEsL_N_fXggNgGFnCFtyS55WsZJB4tI",
@@ -14,7 +14,46 @@ const initialOptions = {
   intent: "capture"
 }
 
+function Loading(){
+  const router = useRouter()
+  const [loading,setLoading] = useState(false)
 
+  useEffect(()=>{
+    const handleStart = (url:string)=>{
+      if(url !==router.asPath){
+        document.body.style.overflow = 'hidden'
+        setLoading(true)
+      }
+    }
+    const handleComplete = (url: string) =>{
+      if(url !== router.asPath){
+      document.body.style.overflow = 'auto'
+      setLoading(false)
+      }
+    }
+
+
+
+    router.events.on('routeChangeStart', handleStart)
+    router.events.on('routeChangeComplete', handleComplete)
+    router.events.on('routeChangeError',handleComplete)
+    return()=>{
+      router.events.off('routeChangeStart', handleStart)
+      router.events.off('routeChangeComplete', handleComplete)
+      router.events.off('routeChangeError', handleComplete)
+    }
+  },[router.events])
+  if(loading)
+  return(
+    <div className='spinWrapper'>
+      <div className='spin'>
+
+      </div>
+
+    </div>
+  )
+  else return null
+}
 
 export default function App({ Component, pageProps }: AppProps) {
    
@@ -23,7 +62,10 @@ export default function App({ Component, pageProps }: AppProps) {
       <SessionProvider session={pageProps.session}>
         <PayPalScriptProvider options={initialOptions}>
           <NavBar />
-          <Component {...pageProps} />
+          <>
+            <Loading />
+            <Component {...pageProps} />
+          </>
           <Footer />
         </PayPalScriptProvider>
       </SessionProvider>
