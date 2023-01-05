@@ -194,10 +194,11 @@ export default Buy
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
   const cookies = parseCookies(ctx)
+  
   if (!cookies.user) {
     return {
       redirect: {
-        destination: '/',
+        destination: '/Login',
         permanent: false
       }
     }
