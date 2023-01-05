@@ -46,7 +46,6 @@ const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
     setSimilarBooks(books)
   }
 
-
   const handleAddBookDatabase = async (idBook: string, collection: string) => {
     if (!token) {
       alert('É necessario efetuar o Login')
