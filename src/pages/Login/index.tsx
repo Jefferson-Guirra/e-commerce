@@ -9,18 +9,19 @@ import { useRouter } from 'next/router'
 import { GET_USER } from '../../services/helper/FirebaseFunctions'
 import { getSession } from 'next-auth/react'
 import { SessionUser } from '../../Types/User'
+import {AiFillEye} from 'react-icons/ai'
 import { signIn } from 'next-auth/react'
 import Head from 'next/head'
 import { GetServerSideProps } from 'next'
 
 const Login = () => {
   const password = useForm('password')
-  const username = useForm('')
   const router = useRouter()
   const email = useForm('email')
   const [error, setError] = useState<boolean | string>(false)
   const { createCookie, getPurchaseList } = useContext(UserContext)
   const [loading, setLoading] = useState(false)
+  const [hidden,setHidden] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -57,12 +58,21 @@ const Login = () => {
           <h1>Entrar</h1>
           <form onSubmit={handleSubmit}>
             <Input label="Email:" name="username" type="email" {...email} />
-            <Input
-              label="Senha:"
-              name="password"
-              type="password"
-              {...password}
-            />
+
+            <div className="passwordContainer">
+              <Input
+                label="Senha:"
+                name="password"
+                type={!hidden ? 'password' : 'text'}
+                {...password}
+              />
+              <span
+                id="passwordIcon"
+                onClick={() => setHidden(state => !state)}
+              >
+                <AiFillEye size={25} color="#363636" />
+              </span>
+            </div>
             {error && !email.erro && !password.erro && (
               <p className="userErro">{error}</p>
             )}

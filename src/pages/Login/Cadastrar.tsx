@@ -14,6 +14,8 @@ import {
 import { GetServerSideProps } from 'next'
 import { getSession,signIn } from 'next-auth/react'
 import { SessionUser } from '../../Types/User'
+import { AiFillEye } from 'react-icons/ai'
+
 
 const Cadastrar = () => {
   const router = useRouter()
@@ -22,6 +24,7 @@ const Cadastrar = () => {
   const password = useForm('password')
   const [error, setError] = useState<boolean | string>('')
   const [loading, setLoading] = useState(false)
+  const [hidden,setHidden] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -58,12 +61,20 @@ const Cadastrar = () => {
           <form onSubmit={handleSubmit}>
             <Input type="text" name="username" label="Usuário:" {...username} />
             <Input type="email" name="email" label="Email:" {...email} />
-            <Input
-              type="password"
-              name="password"
-              label="Senha:"
-              {...password}
-            />
+            <div className="passwordContainer">
+              <Input
+                type={!hidden ? 'password' : 'text'}
+                name="password"
+                label="Senha:"
+                {...password}
+              />
+              <span
+                id="passwordIcon"
+                onClick={() => setHidden(state => !state)}
+              >
+                <AiFillEye size={25} color="#363636" />
+              </span>
+            </div>
             {error && <p className="userErro">{error}</p>}
             {!loading ? (
               <button type="submit">Cadastrar</button>
@@ -73,7 +84,7 @@ const Cadastrar = () => {
               </button>
             )}
           </form>
-          <button id="googleLogin" onClick={()=>signIn()}>
+          <button id="googleLogin" onClick={() => signIn()}>
             {' '}
             <FcGoogle size={25} /> Entrar com Google
           </button>

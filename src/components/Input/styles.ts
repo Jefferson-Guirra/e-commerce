@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const container = styled.div`
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 
   .label {
     font-size: 1.3rem;
@@ -34,7 +34,4 @@ export const container = styled.div`
     margin-top: 0.25rem;
   }
 
-  @media (max-width:550px){
-    margin-bottom:1.5rem;
-  }
 `
