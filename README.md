@@ -1,34 +1,62 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Literando
 
-## Getting Started
+<!---Esses são exemplos. Veja https://shields.io para outras pessoas ou para personalizar este conjunto de escudos. Você pode querer incluir dependências, status do projeto e informações de licença aqui--->
 
-First, run the development server:
+<img src="public/images/read-me.JPG" alt="Literando e-commerce">
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+> E-commerce de livros.
+<br>
+Todas as informações contidas foram retiradas da <a href="https://developers.google.com/books"> Google Books Apis.</a>
+<br>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<br>
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+<h4 align="center"><a href="https://literando.vercel.app/" target="_blank">Clique para visitar o projeto</a></h4>
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## 📚 Seções
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+O site é composto por quatro seções:
 
-## Learn More
+- **Home:** Apresenta livros separados por gêneros;
+- **Book:** Página dinâmica que exibe o livro escolhido e títulos similares;
+- **Search:** Rota dinâmica que exibe os resulta de pesquisa;
+- **Minha Lista:** nesta seção temos a lista de livros favoritos do usuário;
+- **Meu carrinho:** Exibe os produtos adicionados ao carrinho pelo cliente;
+- **Login - Cadastrar:** Seção de login e cadastro do usuário criada com firebase e NextAuth;
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+---
+<br>
 
-## Deploy on Vercel
+## 🚀  Funcionalidades
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+O projeto visou a criação de um E-commerce a partir de tais tecnologias:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Nextjs;
+- Context-React;
+- TypeScript;
+- Html;
+- Styled-components;
+- Api Externa ( Google Books );
+- NextAuth ( Biblioteca )
+- React-icons ( Biblioteca )
+- Swiper ( Biblioteca )
+
+---
+
+### Ajustes e melhorias
+
+O projeto foi concluído e todas as tarefas finalizadas:
+
+- [x] Tarefa 1
+- [x] Tarefa 2
+- [x] Tarefa 3
+- [x] Tarefa 4
+- [x] Tarefa 5
+
+
+* Compatível `<Windows / Linux / Mac>`."
+
+<br>
+
