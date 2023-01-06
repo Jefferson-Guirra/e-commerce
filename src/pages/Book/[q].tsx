@@ -33,7 +33,7 @@ type Params = {
 }
 
 const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
-  const formatBook: BOOK_ID_SEARCH = JSON.parse(book)
+  const formatBook: BOOK_ID_SEARCH = book ? JSON.parse(book) : null
   const [favoriteBooks, setFavoriteBooks] = useState<null | boolean>(null)
   const [similarBooks, setSimilarBooks] = useState<BOOKS_API | undefined>(undefined)
   const [showDescription, setSwhowDescription] = useState(false)
