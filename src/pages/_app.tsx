@@ -44,12 +44,13 @@ function Loading(){
     }
   },[router.events])
   if(loading)
-  return(
-    <div className='spinWrapper'>
-      <div className='spin'>
-
-      </div>
-
+  return (
+    <div className="bookWrapper">
+        <div className="loader book">
+          <figure className="page"></figure>
+          <figure className="page"></figure>
+          <figure className="page"></figure>
+        </div>
     </div>
   )
   else return null
