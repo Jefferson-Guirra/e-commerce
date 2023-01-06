@@ -1,6 +1,4 @@
 import * as C from './styles'
-import { Book } from '../../Types/Books'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Slider from '../Slider'
 import { SwiperProps, SwiperSlide } from 'swiper/react'

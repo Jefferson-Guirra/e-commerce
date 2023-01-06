@@ -1,4 +1,4 @@
-import {useState,FormEvent,memo,useContext,useEffect} from 'react'
+import { useState, FormEvent, memo, useContext, useEffect } from 'react'
 import { UserContext } from '../../UserContext'
 import * as C from './styles'
 import Link from 'next/link'
@@ -9,62 +9,63 @@ import { FiShoppingCart } from 'react-icons/fi'
 import { MdOutlineNavigateNext } from 'react-icons/md'
 import { useRouter } from 'next/router'
 import { SessionUser } from '../../Types/User'
-import { signOut, useSession,getSession } from 'next-auth/react'
+import { signOut, useSession, getSession } from 'next-auth/react'
 import { parseCookies } from 'nookies'
 import Router from 'next/router'
 
-
-
 const navBar = () => {
-  const [menu,setMenu] = useState(false)
-  const [input,setInput] = useState('')
-  const [filter,setFilter] = useState('')
+  const [menu, setMenu] = useState(false)
+  const [input, setInput] = useState('')
+  const [filter, setFilter] = useState('')
   const router = useRouter()
-  const { user, deleteCookie, createCookie, buyBooks, getPurchaseList } = useContext(UserContext)
-  const {data:session,status} = useSession()
-  
+  const { user, deleteCookie, createCookie, buyBooks, getPurchaseList } =
+    useContext(UserContext)
+  const { data: session, status } = useSession()
 
-  const createCookieNextAuth = async() =>{
-    const attributes  =  await getSession() as SessionUser
-    const user = {
-      token:attributes.id,
-      username:attributes.user.name.replace(/\s\w+/g,'')
+
+  const handleMenuMob = () => {
+    if (menu) {
+      setMenu(false)
     }
-    getPurchaseList({id:user.token,idCollection:'buyBooks'})
-    createCookie('user',JSON.stringify(user))
   }
 
-
-  const handleLoggout = ()=>{
-    deleteCookie('user')
-    if(status === 'authenticated'){
-      signOut()
+  const createCookieNextAuth = async () => {
+    const attributes = (await getSession()) as SessionUser
+    const user = {
+      token: attributes.id,
+      username: attributes.user.name.replace(/\s\w+/g, '')
     }
-    else{
+    getPurchaseList({ id: user.token, idCollection: 'buyBooks' })
+    createCookie('user', JSON.stringify(user))
+  }
+
+  const handleLoggout = () => {
+    deleteCookie('user')
+    if (status === 'authenticated') {
+      signOut()
+    } else {
       Router.reload()
     }
   }
 
-
-  const handleSubmit = (event:FormEvent<HTMLFormElement>)=>{
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if(filter !==''){
+    if (filter !== '') {
       filter === 'Autor'
         ? router.push(`/Search/inauthor:${input}`)
         : router.push(`/Search/intitle:${input}`)
-        setInput('')
-    }
-    else{
+      setInput('')
+    } else {
       alert('Informe um filtro')
     }
   }
 
-  useEffect( ()=>{
+  useEffect(() => {
     const cookies = parseCookies()
     if (cookies.token === undefined && status === 'authenticated') {
       createCookieNextAuth()
     }
-  },[session])
+  }, [session])
 
   return (
     <C.Container values={{ active: menu }}>
@@ -127,7 +128,7 @@ const navBar = () => {
                 {user === undefined ? (
                   <button
                     onClick={() => {
-                      setMenu(false)
+                      handleMenuMob()
                       router.push('/Login')
                     }}
                   >
@@ -136,7 +137,7 @@ const navBar = () => {
                 ) : (
                   <button
                     onClick={() => {
-                      setMenu(false)
+                      handleMenuMob()
                       handleLoggout()
                     }}
                   >
@@ -144,14 +145,14 @@ const navBar = () => {
                   </button>
                 )}
                 {user === undefined && (
-                  <Link href="/Login/Cadastrar" onClick={() => setMenu(false)}>
+                  <Link href="/Login/Cadastrar" onClick={handleMenuMob}>
                     Cadastre-se
                   </Link>
                 )}
-                <Link href="/Buy" onClick={() => setMenu(false)}>
+                <Link href="/Buy" onClick={handleMenuMob}>
                   Meu carrinho
                 </Link>
-                <Link href="/List" onClick={() => setMenu(false)}>
+                <Link href="/List" onClick={handleMenuMob}>
                   Minha lista
                 </Link>
               </div>
@@ -170,4 +171,3 @@ const navBar = () => {
 }
 
 export default memo(navBar)
-

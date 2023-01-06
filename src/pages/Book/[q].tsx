@@ -11,7 +11,7 @@ import { BsFillHeartFill } from 'react-icons/bs'
 import SliderBooks from '../../components/SliderBooks'
 import { parseCookies } from 'nookies'
 import { UserContext } from '../../UserContext'
-
+import { useRouter } from 'next/router'
 import {
   GET_BOOK_DATABASE,
   ADD_BOOK_DATABASE,
@@ -37,8 +37,10 @@ const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
   const [favoriteBooks, setFavoriteBooks] = useState<null | boolean>(null)
   const [similarBooks, setSimilarBooks] = useState<BOOKS_API | null>(null)
   const [showDescription, setSwhowDescription] = useState(false)
+  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const { updatedBuyList } = useContext(UserContext)
+
 
 
   const getSimillarBooks = async()=>{
@@ -46,9 +48,9 @@ const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
     setSimilarBooks(books)
   }
 
-  const handleAddBookDatabase = async (idBook: string, collection: string) => {
+  const handleAddBookDatabase = async (collection: string) => {
     if (!token) {
-      alert('É necessario efetuar o Login')
+      alert('É necessário efetuar o Login')
     } else {
       await ADD_BOOK_DATABASE({
         book: formatBook,
@@ -83,10 +85,17 @@ const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
         })
       }
     } else {
-      alert('É necessario efetuar o login.')
+      alert('É necessário efetuar o login.')
     }
     setLoading(false)
   }
+
+    const handleBuy = async () => {
+      await handleAddBuyListDatabase()
+      if (token) {
+        setTimeout(() => router.push('/Buy'),150) 
+      }
+    }
 
   const handleExcludeBookFavoriteList = async (idCollection: string) => {
     REMOVE_BOOK_DATABASE({ id: query + token, idCollection: idCollection })
@@ -117,7 +126,7 @@ const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
                 <p id="subTitle">{formatBook.subtitle}</p>
                 {!favoriteBooks ? (
                   <button
-                    onClick={() => handleAddBookDatabase(query, 'books')}
+                    onClick={() => handleAddBookDatabase('books')}
                     className="itemText"
                     id="list"
                   >
@@ -228,7 +237,7 @@ const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
                       Adicionando...
                     </button>
                   )}
-                  <button style={{ backgroundColor: '#ffa500' }}>
+                  <button onClick={handleBuy} style={{ backgroundColor: '#ffa500' }}>
                     Comprar
                   </button>
                 </article>
