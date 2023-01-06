@@ -30,7 +30,6 @@ const navBar = () => {
 
   const createCookieNextAuth = async () => {
     const attributes = (await getSession()) as SessionUser
-    console.log(attributes)
     const user = {
       token: attributes.id,
       username: attributes.user.name.replace(/\s\w+/g, '')

@@ -9,7 +9,7 @@ import { useState,useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 const initialOptions = {
-  "client-id":"AbJhKpgKw6gr0oH9PRqCr35jMcfKfaKYtRF_LGoDeOeiQhrsBsEsL_N_fXggNgGFnCFtyS55WsZJB4tI",
+  "client-id":"AQ4-Jzoq6WQk60K_pvp_krV9qqnTFVtWppdFiwEa3tEOu01bZIXh4Ccd71OHr9GmU3wHHBvM9aAKKCNr",
   currency: "BRL",
   intent: "capture"
 }
