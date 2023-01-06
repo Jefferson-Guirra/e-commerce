@@ -38,6 +38,7 @@ O projeto visou a criação de um E-commerce a partir de tais tecnologias:
 - TypeScript;
 - Html;
 - Styled-components;
+- Firebase ( Banco de dados )
 - Api Externa ( Google Books );
 - NextAuth ( Biblioteca )
 - React-icons ( Biblioteca )
