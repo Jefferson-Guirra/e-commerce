@@ -50,7 +50,10 @@ export async function SEARCH_BOOKS_ID(id: string) {
     const response = await fetch(
       `https://www.googleapis.com/books/v1/volumes/${id}`
     )
+    console.log('response',response)
     const data: Book = await response.json()
+    console.log('data', data)
+    
     const booksList: BOOK_ID_SEARCH = {
       title: data.volumeInfo.title,
       language: data.volumeInfo.language,
