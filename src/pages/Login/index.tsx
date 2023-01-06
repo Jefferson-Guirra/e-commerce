@@ -35,7 +35,7 @@ const Login = () => {
 
     if (validateInputs && validate && user) {
       const userLogin = {
-        username: user.username,
+        username: user.username.replace(/\s\w+/g, ''),
         token: user.id
       }
       createCookie('user', JSON.stringify(userLogin))

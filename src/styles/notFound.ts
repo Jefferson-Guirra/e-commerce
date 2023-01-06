@@ -11,6 +11,7 @@ justify-content:center;
 
 h1{
   color:#f31;
+  text-align:center;
 }
 
 @media (max-width:955px){

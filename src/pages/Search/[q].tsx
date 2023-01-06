@@ -85,7 +85,8 @@ export default Search
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const { q } = query as Params
   const books = (await GET_BOOKS_PARAMS(q, 0, 15)) as BOOKS_API
-  if (books.totalItems === 0) {
+
+  if (books?.totalItems === 0) {
     return {
       redirect: {
         destination: '/NotFound',

@@ -22,7 +22,6 @@ const navBar = () => {
     useContext(UserContext)
   const { data: session, status } = useSession()
 
-
   const handleMenuMob = () => {
     if (menu) {
       setMenu(false)
@@ -31,6 +30,7 @@ const navBar = () => {
 
   const createCookieNextAuth = async () => {
     const attributes = (await getSession()) as SessionUser
+    console.log(attributes)
     const user = {
       token: attributes.id,
       username: attributes.user.name.replace(/\s\w+/g, '')
@@ -121,7 +121,7 @@ const navBar = () => {
             <li>
               <p>
                 <BiUser id="user" size={25} />
-                Olá, {user === undefined ? 'usuário' : `${user.username}`}{' '}
+                Olá, {user === undefined ? 'usuário' : `${user.username.toLowerCase()}`}{' '}
                 <MdOutlineNavigateNext id="arrow" size={25} />
               </p>
               <div className="links">

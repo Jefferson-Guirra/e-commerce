@@ -166,7 +166,7 @@ export async function GET_BOOKS_PARAMS(
     `https://www.googleapis.com/books/v1/volumes?q=${params}&startIndex=${index}&filter=paid-ebooks&maxResults=${maxResults}&key=${apiKey}`
   )
   const data: Books = await response.json()
-  const booksList: BOOK_API[] = data.items.map(item => {
+  const booksList: BOOK_API[] = data.items?.map(item => {
     const book = {
       title: item.volumeInfo.title,
       id: item.id,
