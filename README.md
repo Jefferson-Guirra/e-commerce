@@ -18,11 +18,11 @@ Todas as informações contidas foram retiradas da <a href="https://developers.g
 O site é composto por quatro seções:
 
 - **Home:** Apresenta livros separados por gêneros;
-- **Book:** Página dinâmica que exibe o livro escolhido e títulos similares;
-- **Search:** Rota dinâmica que exibe os resultados de pesquisa;
-- **List:** nesta seção temos a lista de livros favoritos do usuário;
-- **Buy:** Exibe os produtos adicionados ao carrinho pelo cliente;
-- **Login - Cadastrar:** Seção de login e cadastro do usuário criada com firebase e NextAuth;
+- **Livro:** Página dinâmica que exibe o livro escolhido e títulos similares;
+- **Pesquisa:** Rota dinâmica que exibe os resultados de pesquisa;
+- **Minha Lista:** nesta seção temos a lista de livros favoritos do usuário;
+- **Meu Carrrinho:** Exibe os produtos adicionados ao carrinho pelo cliente;
+- **Entrar - Cadastrar:** Seção de login e cadastro do usuário criada com firebase e NextAuth;
 
 
 
