@@ -18,11 +18,11 @@ Todas as informações contidas foram retiradas da <a href="https://developers.g
 O site é composto por quatro seções:
 
 - **Home:** Apresenta livros separados por gêneros;
-- **Book:** Página dinâmica que exibe o livro escolhido e títulos similares;
-- **Search:** Rota dinâmica que exibe os resulta de pesquisa;
+- **Livro:** Página dinâmica que exibe o livro escolhido e títulos similares;
+- **Pesquisa:** Rota dinâmica que exibe os resultados de pesquisa;
 - **Minha Lista:** nesta seção temos a lista de livros favoritos do usuário;
-- **Meu carrinho:** Exibe os produtos adicionados ao carrinho pelo cliente;
-- **Login - Cadastrar:** Seção de login e cadastro do usuário criada com firebase e NextAuth;
+- **Meu Carrrinho:** Exibe os produtos adicionados ao carrinho pelo cliente;
+- **Entrar - Cadastrar:** Seção de login e cadastro do usuário criada com firebase e NextAuth;
 
 
 
@@ -38,6 +38,7 @@ O projeto visou a criação de um E-commerce a partir de tais tecnologias:
 - TypeScript;
 - Html;
 - Styled-components;
+- Firebase ( Banco de dados )
 - Api Externa ( Google Books );
 - NextAuth ( Biblioteca )
 - React-icons ( Biblioteca )
