@@ -158,7 +158,10 @@ const navBar = () => {
               </div>
             </li>
           </C.userActions>
-          <div className="cart">
+          <div className="cart" onClick={()=>{
+            handleMenuMob()
+            router.push('/Buy')
+          }}>
             <FiShoppingCart size={25} />
             <span>
               <p>{buyBooks}</p>
