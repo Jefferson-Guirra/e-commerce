@@ -19,9 +19,9 @@ O site é composto por quatro seções:
 
 - **Home:** Apresenta livros separados por gêneros;
 - **Book:** Página dinâmica que exibe o livro escolhido e títulos similares;
-- **Search:** Rota dinâmica que exibe os resulta de pesquisa;
-- **Minha Lista:** nesta seção temos a lista de livros favoritos do usuário;
-- **Meu carrinho:** Exibe os produtos adicionados ao carrinho pelo cliente;
+- **Search:** Rota dinâmica que exibe os resultados de pesquisa;
+- **List:** nesta seção temos a lista de livros favoritos do usuário;
+- **Buy:** Exibe os produtos adicionados ao carrinho pelo cliente;
 - **Login - Cadastrar:** Seção de login e cadastro do usuário criada com firebase e NextAuth;
 
 
