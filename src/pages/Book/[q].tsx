@@ -273,7 +273,17 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
     }
   }
   const token: string | null = GET_COOKIE_USER()
-  const bookList = await SEARCH_BOOKS_ID(q)
+  const bookInfo = await SEARCH_BOOKS_ID(q)
+
+
+  if(!bookInfo){
+    return{
+      redirect:{
+        destination:'/NotFound',
+        permanent:false
+      }
+    }
+  }
 
   function GET_COOKIE_USER() {
     const cookies = parseCookies(ctx)
@@ -293,7 +303,7 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
 
   return {
     props: {
-      book: JSON.stringify(bookList),
+      book: JSON.stringify(bookInfo),
       query: q,
       token: token,
       validateFavoriteBooks
