@@ -35,7 +35,7 @@ type Params = {
 const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
   const formatBook: BOOK_ID_SEARCH = JSON.parse(book)
   const [favoriteBooks, setFavoriteBooks] = useState<null | boolean>(null)
-  const [similarBooks, setSimilarBooks] = useState<BOOKS_API | null>(null)
+  const [similarBooks, setSimilarBooks] = useState<BOOKS_API | undefined>(undefined)
   const [showDescription, setSwhowDescription] = useState(false)
   const router = useRouter()
   const [loading, setLoading] = useState(false)
@@ -104,9 +104,9 @@ const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
 
   useEffect(() => {
     setFavoriteBooks(validateFavoriteBooks)
-
     getSimillarBooks()
   }, [query])
+
 
   return (
     <>

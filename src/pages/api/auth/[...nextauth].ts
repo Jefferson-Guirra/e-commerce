@@ -1,7 +1,5 @@
-import { Session } from 'inspector'
 import NextAuth from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
-import { parseCookies, setCookie, destroyCookie } from 'nookies'
 
 
 
@@ -25,8 +23,6 @@ export default NextAuth({
       }
     },
     async session({ session, token, user }) {
-      // Send properties to the client, like an access_token from a provider.
-      
       return {
         ...session,
         id:token.sub
