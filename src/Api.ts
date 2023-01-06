@@ -66,7 +66,6 @@ export async function SEARCH_BOOKS_ID(id: string) {
       subtitle: data.volumeInfo.subtitle,
       description: data.volumeInfo.description
     }
-
     return booksList
   } catch (err) {
     console.log(err)

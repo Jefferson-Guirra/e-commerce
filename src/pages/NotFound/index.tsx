@@ -5,7 +5,7 @@ const NotFound = () => {
   return (
     <C.container>
      
-     <h1>Nenhum Livro Encontrado</h1>
+     <h1>Livro não encontrado encontrado</h1>
     </C.container>
   )
 }
