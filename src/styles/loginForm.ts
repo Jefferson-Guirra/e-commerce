@@ -28,7 +28,7 @@ export const container = styled.main`
       .userErro {
         color: #f31;
         font-size: 0.875rem;
-        margin-top: -2rem;
+        margin-top: -1rem;
       }
       .passwordContainer {
         position: relative;    

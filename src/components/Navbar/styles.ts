@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
-interface MenuMob{
-  values:{
-    active:boolean
+interface MenuMob {
+  values: {
+    active: boolean
   }
 }
 
@@ -245,7 +245,7 @@ export const userActions = styled.ul`
   li {
     position: relative;
     p {
-      cursor: pointer;
+      cursor: pointer;97
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -264,6 +264,7 @@ export const userActions = styled.ul`
       opacity: 0;
       transition: 1s;
       pointer-events: none;
+      touch-action: none;
       padding-block: 1rem;
       position: absolute;
       z-index: 50;
@@ -302,6 +303,8 @@ export const userActions = styled.ul`
         transform: initial;
         opacity: initial;
         pointer-events: initial;
+        touch-action: initial;
+
       }
     }
   }
@@ -373,9 +376,7 @@ display:none;
   }
   .line1{
     top:${props.values.active ? '10px' : '0'};
-    transform:${
-      props.values.active ? 'rotate(45deg)' : 'initial'
-    };
+    transform:${props.values.active ? 'rotate(45deg)' : 'initial'};
 
   }
   .line2{
@@ -384,9 +385,7 @@ display:none;
   }
   .line3{
     top:${props.values.active ? '10px' : '20px'};
-    transform:${
-      props.values.active ? 'rotate(-45deg)' : 'initial'
-    };
+    transform:${props.values.active ? 'rotate(-45deg)' : 'initial'};
 
   }
   @media (max-width:955px){
