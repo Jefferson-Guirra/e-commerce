@@ -2,7 +2,10 @@ import styled from "styled-components";
 
 export const container = styled.main`
   display: flex;
-  margin-block:4rem;
+  align-items: center;
+  justify-content: center;
+  margin-block: 4rem;
+  height: calc(100vh - 230px);
   .content {
     max-width: 1220px;
     padding-inline: 1rem;
@@ -31,11 +34,11 @@ export const container = styled.main`
         margin-top: -1rem;
       }
       .passwordContainer {
-        position: relative;    
+        position: relative;
         #passwordIcon {
-          position:absolute;
-          cursor:pointer;
-          top:2.2rem;
+          position: absolute;
+          cursor: pointer;
+          top: 2.2rem;
           right: 0.5rem;
         }
       }
@@ -66,4 +69,7 @@ export const container = styled.main`
     color: #000000;
     gap: 0.5rem;
   }
-`
+  @media (max-width: 955px) {
+    height: calc(100vh - 280px);
+  }
+`;

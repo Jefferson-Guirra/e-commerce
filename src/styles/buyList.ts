@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const container = styled.main`
   max-width: 1200px;
-  position:relative;
+  position: relative;
   margin: 0 auto;
   padding: 5rem 1rem;
   min-height: calc(100vh - 103px);
@@ -25,8 +25,8 @@ export const container = styled.main`
     gap: 1rem;
     -moz-box-shadow: 0px 0px 5px 1px rgba(217, 217, 217, 0.57);
 
-    @media (max-width:530px){
-      text-align:center;
+    @media (max-width: 530px) {
+      text-align: center;
     }
   }
   .checkout {
@@ -36,7 +36,7 @@ export const container = styled.main`
     gap: 2rem;
     button {
       width: fit-content;
-      font-family: 'Lato', sans-serif;
+      font-family: "Lato", sans-serif;
       padding: 0.8rem 1.5rem;
       text-align: center;
       font-size: 1.1rem;
@@ -53,20 +53,20 @@ export const container = styled.main`
     #buyButton {
       background-color: #f31;
     }
-    @media (max-width:530px){
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
+    @media (max-width: 530px) {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
 
-      #addButton{
-        order:1;
+      #addButton {
+        order: 1;
       }
-      buyButton{
-        order:0;
+      buyButton {
+        order: 0;
       }
     }
   }
-`
+`;
 
 export const cardContent = styled.section`
   background-color: #f4f4f4;
@@ -100,7 +100,7 @@ export const cardContent = styled.section`
         height: 100px;
       }
       &::after {
-        content: 'capa ilustrativa';
+        content: "capa ilustrativa";
         display: block;
         font-size: 0.875rem;
         color: gray;
@@ -136,21 +136,21 @@ export const cardContent = styled.section`
           position: relative;
           height: 1rem;
           .qtd {
-            display:flex;
-            align-items:center;
+            display: flex;
+            align-items: center;
             border: 1px solid #d9d9d9;
-            overflow:hidden;
+            overflow: hidden;
             justify-content: space-between;
-            background-color:#fff;
-            border-radius:12px;
-            cursor:inherit;
+            background-color: #fff;
+            border-radius: 12px;
+            cursor: inherit;
             transition: 1s;
-            p{
-              padding-inline:0.5rem;
+            p {
+              padding-inline: 0.5rem;
             }
-            svg{
-              cursor:pointer;
-              background-color:#f4f4f4;
+            svg {
+              cursor: pointer;
+              background-color: #f4f4f4;
             }
 
             &:hover {
@@ -196,26 +196,26 @@ export const cardContent = styled.section`
 
   @media (max-width: 810px) {
     .infoBook {
-      flex-direction:column;
+      flex-direction: column;
       .img {
-        margin:0 auto;
+        margin: 0 auto;
       }
 
       .dataBook {
-        gap:1rem;
+        gap: 1rem;
         .header {
           height: fit-content;
           flex-direction: column;
           justify-content: flex-start;
           align-items: flex-start;
           .bookTitle {
-            order:1;
+            order: 1;
             width: 100%;
           }
 
           .actions {
-            order:0;
-            margin-bottom:1rem;
+            order: 0;
+            margin-bottom: 1rem;
             width: 100%;
             justify-content: flex-start;
 
@@ -231,15 +231,14 @@ export const cardContent = styled.section`
   @media (max-width: 480px) {
     .dataBook {
       .header {
-          .actions {
-            gap: 0rem !important;
-            justify-content: space-between !important;
-          }
+        .actions {
+          gap: 0rem !important;
+          justify-content: space-between !important;
         }
       }
     }
   }
-`
+`;
 
 export const buyInfoCard = styled.article`
   border-left: 4px solid var(--four-color);
@@ -253,18 +252,18 @@ export const buyInfoCard = styled.article`
   .infoBuy {
     display: flex;
     gap: 0.2rem;
-    margin-block:0.5rem;
+    margin-block: 0.5rem;
 
     span {
       font-weight: bold;
     }
 
-    @media (max-width:500px){
-      flex-wrap:wrap;
-      font-size:0.9rem;
-      #free{
-        width:100%;
+    @media (max-width: 500px) {
+      flex-wrap: wrap;
+      font-size: 0.9rem;
+      #free {
+        width: 100%;
       }
     }
   }
-`
+`;

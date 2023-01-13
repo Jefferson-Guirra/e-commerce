@@ -1,9 +1,9 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 interface MenuMob {
   values: {
-    active: boolean
-  }
+    active: boolean;
+  };
 }
 
 export const Container = styled.header(
@@ -222,9 +222,9 @@ export const Container = styled.header(
       right:0px;
       width:50%;
       border-radius:0px 0px 7px 7px;
-      transform:${props.values.active ? 'initial' : 'translate3d(0,-30px,0)'};
-      opacity:${props.values.active ? 'initial' : '0'};
-      pointer-events:${props.values.active ? 'initial' : 'none'};
+      transform:${props.values.active ? "initial" : "translate3d(0,-30px,0)"};
+      opacity:${props.values.active ? "initial" : "0"};
+      pointer-events:${props.values.active ? "initial" : "none"};
       margin-left:-1rem;
       align-items:initial;
       flex-direction:column;
@@ -239,13 +239,13 @@ export const Container = styled.header(
   }
 }
 `
-)
+);
 
 export const userActions = styled.ul`
   li {
     position: relative;
     p {
-      cursor: pointer;97
+      cursor: pointer;
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -275,7 +275,7 @@ export const userActions = styled.ul`
         display: block;
         width: calc(100% - 1rem);
         background-color: var(--second-color);
-        font-family: 'Lato', sans-serif;
+        font-family: "Lato", sans-serif;
 
         color: #000000;
         padding: 0.5rem 0.7rem;
@@ -283,7 +283,7 @@ export const userActions = styled.ul`
         margin: 0 auto;
       }
       a {
-        font-family: 'Lato', sans-serif;
+        font-family: "Lato", sans-serif;
         margin-top: 1rem;
         color: black;
         padding-inline: 0.5rem;
@@ -304,7 +304,6 @@ export const userActions = styled.ul`
         opacity: initial;
         pointer-events: initial;
         touch-action: initial;
-
       }
     }
   }
@@ -322,7 +321,7 @@ export const userActions = styled.ul`
         padding: 0px;
         background-color: transparent;
         font-size: 1rem;
-        font-family: 'Lato', sans-serif;
+        font-family: "Lato", sans-serif;
         color: #fff;
         a {
           padding: 0px;
@@ -344,7 +343,7 @@ export const userActions = styled.ul`
           margin: inherit;
           margin-top: 1.5rem;
           background-color: transparent;
-          transition:1s;
+          transition: 1s;
           &:hover {
             color: var(--second-color);
           }
@@ -355,7 +354,7 @@ export const userActions = styled.ul`
       }
     }
   }
-`
+`;
 
 export const hamburguer = styled.div(
   (props: MenuMob) => `
@@ -375,17 +374,17 @@ display:none;
     transition:1s;
   }
   .line1{
-    top:${props.values.active ? '10px' : '0'};
-    transform:${props.values.active ? 'rotate(45deg)' : 'initial'};
+    top:${props.values.active ? "10px" : "0"};
+    transform:${props.values.active ? "rotate(45deg)" : "initial"};
 
   }
   .line2{
     top:10px;
-    opacity:${props.values.active ? 0 : 'initial'};
+    opacity:${props.values.active ? 0 : "initial"};
   }
   .line3{
-    top:${props.values.active ? '10px' : '20px'};
-    transform:${props.values.active ? 'rotate(-45deg)' : 'initial'};
+    top:${props.values.active ? "10px" : "20px"};
+    transform:${props.values.active ? "rotate(-45deg)" : "initial"};
 
   }
   @media (max-width:955px){
@@ -393,4 +392,4 @@ display:none;
     order:2;
   }
 `
-)
+);
