@@ -4,8 +4,7 @@ export const container = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-block: 4rem;
-  height: calc(100vh - 230px);
+  height: calc(100vh - 103px);
   .content {
     max-width: 1220px;
     padding-inline: 1rem;
@@ -70,6 +69,6 @@ export const container = styled.main`
     gap: 0.5rem;
   }
   @media (max-width: 955px) {
-    height: calc(100vh - 280px);
+    height: calc(100vh - 154px);
   }
 `;
