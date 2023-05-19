@@ -112,7 +112,7 @@ const navBar = () => {
           </button>
         </form>
         <div className="actions">
-          <Link className="list" href="/">
+          <Link className="list" href="/List">
             <AiOutlineHeart size={25} />
             Minhas listas
           </Link>
