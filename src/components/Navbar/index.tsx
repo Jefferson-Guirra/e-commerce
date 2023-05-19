@@ -144,7 +144,7 @@ const navBar = () => {
                   </button>
                 )}
                 {user === undefined && (
-                  <Link href="/Login/Cadastrar" onClick={handleMenuMob}>
+                  <Link href="/SignUp" onClick={handleMenuMob}>
                     Cadastre-se
                   </Link>
                 )}
