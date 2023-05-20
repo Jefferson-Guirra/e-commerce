@@ -4,11 +4,7 @@ import { Home } from '../pages/Home'
 import { IHomeProps } from '../../@types/IHomeProps'
 import styles from './styles.module.css'
 
-export const HomeContainer = ({
-  fictionBooks,
-  dramaBooks,
-  fantasyBooks,
-}: IHomeProps) => {
+export const HomeContainer = (props: IHomeProps) => {
   return (
     <>
       <Head>
@@ -18,11 +14,7 @@ export const HomeContainer = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.container}>
-        <Home
-          fictionBooks={fictionBooks}
-          dramaBooks={dramaBooks}
-          fantasyBooks={fantasyBooks}
-        />
+        <Home {...props} />
       </main>
     </>
   )
