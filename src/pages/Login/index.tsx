@@ -2,7 +2,7 @@ import { getSession } from 'next-auth/react'
 import { SessionUser } from '../../Types/User'
 import Head from 'next/head'
 import { GetServerSideProps } from 'next'
-import LoginContainer from '../../features/Login/containers/LoginContainer'
+import { LoginContainer } from '../../features'
 
 const Login = () => {
   return (
