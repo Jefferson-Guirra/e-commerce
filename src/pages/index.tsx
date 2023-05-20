@@ -3,18 +3,8 @@ import { SEARCH_BOOKS_GENRES } from '../Api'
 import { HomeContainer } from '../features'
 import { IHomeProps } from '../features/@types/IHomeProps'
 
-export default function Home({
-  fictionBooks,
-  dramaBooks,
-  fantasyBooks,
-}: IHomeProps) {
-  return (
-    <HomeContainer
-      dramaBooks={dramaBooks}
-      fantasyBooks={fantasyBooks}
-      fictionBooks={fictionBooks}
-    />
-  )
+export default function Home(props: IHomeProps) {
+  return <HomeContainer {...props} />
 }
 
 export const getStaticProps: GetStaticProps = async () => {
