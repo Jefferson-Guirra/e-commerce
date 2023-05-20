@@ -7,14 +7,3 @@
   height: 350px;
   border-radius: inherit;
 }
-.dramaBooks,
-.fantasyBooks,
-.newBooks {
-  padding-inline: 1rem;
-  padding-top: 5rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-.fantasyBooks {
-  padding-bottom: 5rem;
-}

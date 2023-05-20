@@ -3,12 +3,20 @@ import Slider from '../../../components/Slider'
 import styles from './styles.module.css'
 import { SwiperSlide, SwiperProps } from 'swiper/react'
 import { BOOKS_API } from '../../../Api'
-import { BiBookOpen } from 'react-icons/bi'
-import SliderBooks from '../../../components/SliderBooks'
 import Image from 'next/image'
 import { IHomeProps } from '../../@types/IHomeProps'
+import { HomeBooks, IHomeBooksProps } from '../components/HomeBooks'
+
+const handleFormatBook = (bookList: string) => {
+  return JSON.parse(bookList) as BOOKS_API
+}
 
 export function Home({ fictionBooks, dramaBooks, fantasyBooks }: IHomeProps) {
+  const BooksFormat: IHomeBooksProps[] = [
+    { title: 'Ficção', bookList: handleFormatBook(fictionBooks) },
+    { title: 'Drama', bookList: handleFormatBook(dramaBooks) },
+    { title: 'Fantasia', bookList: handleFormatBook(fantasyBooks) },
+  ]
   const settings: SwiperProps = {
     //config swiper slide
     slidesPerView: 1,
@@ -16,9 +24,6 @@ export function Home({ fictionBooks, dramaBooks, fantasyBooks }: IHomeProps) {
     pagination: { clickable: true },
   }
 
-  const handleFormatBook = (bookList: string) => {
-    return JSON.parse(bookList) as BOOKS_API
-  }
   return (
     <>
       <section className={styles.sliderPresentation}>
@@ -67,30 +72,13 @@ export function Home({ fictionBooks, dramaBooks, fantasyBooks }: IHomeProps) {
           </SwiperSlide>
         </Slider>
       </section>
-
-      <section className={styles.newBooks}>
-        <div className="title">
-          <BiBookOpen size={40} />
-          <h1>Ficção</h1>
-        </div>
-        <SliderBooks bookList={handleFormatBook(fictionBooks)} />
-      </section>
-
-      <section className={styles.dramaBooks}>
-        <div className="title">
-          <BiBookOpen size={45} />
-          <h1>Dramas</h1>
-        </div>
-        <SliderBooks bookList={handleFormatBook(dramaBooks)} />
-      </section>
-
-      <section className={styles.fantasyBooks}>
-        <div className="title">
-          <BiBookOpen size={40} />
-          <h1>Fantasia</h1>
-        </div>
-        <SliderBooks bookList={handleFormatBook(fantasyBooks)} />
-      </section>
+      {BooksFormat.map((book) => (
+        <HomeBooks
+          key={book.title}
+          title={book.title}
+          bookList={book.bookList}
+        />
+      ))}
     </>
   )
 }
