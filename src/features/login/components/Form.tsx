@@ -64,7 +64,7 @@ export const UserForm = () => {
             fontWeight: 'bold',
             cursor: 'pointer',
           }}
-          onClick={() => router.push('/Login/Cadastrar')}
+          onClick={() => router.push('/SignUp')}
         >
           Cadastre-se
         </span>
