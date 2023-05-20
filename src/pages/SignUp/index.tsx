@@ -9,13 +9,12 @@ import { useState } from 'react'
 import Head from 'next/head'
 import {
   VALIDATE_USER_CREATE,
-  CREATE_USER
+  CREATE_USER,
 } from '../../services/helper/FirebaseFunctions'
 import { GetServerSideProps } from 'next'
-import { getSession,signIn } from 'next-auth/react'
+import { getSession, signIn } from 'next-auth/react'
 import { SessionUser } from '../../Types/User'
 import { AiFillEye } from 'react-icons/ai'
-
 
 const Cadastrar = () => {
   const router = useRouter()
@@ -24,7 +23,7 @@ const Cadastrar = () => {
   const password = useForm('password')
   const [error, setError] = useState<boolean | string>('')
   const [loading, setLoading] = useState(false)
-  const [hidden,setHidden] = useState(false)
+  const [hidden, setHidden] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -33,7 +32,7 @@ const Cadastrar = () => {
     const validateInputs = email.validate() && password.validate()
     const { error, validate } = await VALIDATE_USER_CREATE({
       username: username.value,
-      email: email.value
+      email: email.value,
     }).validateUser
     if (validateInputs && validate) {
       const keyUser = uuid()
@@ -41,7 +40,7 @@ const Cadastrar = () => {
         email: email.value,
         username: username.value,
         id: keyUser,
-        password: password.value
+        password: password.value,
       })
       router.push('/Login')
     } else if (validateInputs) {
@@ -70,7 +69,7 @@ const Cadastrar = () => {
               />
               <span
                 id="passwordIcon"
-                onClick={() => setHidden(state => !state)}
+                onClick={() => setHidden((state) => !state)}
               >
                 <AiFillEye size={25} color="#363636" />
               </span>
@@ -102,11 +101,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     return {
       redirect: {
         destination: '/',
-        permanent: false
-      }
+        permanent: false,
+      },
     }
   }
   return {
-    props: {}
+    props: {},
   }
 }

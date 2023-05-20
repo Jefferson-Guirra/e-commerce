@@ -6,15 +6,13 @@ import {
   getDoc,
   where,
   deleteDoc,
-  addDoc,
   updateDoc,
   setDoc,
   orderBy,
-  doc
+  doc,
 } from 'firebase/firestore'
 import { Time } from '../../pages/List'
 import { BOOK_API } from '../../Api'
-
 
 type Arguments = {
   id: string
@@ -34,10 +32,9 @@ type User = {
 
 type GetBookDatabase = {
   idBook: string
-  tokenUser: string,
-  collection:string,
-  value?:any
-
+  tokenUser: string
+  collection: string
+  value?: any
 }
 type AddBookDatabase = {
   idBook: string
@@ -46,24 +43,22 @@ type AddBookDatabase = {
   collection: string
 }
 
-
-
 export interface DataBook {
-    title:string,
-    language:string,
-    price:number,
-    id:string,
-    publisher:string,
-    publisherDate:string,
-    authors:string[],
-    categories:string[],
-    pageCount:number,
-    avarege:number,
-    created: Time,
-    idDoc: string,
-    userId: string,
-    qtd:number,
-    shipping:number
+  title: string
+  language: string
+  price: number
+  id: string
+  publisher: string
+  publisherDate: string
+  authors: string[]
+  categories: string[]
+  pageCount: number
+  avarege: number
+  created: Time
+  idDoc: string
+  userId: string
+  qtd: number
+  shipping: number
 }
 
 export const VALIDATE_USER_CREATE = ({ username, email }: Users) => {
@@ -74,9 +69,9 @@ export const VALIDATE_USER_CREATE = ({ username, email }: Users) => {
   const validateUsername = async () => {
     const users = await getDocs(
       query(ref, where('username', '==', username))
-    ).then(querySnapshot => {
-      const newData = querySnapshot.docs.map(doc => ({
-        ...doc.data()
+    ).then((querySnapshot) => {
+      const newData = querySnapshot.docs.map((doc) => ({
+        ...doc.data(),
       }))
       return newData
     })
@@ -90,9 +85,9 @@ export const VALIDATE_USER_CREATE = ({ username, email }: Users) => {
   const validateEmail = async () => {
     const validateEmail = await getDocs(
       query(ref, where('email', '==', email))
-    ).then(querySnapshot => {
-      const newData = querySnapshot.docs.map(doc => ({
-        ...doc.data()
+    ).then((querySnapshot) => {
+      const newData = querySnapshot.docs.map((doc) => ({
+        ...doc.data(),
       }))
       return newData
     })
@@ -111,13 +106,13 @@ export const VALIDATE_USER_CREATE = ({ username, email }: Users) => {
     await validateEmail()
     return {
       error,
-      validate
+      validate,
     }
   }
   const validateUser = initUserCreate()
 
   return {
-    validateUser
+    validateUser,
   }
 }
 
@@ -126,7 +121,7 @@ export const CREATE_USER = async ({ id, username, email, password }: User) => {
     username: username,
     password: password,
     email: email,
-    id
+    id,
   })
 }
 
@@ -139,9 +134,9 @@ export const GET_USER = (email: string, password: string) => {
   const validateEmail = async () => {
     const emailUser = await getDocs(
       query(ref, where('email', '==', email))
-    ).then(querySnapshot => {
-      const newData = querySnapshot.docs.map(doc => ({
-        ...doc.data()
+    ).then((querySnapshot) => {
+      const newData = querySnapshot.docs.map((doc) => ({
+        ...doc.data(),
       }))
       return newData
     })
@@ -154,9 +149,9 @@ export const GET_USER = (email: string, password: string) => {
   const validatePassword = async () => {
     const userPassword = await getDocs(
       query(ref, where('email', '==', email))
-    ).then(querySnapshot => {
-      const newData = querySnapshot.docs.map(doc => ({
-        ...doc.data()
+    ).then((querySnapshot) => {
+      const newData = querySnapshot.docs.map((doc) => ({
+        ...doc.data(),
       }))
       return newData
     })
@@ -178,20 +173,20 @@ export const GET_USER = (email: string, password: string) => {
     return {
       error,
       user,
-      validate
+      validate,
     }
   }
   const validateLogin = initValidateUser()
 
   return {
-    validateLogin
+    validateLogin,
   }
 }
 
 export const GET_BOOK_DATABASE = async ({
   idBook,
   tokenUser,
-  collection
+  collection,
 }: GetBookDatabase) => {
   const docRef = doc(db, collection, idBook + tokenUser)
   const docSnap = await getDoc(docRef)
@@ -207,33 +202,33 @@ export const ADD_BOOK_DATABASE = async ({
   idBook,
   tokenUser,
   book,
-  collection 
+  collection,
 }: AddBookDatabase) => {
   const number = Math.floor(Math.random() * (30 - 100) + 100)
   await setDoc(doc(db, collection, idBook + tokenUser), {
-    title:book.title,
-    language:book.language,
-    price:book.price,
-    id:book.id,
-    publisher:book.publisher,
-    publisherDate:book.publisherDate,
-    authors:book.authors,
-    pageCount:book.pageCount,
+    title: book.title,
+    language: book.language,
+    price: book.price,
+    id: book.id,
+    publisher: book.publisher,
+    publisherDate: book.publisherDate,
+    authors: book.authors,
+    pageCount: book.pageCount,
     created: new Date(),
     idDoc: idBook + tokenUser,
     userId: tokenUser,
-    qtd:1,
-    shipping:number + .9
+    qtd: 1,
+    shipping: number + 0.9,
   })
 }
 
-export const GET_BOOKS_DATABASE = async ({id,idCollection}:Arguments) => {
+export const GET_BOOKS_DATABASE = async ({ id, idCollection }: Arguments) => {
   const ref = collection(db, idCollection)
   const books = await getDocs(
     query(ref, where('userId', '==', id), orderBy('created', 'desc'))
-  ).then(querySnapshot => {
-    const newData = querySnapshot.docs.map(doc => ({
-      ...doc.data()
+  ).then((querySnapshot) => {
+    const newData = querySnapshot.docs.map((doc) => ({
+      ...doc.data(),
     }))
     return newData
   })
@@ -241,17 +236,19 @@ export const GET_BOOKS_DATABASE = async ({id,idCollection}:Arguments) => {
   return books
 }
 
-export const REMOVE_BOOK_DATABASE = async ({
-  id,
-  idCollection
-}:Arguments) => {
+export const REMOVE_BOOK_DATABASE = async ({ id, idCollection }: Arguments) => {
   await deleteDoc(doc(db, idCollection, id))
 }
 
-export const UPDATE_BOOK_DATABASE = async({idBook,collection,tokenUser,value}:GetBookDatabase)=>{
+export const UPDATE_BOOK_DATABASE = async ({
+  idBook,
+  collection,
+  tokenUser,
+  value,
+}: GetBookDatabase) => {
   const docRef = doc(db, collection, idBook + tokenUser)
 
   await updateDoc(docRef, {
-    qtd: value + 1
+    qtd: value + 1,
   })
 }

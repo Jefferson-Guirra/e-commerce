@@ -1,7 +1,12 @@
 import React from 'react'
 import { GetServerSideProps } from 'next'
-import { SEARCH_BOOKS_ID, SEARCH_BOOKS_GENRES, BOOKS_API, BOOK_ID_SEARCH } from '../../Api'
-import { useState, useEffect, useContext,useRef } from 'react'
+import {
+  SEARCH_BOOKS_ID,
+  SEARCH_BOOKS_GENRES,
+  BOOKS_API,
+  BOOK_ID_SEARCH,
+} from '../../Api'
+import { useState, useEffect, useContext } from 'react'
 import * as C from '../../styles/book'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../../services/firebaseConnection'
@@ -17,7 +22,7 @@ import {
   ADD_BOOK_DATABASE,
   UPDATE_BOOK_DATABASE,
   REMOVE_BOOK_DATABASE,
-  DataBook
+  DataBook,
 } from '../../services/helper/FirebaseFunctions'
 
 interface Props {
@@ -32,19 +37,22 @@ type Params = {
   q: string
 }
 
-const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
-  const formatBook: BOOK_ID_SEARCH =  JSON.parse(book)
+const Book = ({ book, query, token, validateFavoriteBooks }: Props) => {
+  const formatBook: BOOK_ID_SEARCH = JSON.parse(book)
   const [favoriteBooks, setFavoriteBooks] = useState<null | boolean>(null)
-  const [similarBooks, setSimilarBooks] = useState<BOOKS_API | undefined>(undefined)
+  const [similarBooks, setSimilarBooks] = useState<BOOKS_API | undefined>(
+    undefined
+  )
   const [showDescription, setSwhowDescription] = useState(false)
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const { updatedBuyList } = useContext(UserContext)
 
-
-
-  const getSimillarBooks = async()=>{
-    const books = await  SEARCH_BOOKS_GENRES(formatBook.categories,formatBook.title).getData
+  const getSimillarBooks = async () => {
+    const books = await SEARCH_BOOKS_GENRES(
+      formatBook.categories,
+      formatBook.title
+    ).getData
     setSimilarBooks(books)
   }
 
@@ -56,7 +64,7 @@ const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
         book: formatBook,
         idBook: query,
         tokenUser: token,
-        collection: collection
+        collection: collection,
       })
       setFavoriteBooks(true)
     }
@@ -73,7 +81,7 @@ const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
           collection: 'buyBooks',
           idBook: query,
           tokenUser: token,
-          value: book.qtd
+          value: book.qtd,
         })
       } else {
         updatedBuyList('add')
@@ -81,7 +89,7 @@ const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
           book: formatBook,
           collection: 'buyBooks',
           idBook: query,
-          tokenUser: token
+          tokenUser: token,
         })
       }
     } else {
@@ -90,12 +98,12 @@ const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
     setLoading(false)
   }
 
-    const handleBuy = async () => {
-      await handleAddBuyListDatabase()
-      if (token) {
-        setTimeout(() => router.push('/Buy'),150) 
-      }
+  const handleBuy = async () => {
+    await handleAddBuyListDatabase()
+    if (token) {
+      setTimeout(() => router.push('/Buy'), 150)
     }
+  }
 
   const handleExcludeBookFavoriteList = async (idCollection: string) => {
     REMOVE_BOOK_DATABASE({ id: query + token, idCollection: idCollection })
@@ -107,7 +115,6 @@ const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
     getSimillarBooks()
   }, [query])
 
-
   return (
     <>
       <Head>
@@ -117,10 +124,10 @@ const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
         <section className="aboutBook">
           <article className="contentBook">
             <div className="infoBook">
-                <img
-                  src={`https://books.google.com/books/publisher/content/images/frontcover/${formatBook.id}?fife=w340-h400&source=gbs_api`}
-                  alt={`Imagem do livro ${formatBook.title}`}
-                />
+              <img
+                src={`https://books.google.com/books/publisher/content/images/frontcover/${formatBook.id}?fife=w340-h400&source=gbs_api`}
+                alt={`Imagem do livro ${formatBook.title}`}
+              />
               <div className="textBook">
                 <h2>{formatBook.title}</h2>
                 <p id="subTitle">{formatBook.subtitle}</p>
@@ -160,9 +167,7 @@ const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
                 </div>
 
                 <p className="itemText">
-                  {formatBook.avarege
-                    ? formatBook.avarege.toFixed(1)
-                    : '0.0'}
+                  {formatBook.avarege ? formatBook.avarege.toFixed(1) : '0.0'}
                   <AiFillStar size={18} color="#ffa500" />
                 </p>
                 <p className="itemText">Descrição:</p>
@@ -171,11 +176,11 @@ const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
                     showDescription ? 'showDescription' : 'description'
                   }
                   dangerouslySetInnerHTML={{
-                    __html: formatBook.description
+                    __html: formatBook.description,
                   }}
                 ></div>
                 <button
-                  onClick={() => setSwhowDescription(state => !state)}
+                  onClick={() => setSwhowDescription((state) => !state)}
                   className="buttonShowDescription"
                 >
                   ler mais...
@@ -203,10 +208,7 @@ const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
                   <div className="itemBuy">
                     <p>Ano: </p>
                     <span>
-                      {formatBook.publisherDate?.replace(
-                        /-\d{2}/g,
-                        ''
-                      )}
+                      {formatBook.publisherDate?.replace(/-\d{2}/g, '')}
                     </span>
                   </div>
                   <div className="itemBuy">
@@ -220,10 +222,7 @@ const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
                 <article className="actionsBuy">
                   <p className="price">
                     <span>R$</span>
-                    {formatBook.price
-                      .toFixed(2)
-                      .toString()
-                      .replace('.', ',')}
+                    {formatBook.price.toFixed(2).toString().replace('.', ',')}
                   </p>
                   {!loading ? (
                     <button
@@ -237,7 +236,10 @@ const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
                       Adicionando...
                     </button>
                   )}
-                  <button onClick={handleBuy} style={{ backgroundColor: '#ffa500' }}>
+                  <button
+                    onClick={handleBuy}
+                    style={{ backgroundColor: '#ffa500' }}
+                  >
                     Comprar
                   </button>
                 </article>
@@ -262,26 +264,25 @@ const Book = ({ book,  query, token, validateFavoriteBooks }: Props) => {
 
 export default Book
 
-export const getServerSideProps: GetServerSideProps = async ctx => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { q } = ctx.params as Params
   if (!q) {
     return {
       redirect: {
         destination: '/',
-        permanent: false
-      }
+        permanent: false,
+      },
     }
   }
   const token: string | null = GET_COOKIE_USER()
   const bookInfo = await SEARCH_BOOKS_ID(q)
 
-
-  if(!bookInfo){
-    return{
-      redirect:{
-        destination:'/NotFound',
-        permanent:false
-      }
+  if (!bookInfo) {
+    return {
+      redirect: {
+        destination: '/NotFound',
+        permanent: false,
+      },
     }
   }
 
@@ -297,7 +298,7 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
     ? await GET_BOOK_DATABASE({
         idBook: q,
         collection: 'books',
-        tokenUser: token
+        tokenUser: token,
       })
     : false
 
@@ -306,7 +307,7 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
       book: JSON.stringify(bookInfo),
       query: q,
       token: token,
-      validateFavoriteBooks
-    }
+      validateFavoriteBooks,
+    },
   }
 }

@@ -66,9 +66,9 @@ const Search = ({ books, q }: Props) => {
           <div className="containerPagination">
             {pagination
               .filter(
-                item => item + 1 > filter.current  && item < filter.current + 6
+                (item) => item + 1 > filter.current && item < filter.current + 6
               )
-              .map(item => (
+              .map((item) => (
                 <button onClick={() => handlePagination(item - 1)} key={item}>
                   {item}
                 </button>
@@ -90,14 +90,14 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     return {
       redirect: {
         destination: '/NotFound',
-        permanent: false
-      }
+        permanent: false,
+      },
     }
   }
   return {
     props: {
       books: JSON.stringify(books),
-      q
-    }
+      q,
+    },
   }
 }

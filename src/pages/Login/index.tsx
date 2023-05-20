@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 import { GET_USER } from '../../services/helper/FirebaseFunctions'
 import { getSession } from 'next-auth/react'
 import { SessionUser } from '../../Types/User'
-import {AiFillEye} from 'react-icons/ai'
+import { AiFillEye } from 'react-icons/ai'
 import { signIn } from 'next-auth/react'
 import Head from 'next/head'
 import { GetServerSideProps } from 'next'
@@ -21,7 +21,7 @@ const Login = () => {
   const [error, setError] = useState<boolean | string>(false)
   const { createCookie, getPurchaseList } = useContext(UserContext)
   const [loading, setLoading] = useState(false)
-  const [hidden,setHidden] = useState(false)
+  const [hidden, setHidden] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -36,7 +36,7 @@ const Login = () => {
     if (validateInputs && validate && user) {
       const userLogin = {
         username: user.username.replace(/\s\w+/g, ''),
-        token: user.id
+        token: user.id,
       }
       createCookie('user', JSON.stringify(userLogin))
       getPurchaseList({ id: user.id, idCollection: 'buyBooks' })
@@ -68,7 +68,7 @@ const Login = () => {
               />
               <span
                 id="passwordIcon"
-                onClick={() => setHidden(state => !state)}
+                onClick={() => setHidden((state) => !state)}
               >
                 <AiFillEye size={25} color="#363636" />
               </span>
@@ -82,7 +82,7 @@ const Login = () => {
                 style={{
                   color: '#001f3f',
                   fontWeight: 'bold',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
                 }}
                 onClick={() => router.push('/Login/Cadastrar')}
               >
@@ -115,11 +115,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     return {
       redirect: {
         destination: '/',
-        permanent: false
-      }
+        permanent: false,
+      },
     }
   }
   return {
-    props: {}
+    props: {},
   }
 }

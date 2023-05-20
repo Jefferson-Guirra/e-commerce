@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const container = styled.article`
   padding: 0.7rem;
@@ -19,7 +19,7 @@ export const container = styled.article`
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap:0.5rem;
+    gap: 0.5rem;
     position: relative;
     .titleBook {
       text-align: center;
@@ -51,12 +51,11 @@ export const container = styled.article`
       font-weight: bold;
       font-size: 0.875rem;
       text-align: center;
-      margin-top:auto;
+      margin-top: auto;
 
-      @media (max-width:640px){
-        font-size:0.8rem;
+      @media (max-width: 640px) {
+        font-size: 0.8rem;
       }
-
     }
   }
 

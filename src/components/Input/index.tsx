@@ -11,24 +11,15 @@ interface Props {
   setValue: React.Dispatch<React.SetStateAction<string>>
   onBlur: () => void
 }
-const Input = ({
-  label,
-  type,
-  name,
-  onChange,
-  setValue,
-  value,
-  erro,
-  onBlur
-}:Props) => {
+const Input = ({ label, type, name, onChange, value, erro, onBlur }: Props) => {
   return (
     <C.container>
-      <label className='label' htmlFor={name}>
+      <label className="label" htmlFor={name}>
         {label}
       </label>
 
       <input
-        className='input'
+        className="input"
         id={name}
         type={type}
         onChange={onChange}
@@ -36,7 +27,7 @@ const Input = ({
         onBlur={onBlur}
       />
 
-      {erro && <p className='error' >{erro}</p>}
+      {erro && <p className="error">{erro}</p>}
     </C.container>
   )
 }

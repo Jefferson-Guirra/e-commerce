@@ -51,7 +51,7 @@ export async function SEARCH_BOOKS_ID(id: string) {
       `https://www.googleapis.com/books/v1/volumes/${id}`
     )
     const data: Book = await response.json()
-    
+
     const booksList: BOOK_ID_SEARCH = {
       title: data.volumeInfo.title,
       language: data.volumeInfo.language,
@@ -64,7 +64,7 @@ export async function SEARCH_BOOKS_ID(id: string) {
       pageCount: data.volumeInfo.pageCount,
       avarege: data.volumeInfo.averageRating,
       subtitle: data.volumeInfo.subtitle,
-      description: data.volumeInfo.description
+      description: data.volumeInfo.description,
     }
     return booksList
   } catch (err) {
@@ -80,7 +80,7 @@ export function SEARCH_BOOKS_GENRES(genre: string[], title?: string) {
     )
     const data: Books = await response.json()
 
-    const booksList: BOOK_API[] = data?.items?.map(item => {
+    const booksList: BOOK_API[] = data?.items?.map((item) => {
       const book = {
         title: item.volumeInfo.title,
         id: item.id,
@@ -89,13 +89,13 @@ export function SEARCH_BOOKS_GENRES(genre: string[], title?: string) {
         language: item.volumeInfo.language,
         publisher: item.volumeInfo.publisher,
         publisherDate: item.volumeInfo.publishedDate,
-        pageCount: item.volumeInfo.pageCount
+        pageCount: item.volumeInfo.pageCount,
       }
       return book
     })
     const booksApi: BOOKS_API = {
       totalItems: data.totalItems,
-      books: booksList
+      books: booksList,
     }
     return booksApi
   }
@@ -110,7 +110,7 @@ export function SEARCH_BOOKS_GENRES(genre: string[], title?: string) {
   }
   const getData = init()
   return {
-    getData
+    getData,
   }
 }
 
@@ -133,7 +133,7 @@ export async function GET_VOLUME_TITLE_BOOKS(title: string) {
     )
     const data: Books = await response.json()
 
-    const books: BOOK_API[] = data.items.map(item => {
+    const books: BOOK_API[] = data.items.map((item) => {
       const book = {
         title: item.volumeInfo.title,
         id: item.id,
@@ -142,14 +142,14 @@ export async function GET_VOLUME_TITLE_BOOKS(title: string) {
         language: item.volumeInfo.language,
         publisher: item.volumeInfo.publisher,
         publisherDate: item.volumeInfo.publishedDate,
-        pageCount: item.volumeInfo.pageCount
+        pageCount: item.volumeInfo.pageCount,
       }
       return book
     })
 
     const booksApi: BOOKS_API = {
       totalItems: data.totalItems,
-      books
+      books,
     }
     return booksApi
   } catch (err) {
@@ -159,14 +159,14 @@ export async function GET_VOLUME_TITLE_BOOKS(title: string) {
 
 export async function GET_BOOKS_PARAMS(
   params: string,
-  index: number = 0,
-  maxResults: number = 40
+  index = 0,
+  maxResults = 40
 ) {
   const response = await fetch(
     `https://www.googleapis.com/books/v1/volumes?q=${params}&startIndex=${index}&filter=paid-ebooks&maxResults=${maxResults}&key=${apiKey}`
   )
   const data: Books = await response.json()
-  const booksList: BOOK_API[] = data.items?.map(item => {
+  const booksList: BOOK_API[] = data.items?.map((item) => {
     const book = {
       title: item.volumeInfo.title,
       id: item.id,
@@ -175,13 +175,13 @@ export async function GET_BOOKS_PARAMS(
       language: item.volumeInfo.language,
       publisher: item.volumeInfo.publisher,
       publisherDate: item.volumeInfo.publishedDate,
-      pageCount: item.volumeInfo.pageCount
+      pageCount: item.volumeInfo.pageCount,
     }
     return book
   })
   const booksApi: BOOKS_API = {
     totalItems: data.totalItems,
-    books: booksList
+    books: booksList,
   }
   return booksApi
 }

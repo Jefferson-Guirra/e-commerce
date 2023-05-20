@@ -1,4 +1,11 @@
-import { useState, FormEvent, memo, useContext, useEffect } from 'react'
+import {
+  useState,
+  FormEvent,
+  memo,
+  useContext,
+  useEffect,
+  useCallback,
+} from 'react'
 import { UserContext } from '../../UserContext'
 import * as C from './styles'
 import Link from 'next/link'
@@ -13,7 +20,7 @@ import { signOut, useSession, getSession } from 'next-auth/react'
 import { parseCookies } from 'nookies'
 import Router from 'next/router'
 
-const navBar = () => {
+const NavBar = () => {
   const [menu, setMenu] = useState(false)
   const [input, setInput] = useState('')
   const [filter, setFilter] = useState('')
@@ -28,15 +35,15 @@ const navBar = () => {
     }
   }
 
-  const createCookieNextAuth = async () => {
+  const createCookieNextAuth = useCallback(async () => {
     const attributes = (await getSession()) as SessionUser
     const user = {
       token: attributes.id,
-      username: attributes.user.name.replace(/\s\w+/g, '')
+      username: attributes.user.name.replace(/\s\w+/g, ''),
     }
     getPurchaseList({ id: user.token, idCollection: 'buyBooks' })
     createCookie('user', JSON.stringify(user))
-  }
+  }, [getPurchaseList, createCookie])
 
   const handleLoggout = () => {
     deleteCookie('user')
@@ -64,14 +71,14 @@ const navBar = () => {
     if (cookies.token === undefined && status === 'authenticated') {
       createCookieNextAuth()
     }
-  }, [session])
+  }, [session, createCookieNextAuth, status])
 
   return (
     <C.Container values={{ active: menu }}>
       <nav>
         <C.hamburguer
           values={{ active: menu }}
-          onClick={() => setMenu(state => !state)}
+          onClick={() => setMenu((state) => !state)}
         >
           <span className="line1"></span>
           <span className="line2"></span>
@@ -120,7 +127,10 @@ const navBar = () => {
             <li>
               <p>
                 <BiUser id="user" size={25} />
-                Olá, {user === undefined ? 'usuário' : `${user.username.toLowerCase()}`}{' '}
+                Olá,{' '}
+                {user === undefined
+                  ? 'usuário'
+                  : `${user.username.toLowerCase()}`}{' '}
                 <MdOutlineNavigateNext id="arrow" size={25} />
               </p>
               <div className="links">
@@ -157,10 +167,13 @@ const navBar = () => {
               </div>
             </li>
           </C.userActions>
-          <div className="cart" onClick={()=>{
-            handleMenuMob()
-            router.push('/Buy')
-          }}>
+          <div
+            className="cart"
+            onClick={() => {
+              handleMenuMob()
+              router.push('/Buy')
+            }}
+          >
             <FiShoppingCart size={25} />
             <span>
               <p>{buyBooks}</p>
@@ -172,4 +185,4 @@ const navBar = () => {
   )
 }
 
-export default memo(navBar)
+export default memo(NavBar)

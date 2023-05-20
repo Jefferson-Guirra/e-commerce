@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const container = styled.main`
   position: absolute;
-  top:0;
-  left:0;
-  height:100%;
-  width:100%;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   align-items: flex-end;
@@ -20,7 +20,7 @@ export const container = styled.main`
     flex-shrink: 0;
     width: 100%;
     max-width: 600px;
-    margin-block:25vh;
+    margin-block: 25vh;
     display: flex;
     align-items: center;
     justify-content: center;

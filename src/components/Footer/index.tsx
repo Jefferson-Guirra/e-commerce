@@ -1,6 +1,5 @@
 import * as C from './styles'
-import {AiOutlineCopyrightCircle} from 'react-icons/ai'
-
+import { AiOutlineCopyrightCircle } from 'react-icons/ai'
 
 const Footer = () => {
   return (

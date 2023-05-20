@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.main`
   max-width: 1200px;
@@ -141,7 +141,6 @@ export const buyContainer = styled.section`
         p {
           font-weight: bold;
         }
-
       }
     }
   }
@@ -163,9 +162,9 @@ export const buyContainer = styled.section`
       }
     }
 
-    button:disabled{
-      cursor:wait;
-      opacity:0.5;
+    button:disabled {
+      cursor: wait;
+      opacity: 0.5;
     }
   }
   @media (max-width: 1200px) {
@@ -176,5 +175,5 @@ export const buyContainer = styled.section`
 `
 
 export const resultBooks = styled.section`
-  margin-top:5rem;
+  margin-top: 5rem;
 `

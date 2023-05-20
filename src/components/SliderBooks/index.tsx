@@ -1,6 +1,7 @@
 import * as C from './styles'
 import { useRouter } from 'next/router'
 import Slider from '../Slider'
+import Image from 'next/image'
 import { SwiperProps, SwiperSlide } from 'swiper/react'
 import { BOOKS_API } from '../../Api'
 
@@ -13,19 +14,19 @@ const settings: SwiperProps = {
   navigation: true,
   breakpoints: {
     1120: {
-      slidesPerView: 6
+      slidesPerView: 6,
     },
     950: {
-      slidesPerView: 5
+      slidesPerView: 5,
     },
     525: {
-      slidesPerView: 3
+      slidesPerView: 3,
     },
     1: {
       spaceBetween: 5,
-      slidesPerView: 2
-    }
-  }
+      slidesPerView: 2,
+    },
+  },
 }
 
 const SliderBooks = ({ bookList }: Props) => {
@@ -38,7 +39,8 @@ const SliderBooks = ({ bookList }: Props) => {
             <div
               style={{ width: '100%', height: '250px', position: 'relative' }}
             >
-              <img
+              <Image
+                fill
                 src={`https://books.google.com/books/publisher/content/images/frontcover/${item.id}?fife=w340-h300&source=gbs_api`}
                 alt={`Imagem do Livro ${item.title}`}
               />

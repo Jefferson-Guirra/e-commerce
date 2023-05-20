@@ -6,7 +6,7 @@ import { IoClose } from 'react-icons/io5'
 import {
   DataBook,
   GET_BOOKS_DATABASE,
-  REMOVE_BOOK_DATABASE
+  REMOVE_BOOK_DATABASE,
 } from '../../services/helper/FirebaseFunctions'
 import { UserCookie } from '../../Types/User'
 import { doc, updateDoc } from 'firebase/firestore'
@@ -22,34 +22,31 @@ import Head from 'next/head'
 //Sandbox-id:AbJhKpgKw6gr0oH9PRqCr35jMcfKfaKYtRF_LGoDeOeiQhrsBsEsL_N_fXggNgGFnCFtyS55WsZJB4tI
 
 interface Props {
-  books: string,
+  books: string
   user: UserCookie
 }
 
-const Buy = ({ books,user }: Props) => {
+const Buy = ({ books, user }: Props) => {
   const booksFormat: DataBook[] = JSON.parse(books)
   const [bookList, setBookList] = useState(booksFormat)
   const [purchase, setPurchase] = useState(false)
   const router = useRouter()
-  const { updatedBuyList,clearPurchaseList } = useContext(UserContext)
-  const price = bookList.reduce(
-    (acc, v) => acc + v.price * v.qtd,
-    0
-  )
+  const { updatedBuyList, clearPurchaseList } = useContext(UserContext)
+  const price = bookList.reduce((acc, v) => acc + v.price * v.qtd, 0)
   const handleExclude = (id: string) => {
     updatedBuyList('remove')
     REMOVE_BOOK_DATABASE({ id, idCollection: 'buyBooks' })
-    const newBooks = bookList.filter(item => item.idDoc !== id)
+    const newBooks = bookList.filter((item) => item.idDoc !== id)
     setBookList(newBooks)
   }
 
   const handleNext = async (idDoc: string) => {
     const updatedBooks = [...bookList]
-    const index = updatedBooks.findIndex(item => item.idDoc === idDoc)
+    const index = updatedBooks.findIndex((item) => item.idDoc === idDoc)
     const docRef = doc(db, 'buyBooks', idDoc)
 
     await updateDoc(docRef, {
-      qtd: updatedBooks[index].qtd + 1
+      qtd: updatedBooks[index].qtd + 1,
     })
     updatedBooks[index].qtd = updatedBooks[index].qtd + 1
     setBookList(updatedBooks)
@@ -57,12 +54,12 @@ const Buy = ({ books,user }: Props) => {
 
   const handlePrev = async (idDoc: string) => {
     const updatedBooks = [...bookList]
-    const index = updatedBooks.findIndex(item => item.idDoc === idDoc)
+    const index = updatedBooks.findIndex((item) => item.idDoc === idDoc)
     const docRef = doc(db, 'buyBooks', idDoc)
 
     if (updatedBooks[index].qtd > 1) {
       await updateDoc(docRef, {
-        qtd: updatedBooks[index].qtd - 1
+        qtd: updatedBooks[index].qtd - 1,
       })
       updatedBooks[index].qtd = updatedBooks[index].qtd - 1
       setBookList(updatedBooks)
@@ -70,7 +67,7 @@ const Buy = ({ books,user }: Props) => {
   }
 
   const clearBuyList = async () => {
-    bookList.forEach(item => {
+    bookList.forEach((item) => {
       REMOVE_BOOK_DATABASE({ id: item.idDoc, idCollection: 'buyBooks' })
     })
     setBookList([])
@@ -80,15 +77,13 @@ const Buy = ({ books,user }: Props) => {
   return (
     <>
       <Head>
-        <title>
-          {`Meu Carrinho | ${user.username}`}
-        </title>
+        <title>{`Meu Carrinho | ${user.username}`}</title>
       </Head>
       <C.container>
         <div className="content">
           <h1>Meu Carrinho</h1>
 
-          {bookList.map(item => (
+          {bookList.map((item) => (
             <C.cardContent key={item.idDoc}>
               <h2>{item.publisher}</h2>
               <article className="infoBook">
@@ -135,9 +130,7 @@ const Buy = ({ books,user }: Props) => {
                   </div>
                   <div className="textInfo">
                     <p>Ano: </p>
-                    <span>
-                      {item.publisherDate.replace(/\-\d+/g, '')}
-                    </span>
+                    <span>{item.publisherDate.replace(/\-\d+/g, '')}</span>
                   </div>
                   <div className="textInfo">
                     <p className="textInfo">Páginas: </p>
@@ -192,26 +185,26 @@ const Buy = ({ books,user }: Props) => {
 
 export default Buy
 
-export const getServerSideProps: GetServerSideProps = async ctx => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const cookies = parseCookies(ctx)
-  
+
   if (!cookies.user) {
     return {
       redirect: {
         destination: '/Login',
-        permanent: false
-      }
+        permanent: false,
+      },
     }
   }
   const user = JSON.parse(cookies.user) as UserCookie
-  const books  = JSON.stringify(
+  const books = JSON.stringify(
     await GET_BOOKS_DATABASE({ id: user.token, idCollection: 'buyBooks' })
   )
 
   return {
     props: {
       books,
-      user
-    }
+      user,
+    },
   }
 }

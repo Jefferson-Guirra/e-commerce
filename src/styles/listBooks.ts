@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const container = styled.main`
   min-height: calc(100vh - 103px);
@@ -122,5 +122,3 @@ export const contentBooks = styled.section`
     }
   }
 `
-
-

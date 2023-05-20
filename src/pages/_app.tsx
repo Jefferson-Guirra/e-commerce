@@ -4,60 +4,58 @@ import NavBar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { UserStorage } from '../UserContext'
 import { SessionProvider } from 'next-auth/react'
-import {PayPalScriptProvider} from '@paypal/react-paypal-js'
-import { useState,useEffect } from 'react'
+import { PayPalScriptProvider } from '@paypal/react-paypal-js'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 const initialOptions = {
-  "client-id":"AQ4-Jzoq6WQk60K_pvp_krV9qqnTFVtWppdFiwEa3tEOu01bZIXh4Ccd71OHr9GmU3wHHBvM9aAKKCNr",
-  currency: "BRL",
-  intent: "capture"
+  'client-id':
+    'AQ4-Jzoq6WQk60K_pvp_krV9qqnTFVtWppdFiwEa3tEOu01bZIXh4Ccd71OHr9GmU3wHHBvM9aAKKCNr',
+  currency: 'BRL',
+  intent: 'capture',
 }
 
-function Loading(){
+function Loading() {
   const router = useRouter()
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  useEffect(()=>{
-    const handleStart = (url:string)=>{
-      if(url !==router.asPath){
+  useEffect(() => {
+    const handleStart = (url: string) => {
+      if (url !== router.asPath) {
         document.body.style.overflow = 'hidden'
         setLoading(true)
       }
     }
-    const handleComplete = (url: string) =>{
-      if(url !== router.asPath){
-      document.body.style.overflow = 'auto'
-      setLoading(false)
+    const handleComplete = (url: string) => {
+      if (url !== router.asPath) {
+        document.body.style.overflow = 'auto'
+        setLoading(false)
       }
     }
 
-
-
     router.events.on('routeChangeStart', handleStart)
     router.events.on('routeChangeComplete', handleComplete)
-    router.events.on('routeChangeError',handleComplete)
-    return()=>{
+    router.events.on('routeChangeError', handleComplete)
+    return () => {
       router.events.off('routeChangeStart', handleStart)
       router.events.off('routeChangeComplete', handleComplete)
       router.events.off('routeChangeError', handleComplete)
     }
-  },[router.events])
-  if(loading)
-  return (
-    <div className="bookWrapper">
+  }, [router.events])
+  if (loading)
+    return (
+      <div className="bookWrapper">
         <div className="loader book">
           <figure className="page"></figure>
           <figure className="page"></figure>
           <figure className="page"></figure>
         </div>
-    </div>
-  )
+      </div>
+    )
   else return null
 }
 
 export default function App({ Component, pageProps }: AppProps) {
-   
   return (
     <UserStorage>
       <SessionProvider session={pageProps.session}>

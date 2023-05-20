@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 export const container = styled.main`
   max-width: 1200px;
   margin: 0 auto;
@@ -23,8 +23,8 @@ export const container = styled.main`
     align-items: center;
     .cardBook {
       position: relative;
-      cursor:pointer;
-      transition:1s;
+      cursor: pointer;
+      transition: 1s;
       width: 100%;
       display: flex;
       font-size: 1rem;
@@ -63,15 +63,15 @@ export const container = styled.main`
         transition: 1s;
       }
       &:hover {
-        border:1px solid var(--primary-color);
-        button{
+        border: 1px solid var(--primary-color);
+        button {
           background-color: var(--primary-color) !important;
           color: #fff;
         }
       }
     }
   }
-` 
+`
 
 export const navigation = styled.article`
   display: flex;
@@ -83,13 +83,13 @@ export const navigation = styled.article`
     border-radius: 7px;
     padding: 0.7rem 1rem;
     border: 2px solid var(--primary-color);
-    transition:1s;
+    transition: 1s;
     color: #fff;
 
     &:hover {
       background-color: transparent;
       border: 2px solid var(--primary-color);
-      color:#000000;
+      color: #000000;
     }
   }
 `

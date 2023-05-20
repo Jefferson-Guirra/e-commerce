@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const container = styled.div`
   margin-bottom: 1.5rem;
@@ -17,8 +17,8 @@ export const container = styled.div`
     font-size: 1.3rem;
     width: 100%;
     border: none;
-    background-color:#fff;
-    border-radius:7px;
+    background-color: #fff;
+    border-radius: 7px;
     border: 1px solid #d9d9d9;
     transition: 1.5s;
   }
@@ -33,5 +33,4 @@ export const container = styled.div`
     font-size: 0.875rem;
     margin-top: 0.25rem;
   }
-
 `
