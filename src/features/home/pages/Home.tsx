@@ -1,7 +1,8 @@
 import React from 'react'
 import Slider from '../../../components/Slider'
 import styles from './styles.module.css'
-import { SwiperSlide, SwiperProps } from 'swiper/react'
+import { SwiperSlide } from 'swiper/react'
+import { swiperProps } from '../constants/swiper-Props'
 import { BOOKS_API } from '../../../Api'
 import Image from 'next/image'
 import { IHomeProps } from '../../@types/IHomeProps'
@@ -17,17 +18,10 @@ export function Home({ fictionBooks, dramaBooks, fantasyBooks }: IHomeProps) {
     { title: 'Drama', bookList: handleFormatBook(dramaBooks) },
     { title: 'Fantasia', bookList: handleFormatBook(fantasyBooks) },
   ]
-  const settings: SwiperProps = {
-    //config swiper slide
-    slidesPerView: 1,
-    autoplay: { delay: 4000, disableOnInteraction: false },
-    pagination: { clickable: true },
-  }
-
   return (
     <>
       <section className={styles.sliderPresentation}>
-        <Slider settings={settings}>
+        <Slider settings={swiperProps}>
           <SwiperSlide>
             <div
               style={{ width: '100%', height: '350px', position: 'relative' }}
