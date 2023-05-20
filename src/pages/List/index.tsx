@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
 import { GET_BOOKS_DATABASE } from '../../services/helper/FirebaseFunctions'
 import Head from 'next/head'
-import { ListContainer } from '../../features/list/containers/ListContainer'
+import { ListContainer } from '../../features'
 
 type User = {
   username: string
