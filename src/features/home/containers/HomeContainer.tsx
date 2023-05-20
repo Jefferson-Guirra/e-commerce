@@ -2,6 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import { Home } from '../pages/Home'
 import { IHomeProps } from '../../@types/IHomeProps'
+import styles from './styles.module.css'
 
 export const HomeContainer = ({
   fictionBooks,
@@ -16,13 +17,13 @@ export const HomeContainer = ({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>
+      <main className={styles.container}>
         <Home
           fictionBooks={fictionBooks}
           dramaBooks={dramaBooks}
           fantasyBooks={fantasyBooks}
         />
-      </div>
+      </main>
     </>
   )
 }
