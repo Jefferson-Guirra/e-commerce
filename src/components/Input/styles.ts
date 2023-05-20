@@ -17,7 +17,7 @@ export const container = styled.div`
     font-size: 1.3rem;
     width: 100%;
     border: none;
-    background-color: #fff;
+    background-color: #fafafaa2;
     border-radius: 7px;
     border: 1px solid #d9d9d9;
     transition: 1.5s;
