@@ -9,6 +9,5 @@
     // I suggest you add those two rules:
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "off"
-  },
-  "ignorePatterns": ["**/*.css","**/*.scss"]
+  }
 }
