@@ -13,7 +13,7 @@
   position: relative;
 }
 
-.form .passwordContainer span:nth-child(2) {
+.form .passwordContainer .passwordIcon {
   position: absolute;
   cursor: pointer;
   top: 2.2rem;

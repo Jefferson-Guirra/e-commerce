@@ -49,7 +49,10 @@ export const UserForm = () => {
           type={!hidden ? 'password' : 'text'}
           {...password}
         />
-        <span id="passwordIcon" onClick={() => setHidden((state) => !state)}>
+        <span
+          className={styles.passwordIcon}
+          onClick={() => setHidden((state) => !state)}
+        >
           <AiFillEye size={25} color="#363636" />
         </span>
       </div>
