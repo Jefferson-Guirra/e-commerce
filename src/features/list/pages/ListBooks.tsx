@@ -9,14 +9,15 @@ import { ContainerBooks } from '../components/ContainerBooks'
 export const ListBooks = ({ books }: IListProps) => {
   const [bookList, setBookList] = useState(books)
   const [input, setInput] = useState('')
-  let filtredMovies = []
-  filtredMovies = bookList.filter((item) =>
+  let filteredBooks = []
+  filteredBooks = bookList.filter((item) =>
     item.title.toLowerCase().includes(input.toLowerCase())
   ) as DataBook[]
 
   const handleSubmit = () => {
     return null
   }
+
   const handleExclude = (id: string) => {
     REMOVE_BOOK_DATABASE({ id, idCollection: 'books' })
     const newBooks = bookList.filter((item) => item.idDoc !== id)
@@ -41,9 +42,9 @@ export const ListBooks = ({ books }: IListProps) => {
             </span>
           </form>
 
-          {filtredMovies.length > 0 ? (
+          {filteredBooks.length > 0 ? (
             <ContainerBooks
-              books={filtredMovies}
+              books={filteredBooks}
               handleExclude={handleExclude}
             />
           ) : (
