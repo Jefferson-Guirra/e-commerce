@@ -1,0 +1,21 @@
+.form {
+  margin: 0 auto;
+  width: 330px;
+}
+
+.form .userErro {
+  color: #f31;
+  font-size: 0.875rem;
+  margin-top: -1rem;
+}
+
+.form .passwordContainer {
+  position: relative;
+}
+
+.form .passwordContainer span:nth-child(2) {
+  position: absolute;
+  cursor: pointer;
+  top: 2.2rem;
+  right: 0.5rem;
+}
