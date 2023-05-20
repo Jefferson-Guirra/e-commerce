@@ -1,8 +1,5 @@
 import React from 'react'
-import Slider from '../../../components/Slider'
 import styles from './styles.module.css'
-import { SwiperSlide } from 'swiper/react'
-import { swiperProps } from '../constants/swiper-Props'
 import { BOOKS_API } from '../../../Api'
 import Image from 'next/image'
 import { IHomeProps } from '../../@types/IHomeProps'
@@ -20,51 +17,36 @@ export function Home({ fictionBooks, dramaBooks, fantasyBooks }: IHomeProps) {
   ]
   return (
     <>
-      <section className={styles.sliderPresentation}>
-        <Slider settings={swiperProps}>
-          <SwiperSlide>
-            <div
-              style={{ width: '100%', height: '350px', position: 'relative' }}
-            >
-              <Image
-                quality={100}
-                priority
-                fill
-                style={{ objectPosition: 'center' }}
-                src="/images/propaganda-1.png"
-                alt=""
-              />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div
-              style={{ width: '100%', height: '350px', position: 'relative' }}
-            >
-              <Image
-                priority
-                quality={100}
-                fill
-                style={{ objectPosition: 'center' }}
-                src="/images/propaganda-2.jpg"
-                alt=""
-              />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div
-              style={{ width: '100%', height: '350px', position: 'relative' }}
-            >
-              <Image
-                priority
-                quality={100}
-                style={{ objectPosition: 'center' }}
-                fill
-                src="/images/propaganda-3.jpg"
-                alt=""
-              />
-            </div>
-          </SwiperSlide>
-        </Slider>
+      <section className={styles.presentation}>
+        <article className={styles.content}>
+          <div className={styles.title}>
+            <h2>Literando só aqui você</h2>
+            <h2>encontra os melhores Livros</h2>
+          </div>
+        </article>
+        <article className={styles.books}>
+          <div className={styles.book}>
+            <Image
+              fill
+              alt="img book"
+              src={`https://books.google.com/books/publisher/content/images/frontcover/${BooksFormat[0].bookList.books[15].id}?fife=w340-h300&source=gbs_api`}
+            />
+          </div>
+          <div className={styles.book}>
+            <Image
+              fill
+              alt="img book"
+              src={`https://books.google.com/books/publisher/content/images/frontcover/${BooksFormat[1].bookList.books[13].id}?fife=w340-h300&source=gbs_api`}
+            />
+          </div>
+          <div className={styles.book}>
+            <Image
+              fill
+              alt="img book"
+              src={`https://books.google.com/books/publisher/content/images/frontcover/${BooksFormat[2].bookList.books[9].id}?fife=w340-h300&source=gbs_api`}
+            />
+          </div>
+        </article>
       </section>
       {BooksFormat.map((book) => (
         <HomeBooks
