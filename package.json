@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "prepare": "husky install",
     "commit": "cz",
     "lint": "next lint",
     "prettier": "npx prettier --write 'src/**/*'"
