@@ -8,7 +8,7 @@ export interface IHomeBooksProps {
 export const HomeBooks = ({ title, bookList }: IHomeBooksProps) => {
   return (
     <section className={styles['books-container']}>
-      <div className="title">
+      <div className={styles.title}>
         <h2>{title}</h2>
       </div>
       <SliderBooks bookList={bookList} />
