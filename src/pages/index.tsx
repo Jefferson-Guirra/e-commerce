@@ -1,19 +1,19 @@
-import { GetStaticProps } from "next";
-import Head from "next/head";
-import React from "react";
-import * as C from "../styles/home";
-import Slider from "../components/Slider";
-import { SwiperSlide, SwiperProps } from "swiper/react";
-import { BOOKS_API, SEARCH_BOOKS_GENRES } from "../Api";
-import { BiBookOpen } from "react-icons/bi";
-import SliderBooks from "../components/SliderBooks";
-import Image from "next/image";
+import { GetStaticProps } from 'next'
+import Head from 'next/head'
+import React from 'react'
+import * as C from '../styles/home'
+import Slider from '../components/Slider'
+import { SwiperSlide, SwiperProps } from 'swiper/react'
+import { BOOKS_API, SEARCH_BOOKS_GENRES } from '../Api'
+import { BiBookOpen } from 'react-icons/bi'
+import SliderBooks from '../components/SliderBooks'
+import Image from 'next/image'
 
 interface Props {
-  book?: string;
-  fictionBooks: string;
-  dramaBooks: string;
-  fantasyBooks: string;
+  book?: string
+  fictionBooks: string
+  dramaBooks: string
+  fantasyBooks: string
 }
 
 export default function Home({
@@ -26,11 +26,11 @@ export default function Home({
     slidesPerView: 1,
     autoplay: { delay: 4000, disableOnInteraction: false },
     pagination: { clickable: true },
-  };
+  }
 
   const handleFormatBook = (bookList: string) => {
-    return JSON.parse(bookList) as BOOKS_API;
-  };
+    return JSON.parse(bookList) as BOOKS_API
+  }
   return (
     <>
       <Head>
@@ -44,13 +44,13 @@ export default function Home({
           <Slider settings={settings}>
             <SwiperSlide>
               <div
-                style={{ width: "100%", height: "350px", position: "relative" }}
+                style={{ width: '100%', height: '350px', position: 'relative' }}
               >
                 <Image
                   quality={100}
                   priority
                   fill
-                  style={{ objectPosition: "center" }}
+                  style={{ objectPosition: 'center' }}
                   src="/images/propaganda-1.png"
                   alt=""
                 />
@@ -58,13 +58,13 @@ export default function Home({
             </SwiperSlide>
             <SwiperSlide>
               <div
-                style={{ width: "100%", height: "350px", position: "relative" }}
+                style={{ width: '100%', height: '350px', position: 'relative' }}
               >
                 <Image
                   priority
                   quality={100}
                   fill
-                  style={{ objectPosition: "center" }}
+                  style={{ objectPosition: 'center' }}
                   src="/images/propaganda-2.jpg"
                   alt=""
                 />
@@ -72,12 +72,12 @@ export default function Home({
             </SwiperSlide>
             <SwiperSlide>
               <div
-                style={{ width: "100%", height: "350px", position: "relative" }}
+                style={{ width: '100%', height: '350px', position: 'relative' }}
               >
                 <Image
                   priority
                   quality={100}
-                  style={{ objectPosition: "center" }}
+                  style={{ objectPosition: 'center' }}
                   fill
                   src="/images/propaganda-3.jpg"
                   alt=""
@@ -112,19 +112,19 @@ export default function Home({
         </section>
       </C.Container>
     </>
-  );
+  )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
   const fictionBooks = JSON.stringify(
-    await SEARCH_BOOKS_GENRES(["fiction"]).getData
-  );
+    await SEARCH_BOOKS_GENRES(['fiction']).getData
+  )
   const dramaBooks = JSON.stringify(
-    await SEARCH_BOOKS_GENRES(["drama"]).getData
-  );
+    await SEARCH_BOOKS_GENRES(['drama']).getData
+  )
   const fantasyBooks = JSON.stringify(
-    await SEARCH_BOOKS_GENRES(["fantasy"]).getData
-  );
+    await SEARCH_BOOKS_GENRES(['fantasy']).getData
+  )
   return {
     props: {
       fictionBooks,
@@ -132,5 +132,5 @@ export const getStaticProps: GetStaticProps = async () => {
       fantasyBooks,
     },
     revalidate: 60 * 60,
-  };
-};
+  }
+}

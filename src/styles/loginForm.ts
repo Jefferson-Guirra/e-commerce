@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const container = styled.main`
   display: flex;
@@ -71,4 +71,4 @@ export const container = styled.main`
   @media (max-width: 955px) {
     height: calc(100vh - 154px);
   }
-`;
+`

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const container = styled.main`
   max-width: 1200px;
@@ -36,7 +36,7 @@ export const container = styled.main`
     gap: 2rem;
     button {
       width: fit-content;
-      font-family: "Lato", sans-serif;
+      font-family: 'Lato', sans-serif;
       padding: 0.8rem 1.5rem;
       text-align: center;
       font-size: 1.1rem;
@@ -66,7 +66,7 @@ export const container = styled.main`
       }
     }
   }
-`;
+`
 
 export const cardContent = styled.section`
   background-color: #f4f4f4;
@@ -100,7 +100,7 @@ export const cardContent = styled.section`
         height: 100px;
       }
       &::after {
-        content: "capa ilustrativa";
+        content: 'capa ilustrativa';
         display: block;
         font-size: 0.875rem;
         color: gray;
@@ -238,7 +238,7 @@ export const cardContent = styled.section`
       }
     }
   }
-`;
+`
 
 export const buyInfoCard = styled.article`
   border-left: 4px solid var(--four-color);
@@ -266,4 +266,4 @@ export const buyInfoCard = styled.article`
       }
     }
   }
-`;
+`
