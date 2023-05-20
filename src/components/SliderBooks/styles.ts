@@ -2,16 +2,17 @@ import styled from 'styled-components'
 
 export const container = styled.article`
   padding: 0.7rem;
-  background-color: #fff;
-  height: 400px;
+
   display: flex;
   flex-direction: column;
-  border: 1px solid #d9d9d9;
+  border: 1px solid transparent;
   border-radius: 7px;
+  background-color: #eee;
   cursor: pointer;
   transition: 1s;
+
   img {
-    border-radius: 7px !important;
+    border-radius: 12px !important;
     height: 250px;
   }
 
@@ -37,7 +38,7 @@ export const container = styled.article`
     }
     #author {
       font-size: 0.7rem;
-      color: gray;
+      color: #363636c2;
     }
     button {
       width: 100%;
@@ -60,7 +61,10 @@ export const container = styled.article`
   }
 
   &:hover {
-    border: 1px solid var(--primary-color);
+    border: 1px solid #d9d9d9;
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(217, 217, 217, 1);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(217, 217, 217, 1);
+    box-shadow: 0px 0px 5px 1px rgba(217, 217, 217, 1);
     .info {
       button {
         background-color: var(--primary-color);

@@ -11,7 +11,7 @@ type Props = {
 const settings: SwiperProps = {
   slidesPerView: 6,
   spaceBetween: 5,
-  navigation: true,
+  navigation: false,
   breakpoints: {
     1120: {
       slidesPerView: 6,
@@ -50,15 +50,6 @@ const SliderBooks = ({ bookList }: Props) => {
                 <p>{item.title}</p>
               </div>
               {item?.authors && <p id="author">{item?.authors[0]}</p>}
-
-              <button>
-                {item.price
-                  ? `A partir de R$ ${item.price
-                      .toFixed(2)
-                      .toString()
-                      .replace('.', ',')} `
-                  : 'Indisponível'}
-              </button>
             </div>
           </C.container>
         </SwiperSlide>
