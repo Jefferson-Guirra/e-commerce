@@ -45,7 +45,6 @@
   animation: show-book 1s forwards 0.3s;
 }
 
-
 @media (max-width: 920px) {
   .presentation {
     flex-direction: column;
@@ -56,7 +55,6 @@
   }
   .content .title {
     position: relative;
-
   }
   .content .title::before {
     content: '';
@@ -70,7 +68,6 @@
     border-bottom: none;
     opacity: 0;
     animation: show-opacity 0.7s forwards 0.3s;
-
   }
   .content .title::after {
     content: '';
@@ -91,26 +88,23 @@
     text-align: center;
   }
   .presentation .books .book:nth-child(1) {
-  animation: show-book-mobile 1s forwards !important;
-
+    animation: show-book-mobile 1s forwards !important;
   }
-  
+
   .books .book:nth-child(2) {
-  animation: show-book-mobile 1s forwards .2s !important;
+    animation: show-book-mobile 1s forwards 0.2s !important;
   }
-  
-  .books .book:nth-child(3) {
-    animation: show-book-mobile 1s forwards .3s !important;
 
+  .books .book:nth-child(3) {
+    animation: show-book-mobile 1s forwards 0.3s !important;
   }
 }
 
 @media (max-width: 700px) {
-  .book { 
+  .book {
     width: 110px;
     height: 150px;
   }
-
 }
 
 @media (max-width: 470px) {
@@ -122,11 +116,10 @@
     display: none;
   }
 
-  .book { 
+  .book {
     width: 100px;
     height: 130px;
   }
-
 }
 
 @media (max-width: 400px) {
@@ -147,8 +140,6 @@
     opacity: initial;
   }
 }
-
-
 
 @keyframes show-opacity {
   to {
