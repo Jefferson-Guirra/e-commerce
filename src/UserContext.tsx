@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { createContext, ReactNode } from 'react'
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import { UserCookie } from './Types/User'
@@ -91,3 +91,5 @@ export const UserStorage = ({ children }: Props) => {
     </UserContext.Provider>
   )
 }
+
+export const useUserContext = () => useContext(UserContext)
