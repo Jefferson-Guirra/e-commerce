@@ -1,0 +1,66 @@
+.cardBooks {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 7px;
+  background-color: #fff;
+}
+
+.cardBooks img {
+  height: 250px;
+}
+
+.cardBooks .info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: red;
+  font-size: 0.8125rem;
+  text-align: center;
+  color: var(--four-color);
+}
+
+.cardBooks .info .titleBook {
+  text-align: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  z-index: 50;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cardBooks .info .author {
+  font-size: 0.7rem;
+  color: gray;
+}
+
+.cardBooks .info .remove {
+  font-family: 'Lato', sans-serif;
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 7px;
+  background-color: transparent;
+  cursor: pointer;
+  border: 2px solid var(--primary-color);
+  transition: 1s;
+  color: var(--primary-color);
+  font-weight: bold;
+  font-size: 0.875rem;
+  text-align: center;
+  margin-top: auto;
+}
+
+.cardBooks .info .remove:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+@media (max-width: 450px) {
+  .cardBooks {
+    padding: 2rem;
+  }
+  .cardBooks img {
+    height: 350px;
+  }
+}
