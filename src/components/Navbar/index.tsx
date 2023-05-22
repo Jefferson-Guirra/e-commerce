@@ -43,7 +43,7 @@ const NavBar = () => {
     }
     getPurchaseList({ id: user.token, idCollection: 'buyBooks' })
     createCookie('user', JSON.stringify(user))
-  }, [getPurchaseList, createCookie])
+  }, [])
 
   const handleLoggout = () => {
     deleteCookie('user')
@@ -71,7 +71,7 @@ const NavBar = () => {
     if (cookies.token === undefined && status === 'authenticated') {
       createCookieNextAuth()
     }
-  }, [session, createCookieNextAuth, status])
+  }, [session])
 
   return (
     <C.Container values={{ active: menu }}>
