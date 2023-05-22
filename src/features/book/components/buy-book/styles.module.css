@@ -1,0 +1,87 @@
+.buyContainer {
+  width: 30%;
+  background-color: #f7f7f7;
+  border: 1px solid #d9d9d9;
+  border-radius: 7px;
+  height: fit-content;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.buyContainer .alert {
+  background-color: var(--primary-color);
+  width: fit-content;
+  color: #fff;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 15px;
+}
+
+.buyContainer .infoBuy {
+  display: flex;
+  gap: 1rem;
+}
+
+.buyContainer .infoBuy .img {
+  position: relative;
+  width: 30%;
+}
+
+.buyContainer .infoBuy .textBuy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.buyContainer .infoBuy .textBuy h2 {
+  font-size: 1rem;
+}
+
+.buyContainer .infoBuy .textBuy .itemBuy {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 0.9rem;
+}
+
+.buyContainer .infoBuy .textBuy .itemBuy p {
+  font-weight: bold;
+}
+.buyContainer .actionsBuy {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.buyContainer .actionsBuy p {
+  text-align: center;
+}
+
+.buyContainer .actionsBuy button {
+  width: 100%;
+  padding-block: 0.7rem;
+  border-radius: 15px;
+  transition: 1s;
+}
+.buyContainer .actionsBuy button:hover {
+  background-color: var(--primary-color) !important;
+  color: #fff;
+}
+
+.buyContainer .actionsBuy button:disabled {
+  cursor: wait;
+  opacity: 0.5;
+}
+
+@media (max-width: 1200px) {
+  .buyContainer {
+    width: 100%;
+  }
+}
+
+.resultBooks {
+  margin-top: 5rem;
+}
