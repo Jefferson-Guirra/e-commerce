@@ -11,7 +11,7 @@ import {
   orderBy,
   doc,
 } from 'firebase/firestore'
-import { Time } from '../../pages/List'
+import { ITime } from '../../features/list/components/@types/ITime'
 import { BOOK_API } from '../../Api'
 
 type Arguments = {
@@ -54,7 +54,7 @@ export interface DataBook {
   categories: string[]
   pageCount: number
   avarege: number
-  created: Time
+  created: ITime
   idDoc: string
   userId: string
   qtd: number
