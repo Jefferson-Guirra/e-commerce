@@ -1,0 +1,91 @@
+.infoBook {
+  display: flex;
+  gap: 1rem;
+  width: 70%;
+}
+
+.infoBook .img {
+  position: relative;
+  height: 400px;
+  width: 30%;
+}
+
+.infoBook .textBook {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  font-size: 1rem;
+  gap: 1rem;
+}
+
+.infoBook .textBook .itemText {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.infoBook .textBook .itemText.list {
+  font-size: 1rem;
+  background-color: transparent;
+  cursor: pointer;
+  font-family: 'Lato', sans-serif;
+}
+
+.infoBook .textBook .description {
+  text-align: justify;
+  line-height: 150%;
+  font-size: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  z-index: 50;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.infoBook .textBook .showDescription {
+  text-align: justify;
+  line-height: 150%;
+  background-color: transparent;
+  font-size: 1rem;
+}
+.infoBook .textBook .buttonShowDescription {
+  background-color: transparent;
+  font-size: 1rem;
+}
+
+.arrow {
+  transition: 0.7s;
+}
+
+.arrow.rotate {
+  transform: rotate(-180deg);
+}
+
+@media (max-width: 1200px) {
+  .infoBook {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 650px) {
+  .infoBook {
+    flex-direction: column;
+  }
+  .infoBook .img {
+    margin: 0 auto;
+    height: 350px;
+    width: 300px;
+  }
+
+  .infoBook .textBook {
+    font-size: 1rem;
+  }
+
+  .infoBook .textBook h2 {
+    text-align: center;
+  }
+
+  .infoBook .textBook .subTitle {
+    text-align: center;
+  }
+}
