@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { SEARCH_BOOKS_GENRES } from '../../../services/api/Api'
+import { SEARCH_BOOKS_GENRES } from '../../../services/api/usecases'
 import { IBooksApi } from '../../../services/api/@types'
 import styles from './styles.module.css'
 import Head from 'next/head'

@@ -2,7 +2,7 @@ import React from 'react'
 import { GetServerSideProps } from 'next'
 import { BookContainer } from '../../features'
 import { IBookIdApi } from '../../services/api/@types/IBookIdApi'
-import { SEARCH_BOOKS_ID } from '../../services/api/Api'
+import { SEARCH_BOOKS_ID } from '../../services/api/usecases'
 import { parseCookies } from 'nookies'
 import { GET_BOOK_DATABASE } from '../../services/db/usecases/FirebaseFunctions'
 
