@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { DataBook } from '../../../services/helper/FirebaseFunctions'
-import { REMOVE_BOOK_DATABASE } from '../../../services/helper/FirebaseFunctions'
+import { DataBook } from '../../../services/db/usecases/FirebaseFunctions'
+import { REMOVE_BOOK_DATABASE } from '../../../services/db/usecases/FirebaseFunctions'
 import { IListProps } from '../@types/IListProps'
 import styles from './styles.module.css'
 import { BiSearch } from 'react-icons/bi'

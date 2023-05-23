@@ -5,8 +5,8 @@ import {
   UPDATE_BOOK_DATABASE,
   DataBook,
   ADD_BOOK_DATABASE,
-} from '../../../../services/helper/FirebaseFunctions'
-import { db } from '../../../../services/firebaseConnection'
+} from '../../../../services/db/usecases/FirebaseFunctions'
+import { db } from '../../../../services/db/helpers/firebaseConnection'
 import Image from 'next/image'
 import { useUserContext } from '../../../../context/user/UserContext'
 import { IBuyProps } from './@types/IBuyProps'

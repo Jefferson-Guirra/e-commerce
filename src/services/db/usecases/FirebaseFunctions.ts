@@ -1,4 +1,4 @@
-import { db } from '../firebaseConnection'
+import { db } from '../helpers/firebaseConnection'
 import {
   collection,
   query,
@@ -11,8 +11,8 @@ import {
   orderBy,
   doc,
 } from 'firebase/firestore'
-import { ITime } from '../../features/list/components/@types/ITime'
-import { BOOK_API } from '../../Api'
+import { ITime } from '../../../features/list/components/@types/ITime'
+import { BOOK_API } from '../../api/Api'
 
 type Arguments = {
   id: string

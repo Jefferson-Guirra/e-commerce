@@ -1,4 +1,4 @@
-import { BOOK_ID_SEARCH } from '../../../Api'
+import { BOOK_ID_SEARCH } from '../../../services/api/Api'
 
 export interface IBookProps {
   book: BOOK_ID_SEARCH

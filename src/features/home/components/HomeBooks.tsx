@@ -1,6 +1,6 @@
 import SliderBooks from '../../../components/SliderBooks'
 import styles from './styles.module.css'
-import { BOOKS_API } from '../../../Api'
+import { BOOKS_API } from '../../../services/api/Api'
 export interface IHomeBooksProps {
   title: string
   bookList: BOOKS_API

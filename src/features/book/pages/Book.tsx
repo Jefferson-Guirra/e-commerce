@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { SEARCH_BOOKS_GENRES, BOOKS_API } from '../../../Api'
+import { SEARCH_BOOKS_GENRES, BOOKS_API } from '../../../services/api/Api'
 import styles from './styles.module.css'
 import Head from 'next/head'
 import SliderBooks from '../../../components/SliderBooks'
@@ -7,7 +7,7 @@ import { Info, Buy } from '../components'
 import {
   ADD_BOOK_DATABASE,
   REMOVE_BOOK_DATABASE,
-} from '../../../services/helper/FirebaseFunctions'
+} from '../../../services/db/usecases/FirebaseFunctions'
 import { IBookProps } from '../@types/IBookProps'
 
 export const Book = ({

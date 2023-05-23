@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
-import { GET_BOOKS_DATABASE } from '../../services/helper/FirebaseFunctions'
+import { GET_BOOKS_DATABASE } from '../../services/db/usecases/FirebaseFunctions'
 import Head from 'next/head'
 import { ListContainer } from '../../features'
 

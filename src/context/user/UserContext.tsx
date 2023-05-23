@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 import { createContext, ReactNode } from 'react'
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import { UserCookie } from '../../Types/User'
-import { GET_BOOKS_DATABASE } from '../../services/helper/FirebaseFunctions'
+import { GET_BOOKS_DATABASE } from '../../services/db/usecases/FirebaseFunctions'
 
 interface Props {
   children: ReactNode

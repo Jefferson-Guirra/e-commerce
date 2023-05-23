@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next'
 import { useEffect, useState, useRef } from 'react'
-import { BOOKS_API, GET_BOOKS_PARAMS } from '../../Api'
+import { BOOKS_API, GET_BOOKS_PARAMS } from '../../services/api/Api'
 import Head from 'next/head'
 import { SearchContainer } from '../../features'
 

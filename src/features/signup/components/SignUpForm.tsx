@@ -7,7 +7,7 @@ import { v4 as uuid } from 'uuid'
 import {
   VALIDATE_USER_CREATE,
   CREATE_USER,
-} from '../../../services/helper/FirebaseFunctions'
+} from '../../../services/db/usecases/FirebaseFunctions'
 import styles from '../../login/components/styles.module.css'
 
 export const SignUpForm = () => {

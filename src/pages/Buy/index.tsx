@@ -3,7 +3,7 @@ import { parseCookies } from 'nookies'
 import {
   DataBook,
   GET_BOOKS_DATABASE,
-} from '../../services/helper/FirebaseFunctions'
+} from '../../services/db/usecases/FirebaseFunctions'
 import { UserCookie } from '../../Types/User'
 import Head from 'next/head'
 import { BuyListContainer } from '../../features'

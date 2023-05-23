@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import Slider from '../Slider'
 import Image from 'next/image'
 import { SwiperProps, SwiperSlide } from 'swiper/react'
-import { BOOKS_API } from '../../Api'
+import { BOOKS_API } from '../../services/api/Api'
 
 type Props = {
   bookList: BOOKS_API

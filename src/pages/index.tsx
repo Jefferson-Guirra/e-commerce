@@ -1,5 +1,5 @@
 import { GetStaticProps } from 'next'
-import { SEARCH_BOOKS_GENRES } from '../Api'
+import { SEARCH_BOOKS_GENRES } from '../services/api/Api'
 import { HomeContainer } from '../features'
 import { IHomeProps } from '../features/@types/IHomeProps'
 

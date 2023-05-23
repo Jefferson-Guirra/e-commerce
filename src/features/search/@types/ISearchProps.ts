@@ -1,4 +1,4 @@
-import { BOOKS_API } from '../../../Api'
+import { BOOKS_API } from '../../../services/api/Api'
 
 export interface ISearchProps {
   books: BOOKS_API

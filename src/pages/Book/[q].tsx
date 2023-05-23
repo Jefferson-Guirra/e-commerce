@@ -1,9 +1,9 @@
 import React from 'react'
 import { GetServerSideProps } from 'next'
 import { BookContainer } from '../../features'
-import { SEARCH_BOOKS_ID, BOOK_ID_SEARCH } from '../../Api'
+import { SEARCH_BOOKS_ID, BOOK_ID_SEARCH } from '../../services/api/Api'
 import { parseCookies } from 'nookies'
-import { GET_BOOK_DATABASE } from '../../services/helper/FirebaseFunctions'
+import { GET_BOOK_DATABASE } from '../../services/db/usecases/FirebaseFunctions'
 
 interface Props {
   book: string

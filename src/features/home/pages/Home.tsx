@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './styles.module.css'
-import { BOOKS_API } from '../../../Api'
+import { BOOKS_API } from '../../../services/api/Api'
 import Image from 'next/image'
 import { IHomeProps } from '../../@types/IHomeProps'
 import { HomeBooks, IHomeBooksProps } from '../components/HomeBooks'

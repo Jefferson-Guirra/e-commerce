@@ -1,4 +1,4 @@
-import { DataBook } from '../../../services/helper/FirebaseFunctions'
+import { DataBook } from '../../../services/db/usecases/FirebaseFunctions'
 export interface IBuyBooksProps {
   books: DataBook[]
 }

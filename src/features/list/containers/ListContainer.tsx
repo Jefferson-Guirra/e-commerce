@@ -1,6 +1,6 @@
 import styles from './styles.module.css'
 import { ListBooks } from '../pages/ListBooks'
-import { DataBook } from '../../../services/helper/FirebaseFunctions'
+import { DataBook } from '../../../services/db/usecases/FirebaseFunctions'
 interface IListContainer {
   books: DataBook[]
 }
