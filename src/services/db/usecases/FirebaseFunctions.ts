@@ -12,7 +12,7 @@ import {
   doc,
 } from 'firebase/firestore'
 import { ITime } from '../../../features/list/components/@types/ITime'
-import { BOOK_API } from '../../api/Api'
+import { IBookApi } from '../../api/@types'
 
 type Arguments = {
   id: string
@@ -39,7 +39,7 @@ type GetBookDatabase = {
 type AddBookDatabase = {
   idBook: string
   tokenUser: string
-  book: BOOK_API
+  book: IBookApi
   collection: string
 }
 

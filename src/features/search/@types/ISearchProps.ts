@@ -1,7 +1,7 @@
-import { BOOKS_API } from '../../../services/api/Api'
+import { IBooksApi } from '../../../services/api/@types'
 
 export interface ISearchProps {
-  books: BOOKS_API
+  books: IBooksApi
   q: string
   handlePagination: (value: number) => void
   page: number

@@ -1,7 +1,8 @@
 import React from 'react'
 import { GetServerSideProps } from 'next'
 import { BookContainer } from '../../features'
-import { SEARCH_BOOKS_ID, BOOK_ID_SEARCH } from '../../services/api/Api'
+import { IBookIdApi } from '../../services/api/@types/IBookIdApi'
+import { SEARCH_BOOKS_ID } from '../../services/api/Api'
 import { parseCookies } from 'nookies'
 import { GET_BOOK_DATABASE } from '../../services/db/usecases/FirebaseFunctions'
 
@@ -17,7 +18,7 @@ type Params = {
 }
 
 const Book = ({ book, query, token, validateFavoriteBooks }: Props) => {
-  const formatBook: BOOK_ID_SEARCH = JSON.parse(book)
+  const formatBook: IBookIdApi = JSON.parse(book)
 
   return (
     <BookContainer

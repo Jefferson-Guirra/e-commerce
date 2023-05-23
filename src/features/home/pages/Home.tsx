@@ -1,12 +1,12 @@
 import React from 'react'
 import styles from './styles.module.css'
-import { BOOKS_API } from '../../../services/api/Api'
+import { IBooksApi } from '../../../services/api/@types'
 import Image from 'next/image'
 import { IHomeProps } from '../../@types/IHomeProps'
 import { HomeBooks, IHomeBooksProps } from '../components/HomeBooks'
 
 const handleFormatBook = (bookList: string) => {
-  return JSON.parse(bookList) as BOOKS_API
+  return JSON.parse(bookList) as IBooksApi
 }
 
 export function Home({ fictionBooks, dramaBooks, fantasyBooks }: IHomeProps) {

@@ -1,6 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { useEffect, useState, useRef } from 'react'
-import { BOOKS_API, GET_BOOKS_PARAMS } from '../../services/api/Api'
+import { GET_BOOKS_PARAMS } from '../../services/api/Api'
+import { IBooksApi } from '../../services/api/@types'
 import Head from 'next/head'
 import { SearchContainer } from '../../features'
 
@@ -13,7 +14,7 @@ interface Props {
   q: string
 }
 const Search = ({ books, q }: Props) => {
-  const bookFormat: BOOKS_API = JSON.parse(books)
+  const bookFormat: IBooksApi = JSON.parse(books)
   const [bookResults, setBookResults] = useState(bookFormat)
   const title = q.replace(/\w+:/g, '')
   const page = useRef(0)
@@ -47,7 +48,7 @@ export default Search
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const { q } = query as Params
-  const books = (await GET_BOOKS_PARAMS(q, 0, 15)) as BOOKS_API
+  const books = (await GET_BOOKS_PARAMS(q, 0, 15)) as IBooksApi
 
   if (books?.totalItems === 0) {
     return {

@@ -1,7 +1,7 @@
-import { BOOK_ID_SEARCH } from '../../../services/api/Api'
+import { IBookIdApi } from '../../../services/api/@types/IBookIdApi'
 
 export interface IBookProps {
-  book: BOOK_ID_SEARCH
+  book: IBookIdApi
   query: string
   validateFavoriteBooks: boolean
   token: string

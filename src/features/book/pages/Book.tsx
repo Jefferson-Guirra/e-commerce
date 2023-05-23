@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
-import { SEARCH_BOOKS_GENRES, BOOKS_API } from '../../../services/api/Api'
+import { SEARCH_BOOKS_GENRES } from '../../../services/api/Api'
+import { IBooksApi } from '../../../services/api/@types'
 import styles from './styles.module.css'
 import Head from 'next/head'
 import SliderBooks from '../../../components/SliderBooks'
@@ -16,7 +17,7 @@ export const Book = ({
   token,
   validateFavoriteBooks,
 }: IBookProps) => {
-  const [similarBooks, setSimilarBooks] = useState<BOOKS_API | undefined>(
+  const [similarBooks, setSimilarBooks] = useState<IBooksApi | undefined>(
     undefined
   )
 

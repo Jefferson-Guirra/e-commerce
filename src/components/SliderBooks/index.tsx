@@ -3,10 +3,10 @@ import { useRouter } from 'next/router'
 import Slider from '../Slider'
 import Image from 'next/image'
 import { SwiperProps, SwiperSlide } from 'swiper/react'
-import { BOOKS_API } from '../../services/api/Api'
+import { IBooksApi } from '../../services/api/@types'
 
 type Props = {
-  bookList: BOOKS_API
+  bookList: IBooksApi
 }
 const settings: SwiperProps = {
   slidesPerView: 6,
