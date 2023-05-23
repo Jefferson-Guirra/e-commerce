@@ -1,6 +1,6 @@
 import React from 'react'
 import { PayPalButtons } from '@paypal/react-paypal-js'
-import * as C from './styles'
+import styles from './styles.module.css'
 import { IoClose } from 'react-icons/io5'
 import { Dispatch, SetStateAction } from 'react'
 
@@ -16,15 +16,9 @@ const PaypalAction = ({ price, clearBuyList, setValue }: Props) => {
     }
   }
 
-  /*useEffect(()=>{
-    document.body.style.overflow = 'hidden'
-    return()=>{
-      document.body.style.overflow = 'auto'
-    }
-  },[])*/
   return (
-    <C.container onClick={handleClick}>
-      <div className="content">
+    <section className={styles.container} onClick={handleClick}>
+      <div className={styles.content}>
         <h2>Comprar com Paypal</h2>
         <PayPalButtons
           createOrder={(data, actions) => {
@@ -50,7 +44,7 @@ const PaypalAction = ({ price, clearBuyList, setValue }: Props) => {
           <IoClose size={22} color="#fff" />
         </button>
       </div>
-    </C.container>
+    </section>
   )
 }
 
