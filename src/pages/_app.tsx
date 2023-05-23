@@ -2,11 +2,11 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import NavBar from '../components/Navbar'
 import Footer from '../components/Footer'
-import { UserStorage } from '../UserContext'
 import { SessionProvider } from 'next-auth/react'
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { AppProvider } from '../context/context'
 
 const initialOptions = {
   'client-id':
@@ -57,7 +57,7 @@ function Loading() {
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <UserStorage>
+    <AppProvider>
       <SessionProvider session={pageProps.session}>
         <PayPalScriptProvider options={initialOptions}>
           <NavBar />
@@ -68,6 +68,6 @@ export default function App({ Component, pageProps }: AppProps) {
           <Footer />
         </PayPalScriptProvider>
       </SessionProvider>
-    </UserStorage>
+    </AppProvider>
   )
 }

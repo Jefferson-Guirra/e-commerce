@@ -6,7 +6,7 @@ import {
   useEffect,
   useCallback,
 } from 'react'
-import { UserContext } from '../../UserContext'
+import { UserContext } from '../../context/user/UserContext'
 import * as C from './styles'
 import Link from 'next/link'
 import { SiBookstack } from 'react-icons/si'

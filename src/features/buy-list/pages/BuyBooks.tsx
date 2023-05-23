@@ -5,7 +5,7 @@ import { doc, updateDoc } from 'firebase/firestore'
 import { db } from '../../../services/firebaseConnection'
 import PaypalAction from '../../../components/PaypalAction'
 import { useRouter } from 'next/router'
-import { useUserContext } from '../../../UserContext'
+import { useUserContext } from '../../../context/user/UserContext'
 import { IBuyBooksProps } from '../@types/IBuyBooksProps'
 import { BuyBookCard } from '../components'
 

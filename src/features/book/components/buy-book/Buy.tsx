@@ -8,7 +8,7 @@ import {
 } from '../../../../services/helper/FirebaseFunctions'
 import { db } from '../../../../services/firebaseConnection'
 import Image from 'next/image'
-import { useUserContext } from '../../../../UserContext'
+import { useUserContext } from '../../../../context/user/UserContext'
 import { IBuyProps } from './@types/IBuyProps'
 import { useRouter } from 'next/router'
 

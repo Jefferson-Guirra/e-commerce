@@ -5,7 +5,7 @@ import useForm from '../../../Hooks/useForm'
 import { GET_USER } from '../../../services/helper/FirebaseFunctions'
 import { useRouter } from 'next/router'
 import { AiFillEye } from 'react-icons/ai'
-import { useUserContext } from '../../../UserContext'
+import { useUserContext } from '../../../context/user/UserContext'
 
 export const UserForm = () => {
   const password = useForm('password')
