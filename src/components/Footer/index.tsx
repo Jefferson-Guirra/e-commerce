@@ -1,17 +1,17 @@
-import * as C from './styles'
+import styles from './styles.module.css'
 import { AiOutlineCopyrightCircle } from 'react-icons/ai'
 
 const Footer = () => {
   return (
-    <C.footer>
-      <div className="containerFooter">
+    <footer className={styles.footer}>
+      <div className={styles.containerFooter}>
         <div>
           <AiOutlineCopyrightCircle size={30} />
           2022 Literando
         </div>
         <p>Todos os direitos reservados</p>
       </div>
-    </C.footer>
+    </footer>
   )
 }
 
