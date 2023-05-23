@@ -1,5 +1,5 @@
 import React from 'react'
-import * as C from './styles'
+import styles from './styles.module.css'
 
 interface Props {
   label: string
@@ -13,13 +13,13 @@ interface Props {
 }
 const Input = ({ label, type, name, onChange, value, erro, onBlur }: Props) => {
   return (
-    <C.container>
+    <div className={styles.container}>
       <label className="label" htmlFor={name}>
         {label}
       </label>
 
       <input
-        className="input"
+        className={styles.input}
         id={name}
         type={type}
         onChange={onChange}
@@ -27,8 +27,8 @@ const Input = ({ label, type, name, onChange, value, erro, onBlur }: Props) => {
         onBlur={onBlur}
       />
 
-      {erro && <p className="error">{erro}</p>}
-    </C.container>
+      {erro && <p className={styles.error}>{erro}</p>}
+    </div>
   )
 }
 
