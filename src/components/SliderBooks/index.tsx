@@ -1,4 +1,4 @@
-import * as C from './styles'
+import styles from './styles.module.css'
 import { useRouter } from 'next/router'
 import Slider from '../Slider'
 import Image from 'next/image'
@@ -35,7 +35,10 @@ const SliderBooks = ({ bookList }: Props) => {
     <Slider settings={settings}>
       {bookList.books.map((item, index) => (
         <SwiperSlide key={index}>
-          <C.container onClick={() => router.push(`/Book/${item.id}`)}>
+          <div
+            className={styles.container}
+            onClick={() => router.push(`/Book/${item.id}`)}
+          >
             <div
               style={{ width: '100%', height: '250px', position: 'relative' }}
             >
@@ -45,13 +48,15 @@ const SliderBooks = ({ bookList }: Props) => {
                 alt={`Imagem do Livro ${item.title}`}
               />
             </div>
-            <div className="info">
-              <div className="titleBook">
+            <div className={styles.info}>
+              <div className={styles.titleBook}>
                 <p>{item.title}</p>
               </div>
-              {item?.authors && <p id="author">{item?.authors[0]}</p>}
+              {item?.authors && (
+                <p className={styles.author}>{item?.authors[0]}</p>
+              )}
             </div>
-          </C.container>
+          </div>
         </SwiperSlide>
       ))}
     </Slider>
