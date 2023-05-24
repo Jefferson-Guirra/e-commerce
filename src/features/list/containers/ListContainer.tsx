@@ -1,8 +1,8 @@
 import styles from './styles.module.css'
 import { ListBooks } from '../pages/ListBooks'
-import { DataBook } from '../../../services/db/usecases/FirebaseFunctions'
+import { IDataBook } from '../../../services/db/@types'
 interface IListContainer {
-  books: DataBook[]
+  books: IDataBook[]
 }
 export const ListContainer = (props: IListContainer) => {
   return (

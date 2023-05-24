@@ -1,9 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
-import {
-  DataBook,
-  GET_BOOKS_DATABASE,
-} from '../../services/db/usecases/FirebaseFunctions'
+import { IDataBook } from '../../services/db/@types'
+import { GetBooks } from '../../services/db/usecases'
 import { UserCookie } from '../../Types/User'
 import Head from 'next/head'
 import { BuyListContainer } from '../../features'
@@ -16,7 +14,7 @@ interface Props {
 }
 
 const Buy = ({ books, user }: Props) => {
-  const booksFormat: DataBook[] = JSON.parse(books)
+  const booksFormat: IDataBook[] = JSON.parse(books)
 
   return (
     <>
@@ -43,7 +41,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
   const user = JSON.parse(cookies.user) as UserCookie
   const books = JSON.stringify(
-    await GET_BOOKS_DATABASE({ id: user.token, idCollection: 'buyBooks' })
+    await GetBooks({ id: user.token, idCollection: 'buyBooks' })
   )
 
   return {

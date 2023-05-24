@@ -1,5 +1,5 @@
-import { DataBook } from '../../../services/db/usecases/FirebaseFunctions'
+import { IDataBook } from '../../../services/db/@types'
 
 export interface IListProps {
-  books: DataBook[]
+  books: IDataBook[]
 }

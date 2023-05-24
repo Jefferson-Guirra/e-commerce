@@ -5,10 +5,8 @@ import styles from './styles.module.css'
 import Head from 'next/head'
 import SliderBooks from '../../../components/SliderBooks'
 import { Info, Buy } from '../components'
-import {
-  ADD_BOOK_DATABASE,
-  REMOVE_BOOK_DATABASE,
-} from '../../../services/db/usecases/FirebaseFunctions'
+import { AddBook } from '../../../services/db/usecases/add-book'
+import { RemoveBook } from '../../../services/db/usecases/remove-book'
 import { IBookProps } from '../@types/IBookProps'
 
 export const Book = ({
@@ -30,7 +28,7 @@ export const Book = ({
     if (!token) {
       alert('É necessário efetuar o Login')
     } else {
-      await ADD_BOOK_DATABASE({
+      await AddBook({
         book: book,
         idBook: query,
         tokenUser: token,
@@ -40,7 +38,7 @@ export const Book = ({
   }
 
   const handleExcludeBookFavoriteList = async (idCollection: string) => {
-    REMOVE_BOOK_DATABASE({ id: query + token, idCollection: idCollection })
+    RemoveBook({ id: query + token, idCollection: idCollection })
   }
 
   useEffect(() => {

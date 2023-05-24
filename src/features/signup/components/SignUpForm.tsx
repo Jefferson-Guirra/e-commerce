@@ -4,10 +4,7 @@ import { useRouter } from 'next/router'
 import useForm from '../../../Hooks/useForm'
 import { AiFillEye } from 'react-icons/ai'
 import { v4 as uuid } from 'uuid'
-import {
-  VALIDATE_USER_CREATE,
-  CREATE_USER,
-} from '../../../services/db/usecases/FirebaseFunctions'
+import { ValidateUser, CreateUser } from '../../../services/db/usecases'
 import styles from '../../login/components/styles.module.css'
 
 export const SignUpForm = () => {
@@ -24,13 +21,13 @@ export const SignUpForm = () => {
     setLoading(true)
     setError('')
     const validateInputs = email.validate() && password.validate()
-    const { error, validate } = await VALIDATE_USER_CREATE({
+    const { error, validate } = await ValidateUser({
       username: username.value,
       email: email.value,
     }).validateUser
     if (validateInputs && validate) {
       const keyUser = uuid()
-      await CREATE_USER({
+      await CreateUser({
         email: email.value,
         username: username.value,
         id: keyUser,

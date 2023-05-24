@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { DataBook } from '../../../services/db/usecases/FirebaseFunctions'
-import { REMOVE_BOOK_DATABASE } from '../../../services/db/usecases/FirebaseFunctions'
+import { IDataBook } from '../../../services/db/@types'
+import { RemoveBook } from '../../../services/db/usecases/remove-book'
 import { IListProps } from '../@types/IListProps'
 import styles from './styles.module.css'
 import { BiSearch } from 'react-icons/bi'
@@ -12,14 +12,14 @@ export const ListBooks = ({ books }: IListProps) => {
   let filteredBooks = []
   filteredBooks = bookList.filter((item) =>
     item.title.toLowerCase().includes(input.toLowerCase())
-  ) as DataBook[]
+  ) as IDataBook[]
 
   const handleSubmit = () => {
     return null
   }
 
   const handleExclude = (id: string) => {
-    REMOVE_BOOK_DATABASE({ id, idCollection: 'books' })
+    RemoveBook({ id, idCollection: 'books' })
     const newBooks = bookList.filter((item) => item.idDoc !== id)
     setBookList(newBooks)
   }

@@ -1,6 +1,6 @@
-import { DataBook } from '../../../../services/db/usecases/FirebaseFunctions'
+import { IDataBook } from '../../../../services/db/@types'
 
 export interface IContainerBooks {
-  books: DataBook[]
+  books: IDataBook[]
   handleExclude: (id: string) => void
 }

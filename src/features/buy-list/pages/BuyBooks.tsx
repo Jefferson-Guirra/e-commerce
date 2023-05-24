@@ -1,6 +1,6 @@
 import styles from './styles.module.css'
 import { useState } from 'react'
-import { REMOVE_BOOK_DATABASE } from '../../../services/db/usecases/FirebaseFunctions'
+import { RemoveBook } from '../../../services/db/usecases/remove-book'
 import { doc, updateDoc } from 'firebase/firestore'
 import { db } from '../../../services/db/helpers/firebaseConnection'
 import PaypalAction from '../../../components/PaypalAction'
@@ -20,7 +20,7 @@ export const BuyBooks = ({ books }: IBuyBooksProps) => {
 
   const handleExclude = (id: string) => {
     updatedBuyList('remove')
-    REMOVE_BOOK_DATABASE({ id, idCollection: 'buyBooks' })
+    RemoveBook({ id, idCollection: 'buyBooks' })
     const newBooks = bookList.filter((item) => item.idDoc !== id)
     setBookList(newBooks)
   }
@@ -53,7 +53,7 @@ export const BuyBooks = ({ books }: IBuyBooksProps) => {
 
   const clearBuyList = async () => {
     bookList.forEach((item) => {
-      REMOVE_BOOK_DATABASE({ id: item.idDoc, idCollection: 'buyBooks' })
+      RemoveBook({ id: item.idDoc, idCollection: 'buyBooks' })
     })
     setBookList([])
     clearPurchaseList()

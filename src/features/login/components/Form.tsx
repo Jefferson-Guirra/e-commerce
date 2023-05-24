@@ -2,7 +2,7 @@ import styles from './styles.module.css'
 import { useState } from 'react'
 import Input from '../../../components/Input'
 import useForm from '../../../Hooks/useForm'
-import { GET_USER } from '../../../services/db/usecases/FirebaseFunctions'
+import { SignUp } from '../../../services/db/usecases'
 import { useRouter } from 'next/router'
 import { AiFillEye } from 'react-icons/ai'
 import { useUserContext } from '../../../context/user/UserContext'
@@ -20,10 +20,8 @@ export const UserForm = () => {
     setLoading(true)
     setError(false)
     const validateInputs = email.validate() && password.validate()
-    const { error, validate, user } = await GET_USER(
-      email.value,
-      password.value
-    ).validateLogin
+    const { error, validate, user } = await SignUp(email.value, password.value)
+      .validateLogin
 
     if (validateInputs && validate && user) {
       const userLogin = {
@@ -57,7 +55,7 @@ export const UserForm = () => {
         </span>
       </div>
       {error && !email.erro && !password.erro && (
-        <p className="userErro">{error}</p>
+        <p className={styles.userErro}>{error}</p>
       )}
       <p>
         Ainda não possui conta?{' '}
@@ -76,7 +74,7 @@ export const UserForm = () => {
         <button type="submit">Entrar</button>
       ) : (
         <button type="submit" disabled>
-          Entando...
+          Entrando...
         </button>
       )}
     </form>

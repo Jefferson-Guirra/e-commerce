@@ -1,7 +1,7 @@
 import { IContainerBooks } from './@types/IContainerBooks'
 import Link from 'next/link'
 import styles from './styles.module.css'
-import { ITime } from './@types/ITime'
+import { ITime } from '../../../services/db/@types'
 import { Timestamp } from 'firebase/firestore'
 
 const handleTime = (time: ITime) => {

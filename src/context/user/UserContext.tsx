@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 import { createContext, ReactNode } from 'react'
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import { UserCookie } from '../../Types/User'
-import { GET_BOOKS_DATABASE } from '../../services/db/usecases/FirebaseFunctions'
+import { GetBooks } from '../../services/db/usecases'
 
 interface Props {
   children: ReactNode
@@ -41,7 +41,7 @@ export const UserStorage = ({ children }: Props) => {
   }
 
   const getBuyList = async (id: string, idColection: string) => {
-    const buyList = await GET_BOOKS_DATABASE({
+    const buyList = await GetBooks({
       id: id,
       idCollection: idColection,
     })
@@ -59,7 +59,7 @@ export const UserStorage = ({ children }: Props) => {
   }
 
   const getPurchaseList = async ({ id, idCollection }: GetPurchaseList) => {
-    const books = await GET_BOOKS_DATABASE({ id, idCollection })
+    const books = await GetBooks({ id, idCollection })
     setBuyBooks(books.length)
   }
 

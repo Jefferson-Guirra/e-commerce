@@ -4,7 +4,7 @@ import { BookContainer } from '../../features'
 import { IBookIdApi } from '../../services/api/@types/IBookIdApi'
 import { SEARCH_BOOKS_ID } from '../../services/api/usecases'
 import { parseCookies } from 'nookies'
-import { GET_BOOK_DATABASE } from '../../services/db/usecases/FirebaseFunctions'
+import { GetBook } from '../../services/db/usecases'
 
 interface Props {
   book: string
@@ -63,7 +63,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 
   const validateFavoriteBooks = token
-    ? await GET_BOOK_DATABASE({
+    ? await GetBook({
         idBook: q,
         collection: 'books',
         tokenUser: token,

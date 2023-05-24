@@ -1,11 +1,9 @@
 import { useState } from 'react'
 import styles from './styles.module.css'
 import { doc, getDoc } from 'firebase/firestore'
-import {
-  UPDATE_BOOK_DATABASE,
-  DataBook,
-  ADD_BOOK_DATABASE,
-} from '../../../../services/db/usecases/FirebaseFunctions'
+import { IDataBook } from '../../../../services/db/@types'
+import { UpdateBook } from '../../../../services/db/usecases'
+import { AddBook } from '../../../../services/db/usecases/add-book'
 import { db } from '../../../../services/db/helpers/firebaseConnection'
 import Image from 'next/image'
 import { useUserContext } from '../../../../context/user/UserContext'
@@ -16,6 +14,7 @@ export const Buy = ({ token, query, book }: IBuyProps) => {
   const [loading, setLoading] = useState<boolean>(false)
   const { updatedBuyList } = useUserContext()
   const router = useRouter()
+
   const handleBuy = async () => {
     await handleAddBuyListDatabase()
     if (token) {
@@ -28,8 +27,8 @@ export const Buy = ({ token, query, book }: IBuyProps) => {
       const docRef = doc(db, 'buyBooks', query + token)
       const docSnap = await getDoc(docRef)
       if (docSnap.exists()) {
-        const book = docSnap.data() as DataBook
-        UPDATE_BOOK_DATABASE({
+        const book = docSnap.data() as IDataBook
+        await UpdateBook({
           collection: 'buyBooks',
           idBook: query,
           tokenUser: token,
@@ -37,12 +36,13 @@ export const Buy = ({ token, query, book }: IBuyProps) => {
         })
       } else {
         updatedBuyList('add')
-        ADD_BOOK_DATABASE({
+        const response = await AddBook({
           book: book,
           collection: 'buyBooks',
           idBook: query,
           tokenUser: token,
         })
+        console.log(response)
       }
     } else {
       alert('É necessário efetuar o login.')

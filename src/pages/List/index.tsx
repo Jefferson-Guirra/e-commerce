@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
-import { GET_BOOKS_DATABASE } from '../../services/db/usecases/FirebaseFunctions'
+import { GetBooks } from '../../services/db/usecases'
 import Head from 'next/head'
 import { ListContainer } from '../../features'
 
@@ -40,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 
   const books = JSON.stringify(
-    await GET_BOOKS_DATABASE({ id: user.token, idCollection: 'books' })
+    await GetBooks({ id: user.token, idCollection: 'books' })
   )
   function GET_COOKIE_USER() {
     const cookies = parseCookies(ctx)
