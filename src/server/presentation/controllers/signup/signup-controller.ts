@@ -5,7 +5,7 @@ import { HttpRequest, HttpResponse } from '../../protocols/http'
 
 export class SignupController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-    const validateFields = ['username', 'email']
+    const validateFields = ['username', 'email', 'password']
     for (const field of validateFields) {
       if (!httpRequest.body[field]) {
         return badRequest(new InvalidParamsError(field))
