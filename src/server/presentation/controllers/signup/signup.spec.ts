@@ -1,8 +1,25 @@
+import { InvalidParamsError } from '../../errors/invalid-params-error'
+import { badRequest } from '../../helpers/http'
 import { SignupController } from './signup-controller'
+interface SutTypes {
+  sut: SignupController
+}
+const makeSut = (): SutTypes => {
+  const sut = new SignupController()
+  return {
+    sut,
+  }
+}
 describe('Signup Controller', () => {
-  test('shdould retun sum 1 and two is three', () => {
-    const controller = new SignupController()
-    const sum = controller.sum(1, 2)
-    expect(sum).toBe(3)
+  test('should return InvalidParamsError is username not provided ', async () => {
+    const fakeRequest = {
+      body: {
+        email: 'any_email@mail.com',
+        password: 'any_password',
+      },
+    }
+    const { sut } = makeSut()
+    const response = await sut.handle(fakeRequest)
+    expect(response).toEqual(badRequest(new InvalidParamsError('username')))
   })
 })
