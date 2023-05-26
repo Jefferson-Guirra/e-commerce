@@ -1,6 +1,8 @@
 import { SignupController } from './signup-controller'
 import { Validation } from '../../protocols/validate'
 import { HttpRequest } from '../../protocols/http'
+import { MissingParamError } from '../../errors/missing-params-error'
+import { badRequest } from '../../helpers/http'
 interface SutTypes {
   sut: SignupController
   validationStub: Validation
@@ -34,5 +36,21 @@ describe('Signup Controller', () => {
     }
     await sut.handle(fakeAccount)
     expect(validateSpy).toHaveBeenCalledWith(fakeAccount)
+  })
+
+  test('should return 400 if validation returns an error', async () => {
+    const { sut, validationStub } = makeSut()
+    jest
+      .spyOn(validationStub, 'validation')
+      .mockReturnValueOnce(new MissingParamError('any_field'))
+    const fakeAccount: HttpRequest = {
+      body: {
+        username: 'any_username',
+        email: 'any_email@mail.com',
+        password: 'any_password',
+      },
+    }
+    const response = await sut.handle(fakeAccount)
+    expect(response).toEqual(badRequest(new MissingParamError('any_field')))
   })
 })
