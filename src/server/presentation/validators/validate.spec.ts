@@ -1,5 +1,5 @@
 import { Validate } from './validate'
-import { InvalidParamsError } from '../errors/invalid-params-error'
+import { MissingParamError } from '../errors/missing-params-error'
 interface SutTypes {
   sut: Validate
 }
@@ -19,7 +19,7 @@ describe('Signup Controller', () => {
     }
     const { sut } = makeSut()
     const response = sut.validation(fakeRequest)
-    expect(response).toEqual(new InvalidParamsError('username'))
+    expect(response).toEqual(new MissingParamError('username'))
   })
 
   test('should return InvalidParamsError is email not provided ', async () => {
@@ -31,7 +31,7 @@ describe('Signup Controller', () => {
     }
     const { sut } = makeSut()
     const response = sut.validation(fakeRequest)
-    expect(response).toEqual(new InvalidParamsError('email'))
+    expect(response).toEqual(new MissingParamError('email'))
   })
 
   test('should return InvalidParamsError is password not provided ', async () => {
@@ -43,6 +43,6 @@ describe('Signup Controller', () => {
     }
     const { sut } = makeSut()
     const response = sut.validation(fakeRequest)
-    expect(response).toEqual(new InvalidParamsError('password'))
+    expect(response).toEqual(new MissingParamError('password'))
   })
 })
