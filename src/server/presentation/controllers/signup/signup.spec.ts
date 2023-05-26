@@ -7,6 +7,16 @@ interface SutTypes {
   sut: SignupController
   validationStub: Validation
 }
+
+const makeFakeAddAccount = (): HttpRequest => {
+  return {
+    body: {
+      username: 'any_username',
+      email: 'any_email@mail.com',
+      password: 'any_password',
+    },
+  }
+}
 const makeValidate = (): Validation => {
   class ValidationStub implements Validation {
     validation() {
@@ -27,15 +37,8 @@ describe('Signup Controller', () => {
   test('Should validation call with correct values', async () => {
     const { sut, validationStub } = makeSut()
     const validateSpy = jest.spyOn(validationStub, 'validation')
-    const fakeAccount: HttpRequest = {
-      body: {
-        username: 'any_username',
-        email: 'any_email@mail.com',
-        password: 'any_password',
-      },
-    }
-    await sut.handle(fakeAccount)
-    expect(validateSpy).toHaveBeenCalledWith(fakeAccount)
+    await sut.handle(makeFakeAddAccount())
+    expect(validateSpy).toHaveBeenCalledWith(makeFakeAddAccount())
   })
 
   test('should return 400 if validation returns an error', async () => {
@@ -43,14 +46,7 @@ describe('Signup Controller', () => {
     jest
       .spyOn(validationStub, 'validation')
       .mockReturnValueOnce(new MissingParamError('any_field'))
-    const fakeAccount: HttpRequest = {
-      body: {
-        username: 'any_username',
-        email: 'any_email@mail.com',
-        password: 'any_password',
-      },
-    }
-    const response = await sut.handle(fakeAccount)
+    const response = await sut.handle(makeFakeAddAccount())
     expect(response).toEqual(badRequest(new MissingParamError('any_field')))
   })
 })
