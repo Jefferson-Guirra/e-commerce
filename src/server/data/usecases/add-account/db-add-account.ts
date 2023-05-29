@@ -7,8 +7,11 @@ import { LoadAccountByEmailRepository } from '../../protocols/db/account/load-ac
 
 export class DbAddAccountRepository implements AddAccount {
   constructor(private readonly loadByEmail: LoadAccountByEmailRepository) {}
-  async add(account: AddAccountModel): Promise<AccountModel> {
+  async add(account: AddAccountModel): Promise<AccountModel | null> {
     const loadAccount = await this.loadByEmail.load(account.email)
+    if (loadAccount) {
+      return null
+    }
     return {
       email: 'any_mail@email.com',
       password: 'any_password',
