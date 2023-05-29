@@ -42,6 +42,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.6.3",
     "@commitlint/config-conventional": "^17.6.3",
+    "@shelf/jest-mongodb": "^4.1.7",
     "@types/bcrypt": "^5.0.0",
     "@types/jest": "^29.5.1",
     "@types/styled-components": "^5.1.26",
