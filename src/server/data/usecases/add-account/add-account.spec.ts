@@ -132,4 +132,10 @@ describe('AddAccountRepository', () => {
     const promise = sut.add(makeFakeAddAccount())
     await expect(promise).rejects.toThrow()
   })
+
+  test('should return account on a succeeds', async () => {
+    const { sut } = makeSut()
+    const account = await sut.add(makeFakeAddAccount())
+    expect(account).toEqual(makeFakeAccount())
+  })
 })
