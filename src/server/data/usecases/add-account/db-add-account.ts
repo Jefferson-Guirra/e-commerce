@@ -16,7 +16,7 @@ export class DbAddAccountRepository implements AddAccount {
     if (loadAccount) {
       return null
     }
-    const hashedPassword = this.hasher.hash(account.password)
+    const hashedPassword = await this.hasher.hash(account.password)
     return {
       email: 'any_mail@email.com',
       password: 'any_password',
