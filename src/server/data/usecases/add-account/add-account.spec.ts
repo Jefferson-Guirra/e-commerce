@@ -32,7 +32,7 @@ const makeLoadByEmailRepository = (): LoadAccountByEmailRepository => {
 const makeHasher = (): Hasher => {
   class HasherStub implements Hasher {
     async hash(value: string): Promise<string> {
-      return await Promise.resolve('hashed_password')
+      return Promise.resolve('hashed_password')
     }
   }
   return new HasherStub()
@@ -88,5 +88,14 @@ describe('AddAccountRepository', () => {
     const hashSpy = jest.spyOn(hasherStub, 'hash')
     await sut.add(makeFakeAddAccount())
     expect(hashSpy).toHaveBeenCalledWith('any_password')
+  })
+
+  test('should return throw if Hasher return throw', async () => {
+    const { sut, hasherStub } = makeSut()
+    jest
+      .spyOn(hasherStub, 'hash')
+      .mockResolvedValueOnce(Promise.reject(new Error()))
+    const promise = sut.add(makeFakeAddAccount())
+    await expect(promise).rejects.toThrow()
   })
 })
