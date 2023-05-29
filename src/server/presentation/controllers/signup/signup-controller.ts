@@ -4,6 +4,7 @@ import { badRequest, serverError } from '../../helpers/http'
 import { Controller } from '../../protocols/controller'
 import { HttpRequest, HttpResponse } from '../../protocols/http'
 import { Validation } from '../../protocols/validate'
+import { ok } from '../../helpers/http'
 
 export class SignupController implements Controller {
   constructor(
@@ -15,11 +16,8 @@ export class SignupController implements Controller {
       const error = this.validate.validation(httpRequest)
       if (error) return badRequest(error)
       const { password, email, username } = httpRequest.body
-      await this.addAccount.add({ username, email, password })
-      return {
-        statusCode: 200,
-        body: 'succeeds',
-      }
+      const account = await this.addAccount.add({ username, email, password })
+      return ok(account)
     } catch (err) {
       return serverError(err as Error)
     }
