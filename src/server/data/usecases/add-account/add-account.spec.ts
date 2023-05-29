@@ -123,4 +123,13 @@ describe('AddAccountRepository', () => {
       username: 'any_name',
     })
   })
+
+  test('should return throw if AddAccount repository return throw', async () => {
+    const { addAccountRepositoryStub, sut } = makeSut()
+    jest
+      .spyOn(addAccountRepositoryStub, 'add')
+      .mockReturnValueOnce(Promise.reject(new Error()))
+    const promise = sut.add(makeFakeAddAccount())
+    await expect(promise).rejects.toThrow()
+  })
 })
