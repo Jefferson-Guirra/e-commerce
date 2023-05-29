@@ -2,7 +2,7 @@ import { SignupController } from './signup-controller'
 import { Validation } from '../../protocols/validate'
 import { HttpRequest } from '../../protocols/http'
 import { MissingParamError } from '../../errors/missing-params-error'
-import { badRequest, serverError } from '../../helpers/http'
+import { badRequest, serverError, unauthorized } from '../../helpers/http'
 import { AccountModel } from '../../../domain/models/account'
 import { AddAccount } from '../../../domain/usecases/add-account'
 import { AddAccountModel } from '../../../domain/usecases/add-account'
@@ -97,5 +97,12 @@ describe('Signup Controller', () => {
     const { sut } = makeSut()
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(ok(makeFakeAccount()))
+  })
+
+  test('should return 403 if account exists', async () => {
+    const { sut, addAccountStub } = makeSut()
+    jest.spyOn(addAccountStub, 'add').mockReturnValueOnce(Promise.resolve(null))
+    const account = await sut.handle(makeFakeRequest())
+    expect(account).toEqual(unauthorized())
   })
 })
