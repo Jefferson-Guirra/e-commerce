@@ -16,12 +16,10 @@ export const adapterRouter = (controller: Controller) => {
         .status(httpResponse.statusCode)
         .json({ status: httpResponse.statusCode, body: httpResponse.body })
     } else {
-      res
-        .status(httpResponse.statusCode)
-        .json({
-          status: httpResponse.statusCode,
-          body: httpResponse.body.message,
-        })
+      res.status(httpResponse.statusCode).json({
+        status: httpResponse.statusCode,
+        body: httpResponse.body.message,
+      })
     }
   }
 }
