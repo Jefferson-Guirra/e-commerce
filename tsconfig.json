@@ -16,5 +16,5 @@
     "incremental": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "coverage", "**/__tests__", "jest-integration-config.js", "jest-unit-config.js", "jest-config.ts"]
+  "exclude": ["node_modules", "coverage", "**/__tests__", "jest-integration-config.js", "jest-unit-config.js", "jest-config.ts", "jest-mongodb-config.js"]
 }
