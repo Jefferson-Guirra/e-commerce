@@ -5,6 +5,15 @@ import { LogControllerDecorator } from './log-controller-decorator'
 import { ok } from '../../presentation/helpers/http'
 import { AccountModel } from '../../domain/models/account'
 
+const makeFakeRequest = (): HttpRequest => {
+  return {
+    body: {
+      username: 'any_username',
+      password: 'any_password',
+      email: 'any_email@mail.com',
+    },
+  }
+}
 const makeFakeAccount = (): AccountModel => {
   return {
     username: 'any_username',
@@ -50,27 +59,13 @@ describe('LogControllerDecorator', () => {
   test('should call handle correct values', async () => {
     const { sut, controllerStub } = makeSut()
     const handleSpy = jest.spyOn(controllerStub, 'handle')
-    const fakeRequest: HttpRequest = {
-      body: {
-        username: 'any_username',
-        password: 'any_password',
-        email: 'any_email@mail.com',
-      },
-    }
-    await sut.handle(fakeRequest)
-    expect(handleSpy).toHaveBeenCalledWith(fakeRequest)
+    await sut.handle(makeFakeRequest())
+    expect(handleSpy).toHaveBeenCalledWith(makeFakeRequest())
   })
 
   test('should return the same result of the controller', async () => {
     const { sut } = makeSut()
-    const fakeRequest: HttpRequest = {
-      body: {
-        username: 'any_username',
-        password: 'any_password',
-        email: 'any_email@mail.com',
-      },
-    }
-    const httpResponse = await sut.handle(fakeRequest)
+    const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(ok(makeFakeAccount()))
   })
 })
