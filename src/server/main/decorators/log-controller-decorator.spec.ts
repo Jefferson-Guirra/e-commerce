@@ -60,4 +60,17 @@ describe('LogControllerDecorator', () => {
     await sut.handle(fakeRequest)
     expect(handleSpy).toHaveBeenCalledWith(fakeRequest)
   })
+
+  test('should return the same result of the controller', async () => {
+    const { sut } = makeSut()
+    const fakeRequest: HttpRequest = {
+      body: {
+        username: 'any_username',
+        password: 'any_password',
+        email: 'any_email@mail.com',
+      },
+    }
+    const httpResponse = await sut.handle(fakeRequest)
+    expect(httpResponse).toEqual(ok(makeFakeAccount()))
+  })
 })
