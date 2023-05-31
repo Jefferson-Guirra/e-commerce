@@ -21,8 +21,8 @@ export class DbAuthentication implements Authentication {
       )
 
       if (isValid) {
-        await this.encrypter.encrypt(loadAccount.id)
-        return Promise.resolve('access_token')
+        const accessToken = await this.encrypter.encrypt(loadAccount.id)
+        return Promise.resolve(accessToken)
       }
     }
 
