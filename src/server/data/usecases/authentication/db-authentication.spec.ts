@@ -124,7 +124,7 @@ describe('DbAuthentication', () => {
     await expect(promise).rejects.toThrow()
   })
 
-  test('should call encrypt with correct values', async () => {
+  test('should call encrypt with correct id', async () => {
     const { encrypterStub, sut } = makeSut()
     const encryptSpy = jest.spyOn(encrypterStub, 'encrypt')
     await sut.auth(makeFakeAccountAuthentication())
@@ -138,5 +138,11 @@ describe('DbAuthentication', () => {
       .mockReturnValueOnce(Promise.reject(new Error()))
     const promise = sut.auth(makeFakeAccountAuthentication())
     await expect(promise).rejects.toThrow()
+  })
+
+  test('should return a token on success', async () => {
+    const { sut } = makeSut()
+    const accessToken = await sut.auth(makeFakeAccountAuthentication())
+    expect(accessToken).toBe('any_token')
   })
 })
