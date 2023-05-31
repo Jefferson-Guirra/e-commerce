@@ -3,6 +3,14 @@ import { HttpRequest } from '../../protocols/http'
 import { Validation } from '../../protocols/validate'
 import { LoginController } from './login-controller'
 
+const makeFakeRequest = (): HttpRequest => {
+  return {
+    body: {
+      email: 'any_email@mail.com',
+      password: 'any_password',
+    },
+  }
+}
 const makeValidationStub = (): Validation => {
   class ValidationStub implements Validation {
     validation(input: any): Error | undefined {
@@ -29,26 +37,14 @@ describe('LoginController', () => {
   test('should call Validation with correct value', async () => {
     const { sut, validationStub } = makeSut()
     const validateSpy = jest.spyOn(validationStub, 'validation')
-    const makeFakeRequest: HttpRequest = {
-      body: {
-        email: 'any_email@mail.com',
-        password: 'any_password',
-      },
-    }
-    await sut.handle(makeFakeRequest)
-    expect(validateSpy).toHaveBeenCalledWith(makeFakeRequest)
+    await sut.handle(makeFakeRequest())
+    expect(validateSpy).toHaveBeenCalledWith(makeFakeRequest())
   })
 
   test('should return badRequest if validation return error', async () => {
     const { sut, validationStub } = makeSut()
-    const makeFakeRequest: HttpRequest = {
-      body: {
-        email: 'any_email@mail.com',
-        password: 'any_password',
-      },
-    }
     jest.spyOn(validationStub, 'validation').mockReturnValueOnce(new Error())
-    const response = await sut.handle(makeFakeRequest)
+    const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(badRequest(new Error()))
   })
 })
