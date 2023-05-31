@@ -3,7 +3,7 @@ import {
   AuthenticationModel,
 } from '../../../domain/usecases/authentication'
 import { MissingParamError } from '../../errors/missing-params-error'
-import { badRequest, serverError, unauthorized } from '../../helpers/http'
+import { badRequest, ok, serverError, unauthorized } from '../../helpers/http'
 import { HttpRequest } from '../../protocols/http'
 import { Validation } from '../../protocols/validate'
 import { LoginController } from './login-controller'
@@ -102,5 +102,11 @@ describe('LoginController', () => {
       .mockReturnValueOnce(Promise.reject(serverError()))
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(serverError())
+  })
+
+  test('should return 200 if valid credentials are provided', async () => {
+    const { sut } = makeSut()
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(ok({ accessToken: 'any_token' }))
   })
 })
