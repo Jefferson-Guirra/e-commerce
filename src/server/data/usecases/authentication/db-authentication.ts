@@ -17,7 +17,10 @@ export class DbAuthentication implements Authentication {
         account.password,
         loadAccount.password
       )
-      return Promise.resolve('access_token')
+
+      if (isValid) {
+        return Promise.resolve('access_token')
+      }
     }
 
     return null
