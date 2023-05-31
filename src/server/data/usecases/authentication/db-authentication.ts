@@ -7,7 +7,10 @@ import { LoadAccountByEmailRepository } from '../../protocols/db/account/load-ac
 export class DbAuthentication implements Authentication {
   constructor(private readonly loadAccount: LoadAccountByEmailRepository) {}
   async auth(account: AuthenticationModel): Promise<string | null> {
-    await this.loadAccount.loadByEmail(account.email)
-    return await Promise.resolve(null)
+    const loadAccount = await this.loadAccount.loadByEmail(account.email)
+    if (!loadAccount) {
+      return await Promise.resolve(null)
+    }
+    return await Promise.resolve('any_token')
   }
 }
