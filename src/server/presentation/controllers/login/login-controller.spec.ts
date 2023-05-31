@@ -1,4 +1,5 @@
-import { badRequest } from '../../helpers/http'
+import { MissingParamError } from '../../errors/missing-params-error'
+import { badRequest, serverError } from '../../helpers/http'
 import { HttpRequest } from '../../protocols/http'
 import { Validation } from '../../protocols/validate'
 import { LoginController } from './login-controller'
@@ -41,10 +42,21 @@ describe('LoginController', () => {
     expect(validateSpy).toHaveBeenCalledWith(makeFakeRequest())
   })
 
-  test('should return badRequest if validation return error', async () => {
+  test('should return 400 if validation return error', async () => {
     const { sut, validationStub } = makeSut()
-    jest.spyOn(validationStub, 'validation').mockReturnValueOnce(new Error())
+    jest
+      .spyOn(validationStub, 'validation')
+      .mockReturnValueOnce(new MissingParamError('any_field'))
     const response = await sut.handle(makeFakeRequest())
-    expect(response).toEqual(badRequest(new Error()))
+    expect(response).toEqual(badRequest(new MissingParamError('any_field')))
+  })
+
+  test('should return 500 if validation return throw', async () => {
+    const { sut, validationStub } = makeSut()
+    jest.spyOn(validationStub, 'validation').mockImplementationOnce(() => {
+      throw new Error()
+    })
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(serverError(new Error()))
   })
 })
