@@ -1,3 +1,4 @@
+import { badRequest } from '../../helpers/http'
 import { HttpRequest } from '../../protocols/http'
 import { Validation } from '../../protocols/validate'
 import { LoginController } from './login-controller'
@@ -36,5 +37,18 @@ describe('LoginController', () => {
     }
     await sut.handle(makeFakeRequest)
     expect(validateSpy).toHaveBeenCalledWith(makeFakeRequest)
+  })
+
+  test('should return badRequest if validation return error', async () => {
+    const { sut, validationStub } = makeSut()
+    const makeFakeRequest: HttpRequest = {
+      body: {
+        email: 'any_email@mail.com',
+        password: 'any_password',
+      },
+    }
+    jest.spyOn(validationStub, 'validation').mockReturnValueOnce(new Error())
+    const response = await sut.handle(makeFakeRequest)
+    expect(response).toEqual(badRequest(new Error()))
   })
 })
