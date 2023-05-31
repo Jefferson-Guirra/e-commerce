@@ -54,23 +54,23 @@ interface SutTypes {
   sut: DbAuthentication
   loadAccountByEmailRepositoryStub: LoadAccountByEmailRepository
   hashCompareStub: HashCompare
-  encrypterSutb: Encrypter
+  encrypterStub: Encrypter
 }
 const makeSut = (): SutTypes => {
   const loadAccountByEmailRepositoryStub =
     makeLoadAccountByEmailRepositoryStub()
   const hashCompareStub = makeHashCompareStub()
-  const encrypterSutb = makeEncrypterStub()
+  const encrypterStub = makeEncrypterStub()
 
   const sut = new DbAuthentication(
     loadAccountByEmailRepositoryStub,
     hashCompareStub,
-    encrypterSutb
+    encrypterStub
   )
   return {
     loadAccountByEmailRepositoryStub,
     hashCompareStub,
-    encrypterSutb,
+    encrypterStub,
     sut,
   }
 }
@@ -125,9 +125,18 @@ describe('DbAuthentication', () => {
   })
 
   test('should call encrypt with correct values', async () => {
-    const { encrypterSutb, sut } = makeSut()
-    const encryptSpy = jest.spyOn(encrypterSutb, 'encrypt')
+    const { encrypterStub, sut } = makeSut()
+    const encryptSpy = jest.spyOn(encrypterStub, 'encrypt')
     await sut.auth(makeFakeAccountAuthentication())
     expect(encryptSpy).toBeCalledWith('any_id')
+  })
+
+  test('should return throw if encrypt return throw', async () => {
+    const { encrypterStub, sut } = makeSut()
+    jest
+      .spyOn(encrypterStub, 'encrypt')
+      .mockReturnValueOnce(Promise.reject(new Error()))
+    const promise = sut.auth(makeFakeAccountAuthentication())
+    await expect(promise).rejects.toThrow()
   })
 })
