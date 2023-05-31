@@ -1,12 +1,8 @@
 import { AccountModel } from '../../../domain/models/account'
 import { AuthenticationModel } from '../../../domain/usecases/authentication'
+import { HashCompare } from '../../protocols/criptography/hash-compare'
 import { LoadAccountByEmailRepository } from '../../protocols/db/account/load-account-by-email-repository'
 import { DbAuthentication } from './db-authentication'
-
-interface SutTypes {
-  sut: DbAuthentication
-  loadAccountByEmailRepositoryStub: LoadAccountByEmailRepository
-}
 
 const makeFakeAccountModel = (): AccountModel => {
   return {
@@ -35,12 +31,32 @@ const makeLoadAccountByEmailRepositoryStub =
     }
     return new LoadAccountByEmailRepositoryStub()
   }
+
+const makeHashCompareStub = (): HashCompare => {
+  class HashCompareStub implements HashCompare {
+    async compare(value: string, hash: string): Promise<boolean> {
+      return await Promise.resolve(true)
+    }
+  }
+  return new HashCompareStub()
+}
+
+interface SutTypes {
+  sut: DbAuthentication
+  loadAccountByEmailRepositoryStub: LoadAccountByEmailRepository
+  hashCompareStub: HashCompare
+}
 const makeSut = (): SutTypes => {
   const loadAccountByEmailRepositoryStub =
     makeLoadAccountByEmailRepositoryStub()
-  const sut = new DbAuthentication(loadAccountByEmailRepositoryStub)
+  const hashCompareStub = makeHashCompareStub()
+  const sut = new DbAuthentication(
+    loadAccountByEmailRepositoryStub,
+    hashCompareStub
+  )
   return {
     loadAccountByEmailRepositoryStub,
+    hashCompareStub,
     sut,
   }
 }
@@ -67,5 +83,12 @@ describe('DbAuthentication', () => {
       .mockReturnValueOnce(Promise.resolve(null))
     const accessToken = await sut.auth(makeFakeAccountAuthentication())
     expect(accessToken).toBeFalsy()
+  })
+
+  test('should call compare with correct values', async () => {
+    const { sut, hashCompareStub } = makeSut()
+    const compareSpy = jest.spyOn(hashCompareStub, 'compare')
+    await sut.auth(makeFakeAccountAuthentication())
+    expect(compareSpy).toHaveBeenCalledWith('any_password', 'hashed_password')
   })
 })
