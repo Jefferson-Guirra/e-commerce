@@ -91,4 +91,13 @@ describe('DbAuthentication', () => {
     await sut.auth(makeFakeAccountAuthentication())
     expect(compareSpy).toHaveBeenCalledWith('any_password', 'hashed_password')
   })
+
+  test('should return null if compare return false', async () => {
+    const { sut, hashCompareStub } = makeSut()
+    jest
+      .spyOn(hashCompareStub, 'compare')
+      .mockReturnValueOnce(Promise.resolve(false))
+    const accessToken = await sut.auth(makeFakeAccountAuthentication())
+    expect(accessToken).toBeFalsy()
+  })
 })
