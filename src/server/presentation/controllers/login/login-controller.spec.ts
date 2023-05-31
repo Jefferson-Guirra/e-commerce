@@ -3,7 +3,7 @@ import {
   AuthenticationModel,
 } from '../../../domain/usecases/authentication'
 import { MissingParamError } from '../../errors/missing-params-error'
-import { badRequest, serverError } from '../../helpers/http'
+import { badRequest, serverError, unauthorized } from '../../helpers/http'
 import { HttpRequest } from '../../protocols/http'
 import { Validation } from '../../protocols/validate'
 import { LoginController } from './login-controller'
@@ -84,5 +84,14 @@ describe('LoginController', () => {
       email: 'any_email@mail.com',
       password: 'any_password',
     })
+  })
+
+  test('should return 401 if authentication return null', async () => {
+    const { sut, authenticationStub } = makeSut()
+    jest
+      .spyOn(authenticationStub, 'auth')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(unauthorized())
   })
 })
