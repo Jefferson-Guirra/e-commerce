@@ -1,5 +1,6 @@
 import { AccountModel } from '../../../domain/models/account'
 import { AuthenticationModel } from '../../../domain/usecases/authentication'
+import { Encrypter } from '../../protocols/criptography/encrypter'
 import { HashCompare } from '../../protocols/criptography/hash-compare'
 import { LoadAccountByEmailRepository } from '../../protocols/db/account/load-account-by-email-repository'
 import { DbAuthentication } from './db-authentication'
@@ -41,22 +42,35 @@ const makeHashCompareStub = (): HashCompare => {
   return new HashCompareStub()
 }
 
+const makeEncrypterStub = (): Encrypter => {
+  class EncrypterStub implements Encrypter {
+    async encrypt(value: string): Promise<string> {
+      return await Promise.resolve('any_token')
+    }
+  }
+  return new EncrypterStub()
+}
 interface SutTypes {
   sut: DbAuthentication
   loadAccountByEmailRepositoryStub: LoadAccountByEmailRepository
   hashCompareStub: HashCompare
+  encrypterSutb: Encrypter
 }
 const makeSut = (): SutTypes => {
   const loadAccountByEmailRepositoryStub =
     makeLoadAccountByEmailRepositoryStub()
   const hashCompareStub = makeHashCompareStub()
+  const encrypterSutb = makeEncrypterStub()
+
   const sut = new DbAuthentication(
     loadAccountByEmailRepositoryStub,
-    hashCompareStub
+    hashCompareStub,
+    encrypterSutb
   )
   return {
     loadAccountByEmailRepositoryStub,
     hashCompareStub,
+    encrypterSutb,
     sut,
   }
 }
@@ -108,5 +122,12 @@ describe('DbAuthentication', () => {
       .mockReturnValueOnce(Promise.reject(new Error()))
     const promise = sut.auth(makeFakeAccountAuthentication())
     await expect(promise).rejects.toThrow()
+  })
+
+  test('should call encrypt with correct values', async () => {
+    const { encrypterSutb, sut } = makeSut()
+    const encryptSpy = jest.spyOn(encrypterSutb, 'encrypt')
+    await sut.auth(makeFakeAccountAuthentication())
+    expect(encryptSpy).toBeCalledWith('any_id')
   })
 })
