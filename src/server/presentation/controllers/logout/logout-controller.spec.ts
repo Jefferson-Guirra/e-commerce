@@ -1,7 +1,7 @@
 import { HttpRequest } from '../../protocols/http'
 import { Validation } from '../../protocols/validate'
 import { LogoutController } from './logout-controller'
-import { badRequest } from '../../helpers/http'
+import { badRequest, serverError } from '../../helpers/http'
 import { MissingParamError } from '../../errors/missing-params-error'
 
 const makeValidationStub = (): Validation => {
@@ -49,5 +49,14 @@ describe('LoginController', () => {
       .mockReturnValueOnce(new MissingParamError('any_field'))
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(badRequest(new MissingParamError('any_field')))
+  })
+
+  test('should return 500 if validation return throw', async () => {
+    const { sut, validateStub } = makeSut()
+    jest.spyOn(validateStub, 'validation').mockImplementationOnce(() => {
+      throw new Error()
+    })
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(serverError(new Error()))
   })
 })
