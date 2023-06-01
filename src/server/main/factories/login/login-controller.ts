@@ -2,9 +2,11 @@ import { DbAuthentication } from '../../../data/usecases/authentication/db-authe
 import { BcrypterAdapter } from '../../../infra/criptography/bcrypt-adapter.ts/bcrypter-adapter'
 import { JwtAdapter } from '../../../infra/criptography/jwt-adapter/jwt-adapter'
 import { AccountMongoRepository } from '../../../infra/db/account/account-mongo-repository'
+import { LogMongoRepository } from '../../../infra/db/log/log-mongo-repository'
 import { LoginController } from '../../../presentation/controllers/login/login-controller'
 import { Controller } from '../../../presentation/protocols/controller'
 import { LoginValidate } from '../../../presentation/validators/login-validate'
+import { LogControllerDecorator } from '../../decorators/log-controller-decorator'
 
 export const makeLoginController = (): Controller => {
   const validate = new LoginValidate()
@@ -17,5 +19,7 @@ export const makeLoginController = (): Controller => {
     jwtAdapter,
     accountMongoRepository
   )
-  return new LoginController(validate, authentication)
+  const logMongoRepository = new LogMongoRepository()
+  const loginController = new LoginController(validate, authentication)
+  return new LogControllerDecorator(loginController, logMongoRepository)
 }
