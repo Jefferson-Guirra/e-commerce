@@ -1,6 +1,12 @@
 import { JwtAdapter } from './jwt-adapter'
 import jwt from 'jsonwebtoken'
 
+jest.mock('jsonwebtoken', () => ({
+  sign: (): Promise<string> => {
+    return Promise.resolve('any_id')
+  },
+}))
+
 const makeSut = () => new JwtAdapter('secret')
 describe('JwtAdapter', () => {
   test('should call encrypt with correct values', async () => {
@@ -17,5 +23,11 @@ describe('JwtAdapter', () => {
     })
     const response = sut.encrypt('id')
     await expect(response).rejects.toThrow()
+  })
+
+  test('should return a token on a sign success', async () => {
+    const sut = makeSut()
+    const token = await sut.encrypt('id')
+    expect(token).toBe('any_id')
   })
 })
