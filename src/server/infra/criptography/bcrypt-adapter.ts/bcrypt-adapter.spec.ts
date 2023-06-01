@@ -60,4 +60,10 @@ describe('BcrypterAdapter', () => {
     const validate = await sut.compare('any_value', 'hash_value')
     expect(validate).toBe(false)
   })
+
+  test('should return true if compare succeeds', async () => {
+    const sut = makeSut()
+    const validate = await sut.compare('any_value', 'hash_value')
+    expect(validate).toBe(true)
+  })
 })
