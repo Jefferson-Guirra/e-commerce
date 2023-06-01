@@ -89,4 +89,13 @@ describe('LoginController', () => {
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(unauthorized())
   })
+
+  test('should return 500 if logout return throw', async () => {
+    const { sut, accountLogoutStub } = makeSut()
+    jest
+      .spyOn(accountLogoutStub, 'logout')
+      .mockReturnValueOnce(Promise.reject(new Error()))
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(serverError())
+  })
 })
