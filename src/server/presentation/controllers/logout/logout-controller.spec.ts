@@ -3,6 +3,7 @@ import { Validation } from '../../protocols/validate'
 import { LogoutController } from './logout-controller'
 import { badRequest, serverError } from '../../helpers/http'
 import { MissingParamError } from '../../errors/missing-params-error'
+import { AccountLogout } from '../../../domain/usecases/logout-account'
 
 const makeValidationStub = (): Validation => {
   class ValidationStub implements Validation {
@@ -20,16 +21,29 @@ const makeFakeRequest = (): HttpRequest => {
     },
   }
 }
+
+const makeAccountLogoutStub = (): AccountLogout => {
+  class AccountLogoutStub implements AccountLogout {
+    async logout(accessToken: string): Promise<string | undefined> {
+      return await Promise.resolve('logout success')
+    }
+  }
+
+  return new AccountLogoutStub()
+}
 interface SutTypes {
   validateStub: Validation
+  accountLogoutStub: AccountLogout
   sut: LogoutController
 }
 
 const makeSut = (): SutTypes => {
   const validateStub = makeValidationStub()
-  const sut = new LogoutController(validateStub)
+  const accountLogoutStub = makeAccountLogoutStub()
+  const sut = new LogoutController(validateStub, accountLogoutStub)
   return {
     validateStub,
+    accountLogoutStub,
     sut,
   }
 }
@@ -58,5 +72,12 @@ describe('LoginController', () => {
     })
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(serverError(new Error()))
+  })
+
+  test('should call accountLogout with correct token', async () => {
+    const { sut, accountLogoutStub } = makeSut()
+    const logoutSpy = jest.spyOn(accountLogoutStub, 'logout')
+    await sut.handle(makeFakeRequest())
+    expect(logoutSpy).toHaveBeenLastCalledWith('any_token')
   })
 })
