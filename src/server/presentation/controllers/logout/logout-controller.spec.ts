@@ -1,7 +1,7 @@
 import { HttpRequest } from '../../protocols/http'
 import { Validation } from '../../protocols/validate'
 import { LogoutController } from './logout-controller'
-import { badRequest, serverError } from '../../helpers/http'
+import { badRequest, ok, serverError, unauthorized } from '../../helpers/http'
 import { MissingParamError } from '../../errors/missing-params-error'
 import { AccountLogout } from '../../../domain/usecases/logout-account'
 
@@ -79,5 +79,14 @@ describe('LoginController', () => {
     const logoutSpy = jest.spyOn(accountLogoutStub, 'logout')
     await sut.handle(makeFakeRequest())
     expect(logoutSpy).toHaveBeenLastCalledWith('any_token')
+  })
+
+  test('should return 400 if logout fails', async () => {
+    const { sut, accountLogoutStub } = makeSut()
+    jest
+      .spyOn(accountLogoutStub, 'logout')
+      .mockReturnValueOnce(Promise.resolve(undefined))
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(unauthorized())
   })
 })
