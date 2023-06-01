@@ -20,9 +20,9 @@ export class LogoutController implements Controller {
       if (!logout) {
         return unauthorized()
       }
-      return Promise.resolve(ok('logout success'))
+      return ok(logout)
     } catch (err) {
-      return Promise.resolve(serverError(err as Error))
+      return serverError(err as Error)
     }
   }
 }
