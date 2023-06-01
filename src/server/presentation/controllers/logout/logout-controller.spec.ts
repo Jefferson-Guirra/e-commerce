@@ -98,4 +98,9 @@ describe('LoginController', () => {
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(serverError())
   })
+  test('should return 200 on success', async () => {
+    const { sut, accountLogoutStub } = makeSut()
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(ok('logout success'))
+  })
 })
