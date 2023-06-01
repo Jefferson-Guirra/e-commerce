@@ -10,7 +10,7 @@ const makeSut = (): SutTypes => {
   }
 }
 describe('Signup Controller', () => {
-  test('should return InvalidParamsError is email not provided ', async () => {
+  test('should return MissingParamsError is email not provided ', async () => {
     const fakeRequest = {
       body: {
         username: 'any_username',
@@ -20,5 +20,17 @@ describe('Signup Controller', () => {
     const { sut } = makeSut()
     const response = sut.validation(fakeRequest)
     expect(response).toEqual(new MissingParamError('email'))
+  })
+
+  test('should return MissingParamsError is password not provided ', async () => {
+    const fakeRequest = {
+      body: {
+        username: 'any_username',
+        email: 'any_email@mail.com',
+      },
+    }
+    const { sut } = makeSut()
+    const response = sut.validation(fakeRequest)
+    expect(response).toEqual(new MissingParamError('password'))
   })
 })
