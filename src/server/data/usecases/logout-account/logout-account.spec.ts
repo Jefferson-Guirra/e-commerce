@@ -16,13 +16,7 @@ const makeFakeAccount = (): accountLoginModel => {
 const makeLoadAccountByAccessTokenStub = (): LoadAccountByAccessToken => {
   class LoadAccountByAccessTokenStub implements LoadAccountByAccessToken {
     async load(accessToken: string): Promise<accountLoginModel | null> {
-      return await Promise.resolve({
-        username: 'any_username',
-        password: 'any_password',
-        email: 'any_email@mail.com',
-        id: 'any_id',
-        accessToken: 'any_token',
-      })
+      return await Promise.resolve(makeFakeAccount())
     }
   }
   return new LoadAccountByAccessTokenStub()
@@ -45,5 +39,23 @@ describe('DbLogoutAccount', () => {
     const loadSpy = jest.spyOn(loadAccountByAccessTokenStub, 'load')
     await sut.logout('any_token')
     expect(loadSpy).toHaveBeenCalledWith('any_token')
+  })
+
+  test('should return undefined if load return null', async () => {
+    const { sut, loadAccountByAccessTokenStub } = makeSut()
+    jest
+      .spyOn(loadAccountByAccessTokenStub, 'load')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const response = await sut.logout('any_token')
+    expect(response).toBeFalsy()
+  })
+
+  test('should return throw if load return throw', async () => {
+    const { sut, loadAccountByAccessTokenStub } = makeSut()
+    jest
+      .spyOn(loadAccountByAccessTokenStub, 'load')
+      .mockReturnValueOnce(Promise.reject(new Error()))
+    const promise = sut.logout('any_token')
+    await expect(promise).rejects.toThrow()
   })
 })
