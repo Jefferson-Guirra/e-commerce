@@ -1,9 +1,9 @@
 import { HttpRequest } from '../../protocols/http'
 import { Validation } from '../../protocols/validate'
 import { AddBookListController } from './add-book-list-controller'
-import { badRequest, serverError } from '../../helpers/http'
+import { badRequest, serverError, unauthorized } from '../../helpers/http'
 import { MissingParamError } from '../../errors/missing-params-error'
-import { AddBookListRepository } from '../../../data/protocols/db/book-list/add-book-repository'
+import { AddBookListRepository } from '../../../data/protocols/db/book-list/add-book-list-repository'
 import { BookModel } from '../../../domain/models/book'
 
 const makeFakeRequest = (): HttpRequest => {
@@ -100,5 +100,14 @@ describe('LoginController', () => {
       .mockReturnValueOnce(Promise.reject(new Error()))
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(serverError(new Error()))
+  })
+
+  test('should return 401 if addAccount return null', async () => {
+    const { sut, addBookListRepositoryStub } = makeSut()
+    jest
+      .spyOn(addBookListRepositoryStub, 'addBook')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(unauthorized())
   })
 })
