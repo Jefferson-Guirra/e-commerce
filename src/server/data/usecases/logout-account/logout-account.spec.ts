@@ -1,5 +1,5 @@
 import {
-  LoadAccountByAccessToken,
+  LoadAccountByAccessTokenRepository,
   accountLoginModel,
 } from '../../protocols/db/account/load-account-by-access-token'
 import { RemoveAccessTokenRepository } from '../../protocols/db/account/remove-access-token-repository'
@@ -14,14 +14,17 @@ const makeFakeAccount = (): accountLoginModel => {
     accessToken: 'any_token',
   }
 }
-const makeLoadAccountByAccessTokenStub = (): LoadAccountByAccessToken => {
-  class LoadAccountByAccessTokenStub implements LoadAccountByAccessToken {
-    async load(accessToken: string): Promise<accountLoginModel | null> {
-      return await Promise.resolve(makeFakeAccount())
+const makeLoadAccountByAccessTokenStub =
+  (): LoadAccountByAccessTokenRepository => {
+    class LoadAccountByAccessTokenStub
+      implements LoadAccountByAccessTokenRepository
+    {
+      async load(accessToken: string): Promise<accountLoginModel | null> {
+        return await Promise.resolve(makeFakeAccount())
+      }
     }
+    return new LoadAccountByAccessTokenStub()
   }
-  return new LoadAccountByAccessTokenStub()
-}
 
 const makeRemoveAccessTokenStub = (): RemoveAccessTokenRepository => {
   class RemoveAccessTokenStub implements RemoveAccessTokenRepository {
@@ -32,7 +35,7 @@ const makeRemoveAccessTokenStub = (): RemoveAccessTokenRepository => {
   return new RemoveAccessTokenStub()
 }
 interface SutTypes {
-  loadAccountByAccessTokenStub: LoadAccountByAccessToken
+  loadAccountByAccessTokenStub: LoadAccountByAccessTokenRepository
   removeAccessTokenStub: RemoveAccessTokenRepository
   sut: DbLogoutAccount
 }

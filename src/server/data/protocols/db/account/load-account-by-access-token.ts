@@ -6,6 +6,6 @@ export interface accountLoginModel {
   accessToken: string
 }
 
-export interface LoadAccountByAccessToken {
+export interface LoadAccountByAccessTokenRepository {
   load: (accessToken: string) => Promise<accountLoginModel | null>
 }
