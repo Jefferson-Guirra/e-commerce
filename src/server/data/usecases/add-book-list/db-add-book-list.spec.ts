@@ -62,4 +62,13 @@ describe('DbAddBookList', () => {
     await sut.add(makeFakeAddBookModel())
     expect(loadSpy).toHaveBeenCalledWith('any_token')
   })
+
+  test('should return throw if loadAccountByAccessToken fails', async () => {
+    const { sut, loadAccountByAccessTokenStub } = makeSut()
+    jest
+      .spyOn(loadAccountByAccessTokenStub, 'loadByAccessToken')
+      .mockReturnValueOnce(Promise.reject(new Error()))
+    const promise = sut.add(makeFakeAddBookModel())
+    await expect(promise).rejects.toThrow()
+  })
 })
