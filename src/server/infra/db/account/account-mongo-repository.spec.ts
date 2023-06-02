@@ -89,4 +89,24 @@ describe('AccountMongoRepository', () => {
     const account = await sut.loadByAccessToken('any_token')
     expect(account).toBeFalsy()
   })
+
+  test('should remove accessToken if remove success', async () => {
+    const sut = makeSut()
+    const result = await accountCollection.insertOne({
+      username: 'any_username',
+      password: 'any_password',
+      email: 'any_email@mail.com',
+      accessToken: 'any_token',
+    })
+    let account = await accountCollection.findOne({ accessToken: 'any_token' })
+    expect(account).toBeTruthy()
+    expect(account?.accessToken).toBeTruthy()
+    await sut.remove(account?.accessToken)
+    account = await accountCollection.findOne({ _id: result.insertedId })
+    expect(account).toBeTruthy()
+    expect(account?.username).toBe('any_username')
+    expect(account?.password).toBe('any_password')
+    expect(account?.email).toBe('any_email@mail.com')
+    expect(account?.accessToken).toBeFalsy()
+  })
 })
