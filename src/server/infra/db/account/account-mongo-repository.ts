@@ -9,13 +9,15 @@ import {
   LoadAccountByAccessTokenRepository,
   accountLoginModel,
 } from '../../../data/protocols/db/account/load-account-by-access-token-repository'
+import { RemoveAccessTokenRepository } from '../../../data/protocols/db/account/remove-access-token-repository'
 
 export class AccountMongoRepository
   implements
     LoadAccountByEmailRepository,
     AddAccountRepository,
     UpdateAccessTokenRepository,
-    LoadAccountByAccessTokenRepository
+    LoadAccountByAccessTokenRepository,
+    RemoveAccessTokenRepository
 {
   async loadByEmail(email: string): Promise<AccountModel | null> {
     const accountCollection = await MongoHelper.getCollection('accounts')
@@ -46,6 +48,17 @@ export class AccountMongoRepository
       {
         $set: {
           accessToken: token,
+        },
+      }
+    )
+  }
+  async remove(accessToken: string): Promise<void> {
+    const accountCollection = await MongoHelper.getCollection('accounts')
+    await accountCollection.updateOne(
+      { accessToken },
+      {
+        $unset: {
+          accessToken: '',
         },
       }
     )
