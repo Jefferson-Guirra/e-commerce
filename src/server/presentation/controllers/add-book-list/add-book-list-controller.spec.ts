@@ -1,7 +1,7 @@
 import { HttpRequest } from '../../protocols/http'
 import { Validation } from '../../protocols/validate'
 import { AddBookListController } from './add-book-list-controller'
-import { badRequest, serverError, unauthorized } from '../../helpers/http'
+import { badRequest, serverError, unauthorized, ok } from '../../helpers/http'
 import { MissingParamError } from '../../errors/missing-params-error'
 import { AddBookListRepository } from '../../../data/protocols/db/book-list/add-book-list-repository'
 import { BookModel } from '../../../domain/models/book'
@@ -110,5 +110,24 @@ describe('LoginController', () => {
       .mockReturnValueOnce(Promise.resolve(null))
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(unauthorized())
+  })
+
+  test('should return 200 if valid credentials are provided', async () => {
+    const { sut } = makeSut()
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(
+      ok({
+        title: 'any_title',
+        description: 'any_description',
+        authors: ['any_author'],
+        price: 0.0,
+        language: 'any_language',
+        publisher: 'any_publisher',
+        date: 1254632254,
+        publisherDate: 'any_date',
+        imgUrl: 'any_url',
+        id: 'any_id',
+      })
+    )
   })
 })
