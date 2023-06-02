@@ -83,4 +83,10 @@ describe('AccountMongoRepository', () => {
     expect(loadByAccessTokenAccount?.email).toBe('any_email@mail.com')
     expect(loadByAccessTokenAccount?.accessToken).toBe('any_token')
   })
+
+  test('should return null if loadByAccessToken return null', async () => {
+    const sut = makeSut()
+    const account = await sut.loadByAccessToken('any_token')
+    expect(account).toBeFalsy()
+  })
 })
