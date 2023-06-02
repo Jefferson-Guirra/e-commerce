@@ -64,4 +64,23 @@ describe('AccountMongoRepository', () => {
     account = await accountCollection.findOne({ _id: result.insertedId })
     expect(account?.accessToken).toBe('any_token')
   })
+
+  test('should return account if loadByAccessToken success', async () => {
+    const sut = makeSut()
+    const result = await accountCollection.insertOne({
+      username: 'any_username',
+      password: 'any_password',
+      email: 'any_email@mail.com',
+      accessToken: 'any_token',
+    })
+    const account = await accountCollection.findOne({ _id: result.insertedId })
+    const loadByAccessTokenAccount = await sut.loadByAccessToken(
+      account?.accessToken
+    )
+    expect(loadByAccessTokenAccount).toBeTruthy()
+    expect(loadByAccessTokenAccount?.username).toBe('any_username')
+    expect(loadByAccessTokenAccount?.password).toBe('any_password')
+    expect(loadByAccessTokenAccount?.email).toBe('any_email@mail.com')
+    expect(loadByAccessTokenAccount?.accessToken).toBe('any_token')
+  })
 })
