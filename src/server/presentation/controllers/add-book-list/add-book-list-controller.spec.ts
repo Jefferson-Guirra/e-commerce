@@ -6,6 +6,21 @@ import { MissingParamError } from '../../errors/missing-params-error'
 import { AddBookListRepository } from '../../../data/protocols/db/book-list/add-book-list-repository'
 import { BookModel } from '../../../domain/models/book'
 
+const makeFakeAddBookModel = (): AddBookModel => {
+  return {
+    title: 'any_title',
+    description: 'any_description',
+    authors: ['any_author'],
+    price: 0.0,
+    language: 'any_language',
+    publisher: 'any_publisher',
+    date: 1254632254,
+    publisherDate: 'any_date',
+    imgUrl: 'any_url',
+    id: 'any_id',
+  }
+}
+
 const makeFakeRequest = (): HttpRequest => {
   return {
     body: {
@@ -34,18 +49,7 @@ const makeValidationStub = (): Validation => {
 const makeAddBookListStub = (): AddBookListRepository => {
   class AddBookListRepositoryStub implements AddBookListRepository {
     async addBook(book: BookModel): Promise<AddBookModel> {
-      return Promise.resolve({
-        title: 'any_title',
-        description: 'any_description',
-        authors: ['any_author'],
-        price: 0.0,
-        language: 'any_language',
-        publisher: 'any_publisher',
-        date: 1254632254,
-        publisherDate: 'any_date',
-        imgUrl: 'any_url',
-        id: 'any_id',
-      })
+      return Promise.resolve(makeFakeAddBookModel())
     }
   }
   return new AddBookListRepositoryStub()
@@ -115,19 +119,6 @@ describe('LoginController', () => {
   test('should return 200 if valid credentials are provided', async () => {
     const { sut } = makeSut()
     const response = await sut.handle(makeFakeRequest())
-    expect(response).toEqual(
-      ok({
-        title: 'any_title',
-        description: 'any_description',
-        authors: ['any_author'],
-        price: 0.0,
-        language: 'any_language',
-        publisher: 'any_publisher',
-        date: 1254632254,
-        publisherDate: 'any_date',
-        imgUrl: 'any_url',
-        id: 'any_id',
-      })
-    )
+    expect(response).toEqual(ok(makeFakeAddBookModel()))
   })
 })
