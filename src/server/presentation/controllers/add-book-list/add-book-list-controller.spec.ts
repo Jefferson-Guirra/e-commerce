@@ -41,6 +41,7 @@ const makeAddBookListStub = (): AddBookListRepository => {
         price: 0.0,
         language: 'any_language',
         publisher: 'any_publisher',
+        date: 1254632254,
         publisherDate: 'any_date',
         imgUrl: 'any_url',
         id: 'any_id',

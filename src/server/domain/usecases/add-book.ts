@@ -7,5 +7,6 @@ interface AddBookModel {
   publisher: string
   publisherDate: string
   imgUrl: string
+  date: number
   id: string
 }
