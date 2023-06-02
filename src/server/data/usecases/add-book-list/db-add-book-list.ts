@@ -21,24 +21,13 @@ export class DbAddBookList implements AddBookList {
     }
     const date = this.getDate.date()
     const { id } = account
-    await this.addBookListRepository.addBook({
+    const addBook = await this.addBookListRepository.addBook({
       id: bookId,
       date,
       userId: id.toString(),
       ...bookFields,
     })
 
-    return {
-      title: 'any_title',
-      description: 'any_description',
-      authors: ['any_author'],
-      price: 0.0,
-      language: 'any_language',
-      publisher: 'any_publisher',
-      date: 1254632254,
-      publisherDate: 'any_date',
-      imgUrl: 'any_url',
-      id: 'any_id',
-    }
+    return addBook
   }
 }
