@@ -79,7 +79,7 @@ const makeFakeRequest = (): BookModel => {
 
 const makeFakeAddBookListRepository = (): AddBookListRepository => {
   class AddBookListRepositoryStub implements AddBookListRepository {
-    async addBook(book: AddBookRepositoryModel): Promise<AddBookModel | null> {
+    async addBook(book: AddBookRepositoryModel): Promise<AddBookModel> {
       return await Promise.resolve(makeFakeAddBookModel())
     }
   }
@@ -160,5 +160,11 @@ describe('DbAddBookList', () => {
     const addBookSpy = jest.spyOn(addBookListRepositoryStub, 'addBook')
     await sut.add(makeFakeRequest())
     expect(addBookSpy).toHaveBeenCalledWith(makeFakeAddBookRepositoryRequest())
+  })
+
+  test('should return a book if correct values provided', async () => {
+    const { sut } = makeSut()
+    const response = await sut.add(makeFakeRequest())
+    expect(response).toEqual(makeFakeAddBookModel())
   })
 })
