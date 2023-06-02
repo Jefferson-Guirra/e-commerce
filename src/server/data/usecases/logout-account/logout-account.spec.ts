@@ -58,4 +58,10 @@ describe('DbLogoutAccount', () => {
     const promise = sut.logout('any_token')
     await expect(promise).rejects.toThrow()
   })
+
+  test('should return message on a succeeds', async () => {
+    const { sut } = makeSut()
+    const response = await sut.logout('any_token')
+    expect(response).toEqual('logout success')
+  })
 })
