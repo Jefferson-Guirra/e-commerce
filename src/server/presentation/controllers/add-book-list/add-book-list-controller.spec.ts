@@ -5,6 +5,10 @@ import { badRequest, serverError, unauthorized, ok } from '../../helpers/http'
 import { MissingParamError } from '../../errors/missing-params-error'
 import { AddBookListRepository } from '../../../data/protocols/db/book-list/add-book-list-repository'
 import { BookModel } from '../../../domain/models/book'
+import {
+  AddBookList,
+  AddBookModel,
+} from '../../../domain/usecases/add-book-list'
 
 const makeFakeAddBookModel = (): AddBookModel => {
   return {
@@ -46,31 +50,28 @@ const makeValidationStub = (): Validation => {
   return new ValidationStub()
 }
 
-const makeAddBookListStub = (): AddBookListRepository => {
-  class AddBookListRepositoryStub implements AddBookListRepository {
-    async addBook(book: BookModel): Promise<AddBookModel> {
+const makeAddBookListStub = (): AddBookList => {
+  class AddBookListStub implements AddBookList {
+    async add(book: BookModel): Promise<AddBookModel> {
       return Promise.resolve(makeFakeAddBookModel())
     }
   }
-  return new AddBookListRepositoryStub()
+  return new AddBookListStub()
 }
 interface SutTypes {
   validationStub: Validation
-  addBookListRepositoryStub: AddBookListRepository
+  addBookListStub: AddBookList
   sut: AddBookListController
 }
 
 const makeSut = (): SutTypes => {
   const validationStub = makeValidationStub()
-  const addBookListRepositoryStub = makeAddBookListStub()
-  const sut = new AddBookListController(
-    validationStub,
-    addBookListRepositoryStub
-  )
+  const addBookListStub = makeAddBookListStub()
+  const sut = new AddBookListController(validationStub, addBookListStub)
 
   return {
     validationStub,
-    addBookListRepositoryStub,
+    addBookListStub,
     sut,
   }
 }
@@ -92,26 +93,26 @@ describe('LoginController', () => {
   })
 
   test('should call addBook with correct values', async () => {
-    const { sut, addBookListRepositoryStub } = makeSut()
-    const addBookSpy = jest.spyOn(addBookListRepositoryStub, 'addBook')
+    const { sut, addBookListStub } = makeSut()
+    const addBookSpy = jest.spyOn(addBookListStub, 'add')
     await sut.handle(makeFakeRequest())
     expect(addBookSpy).toHaveBeenCalledWith(makeFakeRequest().body)
   })
 
   test('should return 500 if addBook fails', async () => {
-    const { sut, addBookListRepositoryStub } = makeSut()
+    const { sut, addBookListStub } = makeSut()
     jest
-      .spyOn(addBookListRepositoryStub, 'addBook')
+      .spyOn(addBookListStub, 'add')
       .mockReturnValueOnce(Promise.reject(new Error()))
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(serverError(new Error()))
   })
 
   test('should return 401 if addAccount return null', async () => {
-    const { sut, addBookListRepositoryStub } = makeSut()
+    const { sut, addBookListStub } = makeSut()
     jest
-      .spyOn(addBookListRepositoryStub, 'addBook')
-      .mockReturnValueOnce(Promise.resolve(null))
+      .spyOn(addBookListStub, 'add')
+      .mockReturnValueOnce(Promise.resolve(undefined))
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(unauthorized())
   })
