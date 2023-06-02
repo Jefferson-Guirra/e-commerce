@@ -6,7 +6,10 @@ export class DbLogoutAccount implements AccountLogout {
     private readonly loadAccountByAccessToken: LoadAccountByAccessToken
   ) {}
   async logout(accessToken: string): Promise<string | undefined> {
-    this.loadAccountByAccessToken.load(accessToken)
-    return
+    const account = await this.loadAccountByAccessToken.load(accessToken)
+    if (!account) {
+      return
+    }
+    return 'logout success'
   }
 }
