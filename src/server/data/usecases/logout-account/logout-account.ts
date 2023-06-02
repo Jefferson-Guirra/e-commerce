@@ -12,7 +12,7 @@ export class DbLogoutAccount implements AccountLogout {
     if (!account) {
       return
     }
-    this.removeAccessToken.remove(accessToken)
+    await this.removeAccessToken.remove(accessToken)
     return 'logout success'
   }
 }
