@@ -2,6 +2,7 @@ export interface accountLoginModel {
   username: string
   password: string
   email: string
+  id: string
   accessToken: string
 }
 
