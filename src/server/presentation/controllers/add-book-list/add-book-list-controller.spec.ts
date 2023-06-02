@@ -1,7 +1,7 @@
 import { HttpRequest } from '../../protocols/http'
 import { Validation } from '../../protocols/validate'
 import { AddBookListController } from './add-book-list-controller'
-import { badRequest } from '../../helpers/http'
+import { badRequest, serverError } from '../../helpers/http'
 import { MissingParamError } from '../../errors/missing-params-error'
 import { AddBookListRepository } from '../../../data/protocols/db/book-list/add-book-repository'
 import { BookModel } from '../../../domain/models/book'
@@ -91,5 +91,14 @@ describe('LoginController', () => {
     const addBookSpy = jest.spyOn(addBookListRepositoryStub, 'addBook')
     await sut.handle(makeFakeRequest())
     expect(addBookSpy).toHaveBeenCalledWith(makeFakeRequest().body)
+  })
+
+  test('should return 500 if addBook fails', async () => {
+    const { sut, addBookListRepositoryStub } = makeSut()
+    jest
+      .spyOn(addBookListRepositoryStub, 'addBook')
+      .mockReturnValueOnce(Promise.reject(new Error()))
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(serverError(new Error()))
   })
 })
