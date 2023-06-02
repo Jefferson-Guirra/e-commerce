@@ -11,7 +11,10 @@ export class DbAddBookList implements AddBookList {
   ) {}
   async add(book: BookModel): Promise<AddBookModel | undefined> {
     const { accessToken, ...fields } = book
-    await this.loadAccount.loadByAccessToken(accessToken)
+    const account = await this.loadAccount.loadByAccessToken(accessToken)
+    if (!account) {
+      return
+    }
     return {
       title: 'any_title',
       description: 'any_description',
