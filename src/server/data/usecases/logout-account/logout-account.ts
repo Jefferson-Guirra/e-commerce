@@ -1,5 +1,5 @@
 import { AccountLogout } from '../../../domain/usecases/logout-account'
-import { LoadAccountByAccessTokenRepository } from '../../protocols/db/account/load-account-by-access-token'
+import { LoadAccountByAccessTokenRepository } from '../../protocols/db/account/load-account-by-access-token-repository'
 import { RemoveAccessTokenRepository } from '../../protocols/db/account/remove-access-token-repository'
 
 export class DbLogoutAccount implements AccountLogout {
@@ -8,7 +8,9 @@ export class DbLogoutAccount implements AccountLogout {
     private readonly removeAccessToken: RemoveAccessTokenRepository
   ) {}
   async logout(accessToken: string): Promise<string | undefined> {
-    const account = await this.loadAccountByAccessToken.load(accessToken)
+    const account = await this.loadAccountByAccessToken.loadByAccessToken(
+      accessToken
+    )
     if (!account) {
       return
     }

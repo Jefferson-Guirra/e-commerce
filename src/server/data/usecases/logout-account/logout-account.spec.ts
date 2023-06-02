@@ -1,7 +1,7 @@
 import {
   LoadAccountByAccessTokenRepository,
   accountLoginModel,
-} from '../../protocols/db/account/load-account-by-access-token'
+} from '../../protocols/db/account/load-account-by-access-token-repository'
 import { RemoveAccessTokenRepository } from '../../protocols/db/account/remove-access-token-repository'
 import { DbLogoutAccount } from './logout-account'
 
@@ -19,7 +19,9 @@ const makeLoadAccountByAccessTokenStub =
     class LoadAccountByAccessTokenStub
       implements LoadAccountByAccessTokenRepository
     {
-      async load(accessToken: string): Promise<accountLoginModel | null> {
+      async loadByAccessToken(
+        accessToken: string
+      ): Promise<accountLoginModel | null> {
         return await Promise.resolve(makeFakeAccount())
       }
     }
@@ -55,7 +57,10 @@ const makeSut = (): SutTypes => {
 describe('DbLogoutAccount', () => {
   test('should call load with correct token', async () => {
     const { sut, loadAccountByAccessTokenStub } = makeSut()
-    const loadSpy = jest.spyOn(loadAccountByAccessTokenStub, 'load')
+    const loadSpy = jest.spyOn(
+      loadAccountByAccessTokenStub,
+      'loadByAccessToken'
+    )
     await sut.logout('any_token')
     expect(loadSpy).toHaveBeenCalledWith('any_token')
   })
@@ -63,7 +68,7 @@ describe('DbLogoutAccount', () => {
   test('should return undefined if load return null', async () => {
     const { sut, loadAccountByAccessTokenStub } = makeSut()
     jest
-      .spyOn(loadAccountByAccessTokenStub, 'load')
+      .spyOn(loadAccountByAccessTokenStub, 'loadByAccessToken')
       .mockReturnValueOnce(Promise.resolve(null))
     const response = await sut.logout('any_token')
     expect(response).toBeFalsy()
@@ -72,7 +77,7 @@ describe('DbLogoutAccount', () => {
   test('should return throw if load return throw', async () => {
     const { sut, loadAccountByAccessTokenStub } = makeSut()
     jest
-      .spyOn(loadAccountByAccessTokenStub, 'load')
+      .spyOn(loadAccountByAccessTokenStub, 'loadByAccessToken')
       .mockReturnValueOnce(Promise.reject(new Error()))
     const promise = sut.logout('any_token')
     await expect(promise).rejects.toThrow()

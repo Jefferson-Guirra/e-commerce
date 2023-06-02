@@ -7,5 +7,5 @@ export interface accountLoginModel {
 }
 
 export interface LoadAccountByAccessTokenRepository {
-  load: (accessToken: string) => Promise<accountLoginModel | null>
+  loadByAccessToken: (accessToken: string) => Promise<accountLoginModel | null>
 }
