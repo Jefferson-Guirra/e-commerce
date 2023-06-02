@@ -167,4 +167,13 @@ describe('DbAddBookList', () => {
     const response = await sut.add(makeFakeRequest())
     expect(response).toEqual(makeFakeAddBookModel())
   })
+
+  test('should return throw if addBookRepository return throw', async () => {
+    const { sut, addBookListRepositoryStub } = makeSut()
+    jest
+      .spyOn(addBookListRepositoryStub, 'addBook')
+      .mockReturnValueOnce(Promise.reject(new Error()))
+    const promise = sut.add(makeFakeRequest())
+    expect(promise).rejects.toThrow()
+  })
 })
