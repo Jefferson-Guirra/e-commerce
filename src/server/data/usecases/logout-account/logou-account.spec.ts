@@ -4,6 +4,15 @@ import {
 } from '../../protocols/db/account/load-account-by-access-token'
 import { DbLogoutAccount } from './logout-account'
 
+const makeFakeAccount = (): accountLoginModel => {
+  return {
+    username: 'any_username',
+    password: 'any_password',
+    email: 'any_email@mail.com',
+    id: 'any_id',
+    accessToken: 'any_token',
+  }
+}
 const makeLoadAccountByAccessTokenStub = (): LoadAccountByAccessToken => {
   class LoadAccountByAccessTokenStub implements LoadAccountByAccessToken {
     async load(accessToken: string): Promise<accountLoginModel | null> {
