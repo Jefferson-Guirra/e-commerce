@@ -2,6 +2,7 @@ import {
   LoadAccountByAccessToken,
   accountLoginModel,
 } from '../../protocols/db/account/load-account-by-access-token'
+import { RemoveAccessTokenRepository } from '../../protocols/db/account/remove-access-token-repository'
 import { DbLogoutAccount } from './logout-account'
 
 const makeFakeAccount = (): accountLoginModel => {
@@ -21,15 +22,30 @@ const makeLoadAccountByAccessTokenStub = (): LoadAccountByAccessToken => {
   }
   return new LoadAccountByAccessTokenStub()
 }
+
+const makeRemoveAccessTokenStub = (): RemoveAccessTokenRepository => {
+  class RemoveAccessTokenStub implements RemoveAccessTokenRepository {
+    async remove(accessToken: string): Promise<void> {
+      await Promise.resolve(null)
+    }
+  }
+  return new RemoveAccessTokenStub()
+}
 interface SutTypes {
   loadAccountByAccessTokenStub: LoadAccountByAccessToken
+  removeAccessTokenStub: RemoveAccessTokenRepository
   sut: DbLogoutAccount
 }
 const makeSut = (): SutTypes => {
   const loadAccountByAccessTokenStub = makeLoadAccountByAccessTokenStub()
-  const sut = new DbLogoutAccount(loadAccountByAccessTokenStub)
+  const removeAccessTokenStub = makeRemoveAccessTokenStub()
+  const sut = new DbLogoutAccount(
+    loadAccountByAccessTokenStub,
+    removeAccessTokenStub
+  )
   return {
     loadAccountByAccessTokenStub,
+    removeAccessTokenStub,
     sut,
   }
 }
@@ -57,6 +73,13 @@ describe('DbLogoutAccount', () => {
       .mockReturnValueOnce(Promise.reject(new Error()))
     const promise = sut.logout('any_token')
     await expect(promise).rejects.toThrow()
+  })
+
+  test('should call remove with correct token', async () => {
+    const { removeAccessTokenStub, sut } = makeSut()
+    const removeSpy = jest.spyOn(removeAccessTokenStub, 'remove')
+    await sut.logout('any_token')
+    expect(removeSpy).toHaveBeenCalledWith('any_token')
   })
 
   test('should return message on a succeeds', async () => {
