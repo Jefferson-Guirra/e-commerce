@@ -1,3 +1,3 @@
 export interface GetDate {
-  date: () => number
+  date: number
 }

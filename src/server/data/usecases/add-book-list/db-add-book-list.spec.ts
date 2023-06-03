@@ -94,9 +94,7 @@ const makeFakeAddBookListRepository = (): AddBookListRepository => {
 
 const makeFakeGetDate = (): GetDate => {
   class GetDateStub implements GetDate {
-    date(): number {
-      return 123456
-    }
+    public readonly date = 123456
   }
   return new GetDateStub()
 }

@@ -34,7 +34,7 @@ export class DbAddBookList implements AddBookList {
 
     const addBook = await this.addBookListRepository.addBook({
       id: bookId,
-      date: this.getDate.date(),
+      date: this.getDate.date,
       userId: id.toString(),
       ...bookFields,
     })
