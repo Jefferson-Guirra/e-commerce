@@ -9,8 +9,10 @@ import {
   AddBookListRepository,
   AddBookRepositoryModel,
 } from '../../protocols/db/book-list/add-book-list-repository'
-import { GetDate } from '../logout-account/protocols/get-date'
+import { LoadBookByQueryDocRepository } from '../../protocols/db/book-list/load-book-list-by-query-doc'
+import { GetDate } from './protocols/get-date'
 import { DbAddBookList } from './db-add-book-list'
+import { CreateQueryDoc } from './protocols/create-query-doc'
 
 const makeFakeLoadAccountByAccessToken =
   (): LoadAccountByAccessTokenRepository => {
@@ -25,7 +27,7 @@ const makeFakeLoadAccountByAccessToken =
           password: 'any_password',
           email: 'any_email',
           accessToken: 'any_token',
-          id: 'any_id',
+          id: 'any_user_id',
         })
       }
     }
@@ -43,7 +45,7 @@ const makeFakeAddBookModel = (): AddBookModel => {
     publisherDate: 'any_date',
     date: 123456,
     imgUrl: 'any_url',
-    id: 'any_id',
+    id: 'any_user_idany_id',
   }
 }
 
@@ -59,7 +61,7 @@ const makeFakeAddBookRepositoryRequest = (): AddBookRepositoryModel => {
     date: 123456,
     imgUrl: 'any_url',
     id: 'any_id',
-    userId: 'any_id',
+    userId: 'any_user_id',
   }
 }
 
@@ -97,9 +99,19 @@ const makeFakeGetDate = (): GetDate => {
   return new GetDateStub()
 }
 
+const makeCreateQueryDocStub = (): CreateQueryDoc => {
+  class CreateQueryDocStub implements CreateQueryDoc {
+    create(userId: string, idBook: string): string {
+      return 'any_idany_id'
+    }
+  }
+  return new CreateQueryDocStub()
+}
+
 interface SutTypes {
   loadAccountByAccessTokenStub: LoadAccountByAccessTokenRepository
   addBookListRepositoryStub: AddBookListRepository
+  createQueryDocStub: CreateQueryDoc
   getDateStub: GetDate
   sut: DbAddBookList
 }
@@ -108,15 +120,18 @@ const makeSut = (): SutTypes => {
   const loadAccountByAccessTokenStub = makeFakeLoadAccountByAccessToken()
   const addBookListRepositoryStub = makeFakeAddBookListRepository()
   const getDateStub = makeFakeGetDate()
+  const createQueryDocStub = makeCreateQueryDocStub()
   const sut = new DbAddBookList(
     loadAccountByAccessTokenStub,
     addBookListRepositoryStub,
-    getDateStub
+    getDateStub,
+    createQueryDocStub
   )
   return {
     loadAccountByAccessTokenStub,
     addBookListRepositoryStub,
     getDateStub,
+    createQueryDocStub,
     sut,
   }
 }
@@ -154,6 +169,13 @@ describe('DbAddBookList', () => {
       .mockReturnValueOnce(Promise.resolve(null))
     const response = await sut.add(makeFakeRequest())
     expect(response).toBeFalsy()
+  })
+
+  test('should call createQuery with correct values', async () => {
+    const { sut, createQueryDocStub } = makeSut()
+    const createQuerySpy = jest.spyOn(createQueryDocStub, 'create')
+    await sut.add(makeFakeRequest())
+    expect(createQuerySpy).toHaveBeenCalledWith('any_user_id', 'any_id')
   })
 
   test('should call addBookListRepository with correct values', async () => {
