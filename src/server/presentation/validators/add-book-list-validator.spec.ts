@@ -17,7 +17,7 @@ const makeFakeRequest = (id: string): HttpRequest => {
     title: 'any_title',
     description: 'any_description',
     authors: ['any_author'],
-    price: 0.0,
+    price: Number(0.0),
     language: 'any_language',
     publisher: 'any_publisher',
     publisherDate: 'any_date',
@@ -55,5 +55,11 @@ describe('Signup Controller', () => {
     const { sut } = makeSut()
     const response = sut.validation(makeFakeRequest('price'))
     expect(response).toEqual(new MissingParamError('price'))
+  })
+
+  test('should return MissingParamError is language not provided ', async () => {
+    const { sut } = makeSut()
+    const response = sut.validation(makeFakeRequest('language'))
+    expect(response).toEqual(new MissingParamError('language'))
   })
 })
