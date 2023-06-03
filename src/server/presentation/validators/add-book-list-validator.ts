@@ -3,9 +3,16 @@ import { Validation } from '../protocols/validate'
 
 export class AddBookListValidator implements Validation {
   validation(input: any): Error | undefined {
-    const requiredFields = ['title', 'description', 'authors', 'price']
+    const fieldsRequest = Object.keys(input.body)
+    const requiredFields = [
+      'title',
+      'description',
+      'authors',
+      'price',
+      'language',
+    ]
     for (const field of requiredFields) {
-      if (!input.body[field]) {
+      if (!fieldsRequest.includes(field)) {
         return new MissingParamError(field)
       }
     }
