@@ -30,4 +30,23 @@ describe('Signup Controller', () => {
     const response = sut.validation(fakeRequest)
     expect(response).toEqual(new MissingParamError('title'))
   })
+
+  test('should return MissingParamError is description not provided ', async () => {
+    const fakeRequest: HttpRequest = {
+      body: {
+        title: 'any_title',
+        authors: ['any_author'],
+        price: 0.0,
+        language: 'any_language',
+        publisher: 'any_publisher',
+        publisherDate: 'any_date',
+        imgUrl: 'any_url',
+        accessToken: 'any_token',
+        bookId: 'any_id',
+      },
+    }
+    const { sut } = makeSut()
+    const response = sut.validation(fakeRequest)
+    expect(response).toEqual(new MissingParamError('description'))
+  })
 })
