@@ -15,7 +15,8 @@ export class DbAddBookList implements AddBookList {
     private readonly loadAccount: LoadAccountByAccessTokenRepository,
     private readonly addBookListRepository: AddBookListRepository,
     private readonly getDate: GetDate,
-    private createQueryDoc: CreateQueryDoc
+    private createQueryDoc: CreateQueryDoc,
+    private readonly loadBook: LoadBookByQueryDocRepository
   ) {}
   async add(book: BookModel): Promise<AddBookModel | undefined> {
     const { accessToken, bookId, ...bookFields } = book
@@ -26,6 +27,7 @@ export class DbAddBookList implements AddBookList {
 
     const { id } = account
     const queryDoc = this.createQueryDoc.create(id.toString(), bookId)
+    const bookIsValid = this.loadBook.loadBookByQuery(queryDoc)
     const addBook = await this.addBookListRepository.addBook({
       id: bookId,
       date: this.getDate.date(),
