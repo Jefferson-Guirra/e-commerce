@@ -152,13 +152,6 @@ const makeSut = (): SutTypes => {
   }
 }
 describe('DbAddBookList', () => {
-  beforeAll(() => {
-    jest.setSystemTime(new Date(2020, 3, 1))
-  })
-
-  afterAll(() => {
-    jest.useRealTimers()
-  })
   test('should call loadAccountByAccessToken with correct token', async () => {
     const { sut, loadAccountByAccessTokenStub } = makeSut()
     const loadSpy = jest.spyOn(
