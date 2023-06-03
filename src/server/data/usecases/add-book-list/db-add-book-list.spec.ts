@@ -1,5 +1,6 @@
 import { BookModel } from '../../../domain/models/book'
 import { AddBookModel } from '../../../domain/usecases/add-book-list'
+import { ServerError } from '../../../presentation/errors/server-error'
 import {
   LoadAccountByAccessTokenRepository,
   accountLoginModel,
@@ -166,6 +167,15 @@ describe('DbAddBookList', () => {
     const { sut } = makeSut()
     const response = await sut.add(makeFakeRequest())
     expect(response).toEqual(makeFakeAddBookModel())
+  })
+
+  test('should return throw if addBookRepository return null', async () => {
+    const { sut, addBookListRepositoryStub } = makeSut()
+    jest
+      .spyOn(addBookListRepositoryStub, 'addBook')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const promise = sut.add(makeFakeRequest())
+    expect(promise).rejects.toEqual(new ServerError())
   })
 
   test('should return throw if addBookRepository return throw', async () => {

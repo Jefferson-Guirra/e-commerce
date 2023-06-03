@@ -14,5 +14,5 @@ export interface AddBookRepositoryModel {
   id: string
 }
 export interface AddBookListRepository {
-  addBook: (book: AddBookRepositoryModel) => Promise<AddBookModel>
+  addBook: (book: AddBookRepositoryModel) => Promise<AddBookModel | null>
 }
