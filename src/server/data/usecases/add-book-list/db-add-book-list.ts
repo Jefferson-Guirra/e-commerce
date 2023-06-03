@@ -27,7 +27,11 @@ export class DbAddBookList implements AddBookList {
 
     const { id } = account
     const queryDoc = this.createQueryDoc.create(id.toString(), bookId)
-    const bookIsValid = this.loadBook.loadBookByQuery(queryDoc)
+    const bookIsValid = await this.loadBook.loadBookByQuery(queryDoc)
+    if (bookIsValid) {
+      return bookIsValid
+    }
+
     const addBook = await this.addBookListRepository.addBook({
       id: bookId,
       date: this.getDate.date(),
