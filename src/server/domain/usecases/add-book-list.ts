@@ -10,6 +10,7 @@ export interface AddBookModel {
   imgUrl: string
   date: number
   id: string
+  userId: string
   queryDoc: string
 }
 

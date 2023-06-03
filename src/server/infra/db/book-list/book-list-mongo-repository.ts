@@ -14,6 +14,7 @@ export class BookListMongoRepository implements AddBookListRepository {
     const result = await bookListCollection.insertOne({
       _id: new ObjectId(),
       queryDoc: userId + id,
+      userId,
       ...bookfields,
     })
 

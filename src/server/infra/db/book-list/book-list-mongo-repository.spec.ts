@@ -52,6 +52,7 @@ describe('BookListMongoRepository', () => {
       expect(book?.date).toBe(123456),
       expect(book?.imgUrl).toBe('any_url'),
       expect(book?.id).toBeTruthy()
+    expect(book?.userId).toBe('any_user_id')
     expect(book?.queryDoc).toBe('any_user_idany_id')
   })
 })
