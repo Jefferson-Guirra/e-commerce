@@ -62,4 +62,10 @@ describe('Signup Controller', () => {
     const response = sut.validation(makeFakeRequest('language'))
     expect(response).toEqual(new MissingParamError('language'))
   })
+
+  test('should return MissingParamError is publisher not provided ', async () => {
+    const { sut } = makeSut()
+    const response = sut.validation(makeFakeRequest('publisher'))
+    expect(response).toEqual(new MissingParamError('publisher'))
+  })
 })
