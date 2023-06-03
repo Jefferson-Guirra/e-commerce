@@ -11,61 +11,43 @@ const makeSut = (): SutTypes => {
     sut,
   }
 }
+
+const makeFakeRequest = (id: string): HttpRequest => {
+  const book: any = {
+    title: 'any_title',
+    description: 'any_description',
+    authors: ['any_author'],
+    price: 0.0,
+    language: 'any_language',
+    publisher: 'any_publisher',
+    publisherDate: 'any_date',
+    imgUrl: 'any_url',
+    accessToken: 'any_token',
+    bookId: 'any_id',
+  }
+
+  delete book[id]
+
+  return {
+    body: book,
+  }
+}
 describe('Signup Controller', () => {
   test('should return MissingParamError is title not provided ', async () => {
-    const fakeRequest: HttpRequest = {
-      body: {
-        description: 'any_description',
-        authors: ['any_author'],
-        price: 0.0,
-        language: 'any_language',
-        publisher: 'any_publisher',
-        publisherDate: 'any_date',
-        imgUrl: 'any_url',
-        accessToken: 'any_token',
-        bookId: 'any_id',
-      },
-    }
     const { sut } = makeSut()
-    const response = sut.validation(fakeRequest)
+    const response = sut.validation(makeFakeRequest('title'))
     expect(response).toEqual(new MissingParamError('title'))
   })
 
   test('should return MissingParamError is description not provided ', async () => {
-    const fakeRequest: HttpRequest = {
-      body: {
-        title: 'any_title',
-        authors: ['any_author'],
-        price: 0.0,
-        language: 'any_language',
-        publisher: 'any_publisher',
-        publisherDate: 'any_date',
-        imgUrl: 'any_url',
-        accessToken: 'any_token',
-        bookId: 'any_id',
-      },
-    }
     const { sut } = makeSut()
-    const response = sut.validation(fakeRequest)
+    const response = sut.validation(makeFakeRequest('description'))
     expect(response).toEqual(new MissingParamError('description'))
   })
 
   test('should return MissingParamError is authors not provided ', async () => {
-    const fakeRequest: HttpRequest = {
-      body: {
-        title: 'any_title',
-        description: 'any_description',
-        price: 0.0,
-        language: 'any_language',
-        publisher: 'any_publisher',
-        publisherDate: 'any_date',
-        imgUrl: 'any_url',
-        accessToken: 'any_token',
-        bookId: 'any_id',
-      },
-    }
     const { sut } = makeSut()
-    const response = sut.validation(fakeRequest)
+    const response = sut.validation(makeFakeRequest('authors'))
     expect(response).toEqual(new MissingParamError('authors'))
   })
 })
