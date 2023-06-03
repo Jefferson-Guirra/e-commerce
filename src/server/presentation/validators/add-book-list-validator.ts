@@ -14,6 +14,7 @@ export class AddBookListValidator implements Validation {
       'publisherDate',
       'imgUrl',
       'accessToken',
+      'bookId',
     ]
     for (const field of requiredFields) {
       if (!fieldsRequest.includes(field)) {
