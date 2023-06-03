@@ -50,4 +50,10 @@ describe('Signup Controller', () => {
     const response = sut.validation(makeFakeRequest('authors'))
     expect(response).toEqual(new MissingParamError('authors'))
   })
+
+  test('should return MissingParamError is price not provided ', async () => {
+    const { sut } = makeSut()
+    const response = sut.validation(makeFakeRequest('price'))
+    expect(response).toEqual(new MissingParamError('price'))
+  })
 })
