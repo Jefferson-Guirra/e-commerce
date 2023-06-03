@@ -102,17 +102,28 @@ const makeFakeGetDate = (): GetDate => {
 const makeCreateQueryDocStub = (): CreateQueryDoc => {
   class CreateQueryDocStub implements CreateQueryDoc {
     create(userId: string, idBook: string): string {
-      return 'any_idany_id'
+      return userId + idBook
     }
   }
   return new CreateQueryDocStub()
 }
 
+const makeLoadBookByQueryDocStub = (): LoadBookByQueryDocRepository => {
+  class LoadBookByQueryDocRepositoryStub
+    implements LoadBookByQueryDocRepository
+  {
+    async loadBookByQuery(idDoc: string): Promise<AddBookModel | null> {
+      return await Promise.resolve(null)
+    }
+  }
+  return new LoadBookByQueryDocRepositoryStub()
+}
 interface SutTypes {
   loadAccountByAccessTokenStub: LoadAccountByAccessTokenRepository
   addBookListRepositoryStub: AddBookListRepository
   createQueryDocStub: CreateQueryDoc
   getDateStub: GetDate
+  loadBookByQueryDocStub: LoadBookByQueryDocRepository
   sut: DbAddBookList
 }
 
@@ -121,17 +132,20 @@ const makeSut = (): SutTypes => {
   const addBookListRepositoryStub = makeFakeAddBookListRepository()
   const getDateStub = makeFakeGetDate()
   const createQueryDocStub = makeCreateQueryDocStub()
+  const loadBookByQueryDocStub = makeLoadBookByQueryDocStub()
   const sut = new DbAddBookList(
     loadAccountByAccessTokenStub,
     addBookListRepositoryStub,
     getDateStub,
-    createQueryDocStub
+    createQueryDocStub,
+    loadBookByQueryDocStub
   )
   return {
     loadAccountByAccessTokenStub,
     addBookListRepositoryStub,
     getDateStub,
     createQueryDocStub,
+    loadBookByQueryDocStub,
     sut,
   }
 }
@@ -176,6 +190,13 @@ describe('DbAddBookList', () => {
     const createQuerySpy = jest.spyOn(createQueryDocStub, 'create')
     await sut.add(makeFakeRequest())
     expect(createQuerySpy).toHaveBeenCalledWith('any_user_id', 'any_id')
+  })
+
+  test('should call loadBook with correct idDoc', async () => {
+    const { sut, loadBookByQueryDocStub } = makeSut()
+    const loadBookSpy = jest.spyOn(loadBookByQueryDocStub, 'loadBookByQuery')
+    await sut.add(makeFakeRequest())
+    expect(loadBookSpy).toHaveBeenCalledWith('any_user_idany_id')
   })
 
   test('should call addBookListRepository with correct values', async () => {
