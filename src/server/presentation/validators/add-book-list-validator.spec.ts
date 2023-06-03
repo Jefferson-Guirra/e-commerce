@@ -74,4 +74,10 @@ describe('Signup Controller', () => {
     const response = sut.validation(makeFakeRequest('publisherDate'))
     expect(response).toEqual(new MissingParamError('publisherDate'))
   })
+
+  test('should return MissingParamError is imgUrl not provided ', async () => {
+    const { sut } = makeSut()
+    const response = sut.validation(makeFakeRequest('imgUrl'))
+    expect(response).toEqual(new MissingParamError('imgUrl'))
+  })
 })
