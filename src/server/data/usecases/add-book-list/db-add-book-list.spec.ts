@@ -45,7 +45,8 @@ const makeFakeAddBookModel = (): AddBookModel => {
     publisherDate: 'any_date',
     date: 123456,
     imgUrl: 'any_url',
-    id: 'any_user_idany_id',
+    queryDoc: 'any_user_idany_id',
+    id: 'any_id',
   }
 }
 
