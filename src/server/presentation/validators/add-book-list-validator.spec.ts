@@ -80,4 +80,10 @@ describe('Signup Controller', () => {
     const response = sut.validation(makeFakeRequest('imgUrl'))
     expect(response).toEqual(new MissingParamError('imgUrl'))
   })
+
+  test('should return MissingParamError is accessToken not provided ', async () => {
+    const { sut } = makeSut()
+    const response = sut.validation(makeFakeRequest('accessToken'))
+    expect(response).toEqual(new MissingParamError('accessToken'))
+  })
 })
