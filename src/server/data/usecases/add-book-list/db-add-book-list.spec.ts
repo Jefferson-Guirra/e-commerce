@@ -199,6 +199,26 @@ describe('DbAddBookList', () => {
     expect(loadBookSpy).toHaveBeenCalledWith('any_user_idany_id')
   })
 
+  test('should return book if loadBook return book ', async () => {
+    const { sut, loadBookByQueryDocStub, addBookListRepositoryStub } = makeSut()
+    const addBookSpy = jest.spyOn(addBookListRepositoryStub, 'addBook')
+    jest
+      .spyOn(loadBookByQueryDocStub, 'loadBookByQuery')
+      .mockReturnValueOnce(Promise.resolve(makeFakeAddBookModel()))
+    const response = await sut.add(makeFakeRequest())
+    expect(response).toEqual(makeFakeAddBookModel())
+    expect(addBookSpy).toHaveBeenCalledTimes(0)
+  })
+
+  test('should return throw if loadBook return throw', async () => {
+    const { sut, loadBookByQueryDocStub } = makeSut()
+    jest
+      .spyOn(loadBookByQueryDocStub, 'loadBookByQuery')
+      .mockReturnValueOnce(Promise.reject(new Error()))
+    const promise = sut.add(makeFakeRequest())
+    await expect(promise).rejects.toThrow()
+  })
+
   test('should call addBookListRepository with correct values', async () => {
     const { sut, addBookListRepositoryStub } = makeSut()
     const addBookSpy = jest.spyOn(addBookListRepositoryStub, 'addBook')
