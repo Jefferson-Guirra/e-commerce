@@ -1,5 +1,5 @@
 import { BookModel } from '../../../../domain/models/book-list/book'
-import { AddBookModel } from '../../../../domain/usecases/add-book-list'
+import { AddBookModel } from '../../../../domain/usecases/book-list/add-book-list'
 import { ServerError } from '../../../../presentation/errors/server-error'
 import {
   LoadAccountByAccessTokenRepository,

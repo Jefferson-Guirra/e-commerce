@@ -8,7 +8,7 @@ import { BookModel } from '../../../domain/models/book-list/book'
 import {
   AddBookList,
   AddBookModel,
-} from '../../../domain/usecases/add-book-list'
+} from '../../../domain/usecases/book-list/add-book-list'
 
 const makeFakeAddBookModel = (): AddBookModel => {
   return {

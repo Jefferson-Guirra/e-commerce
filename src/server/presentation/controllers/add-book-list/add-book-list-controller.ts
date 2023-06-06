@@ -1,5 +1,5 @@
 import { AddBookListRepository } from '../../../data/protocols/db/book-list/add-book-list-repository'
-import { AddBookList } from '../../../domain/usecases/add-book-list'
+import { AddBookList } from '../../../domain/usecases/book-list/add-book-list'
 import { badRequest, ok, serverError, unauthorized } from '../../helpers/http'
 import { Controller } from '../../protocols/controller'
 import { HttpRequest, HttpResponse } from '../../protocols/http'

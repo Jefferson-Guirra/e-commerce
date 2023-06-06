@@ -2,7 +2,7 @@ import {
   AddBookListRepository,
   AddBookRepositoryModel,
 } from '../../../data/protocols/db/book-list/add-book-list-repository'
-import { AddBookModel } from '../../../domain/usecases/add-book-list'
+import { AddBookModel } from '../../../domain/usecases/book-list/add-book-list'
 import { ObjectId } from 'mongodb'
 import { MongoHelper } from '../helpers/mongo-helper'
 import { LoadBookByQueryDocRepository } from '../../../data/protocols/db/book-list/load-book-list-by-query-doc'

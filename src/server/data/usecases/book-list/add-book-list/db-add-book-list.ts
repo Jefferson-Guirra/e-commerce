@@ -2,7 +2,7 @@ import { BookModel } from '../../../../domain/models/book-list/book'
 import {
   AddBookList,
   AddBookModel,
-} from '../../../../domain/usecases/add-book-list'
+} from '../../../../domain/usecases/book-list/add-book-list'
 import { ServerError } from '../../../../presentation/errors/server-error'
 import { LoadAccountByAccessTokenRepository } from '../../../protocols/db/account/load-account-by-access-token-repository'
 import { AddBookListRepository } from '../../../protocols/db/book-list/add-book-list-repository'

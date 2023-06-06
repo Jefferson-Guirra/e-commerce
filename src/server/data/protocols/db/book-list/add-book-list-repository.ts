@@ -1,4 +1,4 @@
-import { AddBookModel } from '../../../../domain/usecases/add-book-list'
+import { AddBookModel } from '../../../../domain/usecases/book-list/add-book-list'
 
 export interface AddBookRepositoryModel {
   title: string
