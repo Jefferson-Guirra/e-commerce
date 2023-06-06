@@ -1,6 +1,6 @@
 import { AddBookModel } from '../../../domain/usecases/book-list/add-book-list'
 import { RemoveBookList } from '../../../domain/usecases/book-list/remove-book-list'
-import { badRequest, serverError, unauthorized } from '../../helpers/http'
+import { badRequest, ok, serverError, unauthorized } from '../../helpers/http'
 import { HttpRequest } from '../../protocols/http'
 import { Validation } from '../../protocols/validate'
 import { RemoveBookListController } from './remove-book-list-controller'
@@ -103,5 +103,11 @@ describe('RemoveBookListController', () => {
       .mockReturnValueOnce(Promise.reject(new Error()))
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(serverError())
+  })
+
+  test('should return 200 on a succeeds', async () => {
+    const { sut } = makeSut()
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(ok(makeFakeAddBookModel()))
   })
 })
