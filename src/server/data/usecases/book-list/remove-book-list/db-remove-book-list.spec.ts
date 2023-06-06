@@ -115,4 +115,10 @@ describe('DbRemoveBookList', () => {
     const promise = sut.remove('any_token', 'any_id')
     expect(promise).rejects.toThrow()
   })
+
+  test('should return a book on a succeeds', async () => {
+    const { sut } = makeSut()
+    const response = await sut.remove('any_token', 'any_id')
+    expect(response).toEqual(makeFakeAddBookModel())
+  })
 })
