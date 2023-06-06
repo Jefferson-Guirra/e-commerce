@@ -1,4 +1,4 @@
-import { BookModel } from '../../../../domain/models/book'
+import { BookModel } from '../../../../domain/models/book-list/book'
 import { AddBookModel } from '../../../../domain/usecases/add-book-list'
 import { ServerError } from '../../../../presentation/errors/server-error'
 import {

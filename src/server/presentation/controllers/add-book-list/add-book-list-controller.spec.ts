@@ -4,7 +4,7 @@ import { AddBookListController } from './add-book-list-controller'
 import { badRequest, serverError, unauthorized, ok } from '../../helpers/http'
 import { MissingParamError } from '../../errors/missing-params-error'
 import { AddBookListRepository } from '../../../data/protocols/db/book-list/add-book-list-repository'
-import { BookModel } from '../../../domain/models/book'
+import { BookModel } from '../../../domain/models/book-list/book'
 import {
   AddBookList,
   AddBookModel,
