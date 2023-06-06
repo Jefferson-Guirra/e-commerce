@@ -20,7 +20,7 @@ export class RemoveBookListController implements Controller {
       if (!removeBook) {
         return unauthorized()
       }
-      return ok('success')
+      return ok(removeBook)
     } catch (err) {
       return serverError(err as Error)
     }
