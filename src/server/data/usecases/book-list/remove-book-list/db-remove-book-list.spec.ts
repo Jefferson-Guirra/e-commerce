@@ -1,8 +1,27 @@
+import { AddBookModel } from '../../../../domain/usecases/book-list/add-book-list'
 import {
   LoadAccountByAccessTokenRepository,
   accountLoginModel,
 } from '../../../protocols/db/account/load-account-by-access-token-repository'
+import { RemoveBookListRepository } from '../../../protocols/db/book-list/remove-book-list'
 import { DbRemoveBookList } from './db-remove-book-list'
+
+const makeFakeAddBookModel = (): AddBookModel => {
+  return {
+    title: 'any_title',
+    description: 'any_description',
+    authors: ['any_author'],
+    price: 0.0,
+    language: 'any_language',
+    publisher: 'any_publisher',
+    publisherDate: 'any_date',
+    date: 123456,
+    imgUrl: 'any_url',
+    queryDoc: 'any_user_idany_id',
+    userId: 'any_user_id',
+    id: 'any_id',
+  }
+}
 
 const makeFakeAccount = (): accountLoginModel => ({
   username: 'any_username',
@@ -24,16 +43,31 @@ const makeLoadAccountByAccessTokenStub =
     }
     return new LoadAccountByAccessTokenRepositoryStub()
   }
+
+const makeRemoveBookListRepositoryStub = (): RemoveBookListRepository => {
+  class RemoveBookListRepositoryStub implements RemoveBookListRepository {
+    async remove(userId: string, bookId: string): Promise<AddBookModel | null> {
+      return await Promise.resolve(makeFakeAddBookModel())
+    }
+  }
+  return new RemoveBookListRepositoryStub()
+}
 interface SutTypes {
   loadAccountByAccessTokenStub: LoadAccountByAccessTokenRepository
+  removeBookListRepositoryStub: RemoveBookListRepository
   sut: DbRemoveBookList
 }
 
 const makeSut = (): SutTypes => {
   const loadAccountByAccessTokenStub = makeLoadAccountByAccessTokenStub()
-  const sut = new DbRemoveBookList(loadAccountByAccessTokenStub)
+  const removeBookListRepositoryStub = makeRemoveBookListRepositoryStub()
+  const sut = new DbRemoveBookList(
+    loadAccountByAccessTokenStub,
+    removeBookListRepositoryStub
+  )
   return {
     loadAccountByAccessTokenStub,
+    removeBookListRepositoryStub,
     sut,
   }
 }
@@ -64,5 +98,12 @@ describe('DbRemoveBookList', () => {
       .mockReturnValueOnce(Promise.reject(new Error()))
     const promise = sut.remove('any_token', 'any_id')
     await expect(promise).rejects.toThrow()
+  })
+
+  test('should call remove with correct values', async () => {
+    const { removeBookListRepositoryStub, sut } = makeSut()
+    const removeSpy = jest.spyOn(removeBookListRepositoryStub, 'remove')
+    await sut.remove('any_token', 'any_id')
+    expect(removeSpy).toHaveBeenCalledWith('any_user_id', 'any_id')
   })
 })
