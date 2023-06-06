@@ -1,6 +1,6 @@
 import { LoadAccountByEmailRepository } from '../../../data/protocols/db/account/load-account-by-email-repository'
 import { MongoHelper } from '../helpers/mongo-helper'
-import { AccountModel } from '../../../domain/models/account'
+import { AccountModel } from '../../../domain/models/account/account'
 import { AddAccountRepository } from '../../../data/protocols/db/account/add-account-repository'
 import { AddAccountModel } from '../../../domain/usecases/add-account'
 import { ObjectId } from 'mongodb'

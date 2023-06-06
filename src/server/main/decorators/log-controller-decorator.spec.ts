@@ -3,7 +3,7 @@ import { Controller } from '../../presentation/protocols/controller'
 import { HttpRequest, HttpResponse } from '../../presentation/protocols/http'
 import { LogControllerDecorator } from './log-controller-decorator'
 import { ok, serverError } from '../../presentation/helpers/http'
-import { AccountModel } from '../../domain/models/account'
+import { AccountModel } from '../../domain/models/account/account'
 
 const makeFakeRequest = (): HttpRequest => {
   return {
