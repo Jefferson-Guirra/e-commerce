@@ -1,4 +1,4 @@
-import { AccountLogout } from '../../../domain/usecases/logout-account'
+import { AccountLogout } from '../../../domain/usecases/account/logout-account'
 import { LoadAccountByAccessTokenRepository } from '../../protocols/db/account/load-account-by-access-token-repository'
 import { RemoveAccessTokenRepository } from '../../protocols/db/account/remove-access-token-repository'
 

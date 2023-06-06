@@ -4,8 +4,8 @@ import { HttpRequest } from '../../protocols/http'
 import { MissingParamError } from '../../errors/missing-params-error'
 import { badRequest, serverError, unauthorized } from '../../helpers/http'
 import { AccountModel } from '../../../domain/models/account/account'
-import { AddAccount } from '../../../domain/usecases/add-account'
-import { AddAccountModel } from '../../../domain/usecases/add-account'
+import { AddAccount } from '../../../domain/usecases/account/add-account'
+import { AddAccountModel } from '../../../domain/usecases/account/add-account'
 import { ok } from '../../helpers/http'
 interface SutTypes {
   sut: SignupController

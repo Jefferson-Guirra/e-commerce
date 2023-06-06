@@ -1,5 +1,5 @@
 import { AccountModel } from '../../../domain/models/account/account'
-import { AddAccountModel } from '../../../domain/usecases/add-account'
+import { AddAccountModel } from '../../../domain/usecases/account/add-account'
 import { LoadAccountByEmailRepository } from '../../protocols/db/account/load-account-by-email-repository'
 import { DbAddAccountRepository } from './db-add-account'
 import { Hasher } from '../../protocols/criptography/hasher'

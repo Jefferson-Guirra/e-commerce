@@ -12,9 +12,7 @@ export const adapterRouter = (controller: Controller) => {
     }
     const httpResponse: HttpResponse = await controller.handle(httpRequest)
     if (httpResponse.statusCode === 200) {
-      res
-        .status(httpResponse.statusCode)
-        .json({ status: httpResponse.statusCode, body: httpResponse.body })
+      res.status(httpResponse.statusCode).json(httpResponse)
     } else {
       res.status(httpResponse.statusCode).json({
         status: httpResponse.statusCode,

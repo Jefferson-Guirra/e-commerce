@@ -1,7 +1,7 @@
 import {
   Authentication,
   AuthenticationModel,
-} from '../../../domain/usecases/authentication'
+} from '../../../domain/usecases/account/authentication'
 import { Encrypter } from '../../protocols/criptography/encrypter'
 import { HashCompare } from '../../protocols/criptography/hash-compare'
 import { LoadAccountByEmailRepository } from '../../protocols/db/account/load-account-by-email-repository'
