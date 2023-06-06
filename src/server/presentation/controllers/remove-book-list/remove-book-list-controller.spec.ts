@@ -1,6 +1,6 @@
 import { AddBookModel } from '../../../domain/usecases/book-list/add-book-list'
 import { RemoveBookList } from '../../../domain/usecases/book-list/remove-book-list'
-import { badRequest } from '../../helpers/http'
+import { badRequest, serverError, unauthorized } from '../../helpers/http'
 import { HttpRequest } from '../../protocols/http'
 import { Validation } from '../../protocols/validate'
 import { RemoveBookListController } from './remove-book-list-controller'
@@ -71,7 +71,7 @@ describe('RemoveBookListController', () => {
     expect(validationSpy).toHaveBeenCalledWith(makeFakeRequest())
   })
 
-  test('should return badRequest if validation return error', async () => {
+  test('should return 400 if validation return error', async () => {
     const { sut, validateStub } = makeSut()
     jest
       .spyOn(validateStub, 'validation')
@@ -85,5 +85,23 @@ describe('RemoveBookListController', () => {
     const removeSpy = jest.spyOn(removeBookStub, 'remove')
     await sut.handle(makeFakeRequest())
     expect(removeSpy).toHaveBeenCalledWith('any_token', 'any_id')
+  })
+
+  test('should return 401 if remove return undefined', async () => {
+    const { sut, removeBookStub } = makeSut()
+    jest
+      .spyOn(removeBookStub, 'remove')
+      .mockReturnValueOnce(Promise.resolve(undefined))
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(unauthorized())
+  })
+
+  test('should return 500 if remove fails', async () => {
+    const { sut, removeBookStub } = makeSut()
+    jest
+      .spyOn(removeBookStub, 'remove')
+      .mockReturnValueOnce(Promise.reject(new Error()))
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(serverError())
   })
 })
