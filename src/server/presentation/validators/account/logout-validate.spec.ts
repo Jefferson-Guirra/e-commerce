@@ -1,5 +1,5 @@
 import { LogoutValidate } from './logout-validate'
-import { MissingParamError } from '../errors/missing-params-error'
+import { MissingParamError } from '../../errors/missing-params-error'
 interface SutTypes {
   sut: LogoutValidate
 }

@@ -1,5 +1,5 @@
 import { LoginValidate } from './login-validate'
-import { MissingParamError } from '../errors/missing-params-error'
+import { MissingParamError } from '../../errors/missing-params-error'
 interface SutTypes {
   sut: LoginValidate
 }
