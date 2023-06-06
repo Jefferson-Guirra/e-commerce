@@ -6,9 +6,13 @@ import { AddBookModel } from '../../../domain/usecases/book-list/add-book-list'
 import { ObjectId } from 'mongodb'
 import { MongoHelper } from '../helpers/mongo-helper'
 import { LoadBookByQueryDocRepository } from '../../../data/protocols/db/book-list/load-book-list-by-query-doc'
+import { RemoveBookListRepository } from '../../../data/protocols/db/book-list/remove-book-list'
 
 export class BookListMongoRepository
-  implements AddBookListRepository, LoadBookByQueryDocRepository
+  implements
+    AddBookListRepository,
+    LoadBookByQueryDocRepository,
+    RemoveBookListRepository
 {
   async addBook(book: AddBookRepositoryModel): Promise<AddBookModel | null> {
     const { id, userId, ...bookfields } = book
@@ -27,6 +31,12 @@ export class BookListMongoRepository
   async loadBookByQuery(idDoc: string): Promise<AddBookModel | null> {
     const bookCollection = await MongoHelper.getCollection('bookList')
     const book = await bookCollection.findOne({ queryDoc: idDoc })
+    return book && MongoHelper.Map(book)
+  }
+  async remove(userId: string, bookId: string): Promise<AddBookModel | null> {
+    const bookCollection = await MongoHelper.getCollection('bookList')
+    const book = await bookCollection.findOne({ queryDoc: userId + bookId })
+    await bookCollection.deleteOne({ queryDoc: userId + bookId })
     return book && MongoHelper.Map(book)
   }
 }
