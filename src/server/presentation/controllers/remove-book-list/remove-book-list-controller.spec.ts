@@ -1,3 +1,4 @@
+import { badRequest } from '../../helpers/http'
 import { HttpRequest } from '../../protocols/http'
 import { Validation } from '../../protocols/validate'
 import { RemoveBookListController } from './remove-book-list-controller'
@@ -36,5 +37,20 @@ describe('RemoveBookListController', () => {
     }
     await sut.handle(makeFakeRequest)
     expect(validationSpy).toHaveBeenCalledWith(makeFakeRequest)
+  })
+
+  test('should return badRequest if validation return error', async () => {
+    const { sut, validateStub } = makeSut()
+    jest
+      .spyOn(validateStub, 'validation')
+      .mockReturnValueOnce(new Error('any_field'))
+    const makeFakeRequest: HttpRequest = {
+      body: {
+        accessToken: 'any_token',
+        bookId: 'any_id',
+      },
+    }
+    const response = await sut.handle(makeFakeRequest)
+    expect(response).toEqual(badRequest(new Error('any_field')))
   })
 })
