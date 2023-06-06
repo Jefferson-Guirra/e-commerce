@@ -1,9 +1,9 @@
-import { AccountModel } from '../../../domain/models/account/account'
-import { AddAccountModel } from '../../../domain/usecases/account/add-account'
-import { LoadAccountByEmailRepository } from '../../protocols/db/account/load-account-by-email-repository'
+import { AccountModel } from '../../../../domain/models/account/account'
+import { AddAccountModel } from '../../../../domain/usecases/account/add-account'
+import { LoadAccountByEmailRepository } from '../../../protocols/db/account/load-account-by-email-repository'
 import { DbAddAccountRepository } from './db-add-account'
-import { Hasher } from '../../protocols/criptography/hasher'
-import { AddAccountRepository } from '../../protocols/db/account/add-account-repository'
+import { Hasher } from '../../../protocols/criptography/hasher'
+import { AddAccountRepository } from '../../../protocols/db/account/add-account-repository'
 
 const makeFakeAccount = (): AccountModel => {
   return {

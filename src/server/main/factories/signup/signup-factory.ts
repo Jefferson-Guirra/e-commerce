@@ -1,4 +1,4 @@
-import { DbAddAccountRepository } from '../../../data/usecases/add-account/db-add-account'
+import { DbAddAccountRepository } from '../../../data/usecases/account/add-account/db-add-account'
 import { BcrypterAdapter } from '../../../infra/criptography/bcrypt-adapter.ts/bcrypter-adapter'
 import { AccountMongoRepository } from '../../../infra/db/account/account-mongo-repository'
 import { LogMongoRepository } from '../../../infra/db/log/log-mongo-repository'

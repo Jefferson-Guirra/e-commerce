@@ -1,4 +1,4 @@
-import { DbLogoutAccount } from '../../../data/usecases/logout-account/logout-account'
+import { DbLogoutAccount } from '../../../data/usecases/account/logout-account/logout-account'
 import { AccountMongoRepository } from '../../../infra/db/account/account-mongo-repository'
 import { LogoutController } from '../../../presentation/controllers/logout/logout-controller'
 import { Controller } from '../../../presentation/protocols/controller'

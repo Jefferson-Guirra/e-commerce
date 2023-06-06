@@ -1,8 +1,8 @@
 import {
   LoadAccountByAccessTokenRepository,
   accountLoginModel,
-} from '../../protocols/db/account/load-account-by-access-token-repository'
-import { RemoveAccessTokenRepository } from '../../protocols/db/account/remove-access-token-repository'
+} from '../../../protocols/db/account/load-account-by-access-token-repository'
+import { RemoveAccessTokenRepository } from '../../../protocols/db/account/remove-access-token-repository'
 import { DbLogoutAccount } from './logout-account'
 
 const makeFakeAccount = (): accountLoginModel => {
