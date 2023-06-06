@@ -116,6 +116,15 @@ describe('DbRemoveBookList', () => {
     expect(promise).rejects.toThrow()
   })
 
+  test('should return null if remove return null', async () => {
+    const { sut, removeBookListRepositoryStub } = makeSut()
+    jest
+      .spyOn(removeBookListRepositoryStub, 'remove')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const response = await sut.remove('any_token', 'any_id')
+    expect(response).toBeFalsy()
+  })
+
   test('should return a book on a succeeds', async () => {
     const { sut } = makeSut()
     const response = await sut.remove('any_token', 'any_id')
