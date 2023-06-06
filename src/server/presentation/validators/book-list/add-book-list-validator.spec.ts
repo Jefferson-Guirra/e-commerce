@@ -1,7 +1,8 @@
 import { AddBookListValidator } from './add-book-list-validator'
-import { MissingParamError } from '../errors/missing-params-error'
-import { BookModel } from '../../domain/models/book'
-import { HttpRequest } from '../protocols/http'
+import { MissingParamError } from '../../errors/missing-params-error'
+import { BookModel } from '../../../domain/models/book'
+import { HttpRequest } from '../../protocols/http'
+
 interface SutTypes {
   sut: AddBookListValidator
 }

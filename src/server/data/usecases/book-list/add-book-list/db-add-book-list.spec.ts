@@ -1,15 +1,15 @@
-import { BookModel } from '../../../domain/models/book'
-import { AddBookModel } from '../../../domain/usecases/add-book-list'
-import { ServerError } from '../../../presentation/errors/server-error'
+import { BookModel } from '../../../../domain/models/book'
+import { AddBookModel } from '../../../../domain/usecases/add-book-list'
+import { ServerError } from '../../../../presentation/errors/server-error'
 import {
   LoadAccountByAccessTokenRepository,
   accountLoginModel,
-} from '../../protocols/db/account/load-account-by-access-token-repository'
+} from '../../../protocols/db/account/load-account-by-access-token-repository'
 import {
   AddBookListRepository,
   AddBookRepositoryModel,
-} from '../../protocols/db/book-list/add-book-list-repository'
-import { LoadBookByQueryDocRepository } from '../../protocols/db/book-list/load-book-list-by-query-doc'
+} from '../../../protocols/db/book-list/add-book-list-repository'
+import { LoadBookByQueryDocRepository } from '../../../protocols/db/book-list/load-book-list-by-query-doc'
 import { GetDate } from './protocols/get-date'
 import { DbAddBookList } from './db-add-book-list'
 import { CreateQueryDoc } from './protocols/create-query-doc'

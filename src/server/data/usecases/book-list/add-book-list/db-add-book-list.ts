@@ -1,12 +1,12 @@
-import { BookModel } from '../../../domain/models/book'
+import { BookModel } from '../../../../domain/models/book'
 import {
   AddBookList,
   AddBookModel,
-} from '../../../domain/usecases/add-book-list'
-import { ServerError } from '../../../presentation/errors/server-error'
-import { LoadAccountByAccessTokenRepository } from '../../protocols/db/account/load-account-by-access-token-repository'
-import { AddBookListRepository } from '../../protocols/db/book-list/add-book-list-repository'
-import { LoadBookByQueryDocRepository } from '../../protocols/db/book-list/load-book-list-by-query-doc'
+} from '../../../../domain/usecases/add-book-list'
+import { ServerError } from '../../../../presentation/errors/server-error'
+import { LoadAccountByAccessTokenRepository } from '../../../protocols/db/account/load-account-by-access-token-repository'
+import { AddBookListRepository } from '../../../protocols/db/book-list/add-book-list-repository'
+import { LoadBookByQueryDocRepository } from '../../../protocols/db/book-list/load-book-list-by-query-doc'
 import { CreateQueryDoc } from './protocols/create-query-doc'
 import { GetDate } from './protocols/get-date'
 
