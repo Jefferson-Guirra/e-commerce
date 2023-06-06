@@ -47,4 +47,22 @@ describe('DbRemoveBookList', () => {
     await sut.remove('any_token', 'any_id')
     expect(loadByAccessTokenSpy).toHaveBeenCalledWith('any_token')
   })
+
+  test('should return undefined if loadAccount return null', async () => {
+    const { sut, loadAccountByAccessTokenStub } = makeSut()
+    jest
+      .spyOn(loadAccountByAccessTokenStub, 'loadByAccessToken')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const response = await sut.remove('any_token', 'any_id')
+    expect(response).toBeFalsy()
+  })
+
+  test('should return throw if LoadAccount return throw', async () => {
+    const { sut, loadAccountByAccessTokenStub } = makeSut()
+    jest
+      .spyOn(loadAccountByAccessTokenStub, 'loadByAccessToken')
+      .mockReturnValueOnce(Promise.reject(new Error()))
+    const promise = sut.remove('any_token', 'any_id')
+    await expect(promise).rejects.toThrow()
+  })
 })
