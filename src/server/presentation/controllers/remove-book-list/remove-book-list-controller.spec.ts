@@ -5,6 +5,12 @@ import { HttpRequest } from '../../protocols/http'
 import { Validation } from '../../protocols/validate'
 import { RemoveBookListController } from './remove-book-list-controller'
 
+const makeFakeRequest = (): HttpRequest => ({
+  body: {
+    accessToken: 'any_token',
+    idBook: 'any_id',
+  },
+})
 const makeFakeAddBookModel = (): AddBookModel => {
   return {
     title: 'any_title',
@@ -61,14 +67,8 @@ describe('RemoveBookListController', () => {
   test('should call validation with correct values', async () => {
     const { validateStub, sut } = makeSut()
     const validationSpy = jest.spyOn(validateStub, 'validation')
-    const makeFakeRequest: HttpRequest = {
-      body: {
-        accessToken: 'any_token',
-        bookId: 'any_id',
-      },
-    }
-    await sut.handle(makeFakeRequest)
-    expect(validationSpy).toHaveBeenCalledWith(makeFakeRequest)
+    await sut.handle(makeFakeRequest())
+    expect(validationSpy).toHaveBeenCalledWith(makeFakeRequest())
   })
 
   test('should return badRequest if validation return error', async () => {
@@ -76,26 +76,14 @@ describe('RemoveBookListController', () => {
     jest
       .spyOn(validateStub, 'validation')
       .mockReturnValueOnce(new Error('any_field'))
-    const makeFakeRequest: HttpRequest = {
-      body: {
-        accessToken: 'any_token',
-        bookId: 'any_id',
-      },
-    }
-    const response = await sut.handle(makeFakeRequest)
+    const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(badRequest(new Error('any_field')))
   })
 
   test('should call remove with correct values', async () => {
     const { sut, removeBookStub } = makeSut()
     const removeSpy = jest.spyOn(removeBookStub, 'remove')
-    const makeFakeRequest: HttpRequest = {
-      body: {
-        accessToken: 'any_token',
-        idBook: 'any_id',
-      },
-    }
-    await sut.handle(makeFakeRequest)
-    expect(removeSpy).toHaveBeenLastCalledWith('any_token', 'any_id')
+    await sut.handle(makeFakeRequest())
+    expect(removeSpy).toHaveBeenCalledWith('any_token', 'any_id')
   })
 })
