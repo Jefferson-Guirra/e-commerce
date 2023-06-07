@@ -120,6 +120,15 @@ describe('DbGetBookList', () => {
     await expect(promise).rejects.toThrow()
   })
 
+  test('should  return null if getBookListRepository return null', async () => {
+    const { sut, getBooksLIstRepositoryStub } = makeSut()
+    jest
+      .spyOn(getBooksLIstRepositoryStub, 'getBooks')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const response = await sut.getBooks('any_token')
+    expect(response).toBeFalsy()
+  })
+
   test('should  return books on a succeeds', async () => {
     const { sut } = makeSut()
     const response = await sut.getBooks('any_token')
