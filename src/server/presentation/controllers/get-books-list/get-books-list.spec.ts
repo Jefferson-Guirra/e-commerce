@@ -1,7 +1,7 @@
 import { AddBookModel } from '../../../domain/usecases/book-list/add-book-list'
 import { GetBooksList } from '../../../domain/usecases/book-list/get-books-list'
 import { MissingParamError } from '../../errors/missing-params-error'
-import { badRequest, serverError } from '../../helpers/http'
+import { badRequest, ok, serverError } from '../../helpers/http'
 import { HttpRequest } from '../../protocols/http'
 import { Validation } from '../../protocols/validate'
 import { GetBooksListController } from './get-books-list-controller'
@@ -96,5 +96,13 @@ describe('GetBookList', () => {
       .mockReturnValueOnce(Promise.reject(new Error()))
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(serverError())
+  })
+
+  test('should return 200 on a succeeds', async () => {
+    const { sut } = makeSut()
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(
+      ok([makeFakeAddBookModel(), makeFakeAddBookModel()])
+    )
   })
 })
