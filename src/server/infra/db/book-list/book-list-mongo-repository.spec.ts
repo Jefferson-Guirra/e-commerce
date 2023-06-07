@@ -153,4 +153,10 @@ describe('BookListMongoRepository', () => {
     expect(books[0]?.date).toBe(2)
     expect(books[1]?.date).toBe(4)
   })
+
+  test('should return empty array if getBooks return empty array', async () => {
+    const sut = makeSut()
+    const books = await sut.getBooks('any_user_id')
+    expect(books).toEqual([])
+  })
 })
