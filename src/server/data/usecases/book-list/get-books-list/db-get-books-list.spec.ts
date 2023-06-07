@@ -55,4 +55,13 @@ describe('DbGetBookList', () => {
     const promise = sut.getBooks('any_token')
     await expect(promise).rejects.toThrow()
   })
+
+  test('should return null if loadAccountByAccessTokenRepository return null', async () => {
+    const { sut, loadAccountRepositoryStub } = makeSut()
+    jest
+      .spyOn(loadAccountRepositoryStub, 'loadByAccessToken')
+      .mockReturnValue(Promise.resolve(null))
+    const response = await sut.getBooks('any_token')
+    expect(response).toBeFalsy()
+  })
 })
