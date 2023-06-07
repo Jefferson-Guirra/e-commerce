@@ -144,14 +144,14 @@ describe('BookListMongoRepository', () => {
   test('should return books if getBooks success', async () => {
     const sut = makeSut()
     await bookCollection.insertMany([
-      makeFakeBookForCollection(4),
       makeFakeBookForCollection(2),
+      makeFakeBookForCollection(4),
     ])
     const books = (await sut.getBooks('any_user_id')) as AddBookModel[]
     expect(books).toBeTruthy()
     expect(books?.length).toBe(2)
-    expect(books[0]?.date).toBe(2)
-    expect(books[1]?.date).toBe(4)
+    expect(books[0]?.date).toBe(4)
+    expect(books[1]?.date).toBe(2)
   })
 
   test('should return empty array if getBooks return empty array', async () => {
