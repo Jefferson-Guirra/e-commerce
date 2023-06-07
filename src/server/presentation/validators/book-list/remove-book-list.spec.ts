@@ -19,4 +19,10 @@ describe('RemoveBookListValidator', () => {
     const response = sut.validation(makeFakeRequest('accessToken'))
     expect(response).toEqual(new MissingParamError('accessToken'))
   })
+
+  test('should return MissingParamsError if idBook not provided', () => {
+    const sut = makeSut()
+    const response = sut.validation(makeFakeRequest('idBook'))
+    expect(response).toEqual(new MissingParamError('idBook'))
+  })
 })
