@@ -18,6 +18,21 @@ const makeFakeAddBookModel = (): AddBookModel => ({
   userId: 'any_user_id',
   queryDoc: 'any_user_idany_id',
 })
+
+const makeFakeBookForCollection = (date: number): AddBookModel => ({
+  title: 'any_title',
+  description: 'any_description',
+  authors: ['any_author'],
+  price: 0.0,
+  language: 'any_language',
+  publisher: 'any_publisher',
+  publisherDate: 'any_date',
+  date,
+  imgUrl: 'any_url',
+  id: 'any_id',
+  userId: 'any_user_id',
+  queryDoc: 'any_user_idany_id',
+})
 const makeFakeRequest = (): AddBookRepositoryModel => ({
   title: 'any_title',
   description: 'any_description',
@@ -124,5 +139,18 @@ describe('BookListMongoRepository', () => {
     expect(removeBook?.queryDoc).toBe('any_user_idany_id')
     count = await bookCollection.countDocuments()
     expect(count).toBe(0)
+  })
+
+  test('should return books if getBooks success', async () => {
+    const sut = makeSut()
+    await bookCollection.insertMany([
+      makeFakeBookForCollection(4),
+      makeFakeBookForCollection(2),
+    ])
+    const books = (await sut.getBooks('any_user_id')) as AddBookModel[]
+    expect(books).toBeTruthy()
+    expect(books?.length).toBe(2)
+    expect(books[0]?.date).toBe(2)
+    expect(books[1]?.date).toBe(4)
   })
 })
