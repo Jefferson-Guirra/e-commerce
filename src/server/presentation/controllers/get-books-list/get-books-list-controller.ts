@@ -16,8 +16,8 @@ export class GetBooksListController implements Controller {
         return badRequest(error)
       }
       const { accessToken } = httpRequest.body
-      await this.getBooksList.getBooks(accessToken)
-      return Promise.resolve(ok('success'))
+      const books = await this.getBooksList.getBooks(accessToken)
+      return Promise.resolve(ok(books))
     } catch (err) {
       return serverError(err as Error)
     }
