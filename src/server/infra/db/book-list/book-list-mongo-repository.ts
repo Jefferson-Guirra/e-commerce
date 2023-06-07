@@ -7,12 +7,14 @@ import { ObjectId } from 'mongodb'
 import { MongoHelper } from '../helpers/mongo-helper'
 import { LoadBookByQueryDocRepository } from '../../../data/protocols/db/book-list/load-book-list-by-query-doc'
 import { RemoveBookListRepository } from '../../../data/protocols/db/book-list/remove-book-list'
+import { GetBooksListRepository } from '../../../data/protocols/db/book-list/get-books-list-repository'
 
 export class BookListMongoRepository
   implements
     AddBookListRepository,
     LoadBookByQueryDocRepository,
-    RemoveBookListRepository
+    RemoveBookListRepository,
+    GetBooksListRepository
 {
   async addBook(book: AddBookRepositoryModel): Promise<AddBookModel | null> {
     const { id, userId, ...bookfields } = book
@@ -38,5 +40,12 @@ export class BookListMongoRepository
     const book = await bookCollection.findOne({ queryDoc: userId + bookId })
     await bookCollection.deleteOne({ queryDoc: userId + bookId })
     return book && MongoHelper.Map(book)
+  }
+
+  async getBooks(userId: string): Promise<AddBookModel[] | null> {
+    const bookListCollection = await MongoHelper.getCollection('bookList')
+    const books = bookListCollection.find({ userId }, { sort: { date: 1 } })
+    const booksFormat = await books.toArray()
+    return booksFormat.map((item) => MongoHelper.Map(item))
   }
 }
