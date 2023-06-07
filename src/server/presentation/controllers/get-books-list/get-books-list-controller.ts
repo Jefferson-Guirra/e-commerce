@@ -1,5 +1,5 @@
 import { GetBooksList } from '../../../domain/usecases/book-list/get-books-list'
-import { badRequest, ok, serverError } from '../../helpers/http'
+import { badRequest, ok, serverError, unauthorized } from '../../helpers/http'
 import { Controller } from '../../protocols/controller'
 import { HttpRequest, HttpResponse } from '../../protocols/http'
 import { Validation } from '../../protocols/validate'
@@ -17,6 +17,9 @@ export class GetBooksListController implements Controller {
       }
       const { accessToken } = httpRequest.body
       const books = await this.getBooksList.getBooks(accessToken)
+      if (books === null) {
+        return unauthorized()
+      }
       return Promise.resolve(ok(books))
     } catch (err) {
       return serverError(err as Error)
