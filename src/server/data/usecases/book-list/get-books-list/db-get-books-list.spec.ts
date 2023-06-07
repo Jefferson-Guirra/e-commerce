@@ -1,13 +1,40 @@
+import { AddBookModel } from '../../../../domain/usecases/book-list/add-book-list'
 import {
   LoadAccountByAccessTokenRepository,
   accountLoginModel,
 } from '../../../protocols/db/account/load-account-by-access-token-repository'
+import { GetBooksListRepository } from '../../../protocols/db/book-list/get-books-list-repository'
 import { DbGetBooksList } from './db-get-books-list'
 
-interface SutTypes {
-  loadAccountRepositoryStub: LoadAccountByAccessTokenRepository
-  sut: DbGetBooksList
+const makeFakeAddBookModel = (): AddBookModel => {
+  return {
+    title: 'any_title',
+    description: 'any_description',
+    authors: ['any_author'],
+    price: 0.0,
+    language: 'any_language',
+    publisher: 'any_publisher',
+    publisherDate: 'any_date',
+    date: 123456,
+    imgUrl: 'any_url',
+    queryDoc: 'any_user_idany_id',
+    userId: 'any_user_id',
+    id: 'any_id',
+  }
 }
+const makeGetBooksListRepositoryStub = (): GetBooksListRepository => {
+  class GetBooksListRepositoryStub implements GetBooksListRepository {
+    async getBooks(userId: string): Promise<AddBookModel[] | null> {
+      return await Promise.resolve([
+        makeFakeAddBookModel(),
+        makeFakeAddBookModel(),
+      ])
+    }
+  }
+
+  return new GetBooksListRepositoryStub()
+}
+
 const makeLoadAccountRepositoryStub =
   (): LoadAccountByAccessTokenRepository => {
     class LoadAccountByAccessTokenRepositoryStub
@@ -28,11 +55,23 @@ const makeLoadAccountRepositoryStub =
 
     return new LoadAccountByAccessTokenRepositoryStub()
   }
+
+interface SutTypes {
+  getBooksLIstRepositoryStub: GetBooksListRepository
+  loadAccountRepositoryStub: LoadAccountByAccessTokenRepository
+  sut: DbGetBooksList
+}
+
 const makeSut = (): SutTypes => {
+  const getBooksLIstRepositoryStub = makeGetBooksListRepositoryStub()
   const loadAccountRepositoryStub = makeLoadAccountRepositoryStub()
-  const sut = new DbGetBooksList(loadAccountRepositoryStub)
+  const sut = new DbGetBooksList(
+    loadAccountRepositoryStub,
+    getBooksLIstRepositoryStub
+  )
   return {
     loadAccountRepositoryStub,
+    getBooksLIstRepositoryStub,
     sut,
   }
 }
@@ -63,5 +102,12 @@ describe('DbGetBookList', () => {
       .mockReturnValue(Promise.resolve(null))
     const response = await sut.getBooks('any_token')
     expect(response).toBeFalsy()
+  })
+
+  test('should  call getBookListRepository with correct id', async () => {
+    const { sut, getBooksLIstRepositoryStub } = makeSut()
+    const getBooksSpy = jest.spyOn(getBooksLIstRepositoryStub, 'getBooks')
+    await sut.getBooks('any_token')
+    expect(getBooksSpy).toHaveBeenCalledWith('any_id')
   })
 })
