@@ -44,7 +44,7 @@ export class BookListMongoRepository
 
   async getBooks(userId: string): Promise<AddBookModel[] | null> {
     const bookListCollection = await MongoHelper.getCollection('bookList')
-    const books = bookListCollection.find({ userId }, { sort: { date: 1 } })
+    const books = bookListCollection.find({ userId }, { sort: { date: -1 } })
     const booksFormat = await books.toArray()
     return booksFormat.map((item) => MongoHelper.Map(item))
   }
