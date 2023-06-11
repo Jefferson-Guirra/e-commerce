@@ -100,4 +100,13 @@ describe('AddBookBuyListController', () => {
     await sut.handle(makeFakeRequest())
     expect(addSpy).toHaveBeenCalledWith(makeFakeRequest().body)
   })
+
+  test('should return 401 if addBook return undefined', async () => {
+    const { sut, addBuyBookListStub } = makeSut()
+    jest
+      .spyOn(addBuyBookListStub, 'add')
+      .mockReturnValueOnce(Promise.resolve(undefined))
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(unauthorized())
+  })
 })
