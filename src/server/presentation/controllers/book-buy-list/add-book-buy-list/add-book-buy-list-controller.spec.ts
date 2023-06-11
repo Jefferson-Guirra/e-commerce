@@ -53,8 +53,6 @@ const makeFakeRequest = (): HttpRequest => ({
     accessToken: 'any_token',
     bookId: 'any_id',
     authors: ['any_author'],
-    amount: 0,
-    date: 0,
     description: 'any_description',
     title: 'any_title',
     id: 'any_id',
