@@ -68,4 +68,13 @@ describe('DbAddBookBuyList', () => {
     const response = await sut.add(makeFakeRequest())
     expect(response).toBeFalsy()
   })
+
+  test('should return throw if LoadAccount return throw', async () => {
+    const { loadAccountRepositoryStub, sut } = makeSut()
+    jest
+      .spyOn(loadAccountRepositoryStub, 'loadByAccessToken')
+      .mockReturnValueOnce(Promise.reject(new Error()))
+    const response = sut.add(makeFakeRequest())
+    await expect(response).rejects.toThrow()
+  })
 })
