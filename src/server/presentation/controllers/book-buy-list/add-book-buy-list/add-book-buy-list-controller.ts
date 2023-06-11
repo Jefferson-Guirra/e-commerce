@@ -25,7 +25,7 @@ export class AddBookBuyListController implements Controller {
       if (!book) {
         return unauthorized()
       }
-      return await Promise.resolve(ok('success'))
+      return ok(book)
     } catch (err) {
       return serverError(err as Error)
     }
