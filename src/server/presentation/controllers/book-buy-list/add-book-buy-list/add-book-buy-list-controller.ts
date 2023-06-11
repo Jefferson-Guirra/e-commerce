@@ -1,5 +1,5 @@
 import { AddBookBuyList } from '../../../../domain/usecases/book-buy-list/add-book-buy-list'
-import { badRequest, ok } from '../../../helpers/http'
+import { badRequest, ok, unauthorized } from '../../../helpers/http'
 import { Controller } from '../../../protocols/controller'
 import { HttpRequest, HttpResponse } from '../../../protocols/http'
 import { Validation } from '../../../protocols/validate'
@@ -15,7 +15,10 @@ export class AddBookBuyListController implements Controller {
       return badRequest(error)
     }
 
-    this.addBook.add(httpRequest.body)
+    const book = await this.addBook.add(httpRequest.body)
+    if (!book) {
+      return unauthorized()
+    }
     return await Promise.resolve(ok('success'))
   }
 }
