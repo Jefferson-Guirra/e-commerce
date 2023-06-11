@@ -1,11 +1,16 @@
 import {
   Authentication,
   AuthenticationModel,
-} from '../../../domain/usecases/account/authentication'
-import { MissingParamError } from '../../errors/missing-params-error'
-import { badRequest, ok, serverError, unauthorized } from '../../helpers/http'
-import { HttpRequest } from '../../protocols/http'
-import { Validation } from '../../protocols/validate'
+} from '../../../../domain/usecases/account/authentication'
+import { MissingParamError } from '../../../errors/missing-params-error'
+import {
+  badRequest,
+  ok,
+  serverError,
+  unauthorized,
+} from '../../../helpers/http'
+import { HttpRequest } from '../../../protocols/http'
+import { Validation } from '../../../protocols/validate'
 import { LoginController } from './login-controller'
 
 const makeFakeRequest = (): HttpRequest => {

@@ -1,9 +1,14 @@
-import { HttpRequest } from '../../protocols/http'
-import { Validation } from '../../protocols/validate'
+import { HttpRequest } from '../../../protocols/http'
+import { Validation } from '../../../protocols/validate'
 import { LogoutController } from './logout-controller'
-import { badRequest, ok, serverError, unauthorized } from '../../helpers/http'
-import { MissingParamError } from '../../errors/missing-params-error'
-import { AccountLogout } from '../../../domain/usecases/account/logout-account'
+import {
+  badRequest,
+  ok,
+  serverError,
+  unauthorized,
+} from '../../../helpers/http'
+import { MissingParamError } from '../../../errors/missing-params-error'
+import { AccountLogout } from '../../../../domain/usecases/account/logout-account'
 
 const makeValidationStub = (): Validation => {
   class ValidationStub implements Validation {

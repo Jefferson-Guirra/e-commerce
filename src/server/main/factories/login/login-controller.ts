@@ -3,7 +3,7 @@ import { BcrypterAdapter } from '../../../infra/criptography/bcrypt-adapter.ts/b
 import { JwtAdapter } from '../../../infra/criptography/jwt-adapter/jwt-adapter'
 import { AccountMongoRepository } from '../../../infra/db/account/account-mongo-repository'
 import { LogMongoRepository } from '../../../infra/db/log/log-mongo-repository'
-import { LoginController } from '../../../presentation/controllers/login/login-controller'
+import { LoginController } from '../../../presentation/controllers/account/login/login-controller'
 import { Controller } from '../../../presentation/protocols/controller'
 import { LoginValidate } from '../../../presentation/validators/account/login-validate'
 import { LogControllerDecorator } from '../../decorators/log-controller-decorator'

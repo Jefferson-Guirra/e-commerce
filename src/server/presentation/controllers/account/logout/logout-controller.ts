@@ -1,8 +1,13 @@
-import { AccountLogout } from '../../../domain/usecases/account/logout-account'
-import { badRequest, ok, serverError, unauthorized } from '../../helpers/http'
-import { Controller } from '../../protocols/controller'
-import { HttpRequest, HttpResponse } from '../../protocols/http'
-import { Validation } from '../../protocols/validate'
+import { AccountLogout } from '../../../../domain/usecases/account/logout-account'
+import {
+  badRequest,
+  ok,
+  serverError,
+  unauthorized,
+} from '../../../helpers/http'
+import { Controller } from '../../../protocols/controller'
+import { HttpRequest, HttpResponse } from '../../../protocols/http'
+import { Validation } from '../../../protocols/validate'
 
 export class LogoutController implements Controller {
   constructor(

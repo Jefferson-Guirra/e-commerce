@@ -2,7 +2,7 @@ import { DbAddAccountRepository } from '../../../data/usecases/account/add-accou
 import { BcrypterAdapter } from '../../../infra/criptography/bcrypt-adapter.ts/bcrypter-adapter'
 import { AccountMongoRepository } from '../../../infra/db/account/account-mongo-repository'
 import { LogMongoRepository } from '../../../infra/db/log/log-mongo-repository'
-import { SignupController } from '../../../presentation/controllers/signup/signup-controller'
+import { SignupController } from '../../../presentation/controllers/account/signup/signup-controller'
 import { Controller } from '../../../presentation/protocols/controller'
 import { Validate } from '../../../presentation/validators/account/validate'
 import { LogControllerDecorator } from '../../decorators/log-controller-decorator'

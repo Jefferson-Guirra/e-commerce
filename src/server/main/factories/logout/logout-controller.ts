@@ -1,6 +1,6 @@
 import { DbLogoutAccount } from '../../../data/usecases/account/logout-account/logout-account'
 import { AccountMongoRepository } from '../../../infra/db/account/account-mongo-repository'
-import { LogoutController } from '../../../presentation/controllers/logout/logout-controller'
+import { LogoutController } from '../../../presentation/controllers/account/logout/logout-controller'
 import { Controller } from '../../../presentation/protocols/controller'
 import { LogoutValidate } from '../../../presentation/validators/account/logout-validate'
 export const makeLogoutController = (): Controller => {
