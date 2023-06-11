@@ -1,8 +1,39 @@
+import { BookModel } from '../../../../domain/models/book/book'
+import {
+  AddBookBuyList,
+  AddBuyBookModel,
+} from '../../../../domain/usecases/book-buy-list/add-book-buy-list'
 import { MissingParamError } from '../../../errors/missing-params-error'
-import { badRequest } from '../../../helpers/http'
+import { badRequest, unauthorized } from '../../../helpers/http'
 import { HttpRequest } from '../../../protocols/http'
 import { Validation } from '../../../protocols/validate'
 import { AddBookBuyListController } from './add-book-buy-list-controller'
+
+const makeFakeAddBuyBook = (): AddBuyBookModel => ({
+  authors: ['any_author'],
+  amount: 0,
+  date: 0,
+  description: 'any_description',
+  title: 'any_title',
+  id: 'any_id',
+  imgUrl: 'any_url',
+  language: 'any-language',
+  price: 0,
+  publisher: 'any_publisher',
+  publisherDate: 'any_date',
+  queryDoc: 'any_id_doc',
+  userId: 'any_user_id',
+})
+
+const makeFakeAddBookBuyList = (): AddBookBuyList => {
+  class AddBookBuyListStub implements AddBookBuyList {
+    async add(book: BookModel): Promise<AddBuyBookModel | undefined> {
+      return await Promise.resolve(makeFakeAddBuyBook())
+    }
+  }
+
+  return new AddBookBuyListStub()
+}
 const makeValidationStub = (): Validation => {
   class ValidationStub implements Validation {
     validation(input: any): Error | undefined {
@@ -16,20 +47,34 @@ const makeFakeRequest = (): HttpRequest => ({
   body: {
     accessToken: 'any_token',
     bookId: 'any_id',
+    authors: ['any_author'],
+    amount: 0,
+    date: 0,
+    description: 'any_description',
+    title: 'any_title',
+    id: 'any_id',
+    imgUrl: 'any_url',
+    language: 'any_language',
+    price: 0,
+    publisher: 'any_publisher',
+    publisherDate: 'any_date',
   },
 })
 
 interface SutTypes {
+  addBuyBookListStub: AddBookBuyList
   validateStub: Validation
   sut: AddBookBuyListController
 }
 
 const makeSut = (): SutTypes => {
+  const addBuyBookListStub = makeFakeAddBookBuyList()
   const validateStub = makeValidationStub()
-  const sut = new AddBookBuyListController(validateStub)
+  const sut = new AddBookBuyListController(validateStub, addBuyBookListStub)
   return {
-    sut,
+    addBuyBookListStub,
     validateStub,
+    sut,
   }
 }
 describe('AddBookBuyListController', () => {
@@ -47,5 +92,12 @@ describe('AddBookBuyListController', () => {
       .mockReturnValueOnce(new MissingParamError('any_field'))
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(badRequest(new MissingParamError('any_field')))
+  })
+
+  test('should call AddBook with correct values', async () => {
+    const { sut, addBuyBookListStub } = makeSut()
+    const addSpy = jest.spyOn(addBuyBookListStub, 'add')
+    await sut.handle(makeFakeRequest())
+    expect(addSpy).toHaveBeenCalledWith(makeFakeRequest().body)
   })
 })
