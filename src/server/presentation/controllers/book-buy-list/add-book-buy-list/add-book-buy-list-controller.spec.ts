@@ -1,3 +1,5 @@
+import { MissingParamError } from '../../../errors/missing-params-error'
+import { badRequest } from '../../../helpers/http'
 import { HttpRequest } from '../../../protocols/http'
 import { Validation } from '../../../protocols/validate'
 import { AddBookBuyListController } from './add-book-buy-list-controller'
@@ -36,5 +38,14 @@ describe('AddBookBuyListController', () => {
     const validateSpy = jest.spyOn(validateStub, 'validation')
     await sut.handle(makeFakeRequest())
     expect(validateSpy).toHaveBeenCalledWith(makeFakeRequest())
+  })
+
+  test('should return 400 if validate return error', async () => {
+    const { sut, validateStub } = makeSut()
+    jest
+      .spyOn(validateStub, 'validation')
+      .mockReturnValueOnce(new MissingParamError('any_field'))
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(badRequest(new MissingParamError('any_field')))
   })
 })
