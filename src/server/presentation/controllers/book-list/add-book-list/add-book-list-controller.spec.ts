@@ -1,14 +1,19 @@
-import { HttpRequest } from '../../protocols/http'
-import { Validation } from '../../protocols/validate'
+import { HttpRequest } from '../../../protocols/http'
+import { Validation } from '../../../protocols/validate'
 import { AddBookListController } from './add-book-list-controller'
-import { badRequest, serverError, unauthorized, ok } from '../../helpers/http'
-import { MissingParamError } from '../../errors/missing-params-error'
-import { AddBookListRepository } from '../../../data/protocols/db/book-list/add-book-list-repository'
-import { BookModel } from '../../../domain/models/book-list/book'
+import {
+  badRequest,
+  serverError,
+  unauthorized,
+  ok,
+} from '../../../helpers/http'
+import { MissingParamError } from '../../../errors/missing-params-error'
+import { AddBookListRepository } from '../../../../data/protocols/db/book-list/add-book-list-repository'
+import { BookModel } from '../../../../domain/models/book-list/book'
 import {
   AddBookList,
   AddBookModel,
-} from '../../../domain/usecases/book-list/add-book-list'
+} from '../../../../domain/usecases/book-list/add-book-list'
 
 const makeFakeAddBookModel = (): AddBookModel => {
   return {

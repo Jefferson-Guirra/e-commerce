@@ -1,8 +1,13 @@
-import { RemoveBookList } from '../../../domain/usecases/book-list/remove-book-list'
-import { badRequest, ok, serverError, unauthorized } from '../../helpers/http'
-import { Controller } from '../../protocols/controller'
-import { HttpRequest, HttpResponse } from '../../protocols/http'
-import { Validation } from '../../protocols/validate'
+import { RemoveBookList } from '../../../../domain/usecases/book-list/remove-book-list'
+import {
+  badRequest,
+  ok,
+  serverError,
+  unauthorized,
+} from '../../../helpers/http'
+import { Controller } from '../../../protocols/controller'
+import { HttpRequest, HttpResponse } from '../../../protocols/http'
+import { Validation } from '../../../protocols/validate'
 
 export class RemoveBookListController implements Controller {
   constructor(

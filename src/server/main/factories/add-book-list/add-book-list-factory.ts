@@ -4,7 +4,7 @@ import { GetDate } from '../../../data/usecases/book-list/add-book-list/protocol
 import { AccountMongoRepository } from '../../../infra/db/account/account-mongo-repository'
 import { BookListMongoRepository } from '../../../infra/db/book-list/book-list-mongo-repository'
 import { LogMongoRepository } from '../../../infra/db/log/log-mongo-repository'
-import { AddBookListController } from '../../../presentation/controllers/add-book-list/add-book-list-controller'
+import { AddBookListController } from '../../../presentation/controllers/book-list/add-book-list/add-book-list-controller'
 import { Controller } from '../../../presentation/protocols/controller'
 import { AddBookListValidator } from '../../../presentation/validators/book-list/add-book-list-validator'
 import { LogControllerDecorator } from '../../decorators/log-controller-decorator'

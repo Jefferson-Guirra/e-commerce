@@ -1,8 +1,13 @@
-import { AddBookModel } from '../../../domain/usecases/book-list/add-book-list'
-import { RemoveBookList } from '../../../domain/usecases/book-list/remove-book-list'
-import { badRequest, ok, serverError, unauthorized } from '../../helpers/http'
-import { HttpRequest } from '../../protocols/http'
-import { Validation } from '../../protocols/validate'
+import { AddBookModel } from '../../../../domain/usecases/book-list/add-book-list'
+import { RemoveBookList } from '../../../../domain/usecases/book-list/remove-book-list'
+import {
+  badRequest,
+  ok,
+  serverError,
+  unauthorized,
+} from '../../../helpers/http'
+import { HttpRequest } from '../../../protocols/http'
+import { Validation } from '../../../protocols/validate'
 import { RemoveBookListController } from './remove-book-list-controller'
 
 const makeFakeRequest = (): HttpRequest => ({
