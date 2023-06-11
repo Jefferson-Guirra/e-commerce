@@ -1,4 +1,4 @@
-import { BookModel } from '../../../../domain/models/book-list/book'
+import { BookModel } from '../../../../domain/models/book/book'
 import {
   AddBookList,
   AddBookModel,
