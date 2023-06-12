@@ -229,4 +229,10 @@ describe('DbAddBookBuyList', () => {
     const promise = sut.add(makeFakeRequest())
     await expect(promise).rejects.toThrow()
   })
+
+  test('should return a book on succeeds', async () => {
+    const { sut } = makeSut()
+    const response = await sut.add(makeFakeRequest())
+    expect(response).toEqual(makeFakeAddBuyBook())
+  })
 })
