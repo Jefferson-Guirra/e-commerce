@@ -20,6 +20,7 @@ const makeFakeAddBuyBook = (): AddBuyBookModel => ({
   date: 0,
   description: 'any_description',
   title: 'any_title',
+  bookId: 'any_book_id',
   id: 'any_id',
   imgUrl: 'any_url',
   language: 'any-language',

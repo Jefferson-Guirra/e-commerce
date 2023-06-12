@@ -12,6 +12,7 @@ export interface AddBuyBookModel {
   publisher: string
   publisherDate: string
   queryDoc: string
+  bookId: string
   userId: string
 }
 
