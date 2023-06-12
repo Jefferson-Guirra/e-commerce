@@ -23,27 +23,14 @@ export class DbAddBookBuyList implements AddBookBuyList {
     }
     const { id } = account
     const loadBook = await this.loadBook.loadBookByQueryDoc(id, book.bookId)
+    let addBook
     if (loadBook) {
-      await this.updateBook.updateAmount(loadBook)
+      addBook = await this.updateBook.updateAmount(loadBook)
     }
     if (!loadBook) {
-      await this.addBuyBook.addBook(book, id)
+      addBook = await this.addBuyBook.addBook(book, id)
     }
 
-    return {
-      authors: ['any_author'],
-      amount: 0,
-      date: 0,
-      description: 'any_description',
-      title: 'any_title',
-      id: 'any_id',
-      imgUrl: 'any_url',
-      language: 'any-language',
-      price: 0,
-      publisher: 'any_publisher',
-      publisherDate: 'any_date',
-      queryDoc: 'any_id_doc',
-      userId: 'any_user_id',
-    }
+    return addBook === null ? undefined : addBook
   }
 }
