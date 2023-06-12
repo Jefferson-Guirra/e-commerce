@@ -30,9 +30,12 @@ export class BookListMongoRepository
     const addBook = await bookListCollection.findOne({ _id: result.insertedId })
     return addBook && MongoHelper.Map(addBook)
   }
-  async loadBookByQuery(idDoc: string): Promise<AddBookModel | null> {
+  async loadBookByQuery(
+    userId: string,
+    bookId: string
+  ): Promise<AddBookModel | null> {
     const bookCollection = await MongoHelper.getCollection('bookList')
-    const book = await bookCollection.findOne({ queryDoc: idDoc })
+    const book = await bookCollection.findOne({ queryDoc: userId + bookId })
     return book && MongoHelper.Map(book)
   }
   async remove(userId: string, bookId: string): Promise<AddBookModel | null> {

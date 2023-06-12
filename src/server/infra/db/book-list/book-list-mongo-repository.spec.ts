@@ -61,7 +61,7 @@ describe('BookListMongoRepository', () => {
     bookCollection = await MongoHelper.getCollection('bookList')
     await bookCollection.deleteMany({})
   })
-  test('should add book in BookLIstMongoRepository if addBook success', async () => {
+  test('should add book in BookListMongoRepository if addBook success', async () => {
     const sut = makeSut()
     await sut.addBook(makeFakeRequest())
     const count = await bookCollection.countDocuments()
@@ -102,7 +102,7 @@ describe('BookListMongoRepository', () => {
       userId: 'any_user_id',
       queryDoc: 'any_user_idany_id',
     })
-    const book = await sut.loadBookByQuery('any_user_idany_id')
+    const book = await sut.loadBookByQuery('any_user_id', 'any_id')
     expect(book).toBeTruthy()
     expect(book?.title).toBe('any_title')
     expect(book?.description).toBe('any_description')

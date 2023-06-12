@@ -137,7 +137,6 @@ const makeSut = (): SutTypes => {
     loadAccountByAccessTokenStub,
     addBookListRepositoryStub,
     getDateStub,
-    createQueryDocStub,
     loadBookByQueryDocStub
   )
   return {
@@ -178,18 +177,11 @@ describe('DbAddBookList', () => {
     expect(response).toBeFalsy()
   })
 
-  test('should call createQuery with correct values', async () => {
-    const { sut, createQueryDocStub } = makeSut()
-    const createQuerySpy = jest.spyOn(createQueryDocStub, 'create')
-    await sut.add(makeFakeRequest())
-    expect(createQuerySpy).toHaveBeenCalledWith('any_user_id', 'any_id')
-  })
-
   test('should call loadBook with correct idDoc', async () => {
     const { sut, loadBookByQueryDocStub } = makeSut()
     const loadBookSpy = jest.spyOn(loadBookByQueryDocStub, 'loadBookByQuery')
     await sut.add(makeFakeRequest())
-    expect(loadBookSpy).toHaveBeenCalledWith('any_user_idany_id')
+    expect(loadBookSpy).toHaveBeenCalledWith('any_user_id', 'any_id')
   })
 
   test('should return book if loadBook return book ', async () => {
