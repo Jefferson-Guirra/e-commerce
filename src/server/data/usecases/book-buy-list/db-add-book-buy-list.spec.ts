@@ -1,12 +1,12 @@
 import { BookModel } from '../../../domain/models/book/book'
 import { AddBuyBookModel } from '../../../domain/usecases/book-buy-list/add-book-buy-list'
-
+import { AddBuyBookRepository } from '../../protocols/db/book-buy-list/add-book-buy-list-repository'
 import {
   LoadAccountByAccessTokenRepository,
   accountLoginModel,
 } from '../../protocols/db/account/load-account-by-access-token-repository'
-import { LoadBuyBookByQueryDocRepository } from '../../protocols/db/book-buy-list/load-book-buy-list-by-query-doc'
-import { UpdateBuyBook } from '../../protocols/db/book-buy-list/update-book-buy-list'
+import { LoadBuyBookByQueryDocRepository } from '../../protocols/db/book-buy-list/load-book-buy-list-by-query-doc-repository'
+import { UpdateBuyBookRepository } from '../../protocols/db/book-buy-list/update-book-buy-list-repository'
 import { DbAddBookBuyList } from './db-add-book-buy-list'
 
 const makeFakeAddBuyBook = (): AddBuyBookModel => ({
@@ -74,30 +74,47 @@ const makeLoadBookByQueryDocStub = (): LoadBuyBookByQueryDocRepository => {
   return new LoadBookByQueryDocRepositoryStub()
 }
 
-const makeUpdateBuyBookStub = (): UpdateBuyBook => {
-  class UpdateAmountBuyBookStub implements UpdateBuyBook {
+const makeUpdateBuyBookStub = (): UpdateBuyBookRepository => {
+  class UpdateAmountBuyBookStub implements UpdateBuyBookRepository {
     async updateAmount(book: AddBuyBookModel): Promise<AddBuyBookModel | null> {
       return await Promise.resolve(makeFakeAddBuyBook())
     }
   }
   return new UpdateAmountBuyBookStub()
 }
+
+const makeAddBuyBookRepositoryStub = (): AddBuyBookRepository => {
+  class AddBuyBookRepositoryStub implements AddBuyBookRepository {
+    async addBook(
+      book: BookModel,
+      userId: string
+    ): Promise<AddBuyBookModel | null> {
+      return await Promise.resolve(makeFakeAddBuyBook())
+    }
+  }
+
+  return new AddBuyBookRepositoryStub()
+}
 interface SutTypes {
-  updateAmountBuyBookStub: UpdateBuyBook
+  addBuyBookRepositoryStub: AddBuyBookRepository
+  updateAmountBuyBookStub: UpdateBuyBookRepository
   loadBookByQueryDocRepositoryStub: LoadBuyBookByQueryDocRepository
   loadAccountRepositoryStub: LoadAccountByAccessTokenRepository
   sut: DbAddBookBuyList
 }
 const makeSut = (): SutTypes => {
+  const addBuyBookRepositoryStub = makeAddBuyBookRepositoryStub()
   const updateAmountBuyBookStub = makeUpdateBuyBookStub()
   const loadBookByQueryDocRepositoryStub = makeLoadBookByQueryDocStub()
   const loadAccountRepositoryStub = makeLoadAccountRepositoryStub()
   const sut = new DbAddBookBuyList(
     loadAccountRepositoryStub,
     loadBookByQueryDocRepositoryStub,
-    updateAmountBuyBookStub
+    updateAmountBuyBookStub,
+    addBuyBookRepositoryStub
   )
   return {
+    addBuyBookRepositoryStub,
     updateAmountBuyBookStub,
     loadBookByQueryDocRepositoryStub,
     loadAccountRepositoryStub,
@@ -170,5 +187,33 @@ describe('DbAddBookBuyList', () => {
       .mockReturnValueOnce(Promise.reject(new Error()))
     const promise = sut.add(makeFakeRequest())
     await expect(promise).rejects.toThrow()
+  })
+
+  test('should call AddBook if LoadBook return null', async () => {
+    const {
+      sut,
+      updateAmountBuyBookStub,
+      loadBookByQueryDocRepositoryStub,
+      addBuyBookRepositoryStub,
+    } = makeSut()
+    jest
+      .spyOn(loadBookByQueryDocRepositoryStub, 'loadBookByQueryDoc')
+      .mockReturnValue(Promise.resolve(null))
+    const updateAmountSpy = jest.spyOn(updateAmountBuyBookStub, 'updateAmount')
+    const addBookSpy = jest.spyOn(addBuyBookRepositoryStub, 'addBook')
+    await sut.add(makeFakeRequest())
+    expect(updateAmountSpy).toHaveBeenCalledTimes(0)
+    expect(addBookSpy).toHaveBeenCalledTimes(1)
+  })
+
+  test('should call AddBook with correct values', async () => {
+    const { sut, addBuyBookRepositoryStub, loadBookByQueryDocRepositoryStub } =
+      makeSut()
+    jest
+      .spyOn(loadBookByQueryDocRepositoryStub, 'loadBookByQueryDoc')
+      .mockReturnValue(Promise.resolve(null))
+    const addBookSpy = jest.spyOn(addBuyBookRepositoryStub, 'addBook')
+    await sut.add(makeFakeRequest())
+    expect(addBookSpy).toBeCalledWith(makeFakeRequest(), 'any_user_id')
   })
 })
