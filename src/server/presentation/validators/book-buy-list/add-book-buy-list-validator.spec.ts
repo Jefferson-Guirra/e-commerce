@@ -70,4 +70,9 @@ describe('AddBookBuyList', () => {
     const response = sut.validation(makeFakeRequest('publisher'))
     expect(response).toEqual(new MissingParamError('publisher'))
   })
+  test('should return MissingParamsError if publisherDate not provided', () => {
+    const sut = makeSut()
+    const response = sut.validation(makeFakeRequest('publisherDate'))
+    expect(response).toEqual(new MissingParamError('publisherDate'))
+  })
 })
