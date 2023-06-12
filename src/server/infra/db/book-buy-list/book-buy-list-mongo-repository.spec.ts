@@ -1,8 +1,24 @@
 import { Collection } from 'mongodb'
 import { MongoHelper } from '../helpers/mongo-helper'
-import { BookBuyListMongoRepository } from './book-buy-list-mongo-repository'
+import { BuyBooksListMongoRepository } from './book-buy-list-mongo-repository'
 import { BookModel } from '../../../domain/models/book/book'
+import { AddBuyBookModel } from '../../../domain/usecases/book-buy-list/add-book-buy-list'
 
+const makeFakeAddBuyBook = () => ({
+  authors: ['any_author'],
+  description: 'any_description',
+  title: 'any_title',
+  imgUrl: 'any_url',
+  language: 'any_language',
+  price: 0,
+  amount: 1,
+  bookId: 'any_id',
+  date: new Date().getTime(),
+  userId: 'any_user_id',
+  queryDoc: 'any_user_id' + 'any_id',
+  publisher: 'any_publisher',
+  publisherDate: 'any_date',
+})
 const makeFakeRequest = (): BookModel => ({
   accessToken: 'any_token',
   bookId: 'any_id',
@@ -15,8 +31,8 @@ const makeFakeRequest = (): BookModel => ({
   publisher: 'any_publisher',
   publisherDate: 'any_date',
 })
-const makeSut = (): BookBuyListMongoRepository =>
-  new BookBuyListMongoRepository()
+const makeSut = (): BuyBooksListMongoRepository =>
+  new BuyBooksListMongoRepository()
 let bookBuyListCollection: Collection
 describe('BookBuyLIstMongoRepository', () => {
   beforeAll(async () => {
@@ -27,7 +43,7 @@ describe('BookBuyLIstMongoRepository', () => {
     await MongoHelper.disconnect()
   })
   beforeEach(async () => {
-    bookBuyListCollection = await MongoHelper.getCollection('buyBookList')
+    bookBuyListCollection = await MongoHelper.getCollection('buyBooksList')
     await bookBuyListCollection.deleteMany({})
   })
   test('should add book on success', async () => {
@@ -37,6 +53,28 @@ describe('BookBuyLIstMongoRepository', () => {
     const book = await sut.addBook(makeFakeRequest(), 'any_user_id')
     count = await bookBuyListCollection.countDocuments()
     expect(count).toBe(1)
+    expect(book).toBeTruthy()
+    expect(book?.title).toBe('any_title')
+    expect(book?.description).toBe('any_description')
+    expect(book?.date).toBeTruthy()
+    expect(book?.authors).toEqual(['any_author'])
+    expect(book?.id).toBeTruthy()
+    expect(book?.imgUrl).toBe('any_url')
+    expect(book?.language).toBe('any_language')
+    expect(book?.price).toBe(0)
+    expect(book?.publisher).toBe('any_publisher')
+    expect(book?.publisherDate).toBe('any_date')
+    expect(book?.queryDoc).toBe('any_user_id' + 'any_id')
+    expect(book?.amount).toBe(1)
+  })
+
+  test('should return a book if LoadBookByQueryDoc success ', async () => {
+    const sut = makeSut()
+    const result = await bookBuyListCollection.insertOne(makeFakeAddBuyBook())
+    const addBook = await bookBuyListCollection.findOne({
+      _id: result.insertedId,
+    })
+    const book = await sut.loadBookByQueryDoc(addBook?.userId, addBook?.bookId)
     expect(book).toBeTruthy()
     expect(book?.title).toBe('any_title')
     expect(book?.description).toBe('any_description')
