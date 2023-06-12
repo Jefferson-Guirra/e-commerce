@@ -4,14 +4,14 @@ import {
   AddBuyBookModel,
 } from '../../../domain/usecases/book-buy-list/add-book-buy-list'
 import { LoadAccountByAccessTokenRepository } from '../../protocols/db/account/load-account-by-access-token-repository'
-import { LoadBuyBookByQueryDocRepository } from '../../protocols/db/book-buy-list/load-book-buy-list-by-query-doc'
-import { UpdateBuyBook } from '../../protocols/db/book-buy-list/update-book-buy-list'
+import { LoadBuyBookByQueryDocRepository } from '../../protocols/db/book-buy-list/load-book-buy-list-by-query-doc-repository'
+import { UpdateBuyBookRepository } from '../../protocols/db/book-buy-list/update-book-buy-list-repository'
 
 export class DbAddBookBuyList implements AddBookBuyList {
   constructor(
     private readonly loadAccount: LoadAccountByAccessTokenRepository,
     private readonly loadBook: LoadBuyBookByQueryDocRepository,
-    private readonly updateBook: UpdateBuyBook
+    private readonly updateBook: UpdateBuyBookRepository
   ) {}
   async add(book: BookModel): Promise<AddBuyBookModel | undefined> {
     const account = await this.loadAccount.loadByAccessToken(book.accessToken)
