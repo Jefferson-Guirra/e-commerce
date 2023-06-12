@@ -56,7 +56,6 @@ const makeFakeRequest = (): HttpRequest => ({
     authors: ['any_author'],
     description: 'any_description',
     title: 'any_title',
-    id: 'any_id',
     imgUrl: 'any_url',
     language: 'any_language',
     price: 0,
