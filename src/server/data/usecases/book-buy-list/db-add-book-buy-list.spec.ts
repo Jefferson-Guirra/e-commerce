@@ -6,6 +6,7 @@ import {
   accountLoginModel,
 } from '../../protocols/db/account/load-account-by-access-token-repository'
 import { LoadBuyBookByQueryDocRepository } from '../../protocols/db/book-buy-list/load-book-buy-list-by-query-doc'
+import { UpdateBuyBook } from '../../protocols/db/book-buy-list/update-book-buy-list'
 import { DbAddBookBuyList } from './db-add-book-buy-list'
 
 const makeFakeAddBuyBook = (): AddBuyBookModel => ({
@@ -72,19 +73,32 @@ const makeLoadBookByQueryDocStub = (): LoadBuyBookByQueryDocRepository => {
 
   return new LoadBookByQueryDocRepositoryStub()
 }
+
+const makeUpdateBuyBookStub = (): UpdateBuyBook => {
+  class UpdateAmountBuyBookStub implements UpdateBuyBook {
+    async updateAmount(book: AddBuyBookModel): Promise<AddBuyBookModel | null> {
+      return await Promise.resolve(makeFakeAddBuyBook())
+    }
+  }
+  return new UpdateAmountBuyBookStub()
+}
 interface SutTypes {
+  updateAmountBuyBookStub: UpdateBuyBook
   loadBookByQueryDocRepositoryStub: LoadBuyBookByQueryDocRepository
   loadAccountRepositoryStub: LoadAccountByAccessTokenRepository
   sut: DbAddBookBuyList
 }
 const makeSut = (): SutTypes => {
+  const updateAmountBuyBookStub = makeUpdateBuyBookStub()
   const loadBookByQueryDocRepositoryStub = makeLoadBookByQueryDocStub()
   const loadAccountRepositoryStub = makeLoadAccountRepositoryStub()
   const sut = new DbAddBookBuyList(
     loadAccountRepositoryStub,
-    loadBookByQueryDocRepositoryStub
+    loadBookByQueryDocRepositoryStub,
+    updateAmountBuyBookStub
   )
   return {
+    updateAmountBuyBookStub,
     loadBookByQueryDocRepositoryStub,
     loadAccountRepositoryStub,
     sut,
@@ -133,5 +147,19 @@ describe('DbAddBookBuyList', () => {
       .mockReturnValueOnce(Promise.reject(new Error()))
     const promise = sut.add(makeFakeRequest())
     await expect(promise).rejects.toThrow()
+  })
+
+  test('should call UpdateBook if LoadBook return a book', async () => {
+    const { sut, updateAmountBuyBookStub } = makeSut()
+    const updateAmountSpy = jest.spyOn(updateAmountBuyBookStub, 'updateAmount')
+    await sut.add(makeFakeRequest())
+    expect(updateAmountSpy).toHaveBeenCalledTimes(1)
+  })
+
+  test('should call UpdateBook if correct book value', async () => {
+    const { sut, updateAmountBuyBookStub } = makeSut()
+    const updateAmountSpy = jest.spyOn(updateAmountBuyBookStub, 'updateAmount')
+    await sut.add(makeFakeRequest())
+    expect(updateAmountSpy).toHaveBeenCalledWith(makeFakeAddBuyBook())
   })
 })
