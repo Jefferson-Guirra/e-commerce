@@ -1,8 +1,8 @@
 import { Collection } from 'mongodb'
 import { BookListMongoRepository } from './book-list-mongo-repository'
 import { MongoHelper } from '../helpers/mongo-helper'
-import { AddBookRepositoryModel } from '../../../data/protocols/db/book-list/add-book-list-repository'
 import { AddBookModel } from '../../../domain/usecases/book-list/add-book-list'
+import { BookModel } from '../../../domain/models/book/book'
 
 const makeFakeAddBookModel = (): AddBookModel => ({
   title: 'any_title',
@@ -33,19 +33,22 @@ const makeFakeBookForCollection = (date: number): AddBookModel => ({
   userId: 'any_user_id',
   queryDoc: 'any_user_idany_id',
 })
-const makeFakeRequest = (): AddBookRepositoryModel => ({
-  title: 'any_title',
-  description: 'any_description',
-  authors: ['any_author'],
-  price: 0.0,
-  language: 'any_language',
-  publisher: 'any_publisher',
-  publisherDate: 'any_date',
-  date: 123456,
-  imgUrl: 'any_url',
-  id: 'any_id',
-  userId: 'any_user_id',
-})
+
+const makeFakeRequest = (): BookModel => {
+  return {
+    title: 'any_title',
+    description: 'any_description',
+    authors: ['any_author'],
+    price: 0.0,
+    language: 'any_language',
+    publisher: 'any_publisher',
+    publisherDate: 'any_date',
+    imgUrl: 'any_url',
+    accessToken: 'any_token',
+    bookId: 'any_id',
+  }
+}
+
 const makeSut = () => new BookListMongoRepository()
 let bookCollection: Collection
 
@@ -63,14 +66,14 @@ describe('BookListMongoRepository', () => {
   })
   test('should add book in BookListMongoRepository if addBook success', async () => {
     const sut = makeSut()
-    await sut.addBook(makeFakeRequest())
+    await sut.addBook(makeFakeRequest(), 'any_id')
     const count = await bookCollection.countDocuments()
     expect(count).toBe(1)
   })
 
   test('should return book if addBook success', async () => {
     const sut = makeSut()
-    const book = await sut.addBook(makeFakeRequest())
+    const book = await sut.addBook(makeFakeRequest(), 'any_user_id')
     expect(book).toBeTruthy()
     expect(book?.title).toBe('any_title')
     expect(book?.description).toBe('any_description')
@@ -79,7 +82,7 @@ describe('BookListMongoRepository', () => {
     expect(book?.language).toBe('any_language')
     expect(book?.publisher).toBe('any_publisher')
     expect(book?.publisherDate).toBe('any_date')
-    expect(book?.date).toBe(123456)
+    expect(book?.date).toBeTruthy()
     expect(book?.imgUrl).toBe('any_url')
     expect(book?.id).toBeTruthy()
     expect(book?.userId).toBe('any_user_id')

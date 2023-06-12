@@ -5,10 +5,7 @@ import {
   LoadAccountByAccessTokenRepository,
   accountLoginModel,
 } from '../../../protocols/db/account/load-account-by-access-token-repository'
-import {
-  AddBookListRepository,
-  AddBookRepositoryModel,
-} from '../../../protocols/db/book-list/add-book-list-repository'
+import { AddBookListRepository } from '../../../protocols/db/book-list/add-book-list-repository'
 import { LoadBookByQueryDocRepository } from '../../../protocols/db/book-list/load-book-list-by-query-doc'
 import { GetDate } from './protocols/get-date'
 import { DbAddBookList } from './db-add-book-list'
@@ -51,22 +48,6 @@ const makeFakeAddBookModel = (): AddBookModel => {
   }
 }
 
-const makeFakeAddBookRepositoryRequest = (): AddBookRepositoryModel => {
-  return {
-    title: 'any_title',
-    description: 'any_description',
-    authors: ['any_author'],
-    price: 0.0,
-    language: 'any_language',
-    publisher: 'any_publisher',
-    publisherDate: 'any_date',
-    date: 123456,
-    imgUrl: 'any_url',
-    id: 'any_id',
-    userId: 'any_user_id',
-  }
-}
-
 const makeFakeRequest = (): BookModel => {
   return {
     title: 'any_title',
@@ -84,7 +65,7 @@ const makeFakeRequest = (): BookModel => {
 
 const makeFakeAddBookListRepository = (): AddBookListRepository => {
   class AddBookListRepositoryStub implements AddBookListRepository {
-    async addBook(book: AddBookRepositoryModel): Promise<AddBookModel> {
+    async addBook(book: BookModel, userId: string): Promise<AddBookModel> {
       return await Promise.resolve(makeFakeAddBookModel())
     }
   }
@@ -136,7 +117,6 @@ const makeSut = (): SutTypes => {
   const sut = new DbAddBookList(
     loadAccountByAccessTokenStub,
     addBookListRepositoryStub,
-    getDateStub,
     loadBookByQueryDocStub
   )
   return {
@@ -208,7 +188,7 @@ describe('DbAddBookList', () => {
     const { sut, addBookListRepositoryStub } = makeSut()
     const addBookSpy = jest.spyOn(addBookListRepositoryStub, 'addBook')
     await sut.add(makeFakeRequest())
-    expect(addBookSpy).toHaveBeenCalledWith(makeFakeAddBookRepositoryRequest())
+    expect(addBookSpy).toHaveBeenCalledWith(makeFakeRequest(), 'any_user_id')
   })
 
   test('should return a book if correct values provided', async () => {

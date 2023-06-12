@@ -14,7 +14,6 @@ export class DbAddBookList implements AddBookList {
   constructor(
     private readonly loadAccount: LoadAccountByAccessTokenRepository,
     private readonly addBookListRepository: AddBookListRepository,
-    private readonly getDate: GetDate,
     private readonly loadBook: LoadBookByQueryDocRepository
   ) {}
   async add(book: BookModel): Promise<AddBookModel | undefined> {
@@ -30,12 +29,7 @@ export class DbAddBookList implements AddBookList {
       return bookIsValid
     }
 
-    const addBook = await this.addBookListRepository.addBook({
-      id: bookId,
-      date: this.getDate.date,
-      userId: id.toString(),
-      ...bookFields,
-    })
+    const addBook = await this.addBookListRepository.addBook(book, id)
 
     if (!addBook) {
       return Promise.reject(new ServerError())
