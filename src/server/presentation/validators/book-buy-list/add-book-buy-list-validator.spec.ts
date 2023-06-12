@@ -39,4 +39,10 @@ describe('AddBookBuyList', () => {
     const response = sut.validation(makeFakeRequest('authors'))
     expect(response).toEqual(new MissingParamError('authors'))
   })
+
+  test('should return MissingParamsError if description not provided', () => {
+    const sut = makeSut()
+    const response = sut.validation(makeFakeRequest('description'))
+    expect(response).toEqual(new MissingParamError('description'))
+  })
 })
