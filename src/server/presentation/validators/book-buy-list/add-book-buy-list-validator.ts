@@ -4,7 +4,7 @@ import { Validation } from '../../protocols/validate'
 export class AddBookBuyListValidator implements Validation {
   validation(input: any): Error | undefined {
     const fieldArray = Object.keys(input?.body)
-    const requiredFields = ['accessToken']
+    const requiredFields = ['accessToken', 'bookId']
     for (const field of requiredFields) {
       if (!fieldArray.includes(field)) {
         return new MissingParamError(field)
