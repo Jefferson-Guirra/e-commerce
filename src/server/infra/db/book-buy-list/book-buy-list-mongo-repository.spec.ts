@@ -89,4 +89,10 @@ describe('BookBuyLIstMongoRepository', () => {
     expect(book?.queryDoc).toBe('any_user_id' + 'any_id')
     expect(book?.amount).toBe(1)
   })
+
+  test('should return null if LoadBookByQueryDoc return null', async () => {
+    const sut = makeSut()
+    const book = await sut.loadBookByQueryDoc('any_user_id', 'any_id')
+    expect(book).toBeFalsy()
+  })
 })
