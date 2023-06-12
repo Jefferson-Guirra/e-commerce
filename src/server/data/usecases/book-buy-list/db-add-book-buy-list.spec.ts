@@ -162,4 +162,13 @@ describe('DbAddBookBuyList', () => {
     await sut.add(makeFakeRequest())
     expect(updateAmountSpy).toHaveBeenCalledWith(makeFakeAddBuyBook())
   })
+
+  test('should return throw if UpdateBook return throw', async () => {
+    const { sut, updateAmountBuyBookStub } = makeSut()
+    jest
+      .spyOn(updateAmountBuyBookStub, 'updateAmount')
+      .mockReturnValueOnce(Promise.reject(new Error()))
+    const promise = sut.add(makeFakeRequest())
+    await expect(promise).rejects.toThrow()
+  })
 })
