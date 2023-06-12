@@ -13,6 +13,7 @@ export class AddBookBuyListValidator implements Validation {
       'imgUrl',
       'language',
       'price',
+      'publisher',
     ]
     for (const field of requiredFields) {
       if (!fieldArray.includes(field)) {
