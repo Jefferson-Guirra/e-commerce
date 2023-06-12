@@ -50,4 +50,9 @@ describe('AddBookBuyList', () => {
     const response = sut.validation(makeFakeRequest('title'))
     expect(response).toEqual(new MissingParamError('title'))
   })
+  test('should return MissingParamsError if imgUrl not provided', () => {
+    const sut = makeSut()
+    const response = sut.validation(makeFakeRequest('imgUrl'))
+    expect(response).toEqual(new MissingParamError('imgUrl'))
+  })
 })
