@@ -19,6 +19,7 @@ export class BuyBooksListMongoRepository
     const buyBookCollection = await MongoHelper.getCollection('buyBooksList')
     const result = await buyBookCollection.insertOne({
       queryDoc: userId + bookId,
+      userId,
       bookId,
       date: new Date().getTime(),
       amount: 1,
