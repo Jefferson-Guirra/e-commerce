@@ -109,4 +109,10 @@ describe('DbGetBuyBooks', () => {
     const promise = sut.getBuyBooks('any_token')
     await expect(promise).rejects.toThrow()
   })
+
+  test('should return books in success', async () => {
+    const { sut } = makeSut()
+    const response = await sut.getBuyBooks('any_token')
+    expect(response).toEqual([makeFakeAddBuyBook(), makeFakeAddBuyBook()])
+  })
 })
