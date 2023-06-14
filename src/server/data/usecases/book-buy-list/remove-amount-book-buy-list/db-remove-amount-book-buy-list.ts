@@ -8,7 +8,7 @@ export class DbRemoveAmountBookBuyList implements RemoveAmountBuyBook {
   constructor(
     private readonly loadAccount: LoadAccountByAccessTokenRepository,
     private readonly loadBook: LoadBuyBookByQueryDocRepository,
-    private readonly removeBookAmountRepository: RemoveAmountBuyBookRepository
+    private readonly removeAmountBookRepository: RemoveAmountBuyBookRepository
   ) {}
   async removeAmount(
     accessToken: string,
@@ -23,7 +23,7 @@ export class DbRemoveAmountBookBuyList implements RemoveAmountBuyBook {
     if (!loadBook) {
       return
     }
-    const removedBook = await this.removeBookAmountRepository.removeAmountBook(
+    const removedBook = await this.removeAmountBookRepository.removeAmountBook(
       loadBook
     )
     return removedBook === null ? undefined : removedBook
