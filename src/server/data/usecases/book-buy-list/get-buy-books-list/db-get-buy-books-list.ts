@@ -14,7 +14,7 @@ export class DbGetBuyBooks implements GetBuyBooks {
       return null
     }
     const { id } = account
-    await this.getBooks.getBuyBooks(id)
-    return []
+    const books = await this.getBooks.getBuyBooks(id)
+    return books
   }
 }
