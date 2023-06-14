@@ -1,4 +1,4 @@
-import { DbAddBookBuyList } from '../../../data/usecases/book-buy-list/db-add-book-buy-list'
+import { DbAddBookBuyList } from '../../../data/usecases/book-buy-list/add-book-buy-list/db-add-book-buy-list'
 import { AccountMongoRepository } from '../../../infra/db/account/account-mongo-repository'
 import { BuyBooksListMongoRepository } from '../../../infra/db/book-buy-list/book-buy-list-mongo-repository'
 import { AddBookBuyListController } from '../../../presentation/controllers/book-buy-list/add-book-buy-list/add-book-buy-list-controller'
