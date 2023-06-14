@@ -1,6 +1,6 @@
 import { GetBuyBooks } from '../../../../domain/usecases/book-buy-list/get-books-buy-list'
 import { MissingParamError } from '../../../errors/missing-params-error'
-import { badRequest } from '../../../helpers/http'
+import { badRequest, serverError } from '../../../helpers/http'
 import { HttpRequest } from '../../../protocols/http'
 import { Validation } from '../../../protocols/validate'
 import { GetBuyBooksController } from './get-books-buy-list-controller'
@@ -86,5 +86,14 @@ describe('GetBuyBooksController', () => {
     const getSpy = jest.spyOn(getBuyBooksStub, 'getBuyBooks')
     await sut.handle(makeFakeRequest())
     expect(getSpy).toHaveBeenCalledWith('any_token')
+  })
+
+  test('should return 500 if getBuyBooks fails', async () => {
+    const { sut, getBuyBooksStub } = makeSut()
+    jest
+      .spyOn(getBuyBooksStub, 'getBuyBooks')
+      .mockReturnValueOnce(Promise.reject(new Error()))
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(serverError())
   })
 })
