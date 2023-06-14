@@ -66,7 +66,7 @@ export class BuyBooksListMongoRepository
         },
       }
     )
-
-    return await this.loadBookByQueryDoc(userId, bookId)
+    const removeBookAmount = await buyBooksCollection.findOne({ queryDoc })
+    return removeBookAmount && MongoHelper.Map(removeBookAmount)
   }
 }
