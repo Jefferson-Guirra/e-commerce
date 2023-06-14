@@ -19,6 +19,22 @@ const makeFakeAddBuyBook = () => ({
   publisher: 'any_publisher',
   publisherDate: 'any_date',
 })
+
+const makeFakeOrderBooks = (title: string, date: number) => ({
+  authors: ['any_author'],
+  description: 'any_description',
+  title,
+  imgUrl: 'any_url',
+  language: 'any_language',
+  price: 0,
+  amount: 1,
+  bookId: 'any_id',
+  date,
+  userId: 'any_user_id',
+  queryDoc: 'any_user_id' + 'any_id',
+  publisher: 'any_publisher',
+  publisherDate: 'any_date',
+})
 const makeFakeRequest = (): BookModel => ({
   accessToken: 'any_token',
   bookId: 'any_id',
@@ -150,5 +166,15 @@ describe('BookBuyLIstMongoRepository', () => {
     }
     const response = await sut.removeAmountBook(addBuyBook)
     expect(response).toBeFalsy()
+  })
+
+  test('should return books if getBooks success', async () => {
+    const sut = makeSut()
+    await bookBuyListCollection.insertOne(makeFakeOrderBooks('first_book', 1))
+    await bookBuyListCollection.insertOne(makeFakeOrderBooks('second_book', 2))
+    const books: any = await sut.getBuyBooks('any_user_id')
+    expect(books).toBeTruthy()
+    expect(books[0].title).toBe('second_book')
+    expect(books[1].title).toBe('first_book')
   })
 })
