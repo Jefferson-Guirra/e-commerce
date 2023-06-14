@@ -100,4 +100,13 @@ describe('DbGetBuyBooks', () => {
     await sut.getBuyBooks('any_token')
     expect(getSpy).toHaveBeenCalledWith('any_id')
   })
+
+  test('should return throw if getBooks fails', async () => {
+    const { sut, getBuyBooksRepositoryStub } = makeSut()
+    jest
+      .spyOn(getBuyBooksRepositoryStub, 'getBuyBooks')
+      .mockReturnValueOnce(Promise.reject(new Error()))
+    const promise = sut.getBuyBooks('any_token')
+    await expect(promise).rejects.toThrow()
+  })
 })
