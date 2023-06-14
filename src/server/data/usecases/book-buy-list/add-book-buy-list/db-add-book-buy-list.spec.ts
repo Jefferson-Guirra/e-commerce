@@ -1,12 +1,12 @@
-import { BookModel } from '../../../domain/models/book/book'
-import { AddBuyBookModel } from '../../../domain/usecases/book-buy-list/add-book-buy-list'
-import { AddBuyBookRepository } from '../../protocols/db/book-buy-list/add-book-buy-list-repository'
+import { BookModel } from '../../../../domain/models/book/book'
+import { AddBuyBookModel } from '../../../../domain/usecases/book-buy-list/add-book-buy-list'
+import { AddBuyBookRepository } from '../../../protocols/db/book-buy-list/add-book-buy-list-repository'
 import {
   LoadAccountByAccessTokenRepository,
   accountLoginModel,
-} from '../../protocols/db/account/load-account-by-access-token-repository'
-import { LoadBuyBookByQueryDocRepository } from '../../protocols/db/book-buy-list/load-book-buy-list-by-query-doc-repository'
-import { UpdateBuyBookRepository } from '../../protocols/db/book-buy-list/update-book-buy-list-repository'
+} from '../../../protocols/db/account/load-account-by-access-token-repository'
+import { LoadBuyBookByQueryDocRepository } from '../../../protocols/db/book-buy-list/load-book-buy-list-by-query-doc-repository'
+import { UpdateBuyBookRepository } from '../../../protocols/db/book-buy-list/update-book-buy-list-repository'
 import { DbAddBookBuyList } from './db-add-book-buy-list'
 
 const makeFakeAddBuyBook = (): AddBuyBookModel => ({
