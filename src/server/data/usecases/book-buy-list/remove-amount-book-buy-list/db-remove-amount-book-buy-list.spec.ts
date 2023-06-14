@@ -149,4 +149,13 @@ describe('DbRemoveAmountBookBuyList', () => {
     await sut.removeAmount('any_token', 'any_book_id')
     expect(removeSpy).toHaveBeenCalledWith(makeFakeAddBuyBook())
   })
+
+  test('should return throw if removeAmountBuyBook return throw', async () => {
+    const { sut, removeAmountBuyBookStub } = makeSut()
+    jest
+      .spyOn(removeAmountBuyBookStub, 'removeAmountBook')
+      .mockReturnValueOnce(Promise.reject(new Error()))
+    const promise = sut.removeAmount('any_token', 'any_book_id')
+    await expect(promise).rejects.toThrow()
+  })
 })
