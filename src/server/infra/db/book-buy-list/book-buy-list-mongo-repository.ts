@@ -41,6 +41,7 @@ export class BuyBooksListMongoRepository
   }
 
   async updateAmount(book: AddBuyBookModel): Promise<AddBuyBookModel | null> {
+    const { queryDoc } = book
     const buyBookCollection = await MongoHelper.getCollection('buyBooksList')
     await buyBookCollection.updateOne(
       { queryDoc: book.queryDoc },
@@ -50,7 +51,8 @@ export class BuyBooksListMongoRepository
         },
       }
     )
-    return await this.loadBookByQueryDoc(book.userId, book.bookId)
+    const updateAmountBook = await buyBookCollection.findOne({ queryDoc })
+    return updateAmountBook && MongoHelper.Map(updateAmountBook)
   }
 
   async removeAmountBook(
