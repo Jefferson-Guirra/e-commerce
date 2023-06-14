@@ -23,22 +23,9 @@ export class DbRemoveAmountBookBuyList implements RemoveAmountBuyBook {
     if (!loadBook) {
       return
     }
-    await this.removeBookAmountRepository.removeAmountBook(loadBook)
-    return {
-      authors: ['any_author'],
-      amount: 0,
-      date: 0,
-      description: 'any_description',
-      title: 'any_title',
-      bookId: 'any_book_id',
-      id: 'any_id',
-      imgUrl: 'any_url',
-      language: 'any-language',
-      price: 0,
-      publisher: 'any_publisher',
-      publisherDate: 'any_date',
-      queryDoc: 'any_id_doc',
-      userId: 'any_user_id',
-    }
+    const removedBook = await this.removeBookAmountRepository.removeAmountBook(
+      loadBook
+    )
+    return removedBook === null ? undefined : removedBook
   }
 }
