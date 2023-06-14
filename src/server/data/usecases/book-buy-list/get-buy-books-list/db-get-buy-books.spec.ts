@@ -45,12 +45,21 @@ describe('DbGetBuyBooks', () => {
     expect(loadAccountSpy).toHaveBeenCalledWith('any_token')
   })
 
-  test('should return throw loadAccount fails', async () => {
+  test('should return throw if loadAccount fails', async () => {
     const { sut, loadAccountStub } = makeSut()
     jest
       .spyOn(loadAccountStub, 'loadByAccessToken')
       .mockReturnValueOnce(Promise.reject(new Error()))
     const promise = sut.getBuyBooks('any_token')
     await expect(promise).rejects.toThrow()
+  })
+
+  test('should return null if loadAccount return null', async () => {
+    const { sut, loadAccountStub } = makeSut()
+    jest
+      .spyOn(loadAccountStub, 'loadByAccessToken')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const response = await sut.getBuyBooks('any_token')
+    expect(response).toBeFalsy()
   })
 })
