@@ -141,4 +141,14 @@ describe('BookBuyLIstMongoRepository', () => {
     expect(removeBookAmount?.publisherDate).toBe('any_date')
     expect(removeBookAmount?.queryDoc).toBe('any_user_id' + 'any_id')
   })
+
+  test('should return null if removeAmountBook return null', async () => {
+    const sut = makeSut()
+    const addBuyBook: AddBuyBookModel = {
+      id: 'any_id',
+      ...makeFakeAddBuyBook(),
+    }
+    const response = await sut.removeAmountBook(addBuyBook)
+    expect(response).toBeFalsy()
+  })
 })
