@@ -1,7 +1,7 @@
 import { AddBuyBookModel } from '../../../../domain/usecases/book-buy-list/add-book-buy-list'
 import { RemoveAmountBuyBook } from '../../../../domain/usecases/book-buy-list/remove-amount-book-buy-list'
 import { MissingParamError } from '../../../errors/missing-params-error'
-import { badRequest, ok } from '../../../helpers/http'
+import { badRequest, ok, unauthorized } from '../../../helpers/http'
 import { HttpRequest } from '../../../protocols/http'
 import { Validation } from '../../../protocols/validate'
 import { RemoveAmountBuyBookListController } from './remove-book-buy-list-controller'
@@ -92,5 +92,14 @@ describe('RemoveBookBuyListController', () => {
     const removeAmountSpy = jest.spyOn(removeAmountStub, 'removeAmount')
     await sut.handle(makeFakeRequest())
     expect(removeAmountSpy).toHaveBeenCalledWith('any_token', 'any_book_id')
+  })
+
+  test('should return 401 if removeAmount return undefined', async () => {
+    const { sut, removeAmountStub } = makeSut()
+    jest
+      .spyOn(removeAmountStub, 'removeAmount')
+      .mockReturnValueOnce(Promise.resolve(undefined))
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(unauthorized())
   })
 })
