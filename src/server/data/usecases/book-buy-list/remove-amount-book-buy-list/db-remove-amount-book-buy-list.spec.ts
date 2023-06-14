@@ -1,11 +1,11 @@
-import { AddBookModel } from '../../../../domain/usecases/book-list/add-book-list'
 import {
   LoadAccountByAccessTokenRepository,
   accountLoginModel,
 } from '../../../protocols/db/account/load-account-by-access-token-repository'
-import { LoadBookByQueryDocRepository } from '../../../protocols/db/book-list/load-book-list-by-query-doc'
 import { DbRemoveAmountBookBuyList } from './db-remove-amount-book-buy-list'
 import { AddBuyBookModel } from '../../../../domain/usecases/book-buy-list/add-book-buy-list'
+import { RemoveAmountBuyBookRepository } from '../../../protocols/db/book-buy-list/remove-amount-book-buy-list'
+import { LoadBuyBookByQueryDocRepository } from '../../../protocols/db/book-buy-list/load-book-buy-list-by-query-doc-repository'
 
 const makeFakeAddBuyBook = (): AddBuyBookModel => ({
   authors: ['any_author'],
@@ -43,30 +43,50 @@ const makeLoadAccountStub = (): LoadAccountByAccessTokenRepository => {
   return new LoadAccountByAccessTokenRepositoryStub()
 }
 
-const makeLoadBookStub = (): LoadBookByQueryDocRepository => {
+const makeLoadBookStub = (): LoadBuyBookByQueryDocRepository => {
   class LoadBookByQueryDocRepositoryStub
-    implements LoadBookByQueryDocRepository
+    implements LoadBuyBookByQueryDocRepository
   {
-    async loadBookByQuery(
+    async loadBookByQueryDoc(
       userId: string,
       bookId: string
-    ): Promise<AddBookModel | null> {
+    ): Promise<AddBuyBookModel | null> {
       return await Promise.resolve(makeFakeAddBuyBook())
     }
   }
   return new LoadBookByQueryDocRepositoryStub()
 }
+
+const makeRemoveAmountBookStub = (): RemoveAmountBuyBookRepository => {
+  class RemoveAmountBuyBookRepositoryStub
+    implements RemoveAmountBuyBookRepository
+  {
+    async removeAmountBook(
+      book: AddBuyBookModel
+    ): Promise<AddBuyBookModel | null> {
+      return await Promise.resolve(makeFakeAddBuyBook())
+    }
+  }
+  return new RemoveAmountBuyBookRepositoryStub()
+}
 interface SutTypes {
-  loadBookStub: LoadBookByQueryDocRepository
+  removeAmountBuyBookStub: RemoveAmountBuyBookRepository
+  loadBookStub: LoadBuyBookByQueryDocRepository
   loadAccountStub: LoadAccountByAccessTokenRepository
   sut: DbRemoveAmountBookBuyList
 }
 
 const makeSut = (): SutTypes => {
+  const removeAmountBuyBookStub = makeRemoveAmountBookStub()
   const loadBookStub = makeLoadBookStub()
   const loadAccountStub = makeLoadAccountStub()
-  const sut = new DbRemoveAmountBookBuyList(loadAccountStub, loadBookStub)
+  const sut = new DbRemoveAmountBookBuyList(
+    loadAccountStub,
+    loadBookStub,
+    removeAmountBuyBookStub
+  )
   return {
+    removeAmountBuyBookStub,
     loadBookStub,
     loadAccountStub,
     sut,
@@ -100,7 +120,7 @@ describe('DbRemoveAmountBookBuyList', () => {
 
   test('should call loadBook wit correct values', async () => {
     const { sut, loadBookStub } = makeSut()
-    const loadBookSpy = jest.spyOn(loadBookStub, 'loadBookByQuery')
+    const loadBookSpy = jest.spyOn(loadBookStub, 'loadBookByQueryDoc')
     await sut.removeAmount('any_token', 'any_book_id')
     expect(loadBookSpy).toHaveBeenCalledWith('any_id', 'any_book_id')
   })
@@ -108,7 +128,7 @@ describe('DbRemoveAmountBookBuyList', () => {
   test('should return undefined wit loadBook return null', async () => {
     const { sut, loadBookStub } = makeSut()
     jest
-      .spyOn(loadBookStub, 'loadBookByQuery')
+      .spyOn(loadBookStub, 'loadBookByQueryDoc')
       .mockReturnValueOnce(Promise.resolve(null))
     const response = await sut.removeAmount('any_token', 'any_book_id')
     expect(response).toBeFalsy()
@@ -117,9 +137,16 @@ describe('DbRemoveAmountBookBuyList', () => {
   test('should return throw if loadBook return throw', async () => {
     const { sut, loadBookStub } = makeSut()
     jest
-      .spyOn(loadBookStub, 'loadBookByQuery')
+      .spyOn(loadBookStub, 'loadBookByQueryDoc')
       .mockReturnValueOnce(Promise.reject(new Error()))
     const promise = sut.removeAmount('any_token', 'any_book_id')
     await expect(promise).rejects.toThrow()
+  })
+
+  test('should call removeAmountBuyBook wit correct book', async () => {
+    const { sut, removeAmountBuyBookStub } = makeSut()
+    const removeSpy = jest.spyOn(removeAmountBuyBookStub, 'removeAmountBook')
+    await sut.removeAmount('any_token', 'any_book_id')
+    expect(removeSpy).toHaveBeenCalledWith(makeFakeAddBuyBook())
   })
 })
