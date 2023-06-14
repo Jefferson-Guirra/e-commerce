@@ -116,4 +116,10 @@ describe('RemoveBookBuyListController', () => {
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(serverError())
   })
+
+  test('should return 200 on a succeeds', async () => {
+    const { sut } = makeSut()
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(ok(makeFakeAddBuyBook()))
+  })
 })
