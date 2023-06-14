@@ -118,4 +118,27 @@ describe('BookBuyLIstMongoRepository', () => {
     expect(book?.publisherDate).toBe('any_date')
     expect(book?.queryDoc).toBe('any_user_id' + 'any_id')
   })
+
+  test('should return book if removeAmountBook success', async () => {
+    const sut = makeSut()
+    const result = await bookBuyListCollection.insertOne(makeFakeAddBuyBook())
+    const book: any = await bookBuyListCollection.findOne({
+      _id: result.insertedId,
+    })
+    const removeBookAmount = await sut.removeAmountBook(book)
+    expect(removeBookAmount).toBeTruthy()
+    expect(removeBookAmount?.amount).toEqual(0)
+    expect(removeBookAmount).toBeTruthy()
+    expect(removeBookAmount?.title).toBe('any_title')
+    expect(removeBookAmount?.description).toBe('any_description')
+    expect(removeBookAmount?.date).toBeTruthy()
+    expect(removeBookAmount?.authors).toEqual(['any_author'])
+    expect(removeBookAmount?.id).toBeTruthy()
+    expect(removeBookAmount?.imgUrl).toBe('any_url')
+    expect(removeBookAmount?.language).toBe('any_language')
+    expect(removeBookAmount?.price).toBe(0)
+    expect(removeBookAmount?.publisher).toBe('any_publisher')
+    expect(removeBookAmount?.publisherDate).toBe('any_date')
+    expect(removeBookAmount?.queryDoc).toBe('any_user_id' + 'any_id')
+  })
 })
