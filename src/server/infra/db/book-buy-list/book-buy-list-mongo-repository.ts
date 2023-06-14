@@ -1,4 +1,6 @@
+import { orderBy } from 'firebase/firestore'
 import { AddBuyBookRepository } from '../../../data/protocols/db/book-buy-list/add-book-buy-list-repository'
+import { GetBuyBooksRepository } from '../../../data/protocols/db/book-buy-list/get-books-buy-list-repository'
 import { LoadBuyBookByQueryDocRepository } from '../../../data/protocols/db/book-buy-list/load-book-buy-list-by-query-doc-repository'
 import { RemoveAmountBuyBookRepository } from '../../../data/protocols/db/book-buy-list/remove-amount-book-buy-list'
 import { UpdateBuyBookRepository } from '../../../data/protocols/db/book-buy-list/update-book-buy-list-repository'
@@ -11,7 +13,8 @@ export class BuyBooksListMongoRepository
     AddBuyBookRepository,
     LoadBuyBookByQueryDocRepository,
     UpdateBuyBookRepository,
-    RemoveAmountBuyBookRepository
+    RemoveAmountBuyBookRepository,
+    GetBuyBooksRepository
 {
   async addBook(
     book: BookModel,
@@ -70,5 +73,12 @@ export class BuyBooksListMongoRepository
     )
     const removeBookAmount = await buyBooksCollection.findOne({ queryDoc })
     return removeBookAmount && MongoHelper.Map(removeBookAmount)
+  }
+
+  async getBuyBooks(userId: string): Promise<AddBuyBookModel[] | null> {
+    const buyBooksCollection = await MongoHelper.getCollection('buyBooksList')
+    const books = buyBooksCollection.find({ userId }, { sort: { date: -1 } })
+    const booksFormat = await books.toArray()
+    return books && booksFormat.map((book) => MongoHelper.Map(book))
   }
 }
