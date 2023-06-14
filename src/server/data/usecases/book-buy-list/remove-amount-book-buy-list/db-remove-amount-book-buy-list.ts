@@ -17,7 +17,10 @@ export class DbRemoveAmountBookBuyList implements RemoveAmountBuyBook {
       return
     }
     const { id } = account
-    await this.loadBook.loadBookByQuery(id, bookId)
+    const loadBook = await this.loadBook.loadBookByQuery(id, bookId)
+    if (!loadBook) {
+      return
+    }
     return {
       authors: ['any_author'],
       amount: 0,
