@@ -3,7 +3,7 @@ import { Validation } from '../../protocols/validate'
 
 export class RemoveAmountBuyBookValidator implements Validation {
   validation(input: any): Error | undefined {
-    const requiredFields = ['accessToken']
+    const requiredFields = ['accessToken', 'bookId']
     for (const field of requiredFields) {
       if (!input.body[field]) {
         return new MissingParamError(field)
