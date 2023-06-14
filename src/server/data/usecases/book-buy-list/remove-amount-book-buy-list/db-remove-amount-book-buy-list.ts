@@ -1,12 +1,14 @@
 import { AddBuyBookModel } from '../../../../domain/usecases/book-buy-list/add-book-buy-list'
 import { RemoveAmountBuyBook } from '../../../../domain/usecases/book-buy-list/remove-amount-book-buy-list'
 import { LoadAccountByAccessTokenRepository } from '../../../protocols/db/account/load-account-by-access-token-repository'
-import { LoadBookByQueryDocRepository } from '../../../protocols/db/book-list/load-book-list-by-query-doc'
+import { LoadBuyBookByQueryDocRepository } from '../../../protocols/db/book-buy-list/load-book-buy-list-by-query-doc-repository'
+import { RemoveAmountBuyBookRepository } from '../../../protocols/db/book-buy-list/remove-amount-book-buy-list'
 
 export class DbRemoveAmountBookBuyList implements RemoveAmountBuyBook {
   constructor(
     private readonly loadAccount: LoadAccountByAccessTokenRepository,
-    private readonly loadBook: LoadBookByQueryDocRepository
+    private readonly loadBook: LoadBuyBookByQueryDocRepository,
+    private readonly removeBookAmountRepository: RemoveAmountBuyBookRepository
   ) {}
   async removeAmount(
     accessToken: string,
@@ -17,10 +19,11 @@ export class DbRemoveAmountBookBuyList implements RemoveAmountBuyBook {
       return
     }
     const { id } = account
-    const loadBook = await this.loadBook.loadBookByQuery(id, bookId)
+    const loadBook = await this.loadBook.loadBookByQueryDoc(id, bookId)
     if (!loadBook) {
       return
     }
+    await this.removeBookAmountRepository.removeAmountBook(loadBook)
     return {
       authors: ['any_author'],
       amount: 0,
