@@ -16,8 +16,8 @@ export class GetBuyBooksController implements Controller {
         return badRequest(error)
       }
       const { accessToken } = httpRequest.body
-      await this.getBooks.getBuyBooks(accessToken)
-      return ok('success')
+      const books = await this.getBooks.getBuyBooks(accessToken)
+      return ok(books)
     } catch (err) {
       return serverError(err as Error)
     }
