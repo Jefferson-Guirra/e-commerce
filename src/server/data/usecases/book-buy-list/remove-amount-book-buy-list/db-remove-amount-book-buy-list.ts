@@ -1,10 +1,12 @@
 import { AddBuyBookModel } from '../../../../domain/usecases/book-buy-list/add-book-buy-list'
 import { RemoveAmountBuyBook } from '../../../../domain/usecases/book-buy-list/remove-amount-book-buy-list'
 import { LoadAccountByAccessTokenRepository } from '../../../protocols/db/account/load-account-by-access-token-repository'
+import { LoadBookByQueryDocRepository } from '../../../protocols/db/book-list/load-book-list-by-query-doc'
 
 export class DbRemoveAmountBookBuyList implements RemoveAmountBuyBook {
   constructor(
-    private readonly loadAccount: LoadAccountByAccessTokenRepository
+    private readonly loadAccount: LoadAccountByAccessTokenRepository,
+    private readonly loadBook: LoadBookByQueryDocRepository
   ) {}
   async removeAmount(
     accessToken: string,
@@ -14,6 +16,8 @@ export class DbRemoveAmountBookBuyList implements RemoveAmountBuyBook {
     if (!account) {
       return
     }
+    const { id } = account
+    await this.loadBook.loadBookByQuery(id, bookId)
     return {
       authors: ['any_author'],
       amount: 0,
