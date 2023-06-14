@@ -167,4 +167,10 @@ describe('DbRemoveAmountBookBuyList', () => {
     const response = await sut.removeAmount('any_token', 'any_book_id')
     expect(response).toBeFalsy()
   })
+
+  test('should return book  on success', async () => {
+    const { sut } = makeSut()
+    const response = await sut.removeAmount('any_token', 'any_book_id')
+    expect(response).toEqual(makeFakeAddBuyBook())
+  })
 })
