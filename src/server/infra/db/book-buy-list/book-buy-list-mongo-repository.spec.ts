@@ -177,4 +177,10 @@ describe('BookBuyLIstMongoRepository', () => {
     expect(books[0].title).toBe('second_book')
     expect(books[1].title).toBe('first_book')
   })
+
+  test('should return empty array a books if getBuyBooks return empty array', async () => {
+    const sut = makeSut()
+    const response = await sut.getBuyBooks('any_user_id')
+    expect(response).toEqual([])
+  })
 })
