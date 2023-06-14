@@ -28,7 +28,7 @@ export class RemoveAmountBuyBookListController implements Controller {
       if (!removeBook) {
         return unauthorized()
       }
-      return await Promise.resolve(ok('success'))
+      return ok(removeBook)
     } catch (err) {
       return serverError(err as Error)
     }
