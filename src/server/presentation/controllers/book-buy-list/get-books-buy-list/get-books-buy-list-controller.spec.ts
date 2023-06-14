@@ -1,6 +1,6 @@
 import { GetBuyBooks } from '../../../../domain/usecases/book-buy-list/get-books-buy-list'
 import { MissingParamError } from '../../../errors/missing-params-error'
-import { badRequest, serverError } from '../../../helpers/http'
+import { badRequest, ok, serverError } from '../../../helpers/http'
 import { HttpRequest } from '../../../protocols/http'
 import { Validation } from '../../../protocols/validate'
 import { GetBuyBooksController } from './get-books-buy-list-controller'
@@ -95,5 +95,11 @@ describe('GetBuyBooksController', () => {
       .mockReturnValueOnce(Promise.reject(new Error()))
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(serverError())
+  })
+
+  test('should return 200 on a succeeds', async () => {
+    const { sut } = makeSut()
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(ok([makeFakeAddBuyBook(), makeFakeAddBuyBook()]))
   })
 })
