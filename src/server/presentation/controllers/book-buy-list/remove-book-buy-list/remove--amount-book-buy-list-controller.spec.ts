@@ -9,7 +9,7 @@ import {
 } from '../../../helpers/http'
 import { HttpRequest } from '../../../protocols/http'
 import { Validation } from '../../../protocols/validate'
-import { RemoveAmountBuyBookListController } from './remove-book-buy-list-controller'
+import { RemoveAmountBuyBookListController } from './remove-amount-book-buy-list-controller'
 
 const makeFakeAddBuyBook = (): AddBuyBookModel => ({
   authors: ['any_author'],
