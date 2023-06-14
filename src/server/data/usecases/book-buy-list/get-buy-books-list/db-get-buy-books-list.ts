@@ -5,13 +5,16 @@ import { GetBuyBooksRepository } from '../../../protocols/db/book-buy-list/get-b
 
 export class DbGetBuyBooks implements GetBuyBooks {
   constructor(
-    private readonly loadAccount: LoadAccountByAccessTokenRepository
+    private readonly loadAccount: LoadAccountByAccessTokenRepository,
+    private readonly getBooks: GetBuyBooksRepository
   ) {}
   async getBuyBooks(accessToken: string): Promise<AddBuyBookModel[] | null> {
     const account = await this.loadAccount.loadByAccessToken(accessToken)
     if (!account) {
       return null
     }
+    const { id } = account
+    await this.getBooks.getBuyBooks(id)
     return []
   }
 }
