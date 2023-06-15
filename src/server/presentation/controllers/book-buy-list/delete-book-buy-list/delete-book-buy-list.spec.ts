@@ -1,7 +1,7 @@
 import { AddBuyBookModel } from '../../../../domain/usecases/book-buy-list/add-book-buy-list'
 import { DeleteBuyBookList } from '../../../../domain/usecases/book-buy-list/delete-book-buy-list'
 import { MissingParamError } from '../../../errors/missing-params-error'
-import { badRequest } from '../../../helpers/http'
+import { badRequest, unauthorized } from '../../../helpers/http'
 import { HttpRequest } from '../../../protocols/http'
 import { Validation } from '../../../protocols/validate'
 import { DeleteBuyBookListController } from './delete-book-buy-list-controller'
@@ -82,10 +82,19 @@ describe('DeleteBuyBookList', () => {
     expect(response).toEqual(badRequest(new MissingParamError('any_field')))
   })
 
-  test('should call deleBuyBook wit correct values', async () => {
+  test('should call deleteBuyBook wit correct values', async () => {
     const { sut, deleteBuyBookStub } = makeSut()
     const deleteSpy = jest.spyOn(deleteBuyBookStub, 'deleteBook')
     await sut.handle(makeFakeRequest())
     expect(deleteSpy).toHaveBeenCalledWith('any_token', 'any_id')
+  })
+
+  test('should return 401 if deleteBook return null ', async () => {
+    const { sut, deleteBuyBookStub } = makeSut()
+    jest
+      .spyOn(deleteBuyBookStub, 'deleteBook')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(unauthorized())
   })
 })
