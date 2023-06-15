@@ -3,6 +3,7 @@ import { SessionUser } from '../../Types/User'
 import Head from 'next/head'
 import { GetServerSideProps } from 'next'
 import { LoginContainer } from '../../features'
+import nookies from 'nookies'
 
 const Login = () => {
   return (
@@ -17,9 +18,18 @@ const Login = () => {
 
 export default Login
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = (await getSession({ req })) as SessionUser
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = (await getSession({ req: ctx.req })) as SessionUser
+  const { accessToken } = nookies.get(ctx)
 
+  if (accessToken) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
   if (session?.id) {
     return {
       redirect: {
