@@ -4,5 +4,5 @@ export interface RemoveAmountBuyBook {
   removeAmount: (
     accessToken: string,
     bookId: string
-  ) => Promise<AddBuyBookModel | undefined>
+  ) => Promise<AddBuyBookModel | null>
 }

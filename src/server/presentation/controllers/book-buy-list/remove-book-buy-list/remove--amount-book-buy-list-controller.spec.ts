@@ -49,7 +49,7 @@ const makeRemoveAmountBuyBookStub = (): RemoveAmountBuyBook => {
     async removeAmount(
       accessToken: string,
       bookId: string
-    ): Promise<AddBuyBookModel | undefined> {
+    ): Promise<AddBuyBookModel | null> {
       return await Promise.resolve(makeFakeAddBuyBook())
     }
   }
@@ -103,7 +103,7 @@ describe('RemoveBookBuyListController', () => {
     const { sut, removeAmountStub } = makeSut()
     jest
       .spyOn(removeAmountStub, 'removeAmount')
-      .mockReturnValueOnce(Promise.resolve(undefined))
+      .mockReturnValueOnce(Promise.resolve(null))
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(unauthorized())
   })

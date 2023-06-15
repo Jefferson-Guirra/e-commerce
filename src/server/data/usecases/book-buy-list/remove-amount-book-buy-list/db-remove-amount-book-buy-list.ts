@@ -13,19 +13,19 @@ export class DbRemoveAmountBookBuyList implements RemoveAmountBuyBook {
   async removeAmount(
     accessToken: string,
     bookId: string
-  ): Promise<AddBuyBookModel | undefined> {
+  ): Promise<AddBuyBookModel | null> {
     const account = await this.loadAccount.loadByAccessToken(accessToken)
     if (!account) {
-      return
+      return null
     }
     const { id } = account
     const loadBook = await this.loadBook.loadBookByQueryDoc(id, bookId)
     if (!loadBook) {
-      return
+      return null
     }
     const removedBook = await this.removeAmountBookRepository.removeAmountBook(
       loadBook
     )
-    return removedBook === null ? undefined : removedBook
+    return removedBook
   }
 }
