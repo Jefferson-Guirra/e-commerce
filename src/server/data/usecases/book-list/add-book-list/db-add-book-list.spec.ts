@@ -33,6 +33,7 @@ const makeFakeLoadAccountByAccessToken =
 
 const makeFakeAddBookModel = (): AddBookModel => {
   return {
+    bookId: 'any_book_id',
     title: 'any_title',
     description: 'any_description',
     authors: ['any_author'],

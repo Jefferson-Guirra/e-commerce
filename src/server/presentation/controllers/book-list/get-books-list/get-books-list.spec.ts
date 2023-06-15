@@ -28,6 +28,7 @@ const makeValidateStub = (): Validation => {
 const makeFakeAddBookModel = (): AddBookModel => {
   return {
     title: 'any_title',
+    bookId: 'any_book_id',
     description: 'any_description',
     authors: ['any_author'],
     price: 0.0,

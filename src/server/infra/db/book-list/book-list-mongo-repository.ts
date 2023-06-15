@@ -18,6 +18,7 @@ export class BookListMongoRepository
     const bookListCollection = await MongoHelper.getCollection('bookList')
     const result = await bookListCollection.insertOne({
       queryDoc: userId + bookId,
+      bookId,
       userId,
       date: new Date().getTime(),
       ...bookFields,

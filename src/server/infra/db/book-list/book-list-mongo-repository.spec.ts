@@ -8,6 +8,7 @@ const makeFakeAddBookModel = (): AddBookModel => ({
   title: 'any_title',
   description: 'any_description',
   authors: ['any_author'],
+  bookId: 'any_book_id',
   price: 0.0,
   language: 'any_language',
   publisher: 'any_publisher',
@@ -22,6 +23,7 @@ const makeFakeAddBookModel = (): AddBookModel => ({
 const makeFakeBookForCollection = (date: number): AddBookModel => ({
   title: 'any_title',
   description: 'any_description',
+  bookId: 'any_book_id',
   authors: ['any_author'],
   price: 0.0,
   language: 'any_language',

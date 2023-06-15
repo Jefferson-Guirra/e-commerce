@@ -11,6 +11,7 @@ const makeFakeAddBookModel = (): AddBookModel => {
     title: 'any_title',
     description: 'any_description',
     authors: ['any_author'],
+    bookId: 'any_book_id',
     price: 0.0,
     language: 'any_language',
     publisher: 'any_publisher',
