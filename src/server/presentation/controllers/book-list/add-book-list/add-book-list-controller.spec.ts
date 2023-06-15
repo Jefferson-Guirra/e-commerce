@@ -8,7 +8,6 @@ import {
   ok,
 } from '../../../helpers/http'
 import { MissingParamError } from '../../../errors/missing-params-error'
-import { AddBookListRepository } from '../../../../data/protocols/db/book-list/add-book-list-repository'
 import { BookModel } from '../../../../domain/models/book/book'
 import {
   AddBookList,
@@ -59,7 +58,7 @@ const makeValidationStub = (): Validation => {
 
 const makeAddBookListStub = (): AddBookList => {
   class AddBookListStub implements AddBookList {
-    async add(book: BookModel): Promise<AddBookModel> {
+    async add(book: BookModel): Promise<AddBookModel | null> {
       return Promise.resolve(makeFakeAddBookModel())
     }
   }
@@ -119,7 +118,7 @@ describe('LoginController', () => {
     const { sut, addBookListStub } = makeSut()
     jest
       .spyOn(addBookListStub, 'add')
-      .mockReturnValueOnce(Promise.resolve(undefined))
+      .mockReturnValueOnce(Promise.resolve(null))
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(unauthorized())
   })

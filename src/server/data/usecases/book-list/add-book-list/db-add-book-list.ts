@@ -16,11 +16,11 @@ export class DbAddBookList implements AddBookList {
     private readonly addBookListRepository: AddBookListRepository,
     private readonly loadBook: LoadBookByQueryDocRepository
   ) {}
-  async add(book: BookModel): Promise<AddBookModel | undefined> {
+  async add(book: BookModel): Promise<AddBookModel | null> {
     const { accessToken, bookId, ...bookFields } = book
     const account = await this.loadAccount.loadByAccessToken(accessToken)
     if (!account) {
-      return
+      return null
     }
 
     const { id } = account
