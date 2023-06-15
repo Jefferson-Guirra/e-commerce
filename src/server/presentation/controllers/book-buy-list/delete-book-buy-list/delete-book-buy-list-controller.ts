@@ -1,5 +1,10 @@
 import { DeleteBuyBookList } from '../../../../domain/usecases/book-buy-list/delete-book-buy-list'
-import { badRequest, ok, unauthorized } from '../../../helpers/http'
+import {
+  badRequest,
+  ok,
+  serverError,
+  unauthorized,
+} from '../../../helpers/http'
 import { Controller } from '../../../protocols/controller'
 import { HttpRequest, HttpResponse } from '../../../protocols/http'
 import { Validation } from '../../../protocols/validate'
@@ -10,15 +15,22 @@ export class DeleteBuyBookListController implements Controller {
     private readonly deleteBuyBook: DeleteBuyBookList
   ) {}
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-    const error = this.validator.validation(httpRequest)
-    if (error) {
-      return badRequest(error)
+    try {
+      const error = this.validator.validation(httpRequest)
+      if (error) {
+        return badRequest(error)
+      }
+      const { accessToken, bookId } = httpRequest.body
+      const deleteBook = await this.deleteBuyBook.deleteBook(
+        accessToken,
+        bookId
+      )
+      if (!deleteBook) {
+        return unauthorized()
+      }
+      return ok('success')
+    } catch (err) {
+      return serverError(err as Error)
     }
-    const { accessToken, bookId } = httpRequest.body
-    const deleteBook = await this.deleteBuyBook.deleteBook(accessToken, bookId)
-    if (!deleteBook) {
-      return unauthorized()
-    }
-    return ok('success')
   }
 }
