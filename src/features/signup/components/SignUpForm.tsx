@@ -3,9 +3,10 @@ import Input from '../../../components/Input'
 import { useRouter } from 'next/router'
 import useForm from '../../../Hooks/useForm'
 import { AiFillEye } from 'react-icons/ai'
-import { v4 as uuid } from 'uuid'
-import { ValidateUser, CreateUser } from '../../../services/db/usecases'
 import styles from '../../login/components/styles.module.css'
+import { ApiUser } from '../../../utils/user-api'
+
+const apiUser = new ApiUser()
 
 export const SignUpForm = () => {
   const router = useRouter()
@@ -18,26 +19,37 @@ export const SignUpForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setLoading(true)
-    setError('')
     const validateInputs = email.validate() && password.validate()
-    const { error, validate } = await ValidateUser({
-      username: username.value,
-      email: email.value,
-    }).validateUser
-    if (validateInputs && validate) {
-      const keyUser = uuid()
-      await CreateUser({
-        email: email.value,
-        username: username.value,
-        id: keyUser,
-        password: password.value,
-      })
-      router.push('/Login')
-    } else if (validateInputs) {
-      setError(error)
+    if (validateInputs) {
+      try {
+        setLoading(true)
+        const response = await apiUser.post(
+          {
+            username: username.value,
+            password: password.value,
+            email: email.value,
+          },
+          'signup'
+        )
+
+        if (response.statusCode === 200) {
+          router.push('/Login')
+          return
+        }
+        if (response.statusCode === 401) {
+          setError('Este endereço de email já foi cadastrado.')
+          return
+        }
+        if (response.statusCode === 500) {
+          setError('Erro interno')
+          return
+        }
+      } catch (err) {
+        alert(err)
+      } finally {
+        setLoading(false)
+      }
     }
-    setLoading(false)
   }
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
