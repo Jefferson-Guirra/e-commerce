@@ -107,4 +107,13 @@ describe('first', () => {
     await sut.deleteBook('any_token', 'any_book_id')
     expect(deleteSpy).toHaveBeenCalledWith('any_id', 'any_book_id')
   })
+
+  test('should return throw if deleteBuyBook fails', async () => {
+    const { sut, deleteBuyBookListRepositoryStub } = makeSut()
+    jest
+      .spyOn(deleteBuyBookListRepositoryStub, 'deleteBuyBook')
+      .mockReturnValueOnce(Promise.reject(new Error()))
+    const promise = sut.deleteBook('any_token', 'any_id')
+    expect(promise).rejects.toThrow()
+  })
 })
