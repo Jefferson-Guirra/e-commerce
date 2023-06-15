@@ -42,4 +42,13 @@ describe('first', () => {
     await sut.deleteBook('any_token', 'any_id')
     expect(loadSpy).toHaveBeenCalledWith('any_token')
   })
+
+  test('should return throw if loadAccount fails', async () => {
+    const { sut, loadAccountStub } = makeSut()
+    jest
+      .spyOn(loadAccountStub, 'loadByAccessToken')
+      .mockReturnValueOnce(Promise.reject(new Error()))
+    const promise = sut.deleteBook('any_token', 'any_id')
+    expect(promise).rejects.toThrow()
+  })
 })
