@@ -31,6 +31,6 @@ export class DbAddBookBuyList implements AddBookBuyList {
       addBook = await this.addBuyBook.addBook(book, id)
     }
 
-    return addBook && addBook
+    return addBook
   }
 }
