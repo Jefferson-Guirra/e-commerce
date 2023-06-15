@@ -207,4 +207,10 @@ describe('BookBuyLIstMongoRepository', () => {
     count = await bookBuyListCollection.countDocuments()
     expect(count).toEqual(0)
   })
+
+  test('should return null if deleteBuyBook return null', async () => {
+    const sut = makeSut()
+    const response = await sut.deleteBuyBook('any_book_id', 'any_id')
+    expect(response).toBeFalsy()
+  })
 })
