@@ -51,4 +51,13 @@ describe('first', () => {
     const promise = sut.deleteBook('any_token', 'any_id')
     expect(promise).rejects.toThrow()
   })
+
+  test('should return null if loadAccount return null', async () => {
+    const { sut, loadAccountStub } = makeSut()
+    jest
+      .spyOn(loadAccountStub, 'loadByAccessToken')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const response = await sut.deleteBook('any_token', 'any_id')
+    expect(response).toBeFalsy()
+  })
 })
