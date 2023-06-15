@@ -15,7 +15,7 @@ export const adapterRouter = (controller: Controller) => {
       res.status(httpResponse.statusCode).json(httpResponse)
     } else {
       res.status(httpResponse.statusCode).json({
-        status: httpResponse.statusCode,
+        statusCode: httpResponse.statusCode,
         body: httpResponse.body.message,
       })
     }
