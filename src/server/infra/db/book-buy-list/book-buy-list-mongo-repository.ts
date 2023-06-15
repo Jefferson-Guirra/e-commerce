@@ -1,4 +1,5 @@
 import { AddBuyBookRepository } from '../../../data/protocols/db/book-buy-list/add-book-buy-list-repository'
+import { DeleteBuyBookListRepository } from '../../../data/protocols/db/book-buy-list/delete-buy-book-list-repository'
 import { GetBuyBooksRepository } from '../../../data/protocols/db/book-buy-list/get-books-buy-list-repository'
 import { LoadBuyBookByQueryDocRepository } from '../../../data/protocols/db/book-buy-list/load-book-buy-list-by-query-doc-repository'
 import { RemoveAmountBuyBookRepository } from '../../../data/protocols/db/book-buy-list/remove-amount-book-buy-list'
@@ -13,7 +14,8 @@ export class BuyBooksListMongoRepository
     LoadBuyBookByQueryDocRepository,
     UpdateBuyBookRepository,
     RemoveAmountBuyBookRepository,
-    GetBuyBooksRepository
+    GetBuyBooksRepository,
+    DeleteBuyBookListRepository
 {
   async addBook(
     book: BookModel,
@@ -79,5 +81,15 @@ export class BuyBooksListMongoRepository
     const books = buyBooksCollection.find({ userId }, { sort: { date: -1 } })
     const booksFormat = await books.toArray()
     return books && booksFormat.map((book) => MongoHelper.Map(book))
+  }
+
+  async deleteBuyBook(
+    userId: string,
+    bookId: string
+  ): Promise<AddBuyBookModel | null> {
+    const buyBookCollection = await MongoHelper.getCollection('buyBooksList')
+    const book = await buyBookCollection.findOne({ queryDoc: userId + bookId })
+    await buyBookCollection.deleteOne({ queryDoc: userId + bookId })
+    return book && MongoHelper.Map(book)
   }
 }
