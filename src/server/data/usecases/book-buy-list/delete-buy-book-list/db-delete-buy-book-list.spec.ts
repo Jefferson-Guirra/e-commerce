@@ -116,4 +116,10 @@ describe('first', () => {
     const promise = sut.deleteBook('any_token', 'any_id')
     expect(promise).rejects.toThrow()
   })
+
+  test('should return a book on succeeds', async () => {
+    const { sut } = makeSut()
+    const response = await sut.deleteBook('any_token', 'any_book_id')
+    expect(response).toEqual(makeFakeAddBuyBook())
+  })
 })
