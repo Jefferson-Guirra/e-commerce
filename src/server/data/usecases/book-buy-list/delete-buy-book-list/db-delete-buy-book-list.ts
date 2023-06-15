@@ -1,10 +1,12 @@
 import { AddBuyBookModel } from '../../../../domain/usecases/book-buy-list/add-book-buy-list'
 import { DeleteBuyBookList } from '../../../../domain/usecases/book-buy-list/delete-book-buy-list'
 import { LoadAccountByAccessTokenRepository } from '../../../protocols/db/account/load-account-by-access-token-repository'
+import { DeleteBuyBookListRepository } from '../../../protocols/db/book-buy-list/delete-buy-book-list-repository'
 
 export class DbDeleteBuyBookList implements DeleteBuyBookList {
   constructor(
-    private readonly loadAccount: LoadAccountByAccessTokenRepository
+    private readonly loadAccount: LoadAccountByAccessTokenRepository,
+    private readonly deleteBuyBookRepository: DeleteBuyBookListRepository
   ) {}
   async deleteBook(
     accessToken: string,
@@ -14,6 +16,8 @@ export class DbDeleteBuyBookList implements DeleteBuyBookList {
     if (!account) {
       return null
     }
+    const { id } = account
+    await this.deleteBuyBookRepository.deleteBuyBook(id, bookId)
     return {
       authors: ['any_author'],
       description: 'any_description',
