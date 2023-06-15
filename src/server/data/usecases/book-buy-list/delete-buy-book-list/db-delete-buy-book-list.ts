@@ -10,7 +10,25 @@ export class DbDeleteBuyBookList implements DeleteBuyBookList {
     accessToken: string,
     bookId: string
   ): Promise<AddBuyBookModel | null> {
-    await this.loadAccount.loadByAccessToken(accessToken)
-    return null
+    const account = await this.loadAccount.loadByAccessToken(accessToken)
+    if (!account) {
+      return null
+    }
+    return {
+      authors: ['any_author'],
+      description: 'any_description',
+      title: 'any_title',
+      imgUrl: 'any_url',
+      bookId: 'any_book_id',
+      language: 'any_language',
+      price: 0,
+      publisher: 'any_publisher',
+      publisherDate: 'any_date',
+      amount: 1,
+      date: 0,
+      id: 'any_id',
+      userId: 'any_user_id',
+      queryDoc: 'any_user_id' + 'any_id',
+    }
   }
 }
