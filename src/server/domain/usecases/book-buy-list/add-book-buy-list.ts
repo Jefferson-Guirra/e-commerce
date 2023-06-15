@@ -17,5 +17,5 @@ export interface AddBuyBookModel {
 }
 
 export interface AddBookBuyList {
-  add: (book: BookModel) => Promise<AddBuyBookModel | undefined>
+  add: (book: BookModel) => Promise<AddBuyBookModel | null>
 }

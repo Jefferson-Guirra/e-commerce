@@ -15,15 +15,15 @@ export class DbAddBookBuyList implements AddBookBuyList {
     private readonly updateBook: UpdateBuyBookRepository,
     private readonly addBuyBook: AddBuyBookRepository
   ) {}
-  async add(book: BookModel): Promise<AddBuyBookModel | undefined> {
+  async add(book: BookModel): Promise<AddBuyBookModel | null> {
     const account = await this.loadAccount.loadByAccessToken(book.accessToken)
 
     if (!account) {
-      return
+      return null
     }
     const { id } = account
     const loadBook = await this.loadBook.loadBookByQueryDoc(id, book.bookId)
-    let addBook
+    let addBook = null
     if (loadBook) {
       addBook = await this.updateBook.updateAmount(loadBook)
     }
@@ -31,6 +31,6 @@ export class DbAddBookBuyList implements AddBookBuyList {
       addBook = await this.addBuyBook.addBook(book, id)
     }
 
-    return addBook === null ? undefined : addBook
+    return addBook && addBook
   }
 }

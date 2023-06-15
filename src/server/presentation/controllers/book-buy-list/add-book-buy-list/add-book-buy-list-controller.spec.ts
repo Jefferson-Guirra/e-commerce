@@ -33,7 +33,7 @@ const makeFakeAddBuyBook = (): AddBuyBookModel => ({
 
 const makeFakeAddBookBuyList = (): AddBookBuyList => {
   class AddBookBuyListStub implements AddBookBuyList {
-    async add(book: BookModel): Promise<AddBuyBookModel | undefined> {
+    async add(book: BookModel): Promise<AddBuyBookModel | null> {
       return await Promise.resolve(makeFakeAddBuyBook())
     }
   }
@@ -108,7 +108,7 @@ describe('AddBookBuyListController', () => {
     const { sut, addBuyBookListStub } = makeSut()
     jest
       .spyOn(addBuyBookListStub, 'add')
-      .mockReturnValueOnce(Promise.resolve(undefined))
+      .mockReturnValueOnce(Promise.resolve(null))
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(unauthorized())
   })
