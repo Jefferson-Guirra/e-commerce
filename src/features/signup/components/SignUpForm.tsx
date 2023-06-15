@@ -32,18 +32,12 @@ export const SignUpForm = () => {
           'signup'
         )
 
-        if (response.statusCode === 200) {
-          router.push('/Login')
-          return
+        const statusCodeValidate: any = {
+          200: () => router.push('/Login'),
+          401: () => setError('Este endereço de email já foi cadastrado'),
+          500: () => setError('Error interno'),
         }
-        if (response.statusCode === 401) {
-          setError('Este endereço de email já foi cadastrado.')
-          return
-        }
-        if (response.statusCode === 500) {
-          setError('Erro interno')
-          return
-        }
+        statusCodeValidate[response.statusCode]()
       } catch (err) {
         alert(err)
       } finally {

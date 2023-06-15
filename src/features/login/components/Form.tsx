@@ -34,14 +34,17 @@ export const UserForm = () => {
           'login'
         )
 
-        if (response.statusCode === 200) {
+        const handleLogin = () => {
           handleCookies.insert('accessToken', response.body.accessToken)
           router.push('/')
-          return
         }
-        if (response.statusCode === 401) {
-          setError('Email e ou senha incorretos.')
+        const statusCodeValidate: any = {
+          200: () => handleLogin(),
+          401: () => setError('Email e ou senha incorretos.'),
+          500: () => setError('Error interno'),
         }
+
+        statusCodeValidate[response.statusCode]()
       }
     } finally {
       setLoading(false)
