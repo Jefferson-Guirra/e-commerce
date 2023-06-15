@@ -2,39 +2,50 @@ import styles from './styles.module.css'
 import { useState } from 'react'
 import Input from '../../../components/Input'
 import useForm from '../../../Hooks/useForm'
-import { SignUp } from '../../../services/db/usecases'
 import { useRouter } from 'next/router'
 import { AiFillEye } from 'react-icons/ai'
-import { useUserContext } from '../../../context/user/UserContext'
+import { ApiUser } from '../../../utils/user-api'
+import { HandleCookies } from '../../../utils/handle-cookie'
+
+const apiUser = new ApiUser()
+const handleCookies = new HandleCookies()
 
 export const UserForm = () => {
   const password = useForm('password')
   const router = useRouter()
   const email = useForm('email')
   const [error, setError] = useState<boolean | string>(false)
-  const { createCookie, getPurchaseList } = useUserContext()
   const [loading, setLoading] = useState(false)
   const [hidden, setHidden] = useState(false)
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setLoading(true)
-    setError(false)
-    const validateInputs = email.validate() && password.validate()
-    const { error, validate, user } = await SignUp(email.value, password.value)
-      .validateLogin
+    try {
+      setLoading(true)
+      setError(false)
+      const validateInputs = email.validate() && password.validate()
 
-    if (validateInputs && validate && user) {
-      const userLogin = {
-        username: user.username.replace(/\s\w+/g, ''),
-        token: user.id,
+      if (validateInputs) {
+        const response = await apiUser.post(
+          {
+            email: email.value,
+            password: password.value,
+          },
+          'login'
+        )
+
+        if (response.statusCode === 200) {
+          handleCookies.insert('accessToken', response.body.accessToken)
+          router.push('/')
+          return
+        }
+        if (response.statusCode === 401) {
+          setError('Email e ou senha incorretos.')
+        }
       }
-      createCookie('user', JSON.stringify(userLogin))
-      getPurchaseList({ id: user.id, idCollection: 'buyBooks' })
-      router.push('/')
-    } else if (validateInputs) {
-      setError(error)
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
   }
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
@@ -54,9 +65,7 @@ export const UserForm = () => {
           <AiFillEye size={25} color="#363636" />
         </span>
       </div>
-      {error && !email.erro && !password.erro && (
-        <p className={styles.userErro}>{error}</p>
-      )}
+      {error && <p className={styles.userErro}>{error}</p>}
       <p>
         Ainda não possui conta?{' '}
         <span
