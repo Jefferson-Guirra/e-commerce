@@ -28,7 +28,7 @@ export class DeleteBuyBookListController implements Controller {
       if (!deleteBook) {
         return unauthorized()
       }
-      return ok('success')
+      return ok(deleteBook)
     } catch (err) {
       return serverError(err as Error)
     }
