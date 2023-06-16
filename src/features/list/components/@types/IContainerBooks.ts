@@ -2,5 +2,5 @@ import { AddBookModel } from '../../../../server/domain/usecases/book-list/add-b
 
 export interface IContainerBooks {
   books: AddBookModel[]
-  handleExclude: (id: string) => void
+  handleExcludeBookDatabase: (id: string) => Promise<void>
 }

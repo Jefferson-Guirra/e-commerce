@@ -20,8 +20,8 @@ export const ListBooks = ({ books, accessToken }: IListProps) => {
     return null
   }
 
-  const handleExclude = async (idBook: string) => {
-    const deleteBook = await apiUserBooks.delete(
+  const handleExcludeBookDatabase = async (idBook: string) => {
+    await apiUserBooks.delete(
       {
         accessToken,
         idBook,
@@ -53,10 +53,13 @@ export const ListBooks = ({ books, accessToken }: IListProps) => {
           {filteredBooks.length > 0 ? (
             <ContainerBooks
               books={filteredBooks}
-              handleExclude={handleExclude}
+              handleExcludeBookDatabase={handleExcludeBookDatabase}
             />
           ) : (
-            <ContainerBooks books={bookList} handleExclude={handleExclude} />
+            <ContainerBooks
+              books={bookList}
+              handleExcludeBookDatabase={handleExcludeBookDatabase}
+            />
           )}
         </article>
       ) : (
