@@ -1,54 +1,40 @@
 import { useState } from 'react'
 import styles from './styles.module.css'
-import { doc, getDoc } from 'firebase/firestore'
-import { IDataBook } from '../../../../services/db/@types'
-import { UpdateBook } from '../../../../services/db/usecases'
-import { AddBook } from '../../../../services/db/usecases/add-book'
-import { db } from '../../../../services/db/helpers/firebaseConnection'
 import Image from 'next/image'
-import { useUserContext } from '../../../../context/user/UserContext'
 import { IBuyProps } from './@types/IBuyProps'
 import { useRouter } from 'next/router'
 
-export const Buy = ({ token, query, book }: IBuyProps) => {
+export const Buy = ({ book, handleAddBuyBookDatabase }: IBuyProps) => {
   const [loading, setLoading] = useState<boolean>(false)
-  const { updatedBuyList } = useUserContext()
   const router = useRouter()
 
-  const handleBuy = async () => {
-    await handleAddBuyListDatabase()
-    if (token) {
-      setTimeout(() => router.push('/Buy'), 150)
-    }
-  }
-  const handleAddBuyListDatabase = async () => {
-    setLoading(true)
-    if (token) {
-      const docRef = doc(db, 'buyBooks', query + token)
-      const docSnap = await getDoc(docRef)
-      if (docSnap.exists()) {
-        const book = docSnap.data() as IDataBook
-        await UpdateBook({
-          collection: 'buyBooks',
-          idBook: query,
-          tokenUser: token,
-          value: book.qtd,
-        })
-      } else {
-        updatedBuyList('add')
-        const response = await AddBook({
-          book: book,
-          collection: 'buyBooks',
-          idBook: query,
-          tokenUser: token,
-        })
-        console.log(response)
+  const handleAddBuyBook = async () => {
+    try {
+      setLoading(true)
+      const response = await handleAddBuyBookDatabase()
+      if (response.statusCode === 401) {
+        alert('É necessário efetuar login.')
+        return
       }
-    } else {
-      alert('É necessário efetuar o login.')
+      router.push('/Buy')
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
   }
+
+  const handleAddBuyBookList = async () => {
+    try {
+      setLoading(true)
+      const response = await handleAddBuyBookDatabase()
+      if (response.statusCode === 401) {
+        alert('É necessário efetuar login.')
+        return
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div className={styles.buyContainer}>
       <span className={styles.alert}>Menor preço</span>
@@ -89,7 +75,7 @@ export const Buy = ({ token, query, book }: IBuyProps) => {
           </p>
           {!loading ? (
             <button
-              onClick={handleAddBuyListDatabase}
+              onClick={handleAddBuyBookList}
               style={{ backgroundColor: '#ffd814' }}
             >
               Adicionar ao carrinho
@@ -99,7 +85,11 @@ export const Buy = ({ token, query, book }: IBuyProps) => {
               Adicionando...
             </button>
           )}
-          <button onClick={handleBuy} style={{ backgroundColor: '#ffa500' }}>
+          <button
+            disabled={loading}
+            onClick={handleAddBuyBook}
+            style={{ backgroundColor: '#ffa500' }}
+          >
             Comprar
           </button>
         </article>

@@ -46,11 +46,26 @@ export const Book = ({
     }
   }
 
+  const handleAddBuyBookDatabase = async () => {
+    const addBuyBook: BookModel = {
+      accessToken,
+      authors: book.authors,
+      title: book.title,
+      bookId: book.id,
+      language: book.language,
+      publisher: book.publisher,
+      publisherDate: book.publisherDate,
+      price: book.price,
+      description: book.description,
+      imgUrl: `https://books.google.com/books/publisher/content/images/frontcover/${book.id}?fife=w340-h400&source=gbs_api`,
+    }
+    const response = await apiBook.post(addBuyBook, 'buybooklist/add')
+    console.log(response)
+    return response
+  }
+
   const handleExcludeBookDatabase = async () => {
-    const response = await apiBook.delete(
-      { accessToken, idBook: book.id },
-      'booklist/remove'
-    )
+    await apiBook.delete({ accessToken, idBook: book.id }, 'booklist/remove')
   }
 
   useEffect(() => {
@@ -75,7 +90,10 @@ export const Book = ({
             title={book.title}
             query={query}
           />
-          <Buy book={book} query={query} token={accessToken} />
+          <Buy
+            book={book}
+            handleAddBuyBookDatabase={handleAddBuyBookDatabase}
+          />
         </article>
       </section>
       {similarBooks?.totalItems !== 0 && similarBooks && (
