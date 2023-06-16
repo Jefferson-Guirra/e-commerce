@@ -15,6 +15,7 @@ export class AddBookListValidator implements Validation {
       'imgUrl',
       'accessToken',
       'bookId',
+      'pageCount',
     ]
     for (const field of requiredFields) {
       if (!fieldsRequest.includes(field)) {
