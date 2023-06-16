@@ -38,6 +38,7 @@ const makeFakeBookForCollection = (date: number): AddBookModel => ({
 
 const makeFakeRequest = (): BookModel => {
   return {
+    pageCount: 1,
     title: 'any_title',
     description: 'any_description',
     authors: ['any_author'],

@@ -5,6 +5,7 @@ export interface BookModel {
   price: number
   language: string
   publisher: string
+  pageCount: number
   publisherDate: string
   imgUrl: string
   accessToken: string

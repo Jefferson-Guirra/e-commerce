@@ -36,6 +36,7 @@ const makeFakeOrderBooks = (title: string, date: number) => ({
   publisherDate: 'any_date',
 })
 const makeFakeRequest = (): BookModel => ({
+  pageCount: 1,
   accessToken: 'any_token',
   bookId: 'any_id',
   authors: ['any_author'],

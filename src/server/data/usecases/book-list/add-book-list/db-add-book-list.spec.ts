@@ -52,6 +52,7 @@ const makeFakeAddBookModel = (): AddBookModel => {
 const makeFakeRequest = (): BookModel => {
   return {
     title: 'any_title',
+    pageCount: 1,
     description: 'any_description',
     authors: ['any_author'],
     price: 0.0,

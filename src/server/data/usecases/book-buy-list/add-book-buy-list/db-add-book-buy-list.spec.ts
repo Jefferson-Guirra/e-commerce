@@ -29,6 +29,7 @@ const makeFakeAddBuyBook = (): AddBuyBookModel => ({
 const makeFakeRequest = (): BookModel => ({
   accessToken: 'any_token',
   bookId: 'any_id',
+  pageCount: 1,
   authors: ['any_author'],
   description: 'any_description',
   title: 'any_title',

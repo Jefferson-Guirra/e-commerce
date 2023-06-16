@@ -31,6 +31,7 @@ export const Book = ({
     } else {
       const addBook: BookModel = {
         accessToken,
+        pageCount: book.pageCount,
         authors: book.authors,
         title: book.title,
         bookId: book.id,
@@ -49,6 +50,7 @@ export const Book = ({
   const handleAddBuyBookDatabase = async () => {
     const addBuyBook: BookModel = {
       accessToken,
+      pageCount: book.pageCount,
       authors: book.authors,
       title: book.title,
       bookId: book.id,
