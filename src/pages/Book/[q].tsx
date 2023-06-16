@@ -5,26 +5,27 @@ import { IBookIdApi } from '../../services/api/@types/IBookIdApi'
 import { SEARCH_BOOKS_ID } from '../../services/api/usecases'
 import { parseCookies } from 'nookies'
 import { GetBook } from '../../services/db/usecases'
+import { ApiBook } from '../../utils/book-api'
 
 interface Props {
   book: string
   query: string
   user: string
   validateFavoriteBooks: boolean
-  token: string
+  accessToken: string
 }
 type Params = {
   q: string
 }
-
-const Book = ({ book, query, token, validateFavoriteBooks }: Props) => {
+const apiBook = new ApiBook()
+const Book = ({ book, query, accessToken, validateFavoriteBooks }: Props) => {
   const formatBook: IBookIdApi = JSON.parse(book)
 
   return (
     <BookContainer
       book={formatBook}
       query={query}
-      token={token}
+      accessToken={accessToken}
       validateFavoriteBooks={validateFavoriteBooks}
     />
   )
@@ -34,6 +35,7 @@ export default Book
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { q } = ctx.params as Params
+
   if (!q) {
     return {
       redirect: {
@@ -42,7 +44,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     }
   }
-  const token: string | null = GET_COOKIE_USER()
+  const accessToken: string | null = GET_COOKIE_USER()
   const bookInfo = await SEARCH_BOOKS_ID(q)
 
   if (!bookInfo) {
@@ -54,28 +56,37 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
   }
 
-  function GET_COOKIE_USER() {
+  const validateFavoriteBooks = async (): Promise<boolean> => {
     const cookies = parseCookies(ctx)
-    if (cookies.user) {
-      return JSON.parse(cookies.user).token as string
+    if (cookies.accessToken) {
+      const response = await apiBook.get(
+        {
+          accessToken: JSON.parse(cookies.accessToken),
+          bookId: q,
+        },
+        'booklist/getbook'
+      )
+      return !!response.body
+    } else {
+      return false
     }
-    return null
   }
 
-  const validateFavoriteBooks = token
-    ? await GetBook({
-        idBook: q,
-        collection: 'books',
-        tokenUser: token,
-      })
-    : false
+  function GET_COOKIE_USER() {
+    const cookies = parseCookies(ctx)
+    if (cookies.accessToken) {
+      return JSON.parse(cookies.accessToken) as string
+    } else {
+      return null
+    }
+  }
 
   return {
     props: {
       book: JSON.stringify(bookInfo),
       query: q,
-      token: token,
-      validateFavoriteBooks,
+      accessToken,
+      validateFavoriteBooks: await validateFavoriteBooks(),
     },
   }
 }
