@@ -110,4 +110,13 @@ describe('DbGetBookList', () => {
     await sut.getBook('any_token', 'any_id')
     expect(loadBookSpy).toHaveBeenCalledWith('any_user_id', 'any_id')
   })
+
+  test('should return throw if loadBook return throw', async () => {
+    const { sut, loadBookByQueryDocRepositoryStub } = makeSut()
+    jest
+      .spyOn(loadBookByQueryDocRepositoryStub, 'loadBookByQuery')
+      .mockReturnValueOnce(Promise.reject(new Error()))
+    const promise = sut.getBook('any_token', 'any_id')
+    await expect(promise).rejects.toThrow()
+  })
 })
