@@ -1,6 +1,5 @@
 import { AddBookListValidator } from './add-book-list-validator'
 import { MissingParamError } from '../../errors/missing-params-error'
-import { BookModel } from '../../../domain/models/book/book'
 import { HttpRequest } from '../../protocols/http'
 
 interface SutTypes {
@@ -17,6 +16,7 @@ const makeFakeRequest = (id: string): HttpRequest => {
   const book: any = {
     title: 'any_title',
     description: 'any_description',
+    pageCount: 1,
     authors: ['any_author'],
     price: Number(0.0),
     language: 'any_language',
@@ -24,6 +24,7 @@ const makeFakeRequest = (id: string): HttpRequest => {
     publisherDate: 'any_date',
     imgUrl: 'any_url',
     accessToken: 'any_token',
+
     bookId: 'any_id',
   }
 
@@ -92,5 +93,11 @@ describe('Signup Controller', () => {
     const { sut } = makeSut()
     const response = sut.validation(makeFakeRequest('bookId'))
     expect(response).toEqual(new MissingParamError('bookId'))
+  })
+
+  test('should return MissingParamError is pageCount not provided ', async () => {
+    const { sut } = makeSut()
+    const response = sut.validation(makeFakeRequest('pageCount'))
+    expect(response).toEqual(new MissingParamError('pageCount'))
   })
 })
