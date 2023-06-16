@@ -15,6 +15,7 @@ export class AddBookBuyListValidator implements Validation {
       'price',
       'publisher',
       'publisherDate',
+      'pageCount',
     ]
     for (const field of requiredFields) {
       if (!fieldArray.includes(field)) {
