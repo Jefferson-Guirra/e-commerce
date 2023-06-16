@@ -2,7 +2,7 @@ import { Validation } from '../../../protocols/validate'
 import { HttpRequest } from '../../../protocols/http'
 import { UpdateAmountBookBuyListController } from './update-amount-book-buy-list-controller'
 import { MissingParamError } from '../../../errors/missing-params-error'
-import { badRequest, unauthorized } from '../../../helpers/http'
+import { badRequest, serverError, unauthorized } from '../../../helpers/http'
 import { AddBuyBookModel } from '../../../../domain/usecases/book-buy-list/add-book-buy-list'
 import { UpdateAmountBuyBook } from '../../../../domain/usecases/book-buy-list/update-amount-book-buy-list'
 
@@ -105,5 +105,14 @@ describe('UpdateAmountBookBuyListController', () => {
       .mockReturnValueOnce(Promise.resolve(null))
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(unauthorized())
+  })
+
+  test('should return 500 if updateAmount return throw', async () => {
+    const { sut, updateAmountBuyBookStub } = makeSut()
+    jest
+      .spyOn(updateAmountBuyBookStub, 'updateAmount')
+      .mockReturnValueOnce(Promise.reject(new Error()))
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(serverError())
   })
 })
