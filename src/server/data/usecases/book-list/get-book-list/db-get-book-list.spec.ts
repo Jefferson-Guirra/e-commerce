@@ -119,4 +119,10 @@ describe('DbGetBookList', () => {
     const promise = sut.getBook('any_token', 'any_id')
     await expect(promise).rejects.toThrow()
   })
+
+  test('should return a book on success', async () => {
+    const { sut } = makeSut()
+    const response = await sut.getBook('any_token', 'any_id')
+    expect(response).toEqual(makeFakeAddBookModel())
+  })
 })
