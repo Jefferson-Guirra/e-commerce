@@ -2,7 +2,7 @@ import { Validation } from '../../../protocols/validate'
 import { HttpRequest } from '../../../protocols/http'
 import { UpdateAmountBookBuyListController } from './update-amount-book-buy-list-controller'
 import { MissingParamError } from '../../../errors/missing-params-error'
-import { badRequest } from '../../../helpers/http'
+import { badRequest, unauthorized } from '../../../helpers/http'
 import { AddBuyBookModel } from '../../../../domain/usecases/book-buy-list/add-book-buy-list'
 import { UpdateAmountBuyBook } from '../../../../domain/usecases/book-buy-list/update-amount-book-buy-list'
 
@@ -95,5 +95,14 @@ describe('UpdateAmountBookBuyListController', () => {
     const updateSpy = jest.spyOn(updateAmountBuyBookStub, 'updateAmount')
     await sut.handle(makeFakeRequest())
     expect(updateSpy).toHaveBeenCalledWith('any_token', 'any_id')
+  })
+
+  test('should return 401 if updateAmount return null', async () => {
+    const { sut, updateAmountBuyBookStub } = makeSut()
+    jest
+      .spyOn(updateAmountBuyBookStub, 'updateAmount')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(unauthorized())
   })
 })
