@@ -29,7 +29,7 @@ export class UpdateAmountBookBuyListController implements Controller {
       if (!book) {
         return unauthorized()
       }
-      return ok('success')
+      return ok(book)
     } catch (err) {
       return serverError(err as Error)
     }
