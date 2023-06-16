@@ -1,26 +1,34 @@
 import { useState } from 'react'
-import { IDataBook } from '../../../services/db/@types'
 import { RemoveBook } from '../../../services/db/usecases/remove-book'
 import { IListProps } from '../@types/IListProps'
 import styles from './styles.module.css'
 import { BiSearch } from 'react-icons/bi'
 import { ContainerBooks } from '../components/ContainerBooks'
+import { AddBookModel } from '../../../server/domain/usecases/book-list/add-book-list'
+import { ApiBook } from '../../../utils/book-api'
 
-export const ListBooks = ({ books }: IListProps) => {
+const apiUserBooks = new ApiBook()
+export const ListBooks = ({ books, accessToken }: IListProps) => {
   const [bookList, setBookList] = useState(books)
   const [input, setInput] = useState('')
   let filteredBooks = []
   filteredBooks = bookList.filter((item) =>
     item.title.toLowerCase().includes(input.toLowerCase())
-  ) as IDataBook[]
+  ) as AddBookModel[]
 
   const handleSubmit = () => {
     return null
   }
 
-  const handleExclude = (id: string) => {
-    RemoveBook({ id, idCollection: 'books' })
-    const newBooks = bookList.filter((item) => item.idDoc !== id)
+  const handleExclude = async (idBook: string) => {
+    const deleteBook = await apiUserBooks.delete(
+      {
+        accessToken,
+        idBook,
+      },
+      'booklist/remove'
+    )
+    const newBooks = bookList.filter((item) => item.bookId !== idBook)
     setBookList(newBooks)
   }
 

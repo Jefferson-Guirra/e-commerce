@@ -1,12 +1,10 @@
 import { IContainerBooks } from './@types/IContainerBooks'
 import Link from 'next/link'
 import styles from './styles.module.css'
-import { ITime } from '../../../services/db/@types'
-import { Timestamp } from 'firebase/firestore'
 
-const handleTime = (time: ITime) => {
-  const timeStamp = new Timestamp(time.seconds, time.nanoseconds)
-  const timeFormat = timeStamp.toDate().toLocaleDateString('pt-BR', {
+const handleTime = (time: number) => {
+  const timeStamp = new Date(time)
+  const timeFormat = timeStamp.toLocaleDateString('pt-BR', {
     day: '2-digit',
     month: '2-digit',
     year: '2-digit',
@@ -30,10 +28,10 @@ export const ContainerBooks = ({ books, handleExclude }: IContainerBooks) => {
               <p>{book.title}</p>
             </div>
             <p id="author">{book.authors[0]}</p>
-            <p>Adicionado: {handleTime(book.created)} </p>
+            <p>Adicionado: {handleTime(book.date)} </p>
             <button
               className={styles.remove}
-              onClick={() => handleExclude(book.idDoc)}
+              onClick={() => handleExclude(book.bookId)}
             >
               remover
             </button>

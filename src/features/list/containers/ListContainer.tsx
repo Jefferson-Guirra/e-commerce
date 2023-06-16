@@ -1,8 +1,9 @@
 import styles from './styles.module.css'
 import { ListBooks } from '../pages/ListBooks'
-import { IDataBook } from '../../../services/db/@types'
+import { AddBookModel } from '../../../server/domain/usecases/book-list/add-book-list'
 interface IListContainer {
-  books: IDataBook[]
+  books: AddBookModel[]
+  accessToken: string
 }
 export const ListContainer = (props: IListContainer) => {
   return (

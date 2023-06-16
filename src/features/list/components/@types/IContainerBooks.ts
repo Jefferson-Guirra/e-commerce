@@ -1,6 +1,6 @@
-import { IDataBook } from '../../../../services/db/@types'
+import { AddBookModel } from '../../../../server/domain/usecases/book-list/add-book-list'
 
 export interface IContainerBooks {
-  books: IDataBook[]
+  books: AddBookModel[]
   handleExclude: (id: string) => void
 }
