@@ -19,4 +19,10 @@ describe('GetBookListValidator', () => {
     const response = sut.validation(makeFakeRequest('accessToken'))
     expect(response).toEqual(new MissingParamError('accessToken'))
   })
+
+  test('should return MissingParamsError if bookId not provided', async () => {
+    const sut = makeSut()
+    const response = sut.validation(makeFakeRequest('bookId'))
+    expect(response).toEqual(new MissingParamError('bookId'))
+  })
 })
