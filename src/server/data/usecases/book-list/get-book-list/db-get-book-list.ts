@@ -1,10 +1,12 @@
 import { AddBookModel } from '../../../../domain/usecases/book-list/add-book-list'
 import { GetBookList } from '../../../../domain/usecases/book-list/get-book-list'
 import { LoadAccountByAccessTokenRepository } from '../../../protocols/db/account/load-account-by-access-token-repository'
+import { LoadBookByQueryDocRepository } from '../../../protocols/db/book-list/load-book-list-by-query-doc'
 
 export class DbGetBookList implements GetBookList {
   constructor(
-    private readonly loadAccount: LoadAccountByAccessTokenRepository
+    private readonly loadAccount: LoadAccountByAccessTokenRepository,
+    private readonly loadBook: LoadBookByQueryDocRepository
   ) {}
   async getBook(
     accessToken: string,
@@ -14,6 +16,9 @@ export class DbGetBookList implements GetBookList {
     if (!account) {
       return null
     }
+
+    const { id } = account
+    await this.loadBook.loadBookByQuery(id, bookId)
     return {
       bookId: 'any_book_id',
       title: 'any_title',
