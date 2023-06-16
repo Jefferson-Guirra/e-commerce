@@ -1,7 +1,7 @@
 import { AddBookModel } from '../../../../domain/usecases/book-list/add-book-list'
 import { GetBookList } from '../../../../domain/usecases/book-list/get-book-list'
 import { MissingParamError } from '../../../errors/missing-params-error'
-import { badRequest } from '../../../helpers/http'
+import { badRequest, serverError } from '../../../helpers/http'
 import { HttpRequest } from '../../../protocols/http'
 import { Validation } from '../../../protocols/validate'
 import { GetBookListController } from './get-book-list-controller'
@@ -91,5 +91,14 @@ describe('GetBookListController', () => {
     const getSpy = jest.spyOn(getBookListStub, 'getBook')
     await sut.handle(makeFakeRequest())
     expect(getSpy).toHaveBeenCalledWith('any_token', 'any_id')
+  })
+
+  test('should return 500 if getBooks fails', async () => {
+    const { sut, getBookListStub } = makeSut()
+    jest
+      .spyOn(getBookListStub, 'getBook')
+      .mockReturnValueOnce(Promise.reject(new Error()))
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(serverError())
   })
 })
