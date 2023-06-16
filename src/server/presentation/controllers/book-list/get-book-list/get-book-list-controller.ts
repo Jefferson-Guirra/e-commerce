@@ -16,8 +16,8 @@ export class GetBookListController implements Controller {
         return badRequest(error)
       }
       const { accessToken, bookId } = httpRequest.body
-      await this.findBook.getBook(accessToken, bookId)
-      return ok('success')
+      const book = await this.findBook.getBook(accessToken, bookId)
+      return ok(book)
     } catch (err) {
       return serverError(err as Error)
     }
