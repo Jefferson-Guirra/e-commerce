@@ -6,6 +6,7 @@ import { AddBookBuyListValidator } from './add-book-buy-list-validator'
 const makeFakeRequest = (field: string): HttpRequest => {
   const body: any = {
     accessToken: 'any_token',
+    pageCount: 1,
     bookId: 'any_id',
     authors: ['any_author'],
     description: 'any_description',
@@ -74,5 +75,10 @@ describe('AddBookBuyList', () => {
     const sut = makeSut()
     const response = sut.validation(makeFakeRequest('publisherDate'))
     expect(response).toEqual(new MissingParamError('publisherDate'))
+  })
+  test('should return MissingParamsError if pageCount not provided', () => {
+    const sut = makeSut()
+    const response = sut.validation(makeFakeRequest('pageCount'))
+    expect(response).toEqual(new MissingParamError('pageCount'))
   })
 })
