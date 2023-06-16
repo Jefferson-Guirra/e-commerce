@@ -10,6 +10,7 @@ const makeFakeRequest = (): HttpRequest => ({
   body: {
     accessToken: 'any_token',
     bookId: 'any_id',
+    amount: 1,
   },
 })
 
@@ -94,7 +95,7 @@ describe('UpdateAmountBookBuyListController', () => {
     const { sut, updateAmountBuyBookStub } = makeSut()
     const updateSpy = jest.spyOn(updateAmountBuyBookStub, 'updateAmount')
     await sut.handle(makeFakeRequest())
-    expect(updateSpy).toHaveBeenCalledWith('any_token', 'any_id')
+    expect(updateSpy).toHaveBeenCalledWith('any_token', 'any_id', 1)
   })
 
   test('should return 401 if updateAmount return null', async () => {

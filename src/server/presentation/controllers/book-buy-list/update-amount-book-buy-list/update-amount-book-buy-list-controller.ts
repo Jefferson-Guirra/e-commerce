@@ -15,9 +15,11 @@ export class UpdateAmountBookBuyListController implements Controller {
       return badRequest(error)
     }
     const { accessToken, bookId, amount } = httpRequest.body
-    const book = amount
-      ? await this.updateBuyBook.updateAmount(accessToken, bookId, amount)
-      : await this.updateBuyBook.updateAmount(accessToken, bookId)
+    const book = await this.updateBuyBook.updateAmount(
+      accessToken,
+      bookId,
+      amount
+    )
     if (!book) {
       return unauthorized()
     }

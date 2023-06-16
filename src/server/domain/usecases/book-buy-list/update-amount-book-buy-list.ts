@@ -4,6 +4,6 @@ export interface UpdateAmountBuyBook {
   updateAmount: (
     accessToken: string,
     bookId: string,
-    amount?: number
+    amount: number
   ) => Promise<AddBuyBookModel | null>
 }
