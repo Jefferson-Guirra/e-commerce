@@ -4,5 +4,5 @@ export interface IBookProps {
   book: IBookIdApi
   query: string
   validateFavoriteBooks: boolean
-  token: string
+  accessToken: string
 }

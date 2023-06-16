@@ -7,6 +7,6 @@ export interface IInfoBook {
   query: string
   favoriteBook: boolean | null
   avarege: number
-  handleAddBookDatabase: (collection: string) => void
-  handleExcludeBookFavoriteList: (collection: string) => void
+  handleAddBookDatabase: () => Promise<void>
+  handleExcludeBookDatabase: () => Promise<void>
 }

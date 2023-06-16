@@ -5,14 +5,15 @@ import styles from './styles.module.css'
 import Head from 'next/head'
 import SliderBooks from '../../../components/SliderBooks'
 import { Info, Buy } from '../components'
-import { AddBook } from '../../../services/db/usecases/add-book'
-import { RemoveBook } from '../../../services/db/usecases/remove-book'
 import { IBookProps } from '../@types/IBookProps'
+import { ApiBook } from '../../../utils/book-api'
+import { BookModel } from '../../../server/domain/models/book/book'
 
+const apiBook = new ApiBook()
 export const Book = ({
   book,
   query,
-  token,
+  accessToken,
   validateFavoriteBooks,
 }: IBookProps) => {
   const [similarBooks, setSimilarBooks] = useState<IBooksApi | undefined>(
@@ -24,21 +25,32 @@ export const Book = ({
     setSimilarBooks(books)
   }, [])
 
-  const handleAddBookDatabase = async (collection: string) => {
-    if (!token) {
+  const handleAddBookDatabase = async () => {
+    if (!accessToken) {
       alert('É necessário efetuar o Login')
     } else {
-      await AddBook({
-        book: book,
-        idBook: query,
-        tokenUser: token,
-        collection: collection,
-      })
+      const addBook: BookModel = {
+        accessToken,
+        authors: book.authors,
+        title: book.title,
+        bookId: book.id,
+        language: book.language,
+        publisher: book.publisher,
+        publisherDate: book.publisherDate,
+        price: book.price,
+        description: book.description,
+        imgUrl: `https://books.google.com/books/publisher/content/images/frontcover/${book.id}?fife=w340-h400&source=gbs_api`,
+      }
+
+      await apiBook.post(addBook, 'booklist/add')
     }
   }
 
-  const handleExcludeBookFavoriteList = async (idCollection: string) => {
-    RemoveBook({ id: query + token, idCollection: idCollection })
+  const handleExcludeBookDatabase = async () => {
+    const response = await apiBook.delete(
+      { accessToken, idBook: book.id },
+      'booklist/remove'
+    )
   }
 
   useEffect(() => {
@@ -59,11 +71,11 @@ export const Book = ({
             handleAddBookDatabase={handleAddBookDatabase}
             id={book.id}
             subtitle={book.subtitle}
-            handleExcludeBookFavoriteList={handleExcludeBookFavoriteList}
+            handleExcludeBookDatabase={handleExcludeBookDatabase}
             title={book.title}
             query={query}
           />
-          <Buy book={book} query={query} token={token} />
+          <Buy book={book} query={query} token={accessToken} />
         </article>
       </section>
       {similarBooks?.totalItems !== 0 && similarBooks && (

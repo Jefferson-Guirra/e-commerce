@@ -15,21 +15,28 @@ export const Info = ({
   description,
   id,
   handleAddBookDatabase,
-  handleExcludeBookFavoriteList,
+  handleExcludeBookDatabase,
   favoriteBook,
   query,
 }: IInfoBook) => {
   const [showDescription, setShowDescription] = useState<boolean>(false)
   const [favorite, setFavorite] = useState<null | boolean>(null)
+  const [loading, setLoading] = useState(false)
 
-  const handleAdd = (collection: string) => {
-    handleAddBookDatabase(collection)
+  const handleAdd = async () => {
+    setLoading(true)
+    await handleAddBookDatabase()
     setFavorite(true)
+    setLoading(false)
   }
-  const handleExclude = (collection: string) => {
-    handleExcludeBookFavoriteList(collection)
+
+  const handleExclude = async () => {
+    setLoading(true)
+    await handleExcludeBookDatabase()
     setFavorite(false)
+    setLoading(false)
   }
+
   useEffect(() => {
     setFavorite(favoriteBook)
     setShowDescription(false)
@@ -51,14 +58,16 @@ export const Info = ({
         <p className={styles.subTitle}>{subtitle}</p>
         {!favorite ? (
           <button
-            onClick={() => handleAdd('books')}
+            disabled={loading}
+            onClick={() => handleAdd()}
             className={`${styles.itemText} ${styles.list}`}
           >
             <BsFillHeartFill size={15} color="#999999" /> Minha lista
           </button>
         ) : (
           <button
-            onClick={() => handleExclude('books')}
+            disabled={loading}
+            onClick={() => handleExclude()}
             className={`${styles.itemText} ${styles.list}`}
           >
             <BsFillHeartFill size={15} color="#f31" /> Minha lista
