@@ -6,6 +6,7 @@ import { DbGetBookList } from './db-get-book-list'
 
 const makeFakeAddBookModel = (): AddBookModel => {
   return {
+    pageCount: 1,
     bookId: 'any_book_id',
     title: 'any_title',
     description: 'any_description',

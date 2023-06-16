@@ -6,6 +6,7 @@ export interface AddBookModel {
   price: number
   language: string
   publisher: string
+  pageCount: number
   publisherDate: string
   imgUrl: string
   date: number

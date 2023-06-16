@@ -8,6 +8,7 @@ import { DbRemoveBookList } from './db-remove-book-list'
 
 const makeFakeAddBookModel = (): AddBookModel => {
   return {
+    pageCount: 1,
     title: 'any_title',
     description: 'any_description',
     authors: ['any_author'],

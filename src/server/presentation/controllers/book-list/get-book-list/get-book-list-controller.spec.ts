@@ -15,6 +15,7 @@ const makeFakeRequest = (): HttpRequest => ({
 
 const makeFakeAddBookModel = (): AddBookModel => {
   return {
+    pageCount: 1,
     title: 'any_title',
     bookId: 'any_book_id',
     description: 'any_description',

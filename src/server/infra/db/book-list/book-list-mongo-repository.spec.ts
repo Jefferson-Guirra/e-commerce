@@ -18,6 +18,7 @@ const makeFakeAddBookModel = (): AddBookModel => ({
   id: 'any_id',
   userId: 'any_user_id',
   queryDoc: 'any_user_idany_id',
+  pageCount: 1,
 })
 
 const makeFakeBookForCollection = (date: number): AddBookModel => ({
@@ -34,6 +35,7 @@ const makeFakeBookForCollection = (date: number): AddBookModel => ({
   id: 'any_id',
   userId: 'any_user_id',
   queryDoc: 'any_user_idany_id',
+  pageCount: 1,
 })
 
 const makeFakeRequest = (): BookModel => {
@@ -77,6 +79,7 @@ describe('BookListMongoRepository', () => {
   test('should return book if addBook success', async () => {
     const sut = makeSut()
     const book = await sut.addBook(makeFakeRequest(), 'any_user_id')
+    console.log(book?.pageCount)
     expect(book).toBeTruthy()
     expect(book?.title).toBe('any_title')
     expect(book?.description).toBe('any_description')
@@ -90,6 +93,7 @@ describe('BookListMongoRepository', () => {
     expect(book?.id).toBeTruthy()
     expect(book?.userId).toBe('any_user_id')
     expect(book?.queryDoc).toBe('any_user_idany_id')
+    expect(book?.pageCount).toBe(1)
   })
 
   test('should return book if loadBookByQuery success', async () => {
@@ -102,6 +106,7 @@ describe('BookListMongoRepository', () => {
       language: 'any_language',
       publisher: 'any_publisher',
       publisherDate: 'any_date',
+      pageCount: 1,
       date: 123456,
       imgUrl: 'any_url',
       id: 'any_id',
@@ -120,6 +125,7 @@ describe('BookListMongoRepository', () => {
     expect(book?.date).toBe(123456)
     expect(book?.imgUrl).toBe('any_url')
     expect(book?.id).toBeTruthy()
+    expect(book?.pageCount).toBe(1)
     expect(book?.userId).toBe('any_user_id')
     expect(book?.queryDoc).toBe('any_user_idany_id')
   })
@@ -140,6 +146,7 @@ describe('BookListMongoRepository', () => {
     expect(removeBook?.publisherDate).toBe('any_date')
     expect(removeBook?.date).toBe(123456)
     expect(removeBook?.imgUrl).toBe('any_url')
+    expect(removeBook?.pageCount).toBe(1)
     expect(removeBook?.id).toBeTruthy()
     expect(removeBook?.userId).toBe('any_user_id')
     expect(removeBook?.queryDoc).toBe('any_user_idany_id')
