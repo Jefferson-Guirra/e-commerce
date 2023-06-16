@@ -1,3 +1,5 @@
+import { AddBookModel } from '../../../../domain/usecases/book-list/add-book-list'
+import { GetBookList } from '../../../../domain/usecases/book-list/get-book-list'
 import { MissingParamError } from '../../../errors/missing-params-error'
 import { badRequest } from '../../../helpers/http'
 import { HttpRequest } from '../../../protocols/http'
@@ -10,6 +12,25 @@ const makeFakeRequest = (): HttpRequest => ({
     bookId: 'any_id',
   },
 })
+
+const makeFakeAddBookModel = (): AddBookModel => {
+  return {
+    title: 'any_title',
+    bookId: 'any_book_id',
+    description: 'any_description',
+    authors: ['any_author'],
+    price: 0.0,
+    language: 'any_language',
+    publisher: 'any_publisher',
+    date: 1254632254,
+    publisherDate: 'any_date',
+    imgUrl: 'any_url',
+    id: 'any_id',
+    userId: 'any_user_id',
+    queryDoc: 'any_user_idany_id',
+  }
+}
+
 const makeValidateStub = (): Validation => {
   class ValidateStub implements Validation {
     validation(input: any): Error | undefined {
@@ -19,15 +40,30 @@ const makeValidateStub = (): Validation => {
   return new ValidateStub()
 }
 
+const makeGetBookListStub = (): GetBookList => {
+  class GetBookListStub implements GetBookList {
+    async getBook(
+      accessToken: string,
+      bookId: string
+    ): Promise<AddBookModel | null> {
+      return await Promise.resolve(makeFakeAddBookModel())
+    }
+  }
+  return new GetBookListStub()
+}
+
 interface SutTypes {
+  getBookListStub: GetBookList
   validationStub: Validation
   sut: GetBookListController
 }
 
 const makeSut = (): SutTypes => {
+  const getBookListStub = makeGetBookListStub()
   const validationStub = makeValidateStub()
-  const sut = new GetBookListController(validationStub)
+  const sut = new GetBookListController(validationStub, getBookListStub)
   return {
+    getBookListStub,
     validationStub,
     sut,
   }
@@ -48,5 +84,12 @@ describe('GetBookListController', () => {
       .mockReturnValueOnce(new MissingParamError('any_field'))
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(badRequest(new MissingParamError('any_field')))
+  })
+
+  test('should call getBooks with correct values', async () => {
+    const { sut, getBookListStub } = makeSut()
+    const getSpy = jest.spyOn(getBookListStub, 'getBook')
+    await sut.handle(makeFakeRequest())
+    expect(getSpy).toHaveBeenCalledWith('any_token', 'any_id')
   })
 })
