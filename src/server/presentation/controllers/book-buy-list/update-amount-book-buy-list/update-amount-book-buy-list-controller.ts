@@ -1,5 +1,5 @@
 import { UpdateAmountBuyBook } from '../../../../domain/usecases/book-buy-list/update-amount-book-buy-list'
-import { badRequest, ok } from '../../../helpers/http'
+import { badRequest, ok, unauthorized } from '../../../helpers/http'
 import { Controller } from '../../../protocols/controller'
 import { HttpRequest, HttpResponse } from '../../../protocols/http'
 import { Validation } from '../../../protocols/validate'
@@ -14,8 +14,13 @@ export class UpdateAmountBookBuyListController implements Controller {
     if (error) {
       return badRequest(error)
     }
-    const { accessToken, bookId } = httpRequest.body
-    await this.updateBuyBook.updateAmount(accessToken, bookId)
+    const { accessToken, bookId, amount } = httpRequest.body
+    const book = amount
+      ? await this.updateBuyBook.updateAmount(accessToken, bookId, amount)
+      : await this.updateBuyBook.updateAmount(accessToken, bookId)
+    if (!book) {
+      return unauthorized()
+    }
     return ok('success')
   }
 }
