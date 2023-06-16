@@ -10,7 +10,24 @@ export class DbGetBookList implements GetBookList {
     accessToken: string,
     bookId: string
   ): Promise<AddBookModel | null> {
-    await this.loadAccount.loadByAccessToken(accessToken)
-    return null
+    const account = await this.loadAccount.loadByAccessToken(accessToken)
+    if (!account) {
+      return null
+    }
+    return {
+      bookId: 'any_book_id',
+      title: 'any_title',
+      description: 'any_description',
+      authors: ['any_author'],
+      price: 0.0,
+      language: 'any_language',
+      publisher: 'any_publisher',
+      publisherDate: 'any_date',
+      date: 123456,
+      imgUrl: 'any_url',
+      queryDoc: 'any_user_idany_id',
+      userId: 'any_user_id',
+      id: 'any_id',
+    }
   }
 }
