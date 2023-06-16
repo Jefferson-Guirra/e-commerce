@@ -3,6 +3,8 @@ import { parseCookies } from 'nookies'
 import { GetBooks } from '../../services/db/usecases'
 import Head from 'next/head'
 import { ListContainer } from '../../features'
+import { ApiBook } from '../../utils/book-api'
+import nookies from 'nookies'
 
 type User = {
   username: string
@@ -10,17 +12,20 @@ type User = {
 }
 
 interface Props {
+  accessToken: string
   books: string
-  username: string
 }
 
-const List = ({ books, username }: Props) => {
+const List = ({ books, accessToken }: Props) => {
   return (
     <>
       <Head>
-        <title>{`Minha Lista | ${username}`}</title>
+        <title>{`Minha Lista`}</title>
       </Head>
-      <ListContainer books={JSON.parse(books)} />
+      <ListContainer
+        books={JSON.parse(books)}
+        accessToken={JSON.parse(accessToken)}
+      />
     </>
   )
 }
@@ -28,9 +33,10 @@ const List = ({ books, username }: Props) => {
 export default List
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const user: User | null = GET_COOKIE_USER()
+  //const user: User | null = GET_COOKIE_USER()
+  const { accessToken } = nookies.get(ctx)
 
-  if (!user?.token) {
+  if (!accessToken) {
     return {
       redirect: {
         destination: '/Login',
@@ -38,22 +44,47 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     }
   }
-
-  const books = JSON.stringify(
-    await GetBooks({ id: user.token, idCollection: 'books' })
+  const bookUserApi = new ApiBook()
+  const response = await bookUserApi.get(
+    {
+      accessToken: JSON.parse(accessToken),
+    },
+    'booklist'
   )
-  function GET_COOKIE_USER() {
+
+  if (response.statusCode === 401) {
+    return {
+      redirect: {
+        destination: '/Login',
+        permanent: false,
+      },
+    }
+  }
+  /*if (!user?.token) {
+    return {
+      redirect: {
+        destination: '/Login',
+        permanent: false,
+      },
+    }
+  }*/
+
+  /*const books = JSON.stringify(
+    await GetBooks({ id: user.token, idCollection: 'books' })
+  )*/
+
+  /*function GET_COOKIE_USER() {
     const cookies = parseCookies(ctx)
     if (cookies.user) {
       return JSON.parse(cookies.user) as User
     }
     return null
-  }
+  }*/
 
   return {
     props: {
-      books,
-      username: user.username,
+      books: JSON.stringify(response.body),
+      accessToken,
     },
   }
 }
