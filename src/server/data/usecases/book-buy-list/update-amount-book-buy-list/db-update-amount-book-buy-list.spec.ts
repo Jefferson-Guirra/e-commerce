@@ -161,4 +161,19 @@ describe('DbUpdateAmountBookBuyList', () => {
     const promise = sut.updateAmount('any_token', 'any_book_id', 1)
     await expect(promise).rejects.toThrow()
   })
+
+  test('should return null if addAmount return null', async () => {
+    const { sut, addAmountBuyBookStub } = makeSut()
+    jest
+      .spyOn(addAmountBuyBookStub, 'addAmount')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const response = await sut.updateAmount('any_token', 'any_book_id', 1)
+    expect(response).toBeFalsy()
+  })
+
+  test('should return a book on success', async () => {
+    const { sut } = makeSut()
+    const response = await sut.updateAmount('any_token', 'any_book_id', 1)
+    expect(response).toEqual(makeFakeAddBuyBook())
+  })
 })
