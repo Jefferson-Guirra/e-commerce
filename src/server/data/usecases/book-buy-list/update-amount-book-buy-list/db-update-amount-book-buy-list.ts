@@ -19,7 +19,11 @@ export class DbUpdateAmountBookBuyList implements UpdateAmountBuyBook {
     }
 
     const { id } = account
-    await this.loadBook.loadBookByQueryDoc(id, bookId)
+    const book = await this.loadBook.loadBookByQueryDoc(id, bookId)
+
+    if (!book) {
+      return null
+    }
     return {
       authors: ['any_author'],
       amount: 0,
