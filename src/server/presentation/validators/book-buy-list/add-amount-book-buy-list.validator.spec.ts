@@ -1,6 +1,6 @@
 import { MissingParamError } from '../../errors/missing-params-error'
 import { HttpRequest } from '../../protocols/http'
-import { AddAmountBookBuyListValidator } from './add-amount-book-buy-list-validator'
+import { UpdateAmountBookBuyListValidator } from './update-amount-book-buy-list-validator'
 
 const makeFakeRequest = (field: string): HttpRequest => {
   const body: any = {
@@ -14,8 +14,8 @@ const makeFakeRequest = (field: string): HttpRequest => {
   }
 }
 
-const makeSut = (): AddAmountBookBuyListValidator =>
-  new AddAmountBookBuyListValidator()
+const makeSut = (): UpdateAmountBookBuyListValidator =>
+  new UpdateAmountBookBuyListValidator()
 
 describe('AddAmountBookBuyListValidator', () => {
   test('should return MissingParamsError if accessToken not provided', () => {
