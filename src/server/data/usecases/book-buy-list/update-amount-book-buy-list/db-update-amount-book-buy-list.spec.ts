@@ -119,4 +119,13 @@ describe('DbUpdateAmountBookBuyList', () => {
     const promise = sut.updateAmount('any_token', 'any_book_id', 1)
     await expect(promise).rejects.toThrow()
   })
+
+  test('should return null if LoadBookByQueryDoc return null', async () => {
+    const { sut, loadBookByQueryDocRepositoryStub } = makeSut()
+    jest
+      .spyOn(loadBookByQueryDocRepositoryStub, 'loadBookByQueryDoc')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const response = await sut.updateAmount('any_token', 'any_book_id', 1)
+    expect(response).toBeFalsy()
+  })
 })
