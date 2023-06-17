@@ -3,6 +3,7 @@ import { accountLoginModel } from '../../../protocols/db/account/load-account-by
 import { DbUpdateAmountBookBuyList } from './db-update-amount-book-buy-list'
 import { AddBuyBookModel } from '../../../../domain/usecases/book-buy-list/add-book-buy-list'
 import { LoadBuyBookByQueryDocRepository } from '../../../protocols/db/book-buy-list/load-book-buy-list-by-query-doc-repository'
+import { AddAmountBuyBookRepository } from '../../../protocols/db/book-buy-list/add-amount-book-buy-list-repository'
 
 const makeFakeAddBuyBook = (): AddBuyBookModel => ({
   authors: ['any_author'],
@@ -55,20 +56,36 @@ const makeLoadAccountStub = (): LoadAccountByAccessTokenRepository => {
   return new LoadAccountByAccessTokenRepositoryStub()
 }
 
+const makeAddAmountBuyBookStub = (): AddAmountBuyBookRepository => {
+  class AddAmountBuyBookRepositoryStub implements AddAmountBuyBookRepository {
+    async addAmount(
+      book: AddBuyBookModel,
+      amount: number
+    ): Promise<AddBuyBookModel | null> {
+      return await Promise.resolve(makeFakeAddBuyBook())
+    }
+  }
+  return new AddAmountBuyBookRepositoryStub()
+}
+
 interface SutTypes {
+  addAmountBuyBookStub: AddAmountBuyBookRepository
   loadBookByQueryDocRepositoryStub: LoadBuyBookByQueryDocRepository
   loadAccountStub: LoadAccountByAccessTokenRepository
   sut: DbUpdateAmountBookBuyList
 }
 
 const makeSut = (): SutTypes => {
+  const addAmountBuyBookStub = makeAddAmountBuyBookStub()
   const loadBookByQueryDocRepositoryStub = makeLoadBookByQueryDocStub()
   const loadAccountStub = makeLoadAccountStub()
   const sut = new DbUpdateAmountBookBuyList(
     loadAccountStub,
-    loadBookByQueryDocRepositoryStub
+    loadBookByQueryDocRepositoryStub,
+    addAmountBuyBookStub
   )
   return {
+    addAmountBuyBookStub,
     loadBookByQueryDocRepositoryStub,
     loadAccountStub,
     sut,
@@ -127,5 +144,12 @@ describe('DbUpdateAmountBookBuyList', () => {
       .mockReturnValueOnce(Promise.resolve(null))
     const response = await sut.updateAmount('any_token', 'any_book_id', 1)
     expect(response).toBeFalsy()
+  })
+
+  test('should call addAmount witch correct values', async () => {
+    const { sut, addAmountBuyBookStub } = makeSut()
+    const addAmountSpy = jest.spyOn(addAmountBuyBookStub, 'addAmount')
+    await sut.updateAmount('any_token', 'any_book_id', 1)
+    expect(addAmountSpy).toHaveBeenCalledWith(makeFakeAddBuyBook(), 1)
   })
 })
