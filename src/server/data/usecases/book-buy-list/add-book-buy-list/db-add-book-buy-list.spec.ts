@@ -12,6 +12,7 @@ import { DbAddBookBuyList } from './db-add-book-buy-list'
 const makeFakeAddBuyBook = (): AddBuyBookModel => ({
   authors: ['any_author'],
   description: 'any_description',
+  pageCount: 1,
   title: 'any_title',
   imgUrl: 'any_url',
   bookId: 'any_book_id',

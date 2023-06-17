@@ -2,6 +2,7 @@ import { BookModel } from '../../models/book/book'
 export interface AddBuyBookModel {
   authors: string[]
   amount: number
+  pageCount: number
   date: number
   description: string
   title: string

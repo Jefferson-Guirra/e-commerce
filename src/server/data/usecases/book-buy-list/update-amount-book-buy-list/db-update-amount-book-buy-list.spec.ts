@@ -6,6 +6,7 @@ import { LoadBuyBookByQueryDocRepository } from '../../../protocols/db/book-buy-
 import { AddAmountBuyBookRepository } from '../../../protocols/db/book-buy-list/add-amount-book-buy-list-repository'
 
 const makeFakeAddBuyBook = (): AddBuyBookModel => ({
+  pageCount: 1,
   authors: ['any_author'],
   description: 'any_description',
   title: 'any_title',

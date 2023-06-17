@@ -7,6 +7,7 @@ import { GetBuyBooksRepository } from '../../../protocols/db/book-buy-list/get-b
 import { DbGetBuyBooks } from './db-get-buy-books-list'
 
 const makeFakeAddBuyBook = (): AddBuyBookModel => ({
+  pageCount: 1,
   authors: ['any_author'],
   amount: 0,
   date: 0,

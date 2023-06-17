@@ -7,6 +7,7 @@ import { DeleteBuyBookListRepository } from '../../../protocols/db/book-buy-list
 import { DbDeleteBuyBookList } from './db-delete-buy-book-list'
 
 const makeFakeAddBuyBook = (): AddBuyBookModel => ({
+  pageCount: 1,
   authors: ['any_author'],
   description: 'any_description',
   title: 'any_title',

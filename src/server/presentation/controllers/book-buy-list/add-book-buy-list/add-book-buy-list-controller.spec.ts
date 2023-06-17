@@ -15,6 +15,7 @@ import { Validation } from '../../../protocols/validate'
 import { AddBookBuyListController } from './add-book-buy-list-controller'
 
 const makeFakeAddBuyBook = (): AddBuyBookModel => ({
+  pageCount: 1,
   authors: ['any_author'],
   amount: 0,
   date: 0,

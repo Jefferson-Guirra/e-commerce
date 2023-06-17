@@ -9,6 +9,7 @@ const makeFakeAddBuyBook = () => ({
   description: 'any_description',
   title: 'any_title',
   imgUrl: 'any_url',
+  pageCount: 1,
   language: 'any_language',
   price: 0,
   amount: 1,
@@ -30,6 +31,7 @@ const makeFakeOrderBooks = (title: string, date: number) => ({
   amount: 1,
   bookId: 'any_id',
   date,
+  pageCount: 1,
   userId: 'any_user_id',
   queryDoc: 'any_user_id' + 'any_id',
   publisher: 'any_publisher',
@@ -83,6 +85,7 @@ describe('BookBuyLIstMongoRepository', () => {
     expect(book?.publisherDate).toBe('any_date')
     expect(book?.queryDoc).toBe('any_user_id' + 'any_id')
     expect(book?.amount).toBe(1)
+    expect(book?.pageCount).toBe(1)
   })
 
   test('should return a book if LoadBookByQueryDoc success ', async () => {
@@ -105,6 +108,7 @@ describe('BookBuyLIstMongoRepository', () => {
     expect(book?.publisherDate).toBe('any_date')
     expect(book?.queryDoc).toBe('any_user_id' + 'any_id')
     expect(book?.amount).toBe(1)
+    expect(book?.pageCount).toBe(1)
   })
 
   test('should return null if LoadBookByQueryDoc return null', async () => {
@@ -122,6 +126,7 @@ describe('BookBuyLIstMongoRepository', () => {
     expect(addBook?.amount).toBe(1)
     const book = await sut.updateAmount(addBook)
     expect(book?.amount).toEqual(2)
+    expect(book?.pageCount).toBe(1)
     expect(book).toBeTruthy()
     expect(book?.title).toBe('any_title')
     expect(book?.description).toBe('any_description')
@@ -157,6 +162,7 @@ describe('BookBuyLIstMongoRepository', () => {
     expect(removeBookAmount?.publisher).toBe('any_publisher')
     expect(removeBookAmount?.publisherDate).toBe('any_date')
     expect(removeBookAmount?.queryDoc).toBe('any_user_id' + 'any_id')
+    expect(removeBookAmount?.pageCount).toBe(1)
   })
 
   test('should return null if removeAmountBook return null', async () => {
@@ -204,6 +210,7 @@ describe('BookBuyLIstMongoRepository', () => {
     expect(deleteBook?.price).toBe(0)
     expect(deleteBook?.publisher).toBe('any_publisher')
     expect(deleteBook?.publisherDate).toBe('any_date')
+    expect(deleteBook?.pageCount).toBe(1)
     expect(deleteBook?.queryDoc).toBe('any_user_id' + 'any_id')
     count = await bookBuyListCollection.countDocuments()
     expect(count).toEqual(0)
@@ -218,11 +225,11 @@ describe('BookBuyLIstMongoRepository', () => {
   test('should return a book if addAmount success', async () => {
     const sut = makeSut()
     const result = await bookBuyListCollection.insertOne(makeFakeAddBuyBook())
-    let book: any = await bookBuyListCollection.findOne({
+    const findBook: any = await bookBuyListCollection.findOne({
       _id: result.insertedId,
     })
-    expect(book?.amount).toBe(1)
-    book = await sut.addAmount(book, 5)
+    expect(findBook?.amount).toBe(1)
+    const book = await sut.addAmount(findBook, 5)
     expect(book).toBeTruthy()
     expect(book?.title).toBe('any_title')
     expect(book?.description).toBe('any_description')
@@ -236,5 +243,6 @@ describe('BookBuyLIstMongoRepository', () => {
     expect(book?.publisherDate).toBe('any_date')
     expect(book?.queryDoc).toBe('any_user_id' + 'any_id')
     expect(book?.amount).toBe(6)
+    expect(book?.pageCount).toBe(1)
   })
 })
