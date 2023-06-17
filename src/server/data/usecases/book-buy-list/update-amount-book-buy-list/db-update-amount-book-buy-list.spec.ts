@@ -51,4 +51,13 @@ describe('DbUpdateAmountBookBuyList', () => {
     const promise = sut.updateAmount('any_token', 'any_book_id', 1)
     await expect(promise).rejects.toThrow()
   })
+
+  test('should return null if loadAccountByAccessToken return null', async () => {
+    const { sut, loadAccountStub } = makeSut()
+    jest
+      .spyOn(loadAccountStub, 'loadByAccessToken')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const response = await sut.updateAmount('any_token', 'any_book_id', 1)
+    expect(response).toBeFalsy()
+  })
 })
