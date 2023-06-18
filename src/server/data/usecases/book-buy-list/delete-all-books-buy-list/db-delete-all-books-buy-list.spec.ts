@@ -42,4 +42,13 @@ describe('DbDeleteAllBooksBuyList', () => {
     await sut.deleteAllBooks('any_token')
     expect(loadSpy).toHaveBeenCalledWith('any_token')
   })
+
+  test('should return LoadAccount return null', async () => {
+    const { loadAccountRepositoryStub, sut } = makeSut()
+    jest
+      .spyOn(loadAccountRepositoryStub, 'loadByAccessToken')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const response = await sut.deleteAllBooks('any_token')
+    expect(response).toEqual(null)
+  })
 })
