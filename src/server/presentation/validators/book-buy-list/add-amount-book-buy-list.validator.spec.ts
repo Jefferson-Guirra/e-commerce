@@ -1,6 +1,6 @@
 import { MissingParamError } from '../../errors/missing-params-error'
 import { HttpRequest } from '../../protocols/http'
-import { UpdateAmountBookBuyListValidator } from './update-amount-book-buy-list-validator'
+import { UpdateAmountBookBuyListValidator } from './add-amount-book-buy-list-validator'
 
 const makeFakeRequest = (field: string): HttpRequest => {
   const body: any = {
