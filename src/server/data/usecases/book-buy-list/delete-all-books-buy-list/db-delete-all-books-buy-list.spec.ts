@@ -90,4 +90,13 @@ describe('DbDeleteAllBooksBuyList', () => {
     await sut.deleteAllBooks('any_token')
     expect(deleteSpy).toHaveBeenCalledWith('any_user_id')
   })
+
+  test('should return throw if deleteAllBooks return throw', async () => {
+    const { deleteAllBuyBooksListRepositoryStub, sut } = makeSut()
+    jest
+      .spyOn(deleteAllBuyBooksListRepositoryStub, 'deleteAllBooks')
+      .mockReturnValueOnce(Promise.reject(new Error()))
+    const response = sut.deleteAllBooks('any_token')
+    await expect(response).rejects.toThrow()
+  })
 })
