@@ -34,7 +34,7 @@ export default Buy
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const cookies = parseCookies(ctx)
 
-  if (!cookies.accessToken) {
+  if (!cookies.literando_accessToken) {
     return {
       redirect: {
         destination: '/Login',
@@ -44,7 +44,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 
   const response = await apiBook.get(
-    { accessToken: JSON.parse(cookies.accessToken) },
+    { accessToken: JSON.parse(cookies.literando_accessToken) },
     'buybooklist'
   )
 
@@ -67,7 +67,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   return {
     props: {
-      accessToken: cookies.accessToken,
+      accessToken: cookies.literando_accessToken,
       books: JSON.stringify(response.body),
     },
   }

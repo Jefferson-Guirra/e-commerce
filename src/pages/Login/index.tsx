@@ -20,9 +20,9 @@ export default Login
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = (await getSession({ req: ctx.req })) as SessionUser
-  const { accessToken } = nookies.get(ctx)
+  const { literando_accessToken } = nookies.get(ctx)
 
-  if (accessToken) {
+  if (literando_accessToken) {
     return {
       redirect: {
         destination: '/',

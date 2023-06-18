@@ -35,7 +35,10 @@ export const UserForm = () => {
         )
 
         const handleLogin = () => {
-          handleCookies.insert('accessToken', response.body.accessToken)
+          handleCookies.insert(
+            'literando_accessToken',
+            response.body.accessToken
+          )
           router.push('/')
         }
         const statusCodeValidate: any = {

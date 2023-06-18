@@ -34,9 +34,9 @@ export default List
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   //const user: User | null = GET_COOKIE_USER()
-  const { accessToken } = nookies.get(ctx)
+  const { literando_accessToken } = nookies.get(ctx)
 
-  if (!accessToken) {
+  if (!literando_accessToken) {
     return {
       redirect: {
         destination: '/Login',
@@ -47,7 +47,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const bookUserApi = new ApiBook()
   const response = await bookUserApi.get(
     {
-      accessToken: JSON.parse(accessToken),
+      accessToken: JSON.parse(literando_accessToken),
     },
     'booklist'
   )
@@ -84,7 +84,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {
       books: JSON.stringify(response.body),
-      accessToken,
+      accessToken: literando_accessToken,
     },
   }
 }

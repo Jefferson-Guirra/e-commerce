@@ -35,6 +35,7 @@ export default Book
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { q } = ctx.params as Params
+  const cookies = parseCookies(ctx)
 
   if (!q) {
     return {
@@ -57,11 +58,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 
   const validateFavoriteBooks = async (): Promise<boolean> => {
-    const cookies = parseCookies(ctx)
-    if (cookies.accessToken) {
+    if (cookies.literando_accessToken) {
       const response = await apiBook.get(
         {
-          accessToken: JSON.parse(cookies.accessToken),
+          accessToken: JSON.parse(cookies.literando_accessToken),
           bookId: q,
         },
         'booklist/getbook'
@@ -73,9 +73,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 
   function GET_COOKIE_USER() {
-    const cookies = parseCookies(ctx)
-    if (cookies.accessToken) {
-      return JSON.parse(cookies.accessToken) as string
+    if (cookies.literando_accessToken) {
+      return JSON.parse(cookies.literando_accessToken) as string
     } else {
       return null
     }
