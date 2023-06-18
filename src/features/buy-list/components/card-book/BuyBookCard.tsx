@@ -1,35 +1,60 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './styles.module.css'
 import Link from 'next/link'
 import { MdRemove, MdAdd } from 'react-icons/md'
 import { IoClose } from 'react-icons/io5'
 import { IBuyBookCardProps } from './@types/IBuyBookCardProps'
+import { MouseEventHandler } from 'react'
 
 export const BuyBookCard = ({
   publisher,
   id,
   title,
-  qtd,
+  amount,
   price,
   publisherDate,
   language,
   pageCount,
   shipping,
-  idDoc,
-  handleNext,
-  handlePrev,
-  handleExclude,
+  bookId,
+  imgUrl,
+  handleDefaultRemoveAmountBuyBookListDatabase,
+  handleDefaultAddAmountBuyBookListDatabase,
+  handleExcludeBuyBookDatabase,
 }: IBuyBookCardProps) => {
+  const [loading, setLoading] = useState(false)
+
+  const excludeBuyBook = async (bookId: string) => {
+    try {
+      setLoading(true)
+      const deleteBook = await handleExcludeBuyBookDatabase(bookId)
+    } finally {
+      setLoading(false)
+    }
+  }
+  const handleDefaultAddAmountBook = async (bookId: string) => {
+    try {
+      setLoading(true)
+      await handleDefaultAddAmountBuyBookListDatabase(bookId)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleDefaultRemoveAmountBook = async (bookId: string) => {
+    try {
+      setLoading(true)
+      await handleDefaultRemoveAmountBuyBookListDatabase(bookId)
+    } finally {
+      setLoading(false)
+    }
+  }
   return (
     <article className={styles.cardContent}>
       <h2>{publisher}</h2>
       <article className={styles.infoBook}>
         <Link href={`/Book/${id}`} className={styles.img}>
-          <img
-            src={`https://books.google.com/books/publisher/content/images/frontcover/${id}?fife=w340-h600&source=gbs_api`}
-            height="150px"
-            alt={`Imagem do livro ${title}`}
-          />
+          <img src={imgUrl} height="150px" alt={`Imagem do livro ${title}`} />
         </Link>
         <div className={styles.dataBook}>
           <div className={styles.header}>
@@ -37,23 +62,26 @@ export const BuyBookCard = ({
               <p>{title}</p>
             </div>
             <div className={styles.actions}>
-              <button className={styles.qtd}>
+              <button disabled={loading} className={styles.amount}>
                 <MdRemove
-                  onClick={() => handlePrev(idDoc)}
+                  onClick={() => handleDefaultRemoveAmountBook(bookId)}
                   size={20}
                   color="#363636"
                 />
-                <p>{qtd}</p>
+                <p>{amount}</p>
                 <MdAdd
-                  onClick={() => handleNext(idDoc)}
+                  onClick={() => handleDefaultAddAmountBook(bookId)}
                   size={20}
                   color="#363636"
                 />
               </button>
-              <p>R$: {(price * qtd).toFixed(2).toString().replace('.', ',')}</p>
+              <p>
+                R$: {(price * amount).toFixed(2).toString().replace('.', ',')}
+              </p>
               <button
+                disabled={loading}
                 className={styles.btnExclude}
-                onClick={() => handleExclude(idDoc)}
+                onClick={() => excludeBuyBook(bookId)}
               >
                 <IoClose size={20} color="#363636" />
               </button>

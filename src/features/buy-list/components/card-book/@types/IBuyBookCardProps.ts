@@ -1,15 +1,20 @@
+import { HttpResponse } from '../../../../../server/presentation/protocols/http'
+
 export interface IBuyBookCardProps {
   publisher: string
   id: string
   title: string
-  qtd: number
+  imgUrl: string
+  amount: number
   price: number
-  idDoc: string
+  bookId: string
   pageCount: number
   publisherDate: string
   shipping: number
   language: string
-  handleNext: (idDoc: string) => void
-  handlePrev: (idDoc: string) => void
-  handleExclude: (idDoc: string) => void
+  handleExcludeBuyBookDatabase: (bookId: string) => Promise<HttpResponse>
+  handleDefaultAddAmountBuyBookListDatabase: (bookId: string) => Promise<void>
+  handleDefaultRemoveAmountBuyBookListDatabase: (
+    bookId: string
+  ) => Promise<void>
 }

@@ -1,4 +1,6 @@
-import { DataBook } from '../../../services/db/usecases/FirebaseFunctions'
+import { AddBuyBookModel } from '../../../server/domain/usecases/book-buy-list/add-book-buy-list'
+
 export interface IBuyBooksProps {
-  books: DataBook[]
+  books: AddBuyBookModel[]
+  accessToken: string
 }
