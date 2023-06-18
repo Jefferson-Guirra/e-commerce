@@ -245,4 +245,17 @@ describe('BookBuyLIstMongoRepository', () => {
     expect(book?.amount).toBe(6)
     expect(book?.pageCount).toBe(1)
   })
+
+  test('remove all books if DeleteAllBooks success', async () => {
+    const sut = makeSut()
+    await bookBuyListCollection.insertMany([
+      makeFakeAddBuyBook(),
+      makeFakeAddBuyBook(),
+    ])
+    let count = await bookBuyListCollection.countDocuments()
+    expect(count).toEqual(2)
+    await sut.deleteAllBooks('any_user_id')
+    count = await bookBuyListCollection.countDocuments()
+    expect(count).toEqual(0)
+  })
 })
