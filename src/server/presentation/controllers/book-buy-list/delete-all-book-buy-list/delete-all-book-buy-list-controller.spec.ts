@@ -1,6 +1,8 @@
 import { HttpRequest } from '../../../protocols/http'
 import { Validation } from '../../../protocols/validate'
 import { DeleteAllBuyBooKListController } from './delete-all-book-buy-list-controller'
+import { badRequest } from '../../../helpers/http'
+import { MissingParamError } from '../../../errors/missing-params-error'
 
 const makeFakeRequest = (): HttpRequest => ({
   body: {
@@ -37,5 +39,14 @@ describe('DeleteAllBuyBooKListController', () => {
     const validationSpy = jest.spyOn(validatorStub, 'validation')
     await sut.handle(makeFakeRequest())
     expect(validationSpy).toHaveBeenCalledWith(makeFakeRequest())
+  })
+
+  test('should return 400 if validation return a error', async () => {
+    const { sut, validatorStub } = makeSut()
+    jest
+      .spyOn(validatorStub, 'validation')
+      .mockReturnValueOnce(new MissingParamError('any_field'))
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(badRequest(new MissingParamError('any_field')))
   })
 })
