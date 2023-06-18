@@ -1,7 +1,7 @@
 import { HttpRequest } from '../../../protocols/http'
 import { Validation } from '../../../protocols/validate'
 import { DeleteAllBuyBooKListController } from './delete-all-book-buy-list-controller'
-import { badRequest } from '../../../helpers/http'
+import { badRequest, unauthorized } from '../../../helpers/http'
 import { MissingParamError } from '../../../errors/missing-params-error'
 import { DeleteAllBuyBookList } from '../../../../domain/usecases/book-buy-list/delete-all-book-buy-list'
 
@@ -71,5 +71,14 @@ describe('DeleteAllBuyBooKListController', () => {
     const deleteSpy = jest.spyOn(deleteAllBuyBooksStub, 'deleteAllBooks')
     await sut.handle(makeFakeRequest())
     expect(deleteSpy).toHaveBeenCalledWith('any_token')
+  })
+
+  test('should return 401 if  deleteAllBooks return null', async () => {
+    const { sut, deleteAllBuyBooksStub } = makeSut()
+    jest
+      .spyOn(deleteAllBuyBooksStub, 'deleteAllBooks')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(unauthorized())
   })
 })
