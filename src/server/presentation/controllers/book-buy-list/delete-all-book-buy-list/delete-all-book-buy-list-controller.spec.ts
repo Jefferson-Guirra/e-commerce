@@ -1,7 +1,12 @@
 import { HttpRequest } from '../../../protocols/http'
 import { Validation } from '../../../protocols/validate'
 import { DeleteAllBuyBooKListController } from './delete-all-book-buy-list-controller'
-import { badRequest, serverError, unauthorized } from '../../../helpers/http'
+import {
+  badRequest,
+  ok,
+  serverError,
+  unauthorized,
+} from '../../../helpers/http'
 import { MissingParamError } from '../../../errors/missing-params-error'
 import { DeleteAllBuyBookList } from '../../../../domain/usecases/book-buy-list/delete-all-book-buy-list'
 
@@ -89,5 +94,11 @@ describe('DeleteAllBuyBooKListController', () => {
       .mockReturnValueOnce(Promise.reject(new Error()))
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(serverError())
+  })
+
+  test('should return 200 on succeeds', async () => {
+    const { sut } = makeSut()
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(ok('success'))
   })
 })
