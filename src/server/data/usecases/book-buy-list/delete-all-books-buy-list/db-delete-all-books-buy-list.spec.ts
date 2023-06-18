@@ -1,5 +1,6 @@
 import { LoadAccountByAccessTokenRepository } from '../../../protocols/db/account/load-account-by-access-token-repository'
 import { accountLoginModel } from '../../../protocols/db/account/load-account-by-access-token-repository'
+import { DeleteAllBuyBooksListRepository } from '../../../protocols/db/book-buy-list/delete-all-books-buy-list-repository'
 import { DbDeleteAllBooksBuyList } from './db-delete-all-books-buy-list'
 
 const makeLoadAccountRepositoryStub =
@@ -22,21 +23,40 @@ const makeLoadAccountRepositoryStub =
     return new LoadAccountRepositoryStub()
   }
 
+const makeDeleteAllBuyBooksListRepositoryStub =
+  (): DeleteAllBuyBooksListRepository => {
+    class DeleteAllBuyBooksListRepositoryStub
+      implements DeleteAllBuyBooksListRepository
+    {
+      async deleteAllBooks(userId: string): Promise<void> {
+        await Promise.resolve()
+      }
+    }
+    return new DeleteAllBuyBooksListRepositoryStub()
+  }
+
 interface SutTypes {
+  deleteAllBuyBooksListRepositoryStub: DeleteAllBuyBooksListRepository
   loadAccountRepositoryStub: LoadAccountByAccessTokenRepository
   sut: DbDeleteAllBooksBuyList
 }
 const makeSut = (): SutTypes => {
+  const deleteAllBuyBooksListRepositoryStub =
+    makeDeleteAllBuyBooksListRepositoryStub()
   const loadAccountRepositoryStub = makeLoadAccountRepositoryStub()
-  const sut = new DbDeleteAllBooksBuyList(loadAccountRepositoryStub)
+  const sut = new DbDeleteAllBooksBuyList(
+    loadAccountRepositoryStub,
+    deleteAllBuyBooksListRepositoryStub
+  )
   return {
+    deleteAllBuyBooksListRepositoryStub,
     loadAccountRepositoryStub,
     sut,
   }
 }
 
 describe('DbDeleteAllBooksBuyList', () => {
-  test('should DbDeleteAllBooksBuyList call LoadAccount with correct value', async () => {
+  test('should call LoadAccount with correct value', async () => {
     const { loadAccountRepositoryStub, sut } = makeSut()
     const loadSpy = jest.spyOn(loadAccountRepositoryStub, 'loadByAccessToken')
     await sut.deleteAllBooks('any_token')
@@ -59,5 +79,15 @@ describe('DbDeleteAllBooksBuyList', () => {
       .mockReturnValueOnce(Promise.reject(new Error()))
     const response = sut.deleteAllBooks('any_token')
     await expect(response).rejects.toThrow()
+  })
+
+  test('should call deleteAllBooks with correct value', async () => {
+    const { deleteAllBuyBooksListRepositoryStub, sut } = makeSut()
+    const deleteSpy = jest.spyOn(
+      deleteAllBuyBooksListRepositoryStub,
+      'deleteAllBooks'
+    )
+    await sut.deleteAllBooks('any_token')
+    expect(deleteSpy).toHaveBeenCalledWith('any_user_id')
   })
 })
