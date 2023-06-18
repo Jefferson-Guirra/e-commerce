@@ -7,6 +7,9 @@ export class DbDeleteAllBooksBuyList implements DeleteAllBuyBookList {
   ) {}
 
   async deleteAllBooks(accessToken: string): Promise<void | null> {
-    await this.loadAccount.loadByAccessToken(accessToken)
+    const account = await this.loadAccount.loadByAccessToken(accessToken)
+    if (!account) {
+      return null
+    }
   }
 }
