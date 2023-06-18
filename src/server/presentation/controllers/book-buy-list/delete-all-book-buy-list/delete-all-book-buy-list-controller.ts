@@ -1,5 +1,5 @@
 import { DeleteAllBuyBookList } from '../../../../domain/usecases/book-buy-list/delete-all-book-buy-list'
-import { badRequest, ok } from '../../../helpers/http'
+import { badRequest, ok, unauthorized } from '../../../helpers/http'
 import { Controller } from '../../../protocols/controller'
 import { HttpRequest, HttpResponse } from '../../../protocols/http'
 import { Validation } from '../../../protocols/validate'
@@ -15,7 +15,10 @@ export class DeleteAllBuyBooKListController implements Controller {
       return badRequest(error)
     }
     const { accessToken } = httpRequest.body
-    await this.deleteAllBuyBooks.deleteAllBooks(accessToken)
+    const validate = await this.deleteAllBuyBooks.deleteAllBooks(accessToken)
+    if (validate === null) {
+      return unauthorized()
+    }
     return ok('success')
   }
 }
