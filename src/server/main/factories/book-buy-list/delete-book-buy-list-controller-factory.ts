@@ -1,4 +1,4 @@
-import { DbDeleteBuyBookList } from '../../../data/usecases/book-buy-list/delete-buy-book-list/db-delete-buy-book-list'
+import { DbDeleteBuyBookList } from '../../../data/usecases/book-buy-list/delete-book-buy-list/db-delete-buy-book-list'
 import { AccountMongoRepository } from '../../../infra/db/account/account-mongo-repository'
 import { BuyBooksListMongoRepository } from '../../../infra/db/book-buy-list/book-buy-list-mongo-repository'
 import { DeleteBuyBookListController } from '../../../presentation/controllers/book-buy-list/delete-book-buy-list/delete-book-buy-list-controller'
