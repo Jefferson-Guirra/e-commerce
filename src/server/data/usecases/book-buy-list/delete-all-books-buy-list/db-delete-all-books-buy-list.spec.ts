@@ -99,4 +99,10 @@ describe('DbDeleteAllBooksBuyList', () => {
     const response = sut.deleteAllBooks('any_token')
     await expect(response).rejects.toThrow()
   })
+
+  test('should return undefined on a succeeds', async () => {
+    const { sut } = makeSut()
+    const response = await sut.deleteAllBooks('any_token')
+    expect(response).toEqual(undefined)
+  })
 })
