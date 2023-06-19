@@ -2,6 +2,7 @@ import styles from './styles.module.css'
 import Link from 'next/link'
 import { IBuyBookCardProps } from './@types/IBuyBookCardProps'
 import { DataBook } from '../data-book/DataBook'
+import Image from 'next/image'
 
 export const BuyBookCard = ({
   publisher,
@@ -23,7 +24,15 @@ export const BuyBookCard = ({
       <h2>{publisher}</h2>
       <article className={styles.infoBook}>
         <Link href={`/Book/${id}`} className={styles.img}>
-          <img src={imgUrl} height="150px" alt={`Imagem do livro ${title}`} />
+          <Image
+            quality={100}
+            src={imgUrl}
+            height={0}
+            priority
+            style={{ width: '100%', height: 'auto' }}
+            width={100}
+            alt={`Imagem do livro ${title}`}
+          />
         </Link>
         <DataBook
           amount={amount}
