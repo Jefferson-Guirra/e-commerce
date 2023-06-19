@@ -18,12 +18,14 @@ export const BuyBookCard = ({
   imgUrl,
   handleUpdateAmountBookBuyList,
   handleExcludeBuyBookDatabase,
+  loading,
+  setLoading,
 }: IBuyBookCardProps) => {
   return (
     <article className={styles.cardContent}>
       <h2>{publisher}</h2>
       <article className={styles.infoBook}>
-        <Link href={`/Book/${id}`} className={styles.img}>
+        <Link href={`/Book/${bookId}`} className={styles.img}>
           <Image
             quality={100}
             src={imgUrl}
@@ -35,6 +37,8 @@ export const BuyBookCard = ({
           />
         </Link>
         <DataBook
+          loading={loading}
+          setLoading={setLoading}
           amount={amount}
           bookId={bookId}
           language={language}

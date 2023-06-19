@@ -7,6 +7,8 @@ import { IBuyBooksProps } from '../@types/IBuyBooksProps'
 import { BuyBookCard } from '../components'
 import { ApiBook } from '../../../utils/book-api'
 import { HttpResponse } from '../../../server/presentation/protocols/http'
+import { BiUndo } from 'react-icons/bi'
+import { AddBuyBookModel } from '../../../server/domain/usecases/book-buy-list/add-book-buy-list'
 
 //Sandbox-id:AbJhKpgKw6gr0oH9PRqCr35jMcfKfaKYtRF_LGoDeOeiQhrsBsEsL_N_fXggNgGFnCFtyS55WsZJB4tI
 
@@ -14,8 +16,9 @@ const apiBook = new ApiBook()
 export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
   const [bookList, setBookList] = useState(books)
   const [purchase, setPurchase] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [reset, setReset] = useState<AddBuyBookModel | null>(null)
   const router = useRouter()
-  const { updatedBuyList, clearPurchaseList } = useUserContext()
   const price = bookList.reduce((acc, v) => acc + v.price * v.amount, 0)
 
   const handleExcludeBuyBookDatabase = async (
@@ -27,6 +30,7 @@ export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
       'buybooklist/delete'
     )
     setBookList(newBooks)
+    setReset(deleteBook.body)
     return deleteBook
   }
 
@@ -55,12 +59,32 @@ export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
     setBookList([])
   }
 
+  const resetBook = async () => {
+    setReset(null)
+    const newBooks = [...bookList]
+    newBooks.push(reset as AddBuyBookModel)
+    setBookList(newBooks)
+    await apiBook.post({ accessToken, ...reset }, 'buybooklist/add')
+  }
+
   return (
     <>
       <section className={styles.content}>
-        <h1>Meu Carrinho</h1>
+        <article className={styles.title}>
+          <h1>Meu Carrinho</h1>
+          <button
+            className={
+              reset ? `${styles.reset} ${styles.active}` : styles.reset
+            }
+            onClick={resetBook}
+          >
+            <BiUndo size={30} />
+          </button>
+        </article>
         {bookList.map((book) => (
           <BuyBookCard
+            loading={loading}
+            setLoading={setLoading}
             handleUpdateAmountBookBuyList={handleUpdateAmountBookBuyList}
             handleExcludeBuyBookDatabase={handleExcludeBuyBookDatabase}
             id={book.id}

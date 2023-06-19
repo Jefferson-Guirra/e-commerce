@@ -15,8 +15,9 @@ export const DataBook = ({
   pageCount,
   handleUpdateAmountBookBuyList,
   handleExcludeBuyBookDatabase,
+  loading,
+  setLoading,
 }: IDataProps) => {
-  const [loading, setLoading] = useState(false)
   const [amountBook, setAmountBook] = useState(amount)
 
   const handleUpdateAmountBook = async (bookId: string, value: number) => {
@@ -39,7 +40,7 @@ export const DataBook = ({
   const handleExcludeBuyBook = async (bookId: string) => {
     try {
       setLoading(true)
-      const deleteBook = await handleExcludeBuyBookDatabase(bookId)
+      await handleExcludeBuyBookDatabase(bookId)
     } finally {
       setLoading(false)
     }

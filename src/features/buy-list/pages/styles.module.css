@@ -4,6 +4,28 @@
   gap: 2rem;
 }
 
+.content .title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content .title .reset {
+  display: flex;
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.5s;
+}
+
+.content .title .reset.active {
+  opacity: initial;
+  cursor: pointer;
+  pointer-events: initial;
+}
+
 .price {
   border-radius: 7px;
   margin-block: 2rem;
