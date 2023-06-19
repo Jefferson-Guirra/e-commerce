@@ -106,7 +106,7 @@ export class BuyBooksListMongoRepository
       { queryDoc: book.queryDoc },
       {
         $set: {
-          amount: book.amount + amount,
+          amount,
         },
       }
     )

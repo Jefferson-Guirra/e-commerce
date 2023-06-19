@@ -242,7 +242,7 @@ describe('BookBuyLIstMongoRepository', () => {
     expect(book?.publisher).toBe('any_publisher')
     expect(book?.publisherDate).toBe('any_date')
     expect(book?.queryDoc).toBe('any_user_id' + 'any_id')
-    expect(book?.amount).toBe(6)
+    expect(book?.amount).toBe(5)
     expect(book?.pageCount).toBe(1)
   })
 
