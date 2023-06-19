@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import styles from './styles.module.css'
 import Link from 'next/link'
 import { MdRemove, MdAdd } from 'react-icons/md'
 import { IoClose } from 'react-icons/io5'
 import { IBuyBookCardProps } from './@types/IBuyBookCardProps'
-import { MouseEventHandler } from 'react'
 
 export const BuyBookCard = ({
   publisher,
@@ -18,13 +17,13 @@ export const BuyBookCard = ({
   shipping,
   bookId,
   imgUrl,
-  handleDefaultRemoveAmountBuyBookListDatabase,
-  handleDefaultAddAmountBuyBookListDatabase,
+  handleUpdateAmountBookBuyList,
   handleExcludeBuyBookDatabase,
 }: IBuyBookCardProps) => {
   const [loading, setLoading] = useState(false)
+  const [amountBook, setAmountBook] = useState(amount)
 
-  const excludeBuyBook = async (bookId: string) => {
+  const handleExcludeBuyBook = async (bookId: string) => {
     try {
       setLoading(true)
       const deleteBook = await handleExcludeBuyBookDatabase(bookId)
@@ -32,23 +31,28 @@ export const BuyBookCard = ({
       setLoading(false)
     }
   }
-  const handleDefaultAddAmountBook = async (bookId: string) => {
-    try {
-      setLoading(true)
-      await handleDefaultAddAmountBuyBookListDatabase(bookId)
-    } finally {
-      setLoading(false)
+
+  const handleUpdateAmountBook = async (bookId: string, value: number) => {
+    const validate = value > 0 && value !== amount
+    if (validate) {
+      try {
+        setLoading(true)
+        await handleUpdateAmountBookBuyList(bookId, value)
+      } finally {
+        setLoading(false)
+      }
     }
   }
 
-  const handleDefaultRemoveAmountBook = async (bookId: string) => {
-    try {
-      setLoading(true)
-      await handleDefaultRemoveAmountBuyBookListDatabase(bookId)
-    } finally {
-      setLoading(false)
-    }
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    await handleUpdateAmountBook(bookId, amountBook)
   }
+
+  useEffect(() => {
+    setAmountBook(amount)
+  }, [amount])
+
   return (
     <article className={styles.cardContent}>
       <h2>{publisher}</h2>
@@ -62,26 +66,45 @@ export const BuyBookCard = ({
               <p>{title}</p>
             </div>
             <div className={styles.actions}>
-              <button disabled={loading} className={styles.amount}>
-                <MdRemove
-                  onClick={() => handleDefaultRemoveAmountBook(bookId)}
-                  size={20}
-                  color="#363636"
+              <form
+                onSubmit={(e) => handleSubmit(e)}
+                onBlur={() => handleUpdateAmountBook(bookId, amountBook)}
+                className={styles['amount-form']}
+              >
+                <button disabled={loading}>
+                  <MdRemove
+                    onClick={() =>
+                      handleUpdateAmountBook(bookId, (amountBook - 1) as number)
+                    }
+                    size={20}
+                    color="#363636"
+                  />
+                </button>
+                <input
+                  type="number"
+                  min="1"
+                  value={amountBook}
+                  onChange={({ target }: React.ChangeEvent<HTMLInputElement>) =>
+                    setAmountBook(Number(target.value))
+                  }
                 />
-                <p>{amount}</p>
-                <MdAdd
-                  onClick={() => handleDefaultAddAmountBook(bookId)}
-                  size={20}
-                  color="#363636"
-                />
-              </button>
+                <button disabled={loading}>
+                  <MdAdd
+                    onClick={() =>
+                      handleUpdateAmountBook(bookId, (amountBook + 1) as number)
+                    }
+                    size={20}
+                    color="#363636"
+                  />
+                </button>
+              </form>
               <p>
                 R$: {(price * amount).toFixed(2).toString().replace('.', ',')}
               </p>
               <button
                 disabled={loading}
                 className={styles.btnExclude}
-                onClick={() => excludeBuyBook(bookId)}
+                onClick={() => handleExcludeBuyBook(bookId)}
               >
                 <IoClose size={20} color="#363636" />
               </button>

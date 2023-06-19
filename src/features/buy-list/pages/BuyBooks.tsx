@@ -1,8 +1,5 @@
 import styles from './styles.module.css'
-import { useEffect, useState } from 'react'
-import { RemoveBook } from '../../../services/db/usecases/remove-book'
-import { doc, updateDoc } from 'firebase/firestore'
-import { db } from '../../../services/db/helpers/firebaseConnection'
+import { useState } from 'react'
 import PaypalAction from '../../../components/PaypalAction'
 import { useRouter } from 'next/router'
 import { useUserContext } from '../../../context/user/UserContext'
@@ -33,27 +30,17 @@ export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
     return deleteBook
   }
 
-  const handleDefaultAddAmountBuyBookListDatabase = async (bookId: string) => {
-    await apiBook.put(
-      { accessToken, bookId, amount: 1 },
-      'buybooklist/update-amount'
-    )
-    const updatedBooks = [...bookList]
-    const index = updatedBooks.findIndex((book) => book.bookId === bookId)
-    updatedBooks[index].amount = updatedBooks[index].amount + 1
-    setBookList(updatedBooks)
-  }
-
-  const handleDefaultRemoveAmountBuyBookListDatabase = async (
-    bookId: string
+  const handleUpdateAmountBookBuyList = async (
+    bookId: string,
+    value: number
   ) => {
     await apiBook.put(
-      { accessToken, bookId, amount: -1 },
+      { accessToken, bookId, amount: value },
       'buybooklist/update-amount'
     )
     const updatedBooks = [...bookList]
     const index = updatedBooks.findIndex((book) => book.bookId === bookId)
-    updatedBooks[index].amount = updatedBooks[index].amount - 1
+    updatedBooks[index].amount = value
     setBookList(updatedBooks)
   }
 
@@ -74,12 +61,7 @@ export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
         <h1>Meu Carrinho</h1>
         {bookList.map((book) => (
           <BuyBookCard
-            handleDefaultRemoveAmountBuyBookListDatabase={
-              handleDefaultRemoveAmountBuyBookListDatabase
-            }
-            handleDefaultAddAmountBuyBookListDatabase={
-              handleDefaultAddAmountBuyBookListDatabase
-            }
+            handleUpdateAmountBookBuyList={handleUpdateAmountBookBuyList}
             handleExcludeBuyBookDatabase={handleExcludeBuyBookDatabase}
             id={book.id}
             bookId={book.bookId}
