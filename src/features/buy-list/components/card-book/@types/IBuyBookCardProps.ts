@@ -1,5 +1,4 @@
 import { HttpResponse } from '../../../../../server/presentation/protocols/http'
-import { Dispatch, SetStateAction } from 'react'
 export interface IBuyBookCardProps {
   publisher: string
   id: string
@@ -17,6 +16,4 @@ export interface IBuyBookCardProps {
     value: number
   ) => Promise<void>
   handleExcludeBuyBookDatabase: (bookId: string) => Promise<HttpResponse>
-  setLoading: Dispatch<SetStateAction<boolean>>
-  loading: boolean
 }

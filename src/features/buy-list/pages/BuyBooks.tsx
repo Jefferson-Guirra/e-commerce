@@ -1,5 +1,5 @@
 import styles from './styles.module.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import PaypalAction from '../../../components/PaypalAction'
 import { useRouter } from 'next/router'
 import { useUserContext } from '../../../context/user/UserContext'
@@ -16,7 +16,6 @@ const apiBook = new ApiBook()
 export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
   const [bookList, setBookList] = useState(books)
   const [purchase, setPurchase] = useState(false)
-  const [loading, setLoading] = useState(false)
   const [reset, setReset] = useState<AddBuyBookModel | null>(null)
   const router = useRouter()
   const price = bookList.reduce((acc, v) => acc + v.price * v.amount, 0)
@@ -83,8 +82,6 @@ export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
         </article>
         {bookList.map((book) => (
           <BuyBookCard
-            loading={loading}
-            setLoading={setLoading}
             handleUpdateAmountBookBuyList={handleUpdateAmountBookBuyList}
             handleExcludeBuyBookDatabase={handleExcludeBuyBookDatabase}
             id={book.id}

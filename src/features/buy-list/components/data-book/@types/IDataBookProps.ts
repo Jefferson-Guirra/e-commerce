@@ -1,5 +1,4 @@
 import { HttpResponse } from '../../../../../server/presentation/protocols/http'
-import { Dispatch, SetStateAction } from 'react'
 export interface IDataProps {
   title: string
   bookId: string
@@ -13,6 +12,4 @@ export interface IDataProps {
     bookId: string,
     value: number
   ) => Promise<void>
-  setLoading: Dispatch<SetStateAction<boolean>>
-  loading: boolean
 }

@@ -2,8 +2,8 @@ import styles from './styles.module.css'
 import { useState, useEffect } from 'react'
 import { MdAdd, MdRemove } from 'react-icons/md'
 import { IoClose } from 'react-icons/io5'
-import { HttpResponse } from '../../../../server/presentation/protocols/http'
 import { IDataProps } from './@types/IDataBookProps'
+import { useBuyBooksContext } from '../../../../context/books-buy-list/BooksBuyListContext'
 
 export const DataBook = ({
   title,
@@ -15,19 +15,18 @@ export const DataBook = ({
   pageCount,
   handleUpdateAmountBookBuyList,
   handleExcludeBuyBookDatabase,
-  loading,
-  setLoading,
 }: IDataProps) => {
   const [amountBook, setAmountBook] = useState(amount)
+  const { loading, handleLoading } = useBuyBooksContext()
 
   const handleUpdateAmountBook = async (bookId: string, value: number) => {
     const validate = value > 0 && value !== amount
     if (validate) {
       try {
-        setLoading(true)
+        handleLoading(true)
         await handleUpdateAmountBookBuyList(bookId, value)
       } finally {
-        setLoading(false)
+        handleLoading(false)
       }
     }
   }
@@ -39,10 +38,10 @@ export const DataBook = ({
 
   const handleExcludeBuyBook = async (bookId: string) => {
     try {
-      setLoading(true)
+      handleLoading(true)
       await handleExcludeBuyBookDatabase(bookId)
     } finally {
-      setLoading(false)
+      handleLoading(false)
     }
   }
 
