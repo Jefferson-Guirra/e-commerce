@@ -42,7 +42,11 @@ export const Buy = ({ book, handleAddBuyBookDatabase }: IBuyProps) => {
         <div className={styles.img}>
           <Image
             src={`https://books.google.com/books/publisher/content/images/frontcover/${book.id}?fife=w340-h200&source=gbs_api`}
-            fill
+            width={400}
+            quality={100}
+            priority
+            height={0}
+            style={{ width: '100%', height: 'auto', maxHeight: '200px' }}
             alt={`Imagem do livro ${book.title}`}
           />
         </div>

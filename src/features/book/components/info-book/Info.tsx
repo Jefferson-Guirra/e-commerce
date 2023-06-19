@@ -46,7 +46,9 @@ export const Info = ({
     <div className={styles.infoBook}>
       <div className={styles.img}>
         <Image
-          fill
+          width={400}
+          height={0}
+          style={{ width: '100%', height: '100%' }}
           priority
           quality={100}
           src={`https://books.google.com/books/publisher/content/images/frontcover/${id}?fife=w340-h400&source=gbs_api`}
