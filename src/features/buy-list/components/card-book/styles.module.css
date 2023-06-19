@@ -62,7 +62,6 @@
 
 .cardContent .infoBook .dataBook .header .actions {
   display: flex;
-
   flex: 1;
   align-items: flex-end;
   justify-content: flex-end;
@@ -71,36 +70,33 @@
   height: 1rem;
 }
 
-.cardContent .infoBook .dataBook .header .actions .qtd {
+.cardContent .infoBook .dataBook .header .actions .amount-form {
   display: flex;
-  align-items: center;
-  border: 1px solid #d9d9d9;
-  overflow: hidden;
-  justify-content: space-between;
-  background-color: #fff;
-  border-radius: 12px;
-  cursor: inherit;
-  transition: 1s;
 }
 
-.cardContent .infoBook .dataBook .header .actions .qtd:hover {
-  color: var(--four-color);
+.cardContent .infoBook .dataBook .header .actions .amount-form input {
+  width: 30px;
+  text-align: center;
+  border: 1px solid transparent;
+  background-color: transparent;
 }
 
-.cardContent .infoBook .dataBook .header .actions .qtd p {
-  padding-inline: 0.5rem;
-}
-.cardContent .infoBook .dataBook .header .actions .qtd svg {
-  cursor: pointer;
-  background-color: #f4f4f4;
+.cardContent
+  .infoBook
+  .dataBook
+  .header
+  .actions
+  .amount-form
+  input
+  ::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }
 
-.cardContent .infoBook .dataBook .header .actions .btnExclude:hover {
-  background-color: #f31;
+.cardContent .infoBook .dataBook .header .actions .amount-form input:focus {
+  outline: none;
+  border: 1px solid #ffa500;
 }
-.cardContent .infoBook .dataBook .header .actions .btnExclude:hover svg {
-  fill: #fff;
-}
+
 .cardContent .infoBook .dataBook .header .actions .btnExclude {
   border-radius: 50%;
   width: 30px;
@@ -113,6 +109,12 @@
   top: 6px;
 }
 
+.cardContent .infoBook .dataBook .header .actions .btnExclude:hover {
+  background-color: #f31;
+}
+.cardContent .infoBook .dataBook .header .actions .btnExclude:hover svg {
+  fill: #fff;
+}
 .cardContent .infoBook .dataBook .header .actions .btnExclude svg {
   transition: 0.5s;
 }
@@ -158,18 +160,14 @@
     width: 100%;
     justify-content: center;
   }
-
-  .cardContent .infoBook .dataBook .header .actions a {
-    padding: 0;
-  }
 }
 
 @media (max-width: 480px) {
   .cardContent .infoBook .dataBook,
   .header,
   .actions {
-    gap: 0rem !important;
-    justify-content: space-between !important;
+    gap: 0rem;
+    justify-content: space-between;
   }
 }
 
