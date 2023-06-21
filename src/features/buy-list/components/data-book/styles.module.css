@@ -104,14 +104,13 @@
     flex-wrap: wrap;
   }
 
-  .dataBook .header .actions  p{
+  .dataBook .header .actions p {
     text-align: center;
     order: 0;
     width: 100%;
   }
   .dataBook .header .actions .amount-form {
-    order:1;
-
+    order: 1;
   }
   .dataBook .header .actions .btnExclude {
     order: 2;

@@ -17,16 +17,16 @@
   align-items: center;
 }
 
-.content .title .actions-exclude .exclude-group-button{
+.content .title .actions-exclude .exclude-group-button {
   background-color: transparent;
   padding: 0.5rem 1rem;
   opacity: 0;
   pointer-events: none;
   position: relative;
-  animation: .7s show-item forwards;
+  animation: 0.7s show-item forwards;
 }
 
-.content .title  .actions-exclude .exclude-group-button.active {
+.content .title .actions-exclude .exclude-group-button.active {
   opacity: initial;
   pointer-events: initial;
 }
@@ -42,29 +42,26 @@
   to {
     transform: initial;
   }
-  
 }
 .content .title .actions-exclude .exclude-group-button span {
   display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
-  top:  0;
-  right: calc( 1rem - 5px);
+  top: 0;
+  right: calc(1rem - 5px);
   width: 15px;
   height: 15px;
   border-radius: 50%;
   background-color: var(--second-color);
   font-size: 0.7rem;
   color: #fff;
-  transition: all .5s;
+  transition: all 0.5s;
 }
 
 .content .title .actions-exclude .exclude-group-button:hover span {
   background-color: #f31;
 }
-
-
 
 .content .title .actions-exclude .reset {
   display: flex;
@@ -74,10 +71,8 @@
   opacity: 0;
   pointer-events: none;
   transition: all 0.5s;
-  animation: .7s show-item forwards;
-
+  animation: 0.7s show-item forwards;
 }
-
 
 .price {
   border-radius: 7px;
@@ -137,7 +132,6 @@
     order: 0;
   }
 }
-
 
 @keyframes show-item {
   to {
