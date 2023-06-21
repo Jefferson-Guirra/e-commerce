@@ -24,9 +24,8 @@
 .dataBook .header .actions {
   display: flex;
   flex: 1;
-  align-items: flex-end;
-  justify-content: flex-end;
-  gap: 20%;
+  align-items: center;
+  justify-content: space-between;
   position: relative;
   height: 1rem;
 }
@@ -59,8 +58,6 @@
   align-items: center;
   justify-content: center;
   transition: 1s;
-  position: relative;
-  top: 6px;
 }
 
 .dataBook .header .actions .btnExclude:hover {
@@ -104,7 +101,20 @@
     order: 0;
     margin-bottom: 1rem;
     width: 100%;
-    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .dataBook .header .actions  p{
+    text-align: center;
+    order: 0;
+    width: 100%;
+  }
+  .dataBook .header .actions .amount-form {
+    order:1;
+
+  }
+  .dataBook .header .actions .btnExclude {
+    order: 2;
   }
 }
 
