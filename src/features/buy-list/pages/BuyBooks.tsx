@@ -1,17 +1,24 @@
 import styles from './styles.module.css'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import PaypalAction from '../../../components/PaypalAction'
 import { useRouter } from 'next/router'
-import { useUserContext } from '../../../context/user/UserContext'
 import { IBuyBooksProps } from '../@types/IBuyBooksProps'
 import { BuyBookCard } from '../components'
 import { ApiBook } from '../../../utils/book-api'
 import { HttpResponse } from '../../../server/presentation/protocols/http'
 import { BiUndo } from 'react-icons/bi'
 import { AddBuyBookModel } from '../../../server/domain/usecases/book-buy-list/add-book-buy-list'
-
+import { useBuyBooksContext } from '../../../context/books-buy-list/BooksBuyListContext'
+import { HiTrash } from 'react-icons/hi'
+import { parseCookies } from 'nookies'
 //Sandbox-id:AbJhKpgKw6gr0oH9PRqCr35jMcfKfaKYtRF_LGoDeOeiQhrsBsEsL_N_fXggNgGFnCFtyS55WsZJB4tI
 
+const formatLength = (length: number) => {
+  if (length >= 100) {
+    return '++'
+  }
+  return length
+}
 const apiBook = new ApiBook()
 export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
   const [bookList, setBookList] = useState(books)
@@ -19,6 +26,8 @@ export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
   const [reset, setReset] = useState<AddBuyBookModel | null>(null)
   const router = useRouter()
   const price = bookList.reduce((acc, v) => acc + v.price * v.amount, 0)
+  const { excludeAllBookBuyGroupId, groupBookId, handleRemoveGroupBookId } =
+    useBuyBooksContext()
 
   const handleExcludeBuyBookDatabase = async (
     bookId: string
@@ -30,6 +39,7 @@ export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
     )
     setBookList(newBooks)
     setReset(deleteBook.body)
+    handleRemoveGroupBookId({ accessToken, bookId })
     return deleteBook
   }
 
@@ -58,6 +68,13 @@ export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
     setBookList([])
   }
 
+  const handleExcludeByGroupId = async () => {
+    const newBooks = bookList.filter(
+      (book) => !groupBookId.find((props) => props.bookId === book.bookId)
+    )
+    setBookList(newBooks)
+    await excludeAllBookBuyGroupId()
+  }
   const resetBook = async () => {
     setReset(null)
     const newBooks = [...bookList]
@@ -71,14 +88,25 @@ export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
       <section className={styles.content}>
         <article className={styles.title}>
           <h1>Meu Carrinho</h1>
-          <button
-            className={
-              reset ? `${styles.reset} ${styles.active}` : styles.reset
-            }
-            onClick={resetBook}
-          >
-            <BiUndo size={30} />
-          </button>
+
+          <div className={styles['actions-exclude']}>
+            {groupBookId.length > 0 && (
+              <button
+                onClick={handleExcludeByGroupId}
+                className={styles['exclude-group-button']}
+              >
+                <HiTrash size={27} />
+                <span>
+                  <p>{formatLength(groupBookId.length)}</p>
+                </span>
+              </button>
+            )}
+            {reset && (
+              <button className={styles.reset} onClick={resetBook}>
+                <BiUndo size={30} />
+              </button>
+            )}
+          </div>
         </article>
         {bookList.map((book) => (
           <BuyBookCard

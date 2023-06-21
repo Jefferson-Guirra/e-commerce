@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { IBuyBookCardProps } from './@types/IBuyBookCardProps'
 import { DataBook } from '../data-book/DataBook'
 import Image from 'next/image'
+import { useBuyBooksContext } from '../../../../context/books-buy-list/BooksBuyListContext'
+import { parseCookies } from 'nookies'
 
 export const BuyBookCard = ({
   publisher,
@@ -19,9 +21,21 @@ export const BuyBookCard = ({
   handleUpdateAmountBookBuyList,
   handleExcludeBuyBookDatabase,
 }: IBuyBookCardProps) => {
+  const { handleAddGroupBookId, handleRemoveGroupBookId } = useBuyBooksContext()
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const accessToken = JSON.parse(parseCookies().literando_accessToken)
+    if (e.target.checked) {
+      handleAddGroupBookId({ accessToken, bookId })
+    } else {
+      handleRemoveGroupBookId({ accessToken, bookId })
+    }
+  }
   return (
     <article className={styles.cardContent}>
-      <h2>{publisher}</h2>
+      <article className={styles['header-card']}>
+        <h2>{publisher}</h2>
+        <input type="checkbox" onChange={handleChange} />
+      </article>
       <article className={styles.infoBook}>
         <Link href={`/Book/${bookId}`} className={styles.img}>
           <Image
