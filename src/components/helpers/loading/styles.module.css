@@ -1,0 +1,15 @@
+.loading {
+  display: block;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 15px solid var(--second-color);
+  border-top-color: transparent;
+  animation: 1s show-loading infinite linear;
+}
+
+@keyframes show-loading {
+  to {
+    transform: rotate(360deg);
+  }
+}
