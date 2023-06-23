@@ -32,7 +32,7 @@ export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
       <section className={styles.content}>
         <HeaderComponent accessToken={accessToken} />
         {booksState.map((book) => (
-          <BuyBookCard shipping={3} key={book.id} {...book} />
+          <BuyBookCard key={book.id} {...book} />
         ))}
       </section>
       <article className={styles.price}>

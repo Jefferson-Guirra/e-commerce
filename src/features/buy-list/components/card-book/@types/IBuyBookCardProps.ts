@@ -9,6 +9,5 @@ export interface IBuyBookCardProps {
   bookId: string
   pageCount: number
   publisherDate: string
-  shipping: number
   language: string
 }

@@ -6,6 +6,10 @@ import Image from 'next/image'
 import { parseCookies } from 'nookies'
 import { useBuyContext } from '../../../../context/books-buy-list/BuyBookContext'
 
+const generateRandomNumberInterval = (min: number, max: number) => {
+  const number = Math.floor(Math.random() * (max - min + 1) + min)
+  return number.toFixed(2).toString().replace('.', ',')
+}
 export const BuyBookCard = ({
   publisher,
   id,
@@ -15,7 +19,6 @@ export const BuyBookCard = ({
   publisherDate,
   language,
   pageCount,
-  shipping,
   bookId,
   imgUrl,
 }: IBuyBookCardProps) => {
@@ -65,7 +68,7 @@ export const BuyBookCard = ({
         <div className={styles.infoBuy}>
           <span id="free">Frete grátis </span>
           <p>neste vendedor nas compras a partir de</p>
-          <span> R$ {shipping.toFixed(2).toString().replace('.', ',')}</span>
+          <span> R$ {generateRandomNumberInterval(60, 150)}</span>
         </div>
       </article>
     </article>
