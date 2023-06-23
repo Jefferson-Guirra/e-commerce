@@ -7,9 +7,4 @@ export interface IDataProps {
   pageCount: number
   publisherDate: string
   language: string
-  handleExcludeBuyBookDatabase: (bookId: string) => Promise<HttpResponse>
-  handleUpdateAmountBookBuyList: (
-    bookId: string,
-    value: number
-  ) => Promise<void>
 }

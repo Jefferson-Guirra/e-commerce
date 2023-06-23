@@ -11,9 +11,4 @@ export interface IBuyBookCardProps {
   publisherDate: string
   shipping: number
   language: string
-  handleUpdateAmountBookBuyList: (
-    bookId: string,
-    value: number
-  ) => Promise<void>
-  handleExcludeBuyBookDatabase: (bookId: string) => Promise<HttpResponse>
 }

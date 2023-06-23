@@ -3,7 +3,11 @@ import { useState, useEffect } from 'react'
 import { MdAdd, MdRemove } from 'react-icons/md'
 import { IoClose } from 'react-icons/io5'
 import { IDataProps } from './@types/IDataBookProps'
-import { useBuyBooksContext } from '../../../../context/books-buy-list/BooksBuyListContext'
+import { useBuyContext } from '../../../../context/books-buy-list/BuyBookContext'
+import { ApiBook } from '../../../../utils/book-api'
+import { parseCookies } from 'nookies'
+
+const apiBook = new ApiBook()
 
 export const DataBook = ({
   title,
@@ -13,20 +17,26 @@ export const DataBook = ({
   language,
   publisherDate,
   pageCount,
-  handleUpdateAmountBookBuyList,
-  handleExcludeBuyBookDatabase,
 }: IDataProps) => {
   const [amountBook, setAmountBook] = useState(amount)
-  const { loading, handleLoading } = useBuyBooksContext()
+  const { loading, dispatch } = useBuyContext()
 
   const handleUpdateAmountBook = async (bookId: string, value: number) => {
+    const accessToken = JSON.parse(parseCookies().literando_accessToken)
     const validate = value > 0 && value !== amount
     if (validate) {
       try {
-        handleLoading(true)
-        await handleUpdateAmountBookBuyList(bookId, value)
+        dispatch({ type: 'FETCH_START' })
+        const book = await apiBook.put(
+          { accessToken, bookId, amount: value },
+          'buybooklist/update-amount'
+        )
+        dispatch({
+          type: 'FETCH_UPDATE_SUCCESS',
+          payload: { updateBook: book.body },
+        })
       } finally {
-        handleLoading(false)
+        dispatch({ type: 'FETCH_ERROR' })
       }
     }
   }
@@ -37,18 +47,25 @@ export const DataBook = ({
   }
 
   const handleExcludeBuyBook = async (bookId: string) => {
+    const { literando_accessToken: accessToken } = parseCookies()
     try {
-      handleLoading(true)
-      await handleExcludeBuyBookDatabase(bookId)
+      dispatch({ type: 'FETCH_START' })
+      const response = await apiBook.delete(
+        { accessToken: JSON.parse(accessToken), bookId },
+        'buybooklist/delete'
+      )
+      dispatch({
+        type: 'FETCH_REMOVE_SUCCESS',
+        payload: { deleteBook: response.body },
+      })
     } finally {
-      handleLoading(false)
+      dispatch({ type: 'FETCH_ERROR' })
     }
   }
 
   useEffect(() => {
     setAmountBook(amount)
   }, [amount])
-
   return (
     <div className={styles.dataBook}>
       <div className={styles.header}>

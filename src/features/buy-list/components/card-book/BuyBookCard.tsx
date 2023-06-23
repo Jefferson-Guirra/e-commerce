@@ -3,8 +3,8 @@ import Link from 'next/link'
 import { IBuyBookCardProps } from './@types/IBuyBookCardProps'
 import { DataBook } from '../data-book/DataBook'
 import Image from 'next/image'
-import { useBuyBooksContext } from '../../../../context/books-buy-list/BooksBuyListContext'
 import { parseCookies } from 'nookies'
+import { useBuyContext } from '../../../../context/books-buy-list/BuyBookContext'
 
 export const BuyBookCard = ({
   publisher,
@@ -18,16 +18,17 @@ export const BuyBookCard = ({
   shipping,
   bookId,
   imgUrl,
-  handleUpdateAmountBookBuyList,
-  handleExcludeBuyBookDatabase,
 }: IBuyBookCardProps) => {
-  const { handleAddGroupBookId, handleRemoveGroupBookId } = useBuyBooksContext()
+  const { dispatch } = useBuyContext()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const accessToken = JSON.parse(parseCookies().literando_accessToken)
     if (e.target.checked) {
-      handleAddGroupBookId({ accessToken, bookId })
+      dispatch({
+        type: 'ADD_SELECT_BOOK',
+        payload: { accessToken, bookId, amount, price },
+      })
     } else {
-      handleRemoveGroupBookId({ accessToken, bookId })
+      dispatch({ type: 'REMOVE_SELECT_BOOK', payload: { bookId } })
     }
   }
   return (
@@ -56,13 +57,11 @@ export const BuyBookCard = ({
           price={price}
           title={title}
           publisherDate={publisherDate}
-          handleExcludeBuyBookDatabase={handleExcludeBuyBookDatabase}
-          handleUpdateAmountBookBuyList={handleUpdateAmountBookBuyList}
         />
       </article>
 
       <article className={styles.buyInfoCard}>
-        <h2>Entrega Básica</h2>
+        <h3>Entrega Básica</h3>
         <div className={styles.infoBuy}>
           <span id="free">Frete grátis </span>
           <p>neste vendedor nas compras a partir de</p>

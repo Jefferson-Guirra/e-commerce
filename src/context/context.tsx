@@ -1,13 +1,14 @@
 import { UserStorage } from './user/UserContext'
-import { BooksBuyListContext } from './books-buy-list/BooksBuyListContext'
 interface ContextProps {
   children: JSX.Element
 }
 
+import { BuyStorage } from './books-buy-list/BuyBookContext'
+
 export const AppProvider = ({ children }: ContextProps) => {
   return (
-    <BooksBuyListContext>
+    <BuyStorage>
       <UserStorage>{children}</UserStorage>
-    </BooksBuyListContext>
+    </BuyStorage>
   )
 }
