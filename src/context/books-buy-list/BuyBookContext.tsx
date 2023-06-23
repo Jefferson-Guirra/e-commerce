@@ -245,8 +245,10 @@ export const BuyStorage = ({ children }: IProps) => {
         return {
           ...state,
           loading: false,
+          collectionLoading: false,
           books: [],
           price: 0.0,
+          priceStorage: [],
           deleteBooksStorage: [],
           resetBooksStorage: [],
         }

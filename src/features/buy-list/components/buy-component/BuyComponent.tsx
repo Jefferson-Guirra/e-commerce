@@ -19,7 +19,7 @@ export const BuyComponent = ({
   purchase,
   accessToken,
 }: Props) => {
-  const { books } = useBuyContext()
+  const { books, dispatch } = useBuyContext()
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       setValue((state) => !state)
@@ -31,6 +31,7 @@ export const BuyComponent = ({
       const { bookId } = book
       await apiBook.delete({ accessToken, bookId }, 'buybooklist/delete')
     }
+    dispatch({ type: 'FETCH_CLEAR_STATE' })
   }
 
   return (
