@@ -54,3 +54,12 @@ export type Actions =
   | {
       type: 'FETCH_CLEAR_STATE'
     }
+  | {
+      type: 'FETCH_COLLECTION_START'
+    }
+  | {
+      type: 'FETCH_COLLECTION_SUCCESS'
+    }
+  | {
+      type: 'FETCH_COLLECTION_ERROR'
+    }
