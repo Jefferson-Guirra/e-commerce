@@ -4,23 +4,13 @@ import { useRouter } from 'next/router'
 import { IBuyBooksProps } from '../@types/IBuyBooksProps'
 import { BuyBookCard } from '../components'
 import { ApiBook } from '../../../utils/book-api'
-import { BiUndo } from 'react-icons/bi'
-import { AddBuyBookModel } from '../../../server/domain/usecases/book-buy-list/add-book-buy-list'
-import { HiTrash } from 'react-icons/hi'
 import { useEffect } from 'react'
-
+import { HeaderComponent } from '../components/header-component/HeaderComponent'
 import { useBuyContext } from '../../../context/books-buy-list/BuyBookContext'
 import { BuyComponent } from '../components/buy-component/BuyComponent'
 import LoadingComponent from '../components/loading-component/LoadingComponent'
 
 //Sandbox-id:AbJhKpgKw6gr0oH9PRqCr35jMcfKfaKYtRF_LGoDeOeiQhrsBsEsL_N_fXggNgGFnCFtyS55WsZJB4tI
-
-const formatLength = (length: number) => {
-  if (length >= 100) {
-    return '++'
-  }
-  return length
-}
 
 const apiBook = new ApiBook()
 
@@ -28,8 +18,6 @@ export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
   const {
     dispatch,
     books: booksState,
-    deleteBooksStorage,
-    resetBooksStorage,
     collectionLoading,
     price,
   } = useBuyContext()
@@ -45,38 +33,6 @@ export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
     }
   }
 
-  const handleExcludeByGroupId = async () => {
-    try {
-      dispatch({ type: 'FETCH_COLLECTION_START' })
-      const deletedBooks: AddBuyBookModel[] = []
-      for (const props of deleteBooksStorage) {
-        const { accessToken, bookId } = props
-        const response = await apiBook.delete(
-          { accessToken, bookId },
-          'buybooklist/delete'
-        )
-        deletedBooks.push(response.body)
-      }
-      dispatch({
-        type: 'FETCH_DELETED_BOOKS_SUCCESS',
-        payload: { deletedBooks },
-      })
-    } catch {
-      dispatch({ type: 'FETCH_COLLECTION_ERROR' })
-    }
-  }
-  const resetBook = async () => {
-    try {
-      dispatch({ type: 'FETCH_COLLECTION_START' })
-      for (const book of resetBooksStorage) {
-        const { date, id, queryDoc, ...bookFields } = book
-        await apiBook.post({ accessToken, ...bookFields }, 'buybooklist/add')
-      }
-      dispatch({ type: 'RESET_BOOKS' })
-    } catch {
-      dispatch({ type: 'FETCH_COLLECTION_ERROR' })
-    }
-  }
   useEffect(() => {
     dispatch({ type: 'INIT_STATE', payload: { books } })
   }, [])
@@ -84,33 +40,7 @@ export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
   return (
     <>
       <section className={styles.content}>
-        <article className={styles.title}>
-          <h1>Meu Carrinho</h1>
-
-          <div className={styles['actions-exclude']}>
-            {deleteBooksStorage.length > 0 && (
-              <button
-                disabled={collectionLoading}
-                onClick={handleExcludeByGroupId}
-                className={styles['exclude-group-button']}
-              >
-                <HiTrash size={27} />
-                <span>
-                  <p>{formatLength(deleteBooksStorage.length)}</p>
-                </span>
-              </button>
-            )}
-            {resetBooksStorage.length > 0 && (
-              <button
-                disabled={collectionLoading}
-                className={styles.reset}
-                onClick={resetBook}
-              >
-                <BiUndo size={30} />
-              </button>
-            )}
-          </div>
-        </article>
+        <HeaderComponent accessToken={accessToken} />
         {booksState.map((book) => (
           <BuyBookCard
             id={book.id}
