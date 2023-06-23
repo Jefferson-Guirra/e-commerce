@@ -186,15 +186,35 @@ export const BuyStorage = ({ children }: IProps) => {
 
       case 'FETCH_DELETED_BOOKS_SUCCESS':
         const { deletedBooks } = action.payload
-        const removedBook = state.books.filter(
+        const removedBooks = state.books.filter(
           ({ bookId }) => !deletedBooks.find((book) => book.bookId === bookId)
         )
+        const removedPrice = state.priceStorage.filter(
+          ({ id }) => !deletedBooks.find((book) => book.bookId === id)
+        )
+        if (removedPrice.length > 0) {
+          return {
+            ...state,
+            loading: false,
+            resetBooksStorage: [...state.resetBooksStorage, ...deletedBooks],
+            books: removedBooks,
+            priceStorage: removedPrice,
+            price: removedPrice.reduce(
+              (acc, vl) => acc + vl.amount * vl.price,
+              0
+            ),
+            deleteBooksStorage: [],
+          }
+        }
         return {
           ...state,
           loading: false,
           resetBooksStorage: [...state.resetBooksStorage, ...deletedBooks],
-          books: removedBook,
-          price: removedBook.reduce((acc, vl) => acc + vl.amount * vl.price, 0),
+          books: removedBooks,
+          price: removedBooks.reduce(
+            (acc, vl) => acc + vl.amount * vl.price,
+            0
+          ),
           deleteBooksStorage: [],
         }
 
