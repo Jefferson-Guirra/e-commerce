@@ -81,6 +81,8 @@ export const BuyStorage = ({ children }: IProps) => {
         if (state.priceStorage.length > 0) {
           return {
             ...state,
+            loading: false,
+            collectionLoading: false,
             books: [...state.books, ...state.resetBooksStorage],
             price: state.priceStorage.reduce(
               (acc, vl) => acc + vl.price * vl.amount,
@@ -91,6 +93,8 @@ export const BuyStorage = ({ children }: IProps) => {
         }
         return {
           ...state,
+          loading: false,
+          collectionLoading: false,
           books: [...state.books, ...state.resetBooksStorage],
           price: booksPrice + resetPrice,
           resetBooksStorage: [],
@@ -111,6 +115,27 @@ export const BuyStorage = ({ children }: IProps) => {
         return {
           ...state,
           loading: false,
+        }
+
+      case 'FETCH_COLLECTION_START':
+        return {
+          ...state,
+          loading: true,
+          collectionLoading: true,
+        }
+
+      case 'FETCH_COLLECTION_SUCCESS':
+        return {
+          ...state,
+          loading: false,
+          collectionLoading: false,
+        }
+
+      case 'FETCH_COLLECTION_ERROR':
+        return {
+          ...state,
+          loading: false,
+          collectionLoading: false,
         }
 
       case 'FETCH_REMOVE_SUCCESS':
@@ -155,7 +180,6 @@ export const BuyStorage = ({ children }: IProps) => {
           ({ bookId }) => bookId === updateBook.bookId
         )
         booksUpdate[index].amount = updateBook.amount
-
         if (state.priceStorage.length > 0) {
           const updatePriceStorage = [...state.priceStorage]
           const findPrice = updatePriceStorage.findIndex(
@@ -172,16 +196,12 @@ export const BuyStorage = ({ children }: IProps) => {
               0
             ),
           }
-        } else {
-          return {
-            ...state,
-            loading: false,
-            books: booksUpdate,
-            price: booksUpdate.reduce(
-              (acc, vl) => acc + vl.amount * vl.price,
-              0
-            ),
-          }
+        }
+        return {
+          ...state,
+          loading: false,
+          books: booksUpdate,
+          price: booksUpdate.reduce((acc, vl) => acc + vl.amount * vl.price, 0),
         }
 
       case 'FETCH_DELETED_BOOKS_SUCCESS':
@@ -196,6 +216,7 @@ export const BuyStorage = ({ children }: IProps) => {
           return {
             ...state,
             loading: false,
+            collectionLoading: false,
             resetBooksStorage: [...state.resetBooksStorage, ...deletedBooks],
             books: removedBooks,
             priceStorage: removedPrice,
@@ -209,8 +230,10 @@ export const BuyStorage = ({ children }: IProps) => {
         return {
           ...state,
           loading: false,
+          collectionLoading: false,
           resetBooksStorage: [...state.resetBooksStorage, ...deletedBooks],
           books: removedBooks,
+          priceStorage: removedPrice,
           price: removedBooks.reduce(
             (acc, vl) => acc + vl.amount * vl.price,
             0
