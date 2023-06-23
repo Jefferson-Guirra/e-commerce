@@ -24,3 +24,10 @@
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: 955px) {
+  .container {
+    height: calc(100vh - 154px);
+  }
+  
+}

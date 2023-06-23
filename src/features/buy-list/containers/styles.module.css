@@ -6,3 +6,10 @@
   min-height: calc(100vh - 103px);
   color: var(--four-color);
 }
+
+@media (max-width: 955px) {
+  .container {
+    min-height: calc(100vh - 154px);
+  }
+  
+}
