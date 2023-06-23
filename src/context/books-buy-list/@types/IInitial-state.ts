@@ -6,6 +6,7 @@ export interface BuyBooksState {
   resetBooksStorage: AddBuyBookModel[]
   loading: boolean
   price: number
+  collectionLoading: boolean
   priceStorage: {
     price: number
     id: string
@@ -18,6 +19,7 @@ export const initialState: BuyBooksState = {
   deleteBooksStorage: [],
   resetBooksStorage: [],
   loading: false,
+  collectionLoading: false,
   price: 0.0,
   priceStorage: [],
 }
