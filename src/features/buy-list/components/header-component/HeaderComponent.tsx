@@ -68,7 +68,7 @@ export const HeaderComponent = ({ accessToken }: IProps) => {
             onClick={handleDeleteCollectionBooks}
             className={styles['exclude-group-button']}
           >
-            <HiTrash size={27} />
+            <HiTrash size={27} fill="#001f3f" />
             <span>
               <p>{formatLength(deleteBooksStorage.length)}</p>
             </span>
@@ -80,7 +80,7 @@ export const HeaderComponent = ({ accessToken }: IProps) => {
             className={styles.reset}
             onClick={resetBooksCollection}
           >
-            <BiUndo size={30} />
+            <BiUndo size={30} fill="#001f3f" />
           </button>
         )}
       </div>
