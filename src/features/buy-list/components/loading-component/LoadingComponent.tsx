@@ -6,7 +6,7 @@ interface IProps {
   loading: boolean
 }
 
-const LoadingComponent = ({ loading }: IProps) => {
+export const LoadingComponent = ({ loading }: IProps) => {
   return (
     <>
       {loading && (
@@ -17,5 +17,3 @@ const LoadingComponent = ({ loading }: IProps) => {
     </>
   )
 }
-
-export default LoadingComponent

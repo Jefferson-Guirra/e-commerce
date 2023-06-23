@@ -2,13 +2,15 @@ import styles from './styles.module.css'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { IBuyBooksProps } from '../@types/IBuyBooksProps'
-import { BuyBookCard } from '../components'
 import { ApiBook } from '../../../utils/book-api'
 import { useEffect } from 'react'
-import { HeaderComponent } from '../components/header-component/HeaderComponent'
+import {
+  HeaderComponent,
+  LoadingComponent,
+  BuyBookCard,
+  BuyComponent,
+} from '../components'
 import { useBuyContext } from '../../../context/books-buy-list/BuyBookContext'
-import { BuyComponent } from '../components/buy-component/BuyComponent'
-import LoadingComponent from '../components/loading-component/LoadingComponent'
 
 //Sandbox-id:AbJhKpgKw6gr0oH9PRqCr35jMcfKfaKYtRF_LGoDeOeiQhrsBsEsL_N_fXggNgGFnCFtyS55WsZJB4tI
 
