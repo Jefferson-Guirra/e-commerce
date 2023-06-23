@@ -2,7 +2,6 @@ import styles from './styles.module.css'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { IBuyBooksProps } from '../@types/IBuyBooksProps'
-import { ApiBook } from '../../../utils/book-api'
 import { useEffect } from 'react'
 import {
   HeaderComponent,
@@ -14,8 +13,6 @@ import { useBuyContext } from '../../../context/books-buy-list/BuyBookContext'
 
 //Sandbox-id:AbJhKpgKw6gr0oH9PRqCr35jMcfKfaKYtRF_LGoDeOeiQhrsBsEsL_N_fXggNgGFnCFtyS55WsZJB4tI
 
-const apiBook = new ApiBook()
-
 export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
   const {
     dispatch,
@@ -25,15 +22,6 @@ export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
   } = useBuyContext()
   const [purchase, setPurchase] = useState(false)
   const router = useRouter()
-
-  const clearBuyList = async () => {
-    for (const buyBook of booksState) {
-      await apiBook.delete(
-        { accessToken, bookId: buyBook.id },
-        'buybooklist/delete'
-      )
-    }
-  }
 
   useEffect(() => {
     dispatch({ type: 'INIT_STATE', payload: { books } })
@@ -82,7 +70,7 @@ export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
         purchase={purchase}
         setValue={setPurchase}
         price={price.toFixed(2)}
-        clearBuyList={clearBuyList}
+        accessToken={accessToken}
       />
       <LoadingComponent loading={collectionLoading} />
     </>

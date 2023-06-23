@@ -3,22 +3,33 @@ import { PayPalButtons } from '@paypal/react-paypal-js'
 import styles from './styles.module.css'
 import { IoClose } from 'react-icons/io5'
 import { Dispatch, SetStateAction } from 'react'
+import { ApiBook } from '../../../../utils/book-api'
+import { useBuyContext } from '../../../../context/books-buy-list/BuyBookContext'
 
 interface Props {
   purchase: boolean
   price: string
-  clearBuyList: () => void
   setValue: Dispatch<SetStateAction<boolean>>
+  accessToken: string
 }
+const apiBook = new ApiBook()
 export const BuyComponent = ({
   price,
-  clearBuyList,
   setValue,
   purchase,
+  accessToken,
 }: Props) => {
+  const { books } = useBuyContext()
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       setValue((state) => !state)
+    }
+  }
+
+  const clearBuyList = async () => {
+    for (const book of books) {
+      const { bookId } = book
+      await apiBook.delete({ accessToken, bookId }, 'buybooklist/delete')
     }
   }
 
