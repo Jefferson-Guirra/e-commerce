@@ -63,3 +63,7 @@ export type Actions =
   | {
       type: 'FETCH_COLLECTION_ERROR'
     }
+  | {
+      type: 'RESET_COLLECTION_BOOKS'
+      payload: { collection: AddBuyBookModel[] }
+    }

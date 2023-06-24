@@ -15,11 +15,12 @@ const formatLength = (length: number) => {
 
 interface IProps {
   accessToken: string
+  handleReset: (state: boolean) => void
 }
 
 const apiBook = new ApiBook()
 
-export const HeaderComponent = ({ accessToken }: IProps) => {
+export const HeaderComponent = ({ accessToken, handleReset }: IProps) => {
   const { deleteBooksStorage, collectionLoading, resetBooksStorage, dispatch } =
     useBuyContext()
 
@@ -78,7 +79,7 @@ export const HeaderComponent = ({ accessToken }: IProps) => {
           <button
             disabled={collectionLoading}
             className={styles.reset}
-            onClick={resetBooksCollection}
+            onClick={() => handleReset(true)}
           >
             <BiUndo size={30} fill="#001f3f" />
           </button>

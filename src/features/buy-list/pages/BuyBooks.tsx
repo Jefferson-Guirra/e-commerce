@@ -8,6 +8,7 @@ import {
   LoadingComponent,
   BuyBookCard,
   BuyComponent,
+  ResetComponent,
 } from '../components'
 import { useBuyContext } from '../../../context/books-buy-list/BuyBookContext'
 
@@ -21,8 +22,12 @@ export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
     price,
   } = useBuyContext()
   const [purchase, setPurchase] = useState(false)
+  const [reset, setReset] = useState(false)
   const router = useRouter()
 
+  const handleReset = (state: boolean) => {
+    setReset(state)
+  }
   useEffect(() => {
     dispatch({ type: 'INIT_STATE', payload: { books } })
   }, [])
@@ -30,7 +35,7 @@ export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
   return (
     <>
       <section className={styles.content}>
-        <HeaderComponent accessToken={accessToken} />
+        <HeaderComponent handleReset={handleReset} accessToken={accessToken} />
         {booksState.map((book) => (
           <BuyBookCard key={book.id} {...book} />
         ))}
@@ -53,6 +58,12 @@ export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
           </button>
         </article>
       )}
+
+      <ResetComponent
+        accessToken={accessToken}
+        reset={reset}
+        handleReset={handleReset}
+      />
       <BuyComponent
         purchase={purchase}
         setValue={setPurchase}

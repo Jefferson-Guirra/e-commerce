@@ -3,7 +3,7 @@ import Link from 'next/link'
 import styles from './styles.module.css'
 import { useState } from 'react'
 
-const handleTime = (time: number) => {
+export const handleTime = (time: number) => {
   const timeStamp = new Date(time)
   const timeFormat = timeStamp.toLocaleDateString('pt-BR', {
     day: '2-digit',

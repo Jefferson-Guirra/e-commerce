@@ -253,6 +253,18 @@ export const BuyStorage = ({ children }: IProps) => {
           resetBooksStorage: [],
         }
 
+      case 'RESET_COLLECTION_BOOKS':
+        const { collection } = action.payload
+        return {
+          ...state,
+          loading: false,
+          books: [...state.books, ...collection],
+          collectionLoading: false,
+          resetBooksStorage: state.resetBooksStorage.filter(
+            (book) => !collection.find(({ bookId }) => bookId === book.bookId)
+          ),
+        }
+
       default:
         return state
     }
