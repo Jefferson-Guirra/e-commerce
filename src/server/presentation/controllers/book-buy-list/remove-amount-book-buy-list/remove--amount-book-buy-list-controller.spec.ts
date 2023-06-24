@@ -124,3 +124,5 @@ describe('RemoveBookBuyListController', () => {
     expect(response).toEqual(ok(makeFakeAddBuyBook()))
   })
 })
+
+export {}

@@ -14,3 +14,5 @@ describe('GetBooksListValidator', () => {
     expect(error).toEqual(new MissingParamError('accessToken'))
   })
 })
+
+export {}

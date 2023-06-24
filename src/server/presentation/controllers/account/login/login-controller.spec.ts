@@ -115,3 +115,5 @@ describe('LoginController', () => {
     expect(response).toEqual(ok({ accessToken: 'any_token' }))
   })
 })
+
+export {}

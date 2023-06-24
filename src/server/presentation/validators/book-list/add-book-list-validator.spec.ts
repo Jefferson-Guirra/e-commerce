@@ -101,3 +101,5 @@ describe('Signup Controller', () => {
     expect(response).toEqual(new MissingParamError('pageCount'))
   })
 })
+
+export {}

@@ -119,3 +119,5 @@ describe('DeleteBuyBookList', () => {
     expect(response).toEqual(ok(makeFakeAddBuyBook()))
   })
 })
+
+export {}

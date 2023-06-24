@@ -175,3 +175,5 @@ describe('DbAuthentication', () => {
     await expect(promise).rejects.toThrow()
   })
 })
+
+export {}

@@ -82,3 +82,5 @@ describe('AddBookBuyList', () => {
     expect(response).toEqual(new MissingParamError('pageCount'))
   })
 })
+
+export {}

@@ -18,3 +18,5 @@ module.exports = {
     '<rootDir>/src/server/main/adapters',
   ],
 }
+
+export {}

@@ -109,3 +109,5 @@ describe('GetBookListController', () => {
     expect(response).toEqual(ok(makeFakeAddBookModel()))
   })
 })
+
+export {}

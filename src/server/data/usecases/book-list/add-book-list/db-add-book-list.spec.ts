@@ -218,3 +218,5 @@ describe('DbAddBookList', () => {
     expect(promise).rejects.toThrow()
   })
 })
+
+export {}

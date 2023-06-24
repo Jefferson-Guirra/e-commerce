@@ -131,3 +131,5 @@ describe('LoginController', () => {
     expect(response).toEqual(ok(makeFakeAddBookModel()))
   })
 })
+
+export {}

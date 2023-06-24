@@ -8,3 +8,5 @@ module.exports = {
     instance: {},
   },
 }
+
+export {}

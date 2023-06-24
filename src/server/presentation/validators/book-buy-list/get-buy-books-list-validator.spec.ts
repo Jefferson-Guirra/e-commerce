@@ -10,3 +10,5 @@ describe('GetBuyBooksLIstValidator', () => {
     expect(response).toEqual(new MissingParamError('accessToken'))
   })
 })
+
+export {}

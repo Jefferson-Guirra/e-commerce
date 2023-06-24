@@ -36,3 +36,5 @@ describe('AddAmountBookBuyListValidator', () => {
     expect(response).toEqual(new MissingParamError('amount'))
   })
 })
+
+export {}

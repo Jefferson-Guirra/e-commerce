@@ -110,3 +110,5 @@ describe('AccountMongoRepository', () => {
     expect(account?.accessToken).toBeFalsy()
   })
 })
+
+export {}

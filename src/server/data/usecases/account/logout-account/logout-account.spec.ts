@@ -105,3 +105,5 @@ describe('DbLogoutAccount', () => {
     expect(response).toEqual('logout success')
   })
 })
+
+export {}

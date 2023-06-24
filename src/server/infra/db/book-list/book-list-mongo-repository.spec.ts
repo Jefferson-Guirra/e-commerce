@@ -173,3 +173,5 @@ describe('BookListMongoRepository', () => {
     expect(books).toEqual([])
   })
 })
+
+export {}

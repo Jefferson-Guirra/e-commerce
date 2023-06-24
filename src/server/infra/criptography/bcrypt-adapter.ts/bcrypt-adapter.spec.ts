@@ -67,3 +67,5 @@ describe('BcrypterAdapter', () => {
     expect(validate).toBe(true)
   })
 })
+
+export {}

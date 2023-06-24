@@ -124,3 +124,5 @@ describe('first', () => {
     expect(response).toEqual(makeFakeAddBuyBook())
   })
 })
+
+export {}

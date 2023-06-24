@@ -31,3 +31,5 @@ describe('JwtAdapter', () => {
     expect(token).toBe('any_id')
   })
 })
+
+export {}

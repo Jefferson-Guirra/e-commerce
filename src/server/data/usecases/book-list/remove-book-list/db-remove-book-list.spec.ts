@@ -133,3 +133,5 @@ describe('DbRemoveBookList', () => {
     expect(response).toEqual(makeFakeAddBookModel())
   })
 })
+
+export {}

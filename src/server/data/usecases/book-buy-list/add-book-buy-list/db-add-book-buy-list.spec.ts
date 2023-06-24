@@ -239,3 +239,4 @@ describe('DbAddBookBuyList', () => {
     expect(response).toEqual(makeFakeAddBuyBook())
   })
 })
+export {}

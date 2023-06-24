@@ -106,3 +106,5 @@ describe('DbDeleteAllBooksBuyList', () => {
     expect(response).toEqual(undefined)
   })
 })
+
+export {}

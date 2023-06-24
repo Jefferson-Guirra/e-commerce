@@ -81,3 +81,5 @@ describe('LogControllerDecorator', () => {
     expect(logSpy).toHaveBeenCalledWith('any_error')
   })
 })
+
+export {}

@@ -102,3 +102,5 @@ describe('DeleteAllBuyBooKListController', () => {
     expect(response).toEqual(ok('success'))
   })
 })
+
+export {}

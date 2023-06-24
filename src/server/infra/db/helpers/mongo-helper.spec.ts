@@ -16,3 +16,5 @@ describe('MongoHelp', () => {
     expect(accountCollection).toBeTruthy()
   })
 })
+
+export {}

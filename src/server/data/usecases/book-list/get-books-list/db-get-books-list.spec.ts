@@ -137,3 +137,5 @@ describe('DbGetBookList', () => {
     expect(response).toEqual([makeFakeAddBookModel(), makeFakeAddBookModel()])
   })
 })
+
+export {}

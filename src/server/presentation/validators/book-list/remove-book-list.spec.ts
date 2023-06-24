@@ -26,3 +26,5 @@ describe('RemoveBookListValidator', () => {
     expect(response).toEqual(new MissingParamError('idBook'))
   })
 })
+
+export {}

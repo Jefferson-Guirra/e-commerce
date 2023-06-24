@@ -109,3 +109,5 @@ describe('LoginController', () => {
     expect(response).toEqual(ok('logout success'))
   })
 })
+
+export {}

@@ -46,3 +46,5 @@ describe('Signup Controller', () => {
     expect(response).toEqual(new MissingParamError('password'))
   })
 })
+
+export {}

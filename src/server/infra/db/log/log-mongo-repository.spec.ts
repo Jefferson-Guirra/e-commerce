@@ -25,3 +25,5 @@ describe('LogoMongoRepository', () => {
     expect(count).toBe(1)
   })
 })
+
+export {}

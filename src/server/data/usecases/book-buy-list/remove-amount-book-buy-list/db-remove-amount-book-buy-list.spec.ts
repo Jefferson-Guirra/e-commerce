@@ -175,3 +175,5 @@ describe('DbRemoveAmountBookBuyList', () => {
     expect(response).toEqual(makeFakeAddBuyBook())
   })
 })
+
+export {}

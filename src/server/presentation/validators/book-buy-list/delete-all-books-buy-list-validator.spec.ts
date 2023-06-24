@@ -19,3 +19,5 @@ describe('DeleteAllBooksBuyListValidator', () => {
     expect(response).toEqual(new MissingParamError('accessToken'))
   })
 })
+
+export {}

@@ -25,3 +25,5 @@ describe('RemoveAmountBuyBookValidator', () => {
     expect(response).toEqual(new MissingParamError('bookId'))
   })
 })
+
+export {}

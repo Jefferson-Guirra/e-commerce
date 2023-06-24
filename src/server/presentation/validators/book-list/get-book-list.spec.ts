@@ -26,3 +26,5 @@ describe('GetBookListValidator', () => {
     expect(response).toEqual(new MissingParamError('bookId'))
   })
 })
+
+export {}

@@ -106,3 +106,5 @@ describe('Signup Controller', () => {
     expect(account).toEqual(unauthorized())
   })
 })
+
+export {}

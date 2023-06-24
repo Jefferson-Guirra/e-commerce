@@ -139,3 +139,5 @@ describe('AddAccountRepository', () => {
     expect(account).toEqual(makeFakeAccount())
   })
 })
+
+export {}

@@ -118,3 +118,5 @@ describe('RemoveBookListController', () => {
     expect(response).toEqual(ok(makeFakeAddBookModel()))
   })
 })
+
+export {}

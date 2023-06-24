@@ -128,3 +128,5 @@ describe('UpdateAmountBookBuyListController', () => {
     expect(response).toEqual(ok(makeFakeAddBuyBook()))
   })
 })
+
+export {}

@@ -259,3 +259,5 @@ describe('BookBuyLIstMongoRepository', () => {
     expect(count).toEqual(0)
   })
 })
+
+export {}
