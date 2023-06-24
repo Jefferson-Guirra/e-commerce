@@ -14,13 +14,12 @@ const formatLength = (length: number) => {
 }
 
 interface IProps {
-  accessToken: string
   handleReset: (state: boolean) => void
 }
 
 const apiBook = new ApiBook()
 
-export const HeaderComponent = ({ accessToken, handleReset }: IProps) => {
+export const HeaderComponent = ({ handleReset }: IProps) => {
   const { deleteBooksStorage, collectionLoading, resetBooksStorage, dispatch } =
     useBuyContext()
 
@@ -40,19 +39,6 @@ export const HeaderComponent = ({ accessToken, handleReset }: IProps) => {
         type: 'FETCH_DELETED_BOOKS_SUCCESS',
         payload: { deletedBooks },
       })
-    } catch {
-      dispatch({ type: 'FETCH_COLLECTION_ERROR' })
-    }
-  }
-
-  const resetBooksCollection = async () => {
-    try {
-      dispatch({ type: 'FETCH_COLLECTION_START' })
-      for (const book of resetBooksStorage) {
-        const { date, id, queryDoc, ...bookFields } = book
-        await apiBook.post({ accessToken, ...bookFields }, 'buybooklist/add')
-      }
-      dispatch({ type: 'RESET_BOOKS' })
     } catch {
       dispatch({ type: 'FETCH_COLLECTION_ERROR' })
     }

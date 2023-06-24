@@ -70,33 +70,11 @@ export const BuyStorage = ({ children }: IProps) => {
           price: state.books.reduce((acc, vl) => acc + vl.amount * vl.price, 0),
         }
       case 'RESET_BOOKS':
-        const booksPrice = state.books.reduce(
-          (acc, vl) => acc + vl.amount * vl.price,
-          0
-        )
-        const resetPrice = state.resetBooksStorage.reduce(
-          (acc, vl) => acc + vl.amount * vl.price,
-          0
-        )
-        if (state.priceStorage.length > 0) {
-          return {
-            ...state,
-            loading: false,
-            collectionLoading: false,
-            books: [...state.books, ...state.resetBooksStorage],
-            price: state.priceStorage.reduce(
-              (acc, vl) => acc + vl.price * vl.amount,
-              0
-            ),
-            resetBooksStorage: [],
-          }
-        }
         return {
           ...state,
           loading: false,
           collectionLoading: false,
           books: [...state.books, ...state.resetBooksStorage],
-          price: booksPrice + resetPrice,
           resetBooksStorage: [],
         }
       case 'FETCH_START':

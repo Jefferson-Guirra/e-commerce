@@ -35,7 +35,7 @@ export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
   return (
     <>
       <section className={styles.content}>
-        <HeaderComponent handleReset={handleReset} accessToken={accessToken} />
+        <HeaderComponent handleReset={handleReset} />
         {booksState.map((book) => (
           <BuyBookCard key={book.id} {...book} />
         ))}
