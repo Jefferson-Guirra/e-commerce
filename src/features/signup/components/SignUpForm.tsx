@@ -4,9 +4,9 @@ import { useRouter } from 'next/router'
 import useForm from '../../../Hooks/useForm'
 import { AiFillEye } from 'react-icons/ai'
 import styles from '../../login/components/styles.module.css'
-import { ApiUser } from '../../../utils/user-api'
+import { Api } from '../../../utils/api'
 
-const apiUser = new ApiUser()
+const apiUser = new Api()
 
 export const SignUpForm = () => {
   const router = useRouter()

@@ -4,10 +4,10 @@ import { Input } from '../../../components'
 import useForm from '../../../Hooks/useForm'
 import { useRouter } from 'next/router'
 import { AiFillEye } from 'react-icons/ai'
-import { ApiUser } from '../../../utils/user-api'
+import { Api } from '../../../utils/api'
 import { HandleCookies } from '../../../utils/handle-cookie'
 
-const apiUser = new ApiUser()
+const apiUser = new Api()
 const handleCookies = new HandleCookies()
 
 export const UserForm = () => {
