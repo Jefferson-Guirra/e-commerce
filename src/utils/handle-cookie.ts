@@ -1,5 +1,7 @@
 import { SetCookie } from './protocols/insert-cookie-protocol'
+import { GetCookie } from './protocols/get-cookie-protocols'
 import { parseCookies, setCookie } from 'nookies'
+import { GetCookies } from './protocols/get-cookies-protocols'
 
 export class HandleCookies implements SetCookie, GetCookie, GetCookies {
   insert(name: string, value: any): void {

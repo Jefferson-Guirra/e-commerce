@@ -1,3 +1,3 @@
-interface GetCookies {
+export interface GetCookies {
   getCookies: (cookiesNames: string[]) => any
 }
