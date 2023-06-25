@@ -6,7 +6,7 @@ interface BookApi {
   put: (body: any, url: string) => Promise<HttpResponse>
 }
 
-export class ApiBook implements BookApi {
+export class Api implements BookApi {
   private readonly originUrl = 'http://localhost:3000/api/'
   async get(body: any, url: string): Promise<HttpResponse> {
     const promise = await fetch(this.originUrl + url, {
