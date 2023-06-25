@@ -20,7 +20,7 @@ import { signOut, useSession, getSession } from 'next-auth/react'
 import { parseCookies } from 'nookies'
 import Router from 'next/router'
 
-const NavBar = () => {
+export const NavBar = () => {
   const [menu, setMenu] = useState(false)
   const [input, setInput] = useState('')
   const [filter, setFilter] = useState('')
@@ -184,5 +184,3 @@ const NavBar = () => {
     </C.Container>
   )
 }
-
-export default memo(NavBar)

@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './styles.module.css'
-import { Loading } from '../../../../components/helpers/loading/Loading'
+import { Loading } from '../../../../components'
 
 interface IProps {
   loading: boolean

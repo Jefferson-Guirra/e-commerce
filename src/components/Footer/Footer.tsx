@@ -1,7 +1,7 @@
 import styles from './styles.module.css'
 import { AiOutlineCopyrightCircle } from 'react-icons/ai'
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.containerFooter}>
@@ -14,5 +14,3 @@ const Footer = () => {
     </footer>
   )
 }
-
-export default Footer

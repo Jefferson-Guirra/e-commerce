@@ -1,6 +1,6 @@
 import styles from './styles.module.css'
 import { useState } from 'react'
-import Input from '../../../components/Input'
+import { Input } from '../../../components'
 import useForm from '../../../Hooks/useForm'
 import { useRouter } from 'next/router'
 import { AiFillEye } from 'react-icons/ai'

@@ -10,7 +10,7 @@ interface Props {
   children?: ReactNode
   settings: SwiperProps
 }
-export default function Slider({ children, settings }: Props) {
+export function Slider({ children, settings }: Props) {
   return (
     <Swiper modules={[Navigation, Pagination, Autoplay]} {...settings}>
       {children}

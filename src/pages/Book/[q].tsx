@@ -4,8 +4,7 @@ import { BookContainer } from '../../features'
 import { IBookIdApi } from '../../services/api/@types/IBookIdApi'
 import { SEARCH_BOOKS_ID } from '../../services/api/usecases'
 import { parseCookies } from 'nookies'
-import { GetBook } from '../../services/db/usecases'
-import { ApiBook } from '../../utils/api'
+import { Api } from '../../utils/api'
 
 interface Props {
   book: string
@@ -17,7 +16,7 @@ interface Props {
 type Params = {
   q: string
 }
-const apiBook = new ApiBook()
+const apiBook = new Api()
 const Book = ({ book, query, accessToken, validateFavoriteBooks }: Props) => {
   const formatBook: IBookIdApi = JSON.parse(book)
 

@@ -1,6 +1,6 @@
 import styles from './styles.module.css'
 import { useRouter } from 'next/router'
-import Slider from '../Slider'
+import { Slider } from '../Slider/Slider'
 import Image from 'next/image'
 import { SwiperProps, SwiperSlide } from 'swiper/react'
 import { IBooksApi } from '../../services/api/@types'
@@ -29,7 +29,7 @@ const settings: SwiperProps = {
   },
 }
 
-const SliderBooks = ({ bookList }: Props) => {
+export const SliderBooks = ({ bookList }: Props) => {
   const router = useRouter()
   return (
     <Slider settings={settings}>
@@ -62,5 +62,3 @@ const SliderBooks = ({ bookList }: Props) => {
     </Slider>
   )
 }
-
-export default SliderBooks

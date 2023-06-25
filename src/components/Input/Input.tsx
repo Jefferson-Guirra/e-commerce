@@ -11,7 +11,15 @@ interface Props {
   setValue: React.Dispatch<React.SetStateAction<string>>
   onBlur: () => void
 }
-const Input = ({ label, type, name, onChange, value, erro, onBlur }: Props) => {
+export const Input = ({
+  label,
+  type,
+  name,
+  onChange,
+  value,
+  erro,
+  onBlur,
+}: Props) => {
   return (
     <div className={styles.container}>
       <label className="label" htmlFor={name}>
@@ -31,5 +39,3 @@ const Input = ({ label, type, name, onChange, value, erro, onBlur }: Props) => {
     </div>
   )
 }
-
-export default Input

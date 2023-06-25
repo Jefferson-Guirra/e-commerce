@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Input from '../../../components/Input'
+import { Input } from '../../../components'
 import { useRouter } from 'next/router'
 import useForm from '../../../Hooks/useForm'
 import { AiFillEye } from 'react-icons/ai'
