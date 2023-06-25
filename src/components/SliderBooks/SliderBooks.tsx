@@ -40,7 +40,6 @@ export const SliderBooks = ({ bookList }: Props) => {
             onClick={() => router.push(`/Book/${item.id}`)}
           >
             <Image
-              priority
               style={{ width: '100%', height: '250px' }}
               width={200}
               height={0}
