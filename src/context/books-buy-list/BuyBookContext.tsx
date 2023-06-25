@@ -220,6 +220,29 @@ export const BuyStorage = ({ children }: IProps) => {
         }
 
       case 'FETCH_CLEAR_STATE':
+        if (state.deleteBooksStorage.length > 0) {
+          const totPrice = state.books.reduce(
+            (acc, vl) => acc + vl.amount * vl.price,
+            0
+          )
+          return {
+            ...state,
+            loading: false,
+            collectionLoading: false,
+            price:
+              totPrice -
+              state.priceStorage.reduce(
+                (acc, vl) => acc + vl.amount * vl.price,
+                0
+              ),
+            priceStorage: [],
+            books: state.books.filter(
+              ({ bookId }) =>
+                !state.deleteBooksStorage.find((book) => book.bookId === bookId)
+            ),
+            deleteBooksStorage: [],
+          }
+        }
         return {
           ...state,
           loading: false,
@@ -228,7 +251,6 @@ export const BuyStorage = ({ children }: IProps) => {
           price: 0.0,
           priceStorage: [],
           deleteBooksStorage: [],
-          resetBooksStorage: [],
         }
 
       case 'RESET_COLLECTION_BOOKS':
