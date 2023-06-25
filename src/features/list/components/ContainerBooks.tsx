@@ -2,16 +2,7 @@ import { IContainerBooks } from './@types/IContainerBooks'
 import Link from 'next/link'
 import styles from './styles.module.css'
 import { useState } from 'react'
-
-export const handleTime = (time: number) => {
-  const timeStamp = new Date(time)
-  const timeFormat = timeStamp.toLocaleDateString('pt-BR', {
-    day: '2-digit',
-    month: '2-digit',
-    year: '2-digit',
-  })
-  return timeFormat
-}
+import { handleTime } from '../../../utils/handle-time'
 
 export const ContainerBooks = ({
   books,
