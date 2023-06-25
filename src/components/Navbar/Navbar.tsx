@@ -88,7 +88,7 @@ export const NavBar = () => {
           <SiBookstack size={55} color="#ffa500" />
           <p>Literando</p>
         </Link>
-        <form onSubmit={handleSubmit} className="search">
+        <form onSubmit={handleSubmit} className="search" id="navbar-form">
           <ul>
             <li className="filterContainer">
               <span id="filter">
@@ -110,6 +110,7 @@ export const NavBar = () => {
 
           <input
             type="text"
+            id="input-home"
             value={input}
             onChange={({ target }) => setInput(target.value)}
             placeholder="buscar..."
