@@ -18,7 +18,6 @@
 
 .checkout {
   display: flex;
-  gap: 3rem;
   justify-content: flex-end;
   gap: 2rem;
 }
