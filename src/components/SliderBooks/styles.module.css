@@ -1,18 +1,16 @@
 .container {
+  position: relative;
   padding: 0.7rem;
   display: flex;
   flex-direction: column;
   border: 1px solid transparent;
   border-radius: 7px;
   background-color: #eee;
+  width: 100%;
   cursor: pointer;
   transition: 1s;
 }
 
-.container img {
-  border-radius: 12px !important;
-  height: 250px;
-}
 
 .container .info {
   flex: 1;
