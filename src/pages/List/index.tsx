@@ -1,9 +1,7 @@
 import { GetServerSideProps } from 'next'
-import { parseCookies } from 'nookies'
-import { GetBooks } from '../../services/db/usecases'
 import Head from 'next/head'
 import { ListContainer } from '../../features'
-import { ApiBook } from '../../utils/book-api'
+import { Api } from '../../utils/api'
 import nookies from 'nookies'
 
 type User = {
@@ -44,7 +42,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     }
   }
-  const bookUserApi = new ApiBook()
+  const bookUserApi = new Api()
   const response = await bookUserApi.get(
     {
       accessToken: JSON.parse(literando_accessToken),

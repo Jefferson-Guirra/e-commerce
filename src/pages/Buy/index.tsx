@@ -2,12 +2,12 @@ import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
 import Head from 'next/head'
 import { BuyListContainer } from '../../features'
-import { ApiBook } from '../../utils/book-api'
+import { Api } from '../../utils/api'
 import { AddBuyBookModel } from '../../server/domain/usecases/book-buy-list/add-book-buy-list'
 
 //Sandbox-id:AbJhKpgKw6gr0oH9PRqCr35jMcfKfaKYtRF_LGoDeOeiQhrsBsEsL_N_fXggNgGFnCFtyS55WsZJB4tI
 
-const apiBook = new ApiBook()
+const apiBook = new Api()
 interface Props {
   accessToken: string
   books: string

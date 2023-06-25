@@ -5,14 +5,14 @@ import Image from 'next/image'
 import { handleTime } from '../../../../utils/handle-time'
 import { IoClose } from 'react-icons/io5'
 import { AddBuyBookModel } from '../../../../server/domain/usecases/book-buy-list/add-book-buy-list'
-import { ApiBook } from '../../../../utils/book-api'
+import { Api } from '../../../../utils/api'
 interface IProps {
   reset: boolean
   accessToken: string
   handleReset: (state: boolean) => void
 }
 
-const apiBook = new ApiBook()
+const apiBook = new Api()
 export const ResetComponent = ({ reset, handleReset, accessToken }: IProps) => {
   const { resetBooksStorage, dispatch } = useBuyContext()
   const [bookList, setBookList] = useState<AddBuyBookModel[]>([])

@@ -6,10 +6,10 @@ import Head from 'next/head'
 import SliderBooks from '../../../components/SliderBooks'
 import { Info, Buy } from '../components'
 import { IBookProps } from '../@types/IBookProps'
-import { ApiBook } from '../../../utils/book-api'
+import { Api } from '../../../utils/api'
 import { BookModel } from '../../../server/domain/models/book/book'
 
-const apiBook = new ApiBook()
+const apiBook = new Api()
 export const Book = ({
   book,
   query,

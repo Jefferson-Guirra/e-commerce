@@ -3,7 +3,7 @@ import { PayPalButtons } from '@paypal/react-paypal-js'
 import styles from './styles.module.css'
 import { IoClose } from 'react-icons/io5'
 import { Dispatch, SetStateAction } from 'react'
-import { ApiBook } from '../../../../utils/book-api'
+import { Api } from '../../../../utils/api'
 import { useBuyContext } from '../../../../context/books-buy-list/BuyBookContext'
 import { AddBuyBookModel } from '../../../../server/domain/usecases/book-buy-list/add-book-buy-list'
 
@@ -13,7 +13,7 @@ interface Props {
   setValue: Dispatch<SetStateAction<boolean>>
   accessToken: string
 }
-const apiBook = new ApiBook()
+const apiBook = new Api()
 export const BuyComponent = ({
   price,
   setValue,

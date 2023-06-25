@@ -4,10 +4,10 @@ import { MdAdd, MdRemove } from 'react-icons/md'
 import { IoClose } from 'react-icons/io5'
 import { IDataProps } from './@types/IDataBookProps'
 import { useBuyContext } from '../../../../context/books-buy-list/BuyBookContext'
-import { ApiBook } from '../../../../utils/book-api'
+import { Api } from '../../../../utils/api'
 import { parseCookies } from 'nookies'
 
-const apiBook = new ApiBook()
+const apiBook = new Api()
 
 export const DataBook = ({
   title,

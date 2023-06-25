@@ -1,13 +1,12 @@
 import { useState } from 'react'
-import { RemoveBook } from '../../../services/db/usecases/remove-book'
 import { IListProps } from '../@types/IListProps'
 import styles from './styles.module.css'
 import { BiSearch } from 'react-icons/bi'
 import { ContainerBooks } from '../components/ContainerBooks'
 import { AddBookModel } from '../../../server/domain/usecases/book-list/add-book-list'
-import { ApiBook } from '../../../utils/book-api'
+import { Api } from '../../../utils/api'
 
-const apiUserBooks = new ApiBook()
+const apiUserBooks = new Api()
 export const ListBooks = ({ books, accessToken }: IListProps) => {
   const [bookList, setBookList] = useState(books)
   const [input, setInput] = useState('')

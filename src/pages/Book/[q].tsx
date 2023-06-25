@@ -5,7 +5,7 @@ import { IBookIdApi } from '../../services/api/@types/IBookIdApi'
 import { SEARCH_BOOKS_ID } from '../../services/api/usecases'
 import { parseCookies } from 'nookies'
 import { GetBook } from '../../services/db/usecases'
-import { ApiBook } from '../../utils/book-api'
+import { ApiBook } from '../../utils/api'
 
 interface Props {
   book: string
