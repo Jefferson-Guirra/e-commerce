@@ -5,6 +5,7 @@ import { IoClose } from 'react-icons/io5'
 import { Dispatch, SetStateAction } from 'react'
 import { ApiBook } from '../../../../utils/book-api'
 import { useBuyContext } from '../../../../context/books-buy-list/BuyBookContext'
+import { AddBuyBookModel } from '../../../../server/domain/usecases/book-buy-list/add-book-buy-list'
 
 interface Props {
   purchase: boolean
@@ -19,19 +20,32 @@ export const BuyComponent = ({
   purchase,
   accessToken,
 }: Props) => {
-  const { books, dispatch } = useBuyContext()
+  const { books, dispatch, deleteBooksStorage } = useBuyContext()
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       setValue((state) => !state)
     }
   }
 
-  const clearBuyList = async () => {
+  const deleteCollectionBooks = async (books: AddBuyBookModel[]) => {
+    dispatch({ type: 'FETCH_COLLECTION_START' })
     for (const book of books) {
       const { bookId } = book
       await apiBook.delete({ accessToken, bookId }, 'buybooklist/delete')
     }
     dispatch({ type: 'FETCH_CLEAR_STATE' })
+  }
+
+  const clearBuyList = async () => {
+    if (deleteBooksStorage.length > 0) {
+      const filteredBooks = books.filter(
+        ({ bookId }) =>
+          !!deleteBooksStorage.find((book) => book.bookId === bookId)
+      )
+      await deleteCollectionBooks(filteredBooks)
+    } else {
+      await deleteCollectionBooks(books)
+    }
   }
 
   return (
