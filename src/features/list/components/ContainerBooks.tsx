@@ -3,6 +3,7 @@ import Link from 'next/link'
 import styles from './styles.module.css'
 import { useState } from 'react'
 import { handleTime } from '../../../utils/handle-time'
+import Image from 'next/image'
 
 export const ContainerBooks = ({
   books,
@@ -19,7 +20,14 @@ export const ContainerBooks = ({
       {books.map((book) => (
         <article key={book.id} className={styles.cardBooks}>
           <Link href={`/Book/${book.bookId}`}>
-            <img src={book.imgUrl} alt={`Imagem do Livro ${book.title}`} />
+            <Image
+              src={book.imgUrl}
+              alt={`Imagem do Livro ${book.title}`}
+              width={250}
+              height={0}
+              style={{ width: '100%', height: '100%' }}
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM0NTXfDgACogFakP/skwAAAABJRU5ErkJggg=="
+            />
           </Link>
           <div className={styles.info}>
             <div className={styles.titleBook}>

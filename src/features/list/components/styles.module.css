@@ -6,15 +6,16 @@
   background-color: #fff;
 }
 
-.cardBooks img {
+.cardBooks a {
+  display: block;
   height: 250px;
+  width: 100%;
 }
 
 .cardBooks .info {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  color: red;
   font-size: 0.8125rem;
   text-align: center;
   color: var(--four-color);
@@ -60,7 +61,7 @@
   .cardBooks {
     padding: 2rem;
   }
-  .cardBooks img {
+  .cardBooks a {
     height: 350px;
   }
 }
