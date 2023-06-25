@@ -74,6 +74,7 @@ export const ResetComponent = ({ reset, handleReset, accessToken }: IProps) => {
                     height={100}
                     src={book.imgUrl}
                     alt={`imagem do livro ${book.title}`}
+                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM0NTXfDgACogFakP/skwAAAABJRU5ErkJggg=="
                   />
                   <article className={styles.info}>
                     <div className={styles['data-book']}>

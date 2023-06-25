@@ -50,6 +50,7 @@ export const BuyBookCard = ({
             style={{ width: '100%', height: 'auto' }}
             width={100}
             alt={`Imagem do livro ${title}`}
+            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM0NTXfDgACogFakP/skwAAAABJRU5ErkJggg=="
           />
         </Link>
         <DataBook

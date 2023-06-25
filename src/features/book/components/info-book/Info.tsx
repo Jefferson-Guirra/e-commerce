@@ -53,6 +53,7 @@ export const Info = ({
           quality={100}
           src={`https://books.google.com/books/publisher/content/images/frontcover/${id}?fife=w340-h400&source=gbs_api`}
           alt={`Imagem do livro ${title}`}
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM0NTXfDgACogFakP/skwAAAABJRU5ErkJggg=="
         />
       </div>
       <div className={styles.textBook}>

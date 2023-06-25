@@ -46,6 +46,7 @@ export const SliderBooks = ({ bookList }: Props) => {
               height={0}
               src={`https://books.google.com/books/publisher/content/images/frontcover/${item.id}?fife=w340-h300&source=gbs_api`}
               alt={`Imagem do Livro ${item.title}`}
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM0NTXfDgACogFakP/skwAAAABJRU5ErkJggg=="
             />
 
             <div className={styles.info}>

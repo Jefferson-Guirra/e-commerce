@@ -30,6 +30,7 @@ export function Home({ fictionBooks, dramaBooks, fantasyBooks }: IHomeProps) {
               fill
               alt="img book"
               src={`https://books.google.com/books/publisher/content/images/frontcover/${BooksFormat[0].bookList.books[15].id}?fife=w340-h300&source=gbs_api`}
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM0NTXfDgACogFakP/skwAAAABJRU5ErkJggg=="
             />
           </div>
           <div className={styles.book}>
@@ -37,6 +38,7 @@ export function Home({ fictionBooks, dramaBooks, fantasyBooks }: IHomeProps) {
               fill
               alt="img book"
               src={`https://books.google.com/books/publisher/content/images/frontcover/${BooksFormat[1].bookList.books[13].id}?fife=w340-h300&source=gbs_api`}
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM0NTXfDgACogFakP/skwAAAABJRU5ErkJggg=="
             />
           </div>
           <div className={styles.book}>
@@ -44,6 +46,7 @@ export function Home({ fictionBooks, dramaBooks, fantasyBooks }: IHomeProps) {
               fill
               alt="img book"
               src={`https://books.google.com/books/publisher/content/images/frontcover/${BooksFormat[2].bookList.books[9].id}?fife=w340-h300&source=gbs_api`}
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM0NTXfDgACogFakP/skwAAAABJRU5ErkJggg=="
             />
           </div>
         </article>

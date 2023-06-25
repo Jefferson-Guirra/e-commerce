@@ -48,6 +48,7 @@ export const Buy = ({ book, handleAddBuyBookDatabase }: IBuyProps) => {
             height={0}
             style={{ width: '100%', height: 'auto', maxHeight: '200px' }}
             alt={`Imagem do livro ${book.title}`}
+            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM0NTXfDgACogFakP/skwAAAABJRU5ErkJggg=="
           />
         </div>
         <div className={styles.textBuy}>
