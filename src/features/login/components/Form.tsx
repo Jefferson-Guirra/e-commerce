@@ -35,12 +35,13 @@ export const UserForm = () => {
         )
 
         const handleLogin = () => {
-          handleCookies.insert(
-            'literando_accessToken',
-            response.body.accessToken
-          )
+          const { accessToken, username } = response.body
+
+          handleCookies.insert('literando_accessToken', accessToken)
+          handleCookies.insert('literando_username', username)
           router.push('/')
         }
+
         const statusCodeValidate: any = {
           200: () => handleLogin(),
           401: () => setError('Email e ou senha incorretos.'),
