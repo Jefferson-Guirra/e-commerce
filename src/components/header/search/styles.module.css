@@ -1,0 +1,111 @@
+.container {
+  width: 40%;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 7px;
+}
+.container .content {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.container .content .filter {
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  border-right: 1px solid #000000;
+  padding: 0.5rem;
+  color: #000000;
+}
+.container .content .filter svg {
+  transform: rotate(-90deg);
+  transition: 1s;
+}
+
+.container .content .options {
+  position: absolute;
+  z-index: 50;
+  color: #000000;
+  top: 100%;
+  font-size: 0.9rem;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 7px;
+  padding: 1rem 0.5rem;
+  transform: translate3d(0px, -15px, 0);
+  transition: 1s;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.container .content .options .option {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.3rem;
+}
+
+.container .content .options .option svg {
+  transition: 1s;
+}
+
+.container .content .options .option:hover svg {
+  fill: #000000;
+}
+
+.container .content:hover .filter .svg {
+  transform: rotate(90deg);
+}
+
+.container .content:hover .options {
+  transform: initial;
+  opacity: initial;
+  pointer-events: inherit;
+}
+
+.container .icon {
+  display: block;
+  padding: 0.2rem;
+  border-radius: 0px 7px 7px 0px;
+  width: 10%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: var(--second-color);
+  transition: 1s ease;
+}
+
+.container .icon:hover {
+  background-color: #363636;
+}
+
+.container .icon:hover svg {
+  fill: var(--second-color);
+}
+
+.container input {
+  height: 100%;
+  width: calc(100% - 88px);
+  font-size: 1.1rem;
+  border-radius: 15px;
+  border: none;
+  padding: 0.5rem;
+}
+
+@media (max-width: 955px) {
+  .container {
+    width: 100%;
+    order: 3;
+  }
+}

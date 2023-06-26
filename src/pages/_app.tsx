@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { NavBar, Footer } from '../components'
+import { Footer, HeaderContainer } from '../components'
 import { SessionProvider } from 'next-auth/react'
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 import { useState, useEffect } from 'react'
@@ -59,7 +59,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <AppProvider>
       <SessionProvider session={pageProps.session}>
         <PayPalScriptProvider options={initialOptions}>
-          <NavBar />
+          <HeaderContainer />
           <>
             <Loading />
             <Component {...pageProps} />

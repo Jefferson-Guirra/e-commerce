@@ -1,0 +1,51 @@
+.container {
+  width: 40px;
+  height: 20px;
+  cursor: pointer;
+  position: relative;
+  display: none;
+}
+
+.container span {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: white;
+  border-radius: 2px;
+  transition: 1s;
+}
+
+.container .line1 {
+  top: 0;
+  transform: initial;
+}
+
+.container .line1.active {
+  top: 10px;
+  transform: rotate(45deg);
+}
+
+.container .line2 {
+  top: 10px;
+}
+
+.container .line2.active {
+  opacity: 0;
+}
+
+.container .line3 {
+  top: 20px;
+}
+
+.container .line3.active {
+  transform: rotate(-45deg);
+  top: 10px;
+}
+
+@media (max-width: 955px) {
+  .container {
+    display: block;
+    order: 2;
+  }
+}

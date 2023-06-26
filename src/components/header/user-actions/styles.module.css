@@ -1,0 +1,199 @@
+.actions {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  gap: 1rem;
+  font-family: 'Lato', sans-serif;
+}
+
+.actions a {
+  display: flex;
+  align-items: center;
+}
+
+.actions a svg {
+  margin-right: 0.5rem;
+}
+
+.actions .list svg {
+  transition: 1s;
+}
+
+.actions .list:hover svg {
+  fill: #ffa500;
+}
+
+.user-actions li {
+  position: relative;
+}
+
+.user-actions li p {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.user-actions li p svg {
+  transition: 1s;
+}
+
+.user-actions li p .arrow {
+  transform: rotate(90deg);
+  transition: 1s ease;
+}
+
+.user-actions li .links {
+  background-color: #fff;
+  transform: translate3d(0, -15px, 0);
+  opacity: 0;
+  transition: 1s;
+  pointer-events: none;
+  touch-action: none;
+  padding-block: 1rem;
+  position: absolute;
+  z-index: 50;
+  top: 100%;
+  width: 100%;
+  border-radius: 7px;
+}
+.user-actions li .links button {
+  display: block;
+  width: calc(100% - 1rem);
+  background-color: var(--second-color);
+  font-family: 'Lato', sans-serif;
+  color: #000000;
+  padding: 0.5rem 0.7rem;
+  border-radius: 7px;
+  margin: 0 auto;
+}
+.user-actions li .links a {
+  font-family: 'Lato', sans-serif;
+  margin-top: 1rem;
+  color: black;
+  padding-inline: 0.5rem;
+}
+
+.user-actions li:hover p .arrow {
+  transform: rotate(-90deg);
+}
+
+.user-actions li:hover p .user {
+  fill: #ffa500;
+}
+
+.user-actions li:hover .links {
+  transform: initial;
+  opacity: initial;
+  pointer-events: initial;
+  touch-action: initial;
+}
+
+.actions .cart {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: fit-content;
+  cursor: pointer;
+}
+
+.actions .cart span {
+  font-size: 0.8rem;
+  position: absolute;
+  top: -5px;
+  left: 100%;
+  transform: translate3d(-50%, -50%, 0);
+  background-color: var(--second-color);
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+@media (max-width: 955px) {
+  .actions {
+    transition: 1s;
+    position: absolute;
+    background-color: var(--primary-color);
+    padding: 1rem;
+    font-size: 1rem;
+    gap: 1.5rem;
+    top: calc(100% - 0.5px);
+    right: 0px;
+    width: 50%;
+    border-radius: 0px 0px 7px 7px;
+    transform: translate3d(0, -30px, 0);
+    opacity: 0;
+    pointer-events: none;
+    margin-left: -1rem;
+    align-items: initial;
+    flex-direction: column;
+    border-top: 1px solid gray;
+  }
+  .active {
+    opacity: initial;
+    pointer-events: initial;
+    transform: initial;
+  }
+
+  .actions .list {
+    display: none;
+  }
+  .user-actions li {
+    cursor: initial;
+  }
+
+  .user-actions li p {
+    padding: 0;
+  }
+
+  .user-actions li p .arrow {
+    display: none;
+  }
+  .user-actions li .links {
+    padding: 0px;
+    background-color: transparent;
+    font-size: 1rem;
+    font-family: 'Lato', sans-serif;
+    color: #fff;
+    opacity: 1;
+    position: static;
+    transform: initial;
+  }
+
+  .user-actions li .links a {
+    padding: 0px;
+    margin-top: 1.5rem;
+    color: #fff;
+    font-weight: inherit;
+    border-bottom: transparent;
+    transition: 1s;
+  }
+
+  .user-actions li .links a:hover {
+    color: var(--second-color);
+  }
+
+  .user-actions li .links button {
+    font-weight: inherit;
+    font-size: 1rem;
+    text-align: left;
+    padding: 0px;
+    color: #fff;
+    margin: inherit;
+    margin-top: 1.5rem;
+    background-color: transparent;
+    transition: 1s;
+  }
+
+  .user-actions li .links button:hover {
+    color: var(--second-color);
+  }
+
+  .actions .cart span {
+    left: 32px;
+  }
+}

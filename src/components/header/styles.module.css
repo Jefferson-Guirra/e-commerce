@@ -1,0 +1,26 @@
+.container {
+  width: 100%;
+  top: 0;
+  position: fixed;
+  z-index: 500;
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.container nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-block: 1.5rem;
+  display: flex;
+  align-items: center;
+  padding-inline: 1rem;
+  justify-content: space-between;
+  gap: 1rem;
+  position: relative;
+}
+
+@media (max-width: 955px) {
+  .container nav {
+    flex-wrap: wrap;
+  }
+}
