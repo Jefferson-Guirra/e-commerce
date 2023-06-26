@@ -3,6 +3,11 @@ export interface AuthenticationModel {
   password: string
 }
 
+export interface Auth {
+  accessToken: string
+  username: string
+}
+
 export interface Authentication {
-  auth: (account: AuthenticationModel) => Promise<string | null>
+  auth: (account: AuthenticationModel) => Promise<Auth | null>
 }

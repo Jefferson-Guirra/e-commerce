@@ -153,10 +153,13 @@ describe('DbAuthentication', () => {
     await expect(promise).rejects.toThrow()
   })
 
-  test('should return a token on success', async () => {
+  test('should return 200 if on success', async () => {
     const { sut } = makeSut()
     const accessToken = await sut.auth(makeFakeAccountAuthentication())
-    expect(accessToken).toBe('any_token')
+    expect(accessToken).toEqual({
+      accessToken: 'any_token',
+      username: 'any_username',
+    })
   })
 
   test('should call updateAccessTokenRepository with correct values', async () => {

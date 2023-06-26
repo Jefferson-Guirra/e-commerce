@@ -1,4 +1,5 @@
 import {
+  Auth,
   Authentication,
   AuthenticationModel,
 } from '../../../../domain/usecases/account/authentication'
@@ -14,7 +15,7 @@ export class DbAuthentication implements Authentication {
     private readonly encrypter: Encrypter,
     private readonly updateAccessTokenRepository: UpdateAccessTokenRepository
   ) {}
-  async auth(account: AuthenticationModel): Promise<string | null> {
+  async auth(account: AuthenticationModel): Promise<Auth | null> {
     const loadAccount = await this.loadAccount.loadByEmail(account.email)
     if (loadAccount) {
       const isValid = await this.hashCompare.compare(
@@ -23,12 +24,10 @@ export class DbAuthentication implements Authentication {
       )
 
       if (isValid) {
+        const { id, username } = loadAccount
         const accessToken = await this.encrypter.encrypt(loadAccount.id)
-        await this.updateAccessTokenRepository.update(
-          loadAccount.id,
-          accessToken
-        )
-        return Promise.resolve(accessToken)
+        await this.updateAccessTokenRepository.update(id, accessToken)
+        return Promise.resolve({ accessToken, username })
       }
     }
 

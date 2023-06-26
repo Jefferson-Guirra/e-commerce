@@ -1,4 +1,5 @@
 import {
+  Auth,
   Authentication,
   AuthenticationModel,
 } from '../../../../domain/usecases/account/authentication'
@@ -32,8 +33,11 @@ const makeValidationStub = (): Validation => {
 
 const makeAuthenticationStub = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth(account: AuthenticationModel): Promise<string | null> {
-      return Promise.resolve('any_token')
+    async auth(account: AuthenticationModel): Promise<Auth | null> {
+      return Promise.resolve({
+        accessToken: 'any_token',
+        username: 'any_username',
+      })
     }
   }
   return new AuthenticationStub()
@@ -112,7 +116,9 @@ describe('LoginController', () => {
   test('should return 200 if valid credentials are provided', async () => {
     const { sut } = makeSut()
     const response = await sut.handle(makeFakeRequest())
-    expect(response).toEqual(ok({ accessToken: 'any_token' }))
+    expect(response).toEqual(
+      ok({ accessToken: 'any_token', username: 'any_username' })
+    )
   })
 })
 
