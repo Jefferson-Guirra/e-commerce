@@ -1,9 +1,12 @@
 import { SetCookie } from './protocols/insert-cookie-protocol'
 import { GetCookie } from './protocols/get-cookie-protocols'
-import { parseCookies, setCookie } from 'nookies'
+import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import { GetCookies } from './protocols/get-cookies-protocols'
+import { DestroyCookie } from './protocols/destroy-cookie-protocols'
 
-export class HandleCookies implements SetCookie, GetCookie, GetCookies {
+export class HandleCookies
+  implements SetCookie, GetCookie, GetCookies, DestroyCookie
+{
   insert(name: string, value: any): void {
     setCookie(null, name, JSON.stringify(value), {
       maxAge: 86400,
@@ -25,5 +28,9 @@ export class HandleCookies implements SetCookie, GetCookie, GetCookies {
       })
     }
     return returnCookies
+  }
+
+  destroyCookie(name: string) {
+    destroyCookie(null, name)
   }
 }
