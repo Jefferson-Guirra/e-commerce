@@ -23,9 +23,7 @@ export class HandleCookies
     const returnCookies = []
     const cookies = parseCookies()
     for (const cookieName of cookiesNames) {
-      returnCookies.push({
-        [cookieName]: cookies[cookieName],
-      })
+      returnCookies.push(cookies[cookieName])
     }
     return returnCookies
   }
