@@ -22,6 +22,7 @@ const Actions = () => {
     const accessToken = JSON.parse(parseCookies().literando_accessToken)
     await userApi.post({ accessToken }, 'logout')
     handleCookies.destroyCookie('literando_accessToken')
+    handleCookies.destroyCookie('literando_username')
     Router.reload()
   }
   return (
