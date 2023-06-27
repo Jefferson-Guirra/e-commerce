@@ -6,6 +6,7 @@ import { handleTime } from '../../../../utils/handle-time'
 import { IoClose } from 'react-icons/io5'
 import { AddBuyBookModel } from '../../../../server/domain/usecases/book-buy-list/add-book-buy-list'
 import { Api } from '../../../../utils/api'
+import { useHeaderContext } from '../../../../context/header/HeaderContext'
 interface IProps {
   reset: boolean
   accessToken: string
@@ -14,6 +15,7 @@ interface IProps {
 
 const apiBook = new Api()
 export const ResetComponent = ({ reset, handleReset, accessToken }: IProps) => {
+  const { dispatch: dispatchHeader } = useHeaderContext()
   const { resetBooksStorage, dispatch } = useBuyContext()
   const [bookList, setBookList] = useState<AddBuyBookModel[]>([])
 
@@ -52,7 +54,15 @@ export const ResetComponent = ({ reset, handleReset, accessToken }: IProps) => {
     handleReset(false)
     if (bookList.length > 0) {
       resetBooksCollection(bookList)
+      dispatchHeader({
+        type: 'ADD_AMOUNT_LIST',
+        payload: { amount: bookList.length },
+      })
     } else {
+      dispatchHeader({
+        type: 'ADD_AMOUNT_LIST',
+        payload: { amount: resetBooksStorage.length },
+      })
       resetBooksCollection(resetBooksStorage)
     }
     setBookList([])
