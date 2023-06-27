@@ -43,4 +43,13 @@ describe('DebGetBookBuyList', () => {
     await sut.getBook('any_token', 'any_book_id')
     expect(loadSpy).toHaveBeenCalledWith('any_token')
   })
+
+  test('should return undefined if loadAccount return null', async () => {
+    const { loadAccountStub, sut } = makeSut()
+    jest
+      .spyOn(loadAccountStub, 'loadByAccessToken')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const response = await sut.getBook('any_token', 'any_book_id')
+    expect(response).toBe(undefined)
+  })
 })
