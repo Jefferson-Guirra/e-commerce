@@ -33,7 +33,6 @@ export class HandleBuyBookDatabase
       { accessToken, bookId },
       'buybooklist/get-book'
     )
-    console.log(response)
     if (!response.body && response.statusCode === 200) {
       dispatch({ type: 'ADD_AMOUNT_LIST', payload: { amount } })
     }
