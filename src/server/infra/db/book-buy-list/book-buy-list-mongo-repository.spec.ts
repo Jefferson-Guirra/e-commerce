@@ -258,6 +258,26 @@ describe('BookBuyLIstMongoRepository', () => {
     count = await bookBuyListCollection.countDocuments()
     expect(count).toEqual(0)
   })
+
+  test('should return book if getBook success', async () => {
+    await bookBuyListCollection.insertOne(makeFakeAddBuyBook())
+    const sut = makeSut()
+    const book = await sut.getBook('any_user_id', 'any_id')
+    expect(book).toBeTruthy()
+    expect(book?.title).toBe('any_title')
+    expect(book?.description).toBe('any_description')
+    expect(book?.date).toBeTruthy()
+    expect(book?.authors).toEqual(['any_author'])
+    expect(book?.id).toBeTruthy()
+    expect(book?.imgUrl).toBe('any_url')
+    expect(book?.language).toBe('any_language')
+    expect(book?.price).toBe(0)
+    expect(book?.publisher).toBe('any_publisher')
+    expect(book?.publisherDate).toBe('any_date')
+    expect(book?.queryDoc).toBe('any_user_id' + 'any_id')
+    expect(book?.amount).toBe(1)
+    expect(book?.pageCount).toBe(1)
+  })
 })
 
 export {}
