@@ -30,18 +30,6 @@ export const HeaderStorage = ({ children }: Props) => {
           username: action.payload.username,
           amountList: action.payload.amountList,
         }
-
-      case 'DEFAULT_ADD_AMOUNT_LIST':
-        return {
-          ...state,
-          amountList: state.amountList + 1,
-        }
-
-      case 'DEFAULT_REMOVE_AMOUNT_LIST':
-        return {
-          ...state,
-          amountList: state.amountList - 1,
-        }
       case 'ADD_AMOUNT_LIST':
         return {
           ...state,

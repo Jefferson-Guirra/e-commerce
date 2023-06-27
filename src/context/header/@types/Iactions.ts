@@ -12,12 +12,6 @@ export type IActions =
       type: 'REVERT_MENU_MOB_STATE'
     }
   | {
-      type: 'DEFAULT_ADD_AMOUNT_LIST'
-    }
-  | {
-      type: 'DEFAULT_REMOVE_AMOUNT_LIST'
-    }
-  | {
       type: 'ADD_AMOUNT_LIST'
       payload: { amount: number }
     }
