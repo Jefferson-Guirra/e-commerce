@@ -3,15 +3,17 @@ import styles from './styles.module.css'
 import Image from 'next/image'
 import { IBuyProps } from './@types/IBuyProps'
 import { useRouter } from 'next/router'
+import { HandleBuyBookDatabase } from '../../../../utils/handle-add-buy-book-database'
 
-export const Buy = ({ book, handleAddBuyBookDatabase }: IBuyProps) => {
+const handleBuyBookDatabase = new HandleBuyBookDatabase()
+export const Buy = ({ book, accessToken }: IBuyProps) => {
   const [loading, setLoading] = useState<boolean>(false)
   const router = useRouter()
 
   const handleAddBuyBook = async () => {
     try {
       setLoading(true)
-      const response = await handleAddBuyBookDatabase()
+      const response = await handleBuyBookDatabase.addBook(accessToken, book)
       if (response.statusCode === 401) {
         alert('É necessário efetuar login.')
         return
@@ -25,7 +27,7 @@ export const Buy = ({ book, handleAddBuyBookDatabase }: IBuyProps) => {
   const handleAddBuyBookList = async () => {
     try {
       setLoading(true)
-      const response = await handleAddBuyBookDatabase()
+      const response = await handleBuyBookDatabase.addBook(accessToken, book)
       if (response.statusCode === 401) {
         alert('É necessário efetuar login.')
         return
