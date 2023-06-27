@@ -19,6 +19,6 @@ export class GetBookBuyListController implements Controller {
     if (book === undefined) {
       return unauthorized()
     }
-    return ok('success')
+    return ok(book)
   }
 }
