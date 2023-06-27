@@ -25,49 +25,16 @@ export const Book = ({
     setSimilarBooks(books)
   }, [])
 
-  const handleAddBookDatabase = async () => {
-    if (!accessToken) {
-      alert('É necessário efetuar o Login')
-    } else {
-      const addBook: BookModel = {
-        accessToken,
-        pageCount: book.pageCount,
-        authors: book.authors,
-        title: book.title,
-        bookId: book.id,
-        language: book.language,
-        publisher: book.publisher,
-        publisherDate: book.publisherDate,
-        price: book.price,
-        description: book.description,
-        imgUrl: `https://books.google.com/books/publisher/content/images/frontcover/${book.id}?fife=w340-h400&source=gbs_api`,
-      }
-
-      await apiBook.post(addBook, 'booklist/add')
-    }
-  }
-
   const handleAddBuyBookDatabase = async () => {
+    const { id, ...booksFields } = book
     const addBuyBook: BookModel = {
       accessToken,
-      pageCount: book.pageCount,
-      authors: book.authors,
-      title: book.title,
-      bookId: book.id,
-      language: book.language,
-      publisher: book.publisher,
-      publisherDate: book.publisherDate,
-      price: book.price,
-      description: book.description,
+      bookId: id,
       imgUrl: `https://books.google.com/books/publisher/content/images/frontcover/${book.id}?fife=w340-h400&source=gbs_api`,
+      ...booksFields,
     }
     const response = await apiBook.post(addBuyBook, 'buybooklist/add')
-    console.log(response)
     return response
-  }
-
-  const handleExcludeBookDatabase = async () => {
-    await apiBook.delete({ accessToken, idBook: book.id }, 'booklist/remove')
   }
 
   useEffect(() => {
@@ -81,15 +48,9 @@ export const Book = ({
       <section className={styles.aboutBook}>
         <article className={styles.contentBook}>
           <Info
-            authors={book.authors}
-            avarege={book.avarege}
-            description={book.description}
+            accessToken={accessToken}
+            book={book}
             favoriteBook={validateFavoriteBooks}
-            handleAddBookDatabase={handleAddBookDatabase}
-            id={book.id}
-            subtitle={book.subtitle}
-            handleExcludeBookDatabase={handleExcludeBookDatabase}
-            title={book.title}
             query={query}
           />
           <Buy
