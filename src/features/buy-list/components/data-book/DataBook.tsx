@@ -6,6 +6,7 @@ import { IDataProps } from './@types/IDataBookProps'
 import { useBuyContext } from '../../../../context/books-buy-list/BuyBookContext'
 import { Api } from '../../../../utils/api'
 import { parseCookies } from 'nookies'
+import { useHeaderContext } from '../../../../context/header/HeaderContext'
 
 const apiBook = new Api()
 
@@ -20,6 +21,7 @@ export const DataBook = ({
 }: IDataProps) => {
   const [amountBook, setAmountBook] = useState(amount)
   const { loading, dispatch } = useBuyContext()
+  const { dispatch: dispatchHeader } = useHeaderContext()
 
   const handleUpdateAmountBook = async (bookId: string, value: number) => {
     const accessToken = JSON.parse(parseCookies().literando_accessToken)
@@ -54,6 +56,10 @@ export const DataBook = ({
         { accessToken: JSON.parse(accessToken), bookId },
         'buybooklist/delete'
       )
+      dispatchHeader({
+        type: 'REMOVE_AMOUNT_LIST',
+        payload: { removeAmount: 1 },
+      })
       dispatch({
         type: 'FETCH_REMOVE_SUCCESS',
         payload: { deleteBook: response.body },

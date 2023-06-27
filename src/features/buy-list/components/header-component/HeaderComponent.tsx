@@ -5,6 +5,7 @@ import { BiUndo } from 'react-icons/bi'
 import { HiTrash } from 'react-icons/hi'
 import { AddBuyBookModel } from '../../../../server/domain/usecases/book-buy-list/add-book-buy-list'
 import { Api } from '../../../../utils/api'
+import { useHeaderContext } from '../../../../context/header/HeaderContext'
 
 const formatLength = (length: number) => {
   if (length >= 100) {
@@ -20,6 +21,7 @@ interface IProps {
 const apiBook = new Api()
 
 export const HeaderComponent = ({ handleReset }: IProps) => {
+  const { dispatch: dispatchHeader } = useHeaderContext()
   const { deleteBooksStorage, collectionLoading, resetBooksStorage, dispatch } =
     useBuyContext()
 
@@ -35,6 +37,10 @@ export const HeaderComponent = ({ handleReset }: IProps) => {
         )
         deletedBooks.push(response.body)
       }
+      dispatchHeader({
+        type: 'REMOVE_AMOUNT_LIST',
+        payload: { removeAmount: deleteBooksStorage.length },
+      })
       dispatch({
         type: 'FETCH_DELETED_BOOKS_SUCCESS',
         payload: { deletedBooks },
