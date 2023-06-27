@@ -3,7 +3,7 @@ import { GetBookBuyList } from '../../../../domain/usecases/book-buy-list/get-bo
 import { LoadAccountByAccessTokenRepository } from '../../../protocols/db/account/load-account-by-access-token-repository'
 import { GetBookBuyListRepository } from '../../../protocols/db/book-buy-list/get-book-buy-list-repository'
 
-export class DebGetBookBuyList implements GetBookBuyList {
+export class DbGetBookBuyList implements GetBookBuyList {
   constructor(
     private readonly loadAccount: LoadAccountByAccessTokenRepository,
     private readonly getBuyBook: GetBookBuyListRepository
