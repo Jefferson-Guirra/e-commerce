@@ -17,7 +17,7 @@ export class DebGetBookBuyList implements GetBookBuyList {
       return
     }
     const { id } = account
-    await this.getBuyBook.getBook(id, bookId)
-    return null
+    const book = await this.getBuyBook.getBook(id, bookId)
+    return book
   }
 }
