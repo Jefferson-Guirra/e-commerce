@@ -1,7 +1,7 @@
 import { AddBuyBookModel } from '../../../../domain/usecases/book-buy-list/add-book-buy-list'
 import { GetBookBuyList } from '../../../../domain/usecases/book-buy-list/get-book-buy-list'
 import { MissingParamError } from '../../../errors/missing-params-error'
-import { badRequest } from '../../../helpers/http'
+import { badRequest, unauthorized } from '../../../helpers/http'
 import { HttpRequest } from '../../../protocols/http'
 import { Validation } from '../../../protocols/validate'
 import { GetBookBuyListController } from './get-book-buy-list-controller'
@@ -91,5 +91,14 @@ describe('GetBookBuyListController', () => {
     const getBookSpy = jest.spyOn(dbGetBookBuyListStub, 'getBook')
     await sut.handle(makeFakeRequest())
     expect(getBookSpy).toHaveBeenCalledWith('any_token', 'any_book_id')
+  })
+
+  test('should return 401 if getBook return undefined', async () => {
+    const { sut, dbGetBookBuyListStub } = makeSut()
+    jest
+      .spyOn(dbGetBookBuyListStub, 'getBook')
+      .mockReturnValueOnce(Promise.resolve(undefined))
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(unauthorized())
   })
 })
