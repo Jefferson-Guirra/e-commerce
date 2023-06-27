@@ -38,7 +38,7 @@ export const HeaderStorage = ({ children }: Props) => {
       case 'REMOVE_AMOUNT_LIST':
         return {
           ...state,
-          amountList: state.amountList + action.payload.removeAmount,
+          amountList: state.amountList - action.payload.removeAmount,
         }
       case 'REVERT_MENU_MOB_STATE':
         return {
