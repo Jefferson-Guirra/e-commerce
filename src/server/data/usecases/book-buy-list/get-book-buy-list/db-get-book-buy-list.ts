@@ -10,7 +10,10 @@ export class DebGetBookBuyList implements GetBookBuyList {
     accessToken: string,
     bookId: string
   ): Promise<AddBuyBookModel | null | undefined> {
-    await this.loadAccount.loadByAccessToken(accessToken)
-    return
+    const account = await this.loadAccount.loadByAccessToken(accessToken)
+    if (!account) {
+      return
+    }
+    return null
   }
 }
