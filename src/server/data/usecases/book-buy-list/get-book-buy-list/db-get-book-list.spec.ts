@@ -52,4 +52,13 @@ describe('DebGetBookBuyList', () => {
     const response = await sut.getBook('any_token', 'any_book_id')
     expect(response).toBe(undefined)
   })
+
+  test('should return throw if loadAccount throw', async () => {
+    const { loadAccountStub, sut } = makeSut()
+    jest
+      .spyOn(loadAccountStub, 'loadByAccessToken')
+      .mockReturnValueOnce(Promise.reject(new Error()))
+    const promise = sut.getBook('any_token', 'any_book_id')
+    await expect(promise).rejects.toThrow()
+  })
 })
