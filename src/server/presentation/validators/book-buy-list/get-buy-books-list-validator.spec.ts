@@ -1,5 +1,5 @@
 import { MissingParamError } from '../../errors/missing-params-error'
-import { GetBuyBooksValidator } from './get-book-buy-list-validator'
+import { GetBuyBooksValidator } from './get-books-buy-list-validator'
 
 const makeSut = (): GetBuyBooksValidator => new GetBuyBooksValidator()
 
