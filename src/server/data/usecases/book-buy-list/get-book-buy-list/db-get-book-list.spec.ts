@@ -121,4 +121,13 @@ describe('DebGetBookBuyList', () => {
     const response = await sut.getBook('any_token', 'any_user_id')
     expect(response).toEqual(makeFakeAddBuyBookModel())
   })
+
+  test('should return null if getBook return null', async () => {
+    const { sut, getBookBuyListRepositoryStub } = makeSut()
+    jest
+      .spyOn(getBookBuyListRepositoryStub, 'getBook')
+      .mockReturnValueOnce(Promise.resolve(null))
+    const response = await sut.getBook('any_token', 'any_user_id')
+    expect(response).toBe(null)
+  })
 })
