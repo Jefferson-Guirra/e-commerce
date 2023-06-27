@@ -110,4 +110,10 @@ describe('GetBookBuyListController', () => {
     const response = await sut.handle(makeFakeRequest())
     expect(response).toEqual(ok(null))
   })
+
+  test('should return 200 on a succeeds', async () => {
+    const { sut } = makeSut()
+    const response = await sut.handle(makeFakeRequest())
+    expect(response).toEqual(ok(makeFakeAddBuyBookModel()))
+  })
 })
