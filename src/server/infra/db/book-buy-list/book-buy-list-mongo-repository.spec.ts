@@ -278,6 +278,12 @@ describe('BookBuyLIstMongoRepository', () => {
     expect(book?.amount).toBe(1)
     expect(book?.pageCount).toBe(1)
   })
+
+  test('should return null if getBook return null', async () => {
+    const sut = makeSut()
+    const response = await sut.getBook('any_user_id', 'any_id')
+    expect(response).toBeFalsy()
+  })
 })
 
 export {}
