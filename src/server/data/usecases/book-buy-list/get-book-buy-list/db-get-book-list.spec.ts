@@ -102,9 +102,9 @@ describe('DebGetBookBuyList', () => {
 
   test('should call getBook with correct values', async () => {
     const { getBookBuyListRepositoryStub, sut } = makeSut()
-    const loadSpy = jest.spyOn(getBookBuyListRepositoryStub, 'getBook')
+    const getSpy = jest.spyOn(getBookBuyListRepositoryStub, 'getBook')
     await sut.getBook('any_token', 'any_book_id')
-    expect(loadSpy).toHaveBeenCalledWith('any_user_id', 'any_book_id')
+    expect(getSpy).toHaveBeenCalledWith('any_user_id', 'any_book_id')
   })
 
   test('should return throw if getBook return throw', async () => {
@@ -114,5 +114,11 @@ describe('DebGetBookBuyList', () => {
       .mockReturnValueOnce(Promise.reject(new Error()))
     const promise = sut.getBook('any_token', 'any_book_id')
     expect(promise).rejects.toThrow()
+  })
+
+  test('should return a book on succeeds', async () => {
+    const { sut } = makeSut()
+    const response = await sut.getBook('any_token', 'any_user_id')
+    expect(response).toEqual(makeFakeAddBuyBookModel())
   })
 })
