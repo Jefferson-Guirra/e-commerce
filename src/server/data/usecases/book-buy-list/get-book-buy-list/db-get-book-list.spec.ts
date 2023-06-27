@@ -2,7 +2,7 @@ import {
   LoadAccountByAccessTokenRepository,
   accountLoginModel,
 } from '../../../protocols/db/account/load-account-by-access-token-repository'
-import { DebGetBookBuyList } from './db-get-book-buy-list'
+import { DbGetBookBuyList } from './db-get-book-buy-list'
 import { AddBuyBookModel } from '../../../../domain/usecases/book-buy-list/add-book-buy-list'
 import { GetBookBuyListRepository } from '../../../protocols/db/book-buy-list/get-book-buy-list-repository'
 
@@ -57,13 +57,13 @@ const makeLoadAccountStub = (): LoadAccountByAccessTokenRepository => {
 interface SutTypes {
   getBookBuyListRepositoryStub: GetBookBuyListRepository
   loadAccountStub: LoadAccountByAccessTokenRepository
-  sut: DebGetBookBuyList
+  sut: DbGetBookBuyList
 }
 
 const makeSut = (): SutTypes => {
   const getBookBuyListRepositoryStub = makeGetBuyBookListRepositoryStub()
   const loadAccountStub = makeLoadAccountStub()
-  const sut = new DebGetBookBuyList(
+  const sut = new DbGetBookBuyList(
     loadAccountStub,
     getBookBuyListRepositoryStub
   )
@@ -74,7 +74,7 @@ const makeSut = (): SutTypes => {
   }
 }
 
-describe('DebGetBookBuyList', () => {
+describe('DbGetBookBuyList', () => {
   test('should call loadAccount with correct accessToken', async () => {
     const { loadAccountStub, sut } = makeSut()
     const loadSpy = jest.spyOn(loadAccountStub, 'loadByAccessToken')
