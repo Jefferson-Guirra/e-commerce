@@ -9,6 +9,7 @@ import {
   BuyBookCard,
   BuyComponent,
   ResetComponent,
+  PurchaseComponent,
 } from '../components'
 import { useBuyContext } from '../../../context/books-buy-list/BuyBookContext'
 
@@ -45,19 +46,7 @@ export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
           Total do carrinho: R${price.toFixed(2).toString().replace('.', ',')}
         </p>
       </article>
-      {booksState.length > 0 && (
-        <article className={styles.checkout}>
-          <button className={styles.addButton} onClick={() => router.push('/')}>
-            ESCOLHER MAIS LIVROS
-          </button>
-          <button
-            className={styles.buyButton}
-            onClick={() => setPurchase(true)}
-          >
-            FINALIZAR PEDIDO
-          </button>
-        </article>
-      )}
+      <PurchaseComponent setState={setPurchase} listSize={booksState.length} />
 
       <ResetComponent
         accessToken={accessToken}

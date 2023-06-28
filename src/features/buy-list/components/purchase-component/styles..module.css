@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+}
+
+.container button {
+  width: fit-content;
+  font-family: 'Lato', sans-serif;
+  padding: 0.8rem 1.5rem;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #fff;
+  border-radius: 7px;
+}
+
+.container .addButton {
+  border: 1px solid #d9d9d9;
+  background-color: #fff;
+  color: var(--four-color);
+}
+
+.container .buyButton {
+  background-color: #f31;
+}
+
+@media (max-width: 530px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container .addButton {
+    order: 1;
+  }
+
+  .container .buyButton {
+    order: 0;
+  }
+}
