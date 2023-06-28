@@ -56,7 +56,11 @@ button {
 
 button:disabled {
   cursor: wait;
-  opacity: 0.5;
+}
+
+button:disabled svg {
+  margin: 0 auto;
+  animation: 0.5s show-loading-button infinite linear;
 }
 
 .title {
@@ -216,5 +220,11 @@ button:disabled {
 @media (max-width: 955px) {
   body {
     padding-top: 154px;
+  }
+}
+
+@keyframes show-loading-button {
+  to {
+    transform: rotate(360deg);
   }
 }
