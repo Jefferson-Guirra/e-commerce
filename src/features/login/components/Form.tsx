@@ -1,27 +1,31 @@
 import styles from './styles.module.css'
 import { useState } from 'react'
-import { Input } from '../../../components'
+import { Input, Button } from '../../../components'
 import useForm from '../../../Hooks/useForm'
 import { useRouter } from 'next/router'
 import { AiFillEye } from 'react-icons/ai'
 import { Api } from '../../../utils/api'
 import { HandleCookies } from '../../../utils/handle-cookie'
+import { AiOutlineLogin } from 'react-icons/ai'
 
+interface IProps {
+  loading: boolean
+  handleLoading: (state: boolean) => void
+}
 const apiUser = new Api()
 const handleCookies = new HandleCookies()
 
-export const UserForm = () => {
+export const UserForm = ({ handleLoading, loading }: IProps) => {
   const password = useForm('password')
   const router = useRouter()
   const email = useForm('email')
   const [error, setError] = useState<boolean | string>(false)
-  const [loading, setLoading] = useState(false)
   const [hidden, setHidden] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
-      setLoading(true)
+      handleLoading(true)
       setError(false)
       const validateInputs = email.validate() && password.validate()
 
@@ -51,7 +55,7 @@ export const UserForm = () => {
         statusCodeValidate[response.statusCode]()
       }
     } finally {
-      setLoading(false)
+      handleLoading(false)
     }
   }
   return (
@@ -86,13 +90,12 @@ export const UserForm = () => {
           Cadastre-se
         </span>
       </p>
-      {!loading ? (
-        <button type="submit">Entrar</button>
-      ) : (
-        <button type="submit" disabled>
-          Entrando...
-        </button>
-      )}
+      <Button state={loading} type="submit" size={25}>
+        <>
+          <AiOutlineLogin size={25} />
+          <p>Entrar</p>
+        </>
+      </Button>
     </form>
   )
 }

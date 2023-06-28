@@ -5,6 +5,7 @@ import { IBuyProps } from './@types/IBuyProps'
 import { useRouter } from 'next/router'
 import { HandleBuyBookDatabase } from '../../../../utils/handle-buy-book-database'
 import { useHeaderContext } from '../../../../context/header/HeaderContext'
+import { Button } from '../../../../components'
 
 const handleBuyBookDatabase = new HandleBuyBookDatabase()
 export const Buy = ({ book, accessToken }: IBuyProps) => {
@@ -84,25 +85,22 @@ export const Buy = ({ book, accessToken }: IBuyProps) => {
             <span>R$</span>
             {book.price.toFixed(2).toString().replace('.', ',')}
           </p>
-          {!loading ? (
-            <button
-              onClick={handleAddBuyBookList}
-              style={{ backgroundColor: '#ffd814' }}
-            >
-              Adicionar ao carrinho
-            </button>
-          ) : (
-            <button disabled style={{ backgroundColor: '#ffd814' }}>
-              Adicionando...
-            </button>
-          )}
-          <button
-            disabled={loading}
-            onClick={handleAddBuyBook}
-            style={{ backgroundColor: '#ffa500' }}
+          <Button
+            onClick={handleAddBuyBookList}
+            state={loading}
+            size={15}
+            style={{ backgroundColor: '#ffd814' }}
           >
-            Comprar
-          </button>
+            <p>Adicionar ao carrinho</p>
+          </Button>
+          <Button
+            onClick={handleAddBuyBook}
+            state={loading}
+            style={{ backgroundColor: '#ffa500' }}
+            size={15}
+          >
+            <p>Comprar</p>
+          </Button>
         </article>
       ) : (
         <p style={{ color: '#f31', textAlign: 'center' }}>Indisponível</p>

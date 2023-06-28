@@ -62,6 +62,7 @@
 
 .buyContainer .actionsBuy button {
   width: 100%;
+  font-size: 1.1rem;
   padding-block: 0.7rem;
   border-radius: 15px;
   transition: 1s;

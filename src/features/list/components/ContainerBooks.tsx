@@ -4,6 +4,7 @@ import styles from './styles.module.css'
 import { useState } from 'react'
 import { handleTime } from '../../../utils/handle-time'
 import Image from 'next/image'
+import { Button } from '../../../components'
 
 export const ContainerBooks = ({
   books,
@@ -35,13 +36,14 @@ export const ContainerBooks = ({
             </div>
             <p id="author">{book.authors[0]}</p>
             <p>Adicionado: {handleTime(book.date)} </p>
-            <button
-              disabled={loading}
+            <Button
+              state={loading}
+              size={17}
               className={styles.remove}
               onClick={() => handleExclude(book.bookId)}
             >
-              remover
-            </button>
+              <p>Remover</p>
+            </Button>
           </div>
         </article>
       ))}
