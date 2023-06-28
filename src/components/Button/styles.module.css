@@ -4,3 +4,14 @@
   justify-content: center;
   gap: 0.5rem;
 }
+
+.container button:disabled svg {
+  margin: 0 auto;
+  animation: 0.5s show-loading-button infinite linear;
+}
+
+@keyframes show-loading-button {
+  to {
+    transform: rotate(360deg);
+  }
+}
