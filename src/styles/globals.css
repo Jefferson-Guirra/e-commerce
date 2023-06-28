@@ -222,9 +222,3 @@ button:disabled svg {
     padding-top: 154px;
   }
 }
-
-@keyframes show-loading-button {
-  to {
-    transform: rotate(360deg);
-  }
-}
