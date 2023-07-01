@@ -10,18 +10,14 @@ export class HandleBookDatabase
   implements AddBookDatabase, ExcludeBookDatabase
 {
   async addBook(accessToken: string, book: IBookIdApi): Promise<void> {
-    if (!accessToken) {
-      alert('É necessário efetuar o Login')
-    } else {
-      const { id, ...booksFields } = book
-      const addBook: BookModel = {
-        accessToken,
-        bookId: id,
-        imgUrl: `https://books.google.com/books/publisher/content/images/frontcover/${book.id}?fife=w340-h400&source=gbs_api`,
-        ...booksFields,
-      }
-      await apiBook.post(addBook, 'booklist/add')
+    const { id, ...booksFields } = book
+    const addBook: BookModel = {
+      accessToken,
+      bookId: id,
+      imgUrl: `https://books.google.com/books/publisher/content/images/frontcover/${book.id}?fife=w340-h400&source=gbs_api`,
+      ...booksFields,
     }
+    await apiBook.post(addBook, 'booklist/add')
   }
 
   async removeBook(accessToken: string, idBook: string): Promise<void> {
