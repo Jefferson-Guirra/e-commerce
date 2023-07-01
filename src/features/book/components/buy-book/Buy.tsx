@@ -88,7 +88,7 @@ export const Buy = ({ book, accessToken }: IBuyProps) => {
           <Button
             onClick={handleAddBuyBookList}
             state={loading}
-            size={15}
+            size={21}
             style={{ backgroundColor: '#ffd814' }}
           >
             <p>Adicionar ao carrinho</p>
@@ -97,7 +97,7 @@ export const Buy = ({ book, accessToken }: IBuyProps) => {
             onClick={handleAddBuyBook}
             state={loading}
             style={{ backgroundColor: '#ffa500' }}
-            size={15}
+            size={21}
           >
             <p>Comprar</p>
           </Button>

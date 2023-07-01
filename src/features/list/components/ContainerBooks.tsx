@@ -38,7 +38,7 @@ export const ContainerBooks = ({
             <p>Adicionado: {handleTime(book.date)} </p>
             <Button
               state={loading}
-              size={17}
+              size={21}
               className={styles.remove}
               onClick={() => handleExclude(book.bookId)}
             >
