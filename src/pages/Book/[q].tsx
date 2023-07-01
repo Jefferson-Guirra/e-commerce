@@ -1,4 +1,3 @@
-import React from 'react'
 import { GetServerSideProps } from 'next'
 import { BookContainer } from '../../features'
 import { IBookIdApi } from '../../services/api/@types/IBookIdApi'
