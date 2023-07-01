@@ -1,7 +1,10 @@
 import NextAuth from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
-
-export default NextAuth({
+import type { NextAuthOptions } from 'next-auth'
+export const authOptions: NextAuthOptions = {
+  session: {
+    maxAge: 7 * 24 * 60 * 60,
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -12,7 +15,13 @@ export default NextAuth({
   ],
   secret: process.env.NEXTAUTH_SECRET as string,
   callbacks: {
-    async signIn() {
+    jwt({ account, token, user }) {
+      if (account) {
+        token.accessToken = account.access_token
+      }
+      return token
+    },
+    async signIn({ account }): Promise<string | boolean> {
       try {
         return true
       } catch (err) {
@@ -21,10 +30,9 @@ export default NextAuth({
       }
     },
     async session({ session, token }) {
-      return {
-        ...session,
-        id: token.sub,
-      }
+      session.user.accessToken = token.accessToken
+      return session
     },
   },
-})
+}
+export default NextAuth(authOptions)
