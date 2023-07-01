@@ -59,8 +59,7 @@ button:disabled {
 }
 
 button:disabled svg {
-  margin: 0 auto;
-  animation: 0.5s show-loading-button infinite linear;
+  opacity: 0.5;
 }
 
 .title {
