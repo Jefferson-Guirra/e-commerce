@@ -6,39 +6,58 @@ import { useRouter } from 'next/router'
 import { HandleBuyBookDatabase } from '../../../../utils/handle-buy-book-database'
 import { useHeaderContext } from '../../../../context/header/HeaderContext'
 import { Button } from '../../../../components'
+import { parseCookies } from 'nookies'
 
 const handleBuyBookDatabase = new HandleBuyBookDatabase()
-export const Buy = ({ book, accessToken }: IBuyProps) => {
+export const Buy = ({ book }: IBuyProps) => {
   const { dispatch } = useHeaderContext()
   const [loading, setLoading] = useState<boolean>(false)
   const router = useRouter()
 
   const handleAddBuyBook = async () => {
-    try {
-      setLoading(true)
-      await handleBuyBookDatabase.validateAdd(accessToken, book.id, dispatch, 1)
-      const response = await handleBuyBookDatabase.addBook(accessToken, book)
-      if (response.statusCode === 401) {
-        alert('É necessário efetuar login.')
-        return
+    const { literando_accessToken: accessToken } = parseCookies()
+    if (accessToken) {
+      try {
+        setLoading(true)
+        await handleBuyBookDatabase.validateAdd(
+          accessToken,
+          book.id,
+          dispatch,
+          1
+        )
+        const response = await handleBuyBookDatabase.addBook(accessToken, book)
+        if (response.statusCode === 401) {
+          console.error(response)
+        }
+      } finally {
+        setLoading(false)
       }
-      router.push('/Buy')
-    } finally {
-      setLoading(false)
+    } else {
+      router.push('/Login')
     }
   }
 
   const handleAddBuyBookList = async () => {
-    try {
-      setLoading(true)
-      await handleBuyBookDatabase.validateAdd(accessToken, book.id, dispatch, 1)
-      const response = await handleBuyBookDatabase.addBook(accessToken, book)
-      if (response.statusCode === 401) {
-        alert('É necessário efetuar login.')
-        return
+    const { literando_accessToken: accessToken } = parseCookies()
+    if (accessToken) {
+      try {
+        setLoading(true)
+        await handleBuyBookDatabase.validateAdd(
+          accessToken,
+          book.id,
+          dispatch,
+          1
+        )
+        const response = await handleBuyBookDatabase.addBook(accessToken, book)
+        if (response.statusCode === 401) {
+          alert('É necessário efetuar login.')
+          return
+        }
+      } finally {
+        setLoading(false)
       }
-    } finally {
-      setLoading(false)
+    } else {
+      router.push('/Login')
     }
   }
 

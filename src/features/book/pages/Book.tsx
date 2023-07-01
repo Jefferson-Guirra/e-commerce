@@ -37,7 +37,7 @@ export const Book = ({
             favoriteBook={validateFavoriteBooks}
             query={query}
           />
-          <Buy book={book} accessToken={accessToken} />
+          <Buy book={book} />
         </article>
       </section>
       {similarBooks?.totalItems !== 0 && similarBooks && (
