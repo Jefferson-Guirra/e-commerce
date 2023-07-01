@@ -54,7 +54,7 @@ export const Info = ({ favoriteBook, book, accessToken, query }: IInfoBook) => {
           <button
             disabled={loading}
             onClick={() => handleAdd()}
-            className={`${styles.itemText} ${styles.list}`}
+            className={`${styles.button}`}
           >
             <BsFillHeartFill size={15} color="#999999" /> Minha lista
           </button>
@@ -62,7 +62,7 @@ export const Info = ({ favoriteBook, book, accessToken, query }: IInfoBook) => {
           <button
             disabled={loading}
             onClick={() => handleExclude()}
-            className={`${styles.itemText} ${styles.list}`}
+            className={styles.button}
           >
             <BsFillHeartFill size={15} color="#f31" /> Minha lista
           </button>
