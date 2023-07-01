@@ -1,8 +1,9 @@
 import Head from 'next/head'
 import { GetServerSideProps } from 'next'
-import { getSession } from 'next-auth/react'
-import { SessionUser } from '../../Types/User'
+import { authOptions } from '../api/auth/[...nextauth]'
 import { SignUpContainer } from '../../features'
+import { getServerSession } from 'next-auth'
+import { handleSession } from '../../utils/handle-next-auth-session'
 import nookies from 'nookies'
 
 const SignUp = () => {
@@ -19,7 +20,8 @@ const SignUp = () => {
 export default SignUp
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const session = (await getSession({ req: ctx.req })) as SessionUser
+  const session = await getServerSession(ctx.req, ctx.res, authOptions)
+
   const { literando_accessToken } = nookies.get(ctx)
   if (literando_accessToken) {
     return {
@@ -29,12 +31,36 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     }
   }
-  if (session?.id) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
+
+  if (session) {
+    try {
+      nookies.set(
+        ctx,
+        'literando_accessToken',
+        JSON.stringify(session.user.accessToken),
+        {
+          maxAge: 86400 * 7,
+          page: '/',
+        }
+      )
+      nookies.set(
+        ctx,
+        'literando_username',
+        JSON.stringify(String(session.user.name)),
+        {
+          maxAge: 86400 * 7,
+          path: '/',
+        }
+      )
+      await handleSession({ session })
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        },
+      }
+    } catch (err) {
+      console.error(err)
     }
   }
   return {
