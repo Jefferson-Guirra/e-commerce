@@ -5,6 +5,7 @@ import nookies from 'nookies'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]'
 import { MongoHelper } from '../../server/infra/db/helpers/mongo-helper'
+import { handleSession } from '../../utils/handle-next-auth-session'
 
 const Login = () => {
   return (
@@ -32,36 +33,34 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
   }
   if (session) {
-    const { accessToken, name, email } = session.user
-    nookies.set(ctx, 'literando_accessToken', JSON.stringify(accessToken), {
-      maxAge: 86400 * 7,
-      page: '/',
-    })
-    nookies.set(ctx, 'literando_username', JSON.stringify(String(name)), {
-      maxAge: 86400 * 7,
-      path: '/',
-    })
-    MongoHelper.uri = process.env.MONGO_URL as string
-    const accountsCollection = await MongoHelper.getCollection('accounts')
-    const account = await accountsCollection.findOne({ email })
-    if (!account) {
-      await accountsCollection.insertOne({ email, accessToken, username: name })
-    } else {
-      await accountsCollection.updateOne(
-        { email },
+    try {
+      nookies.set(
+        ctx,
+        'literando_accessToken',
+        JSON.stringify(session.user.accessToken),
         {
-          $set: {
-            accessToken,
-          },
+          maxAge: 86400 * 7,
+          page: '/',
         }
       )
-    }
-
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
+      nookies.set(
+        ctx,
+        'literando_username',
+        JSON.stringify(String(session.user.name)),
+        {
+          maxAge: 86400 * 7,
+          path: '/',
+        }
+      )
+      await handleSession({ session })
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        },
+      }
+    } catch (err) {
+      console.error(err)
     }
   }
 
