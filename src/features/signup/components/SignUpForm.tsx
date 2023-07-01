@@ -5,16 +5,21 @@ import useForm from '../../../Hooks/useForm'
 import { AiFillEye } from 'react-icons/ai'
 import styles from '../../login/components/styles.module.css'
 import { Api } from '../../../utils/api'
+import { Button } from '../../../components'
+import { AiOutlineLogin } from 'react-icons/ai'
 
+interface Props {
+  loading: boolean
+  handleLoading: (state: boolean) => void
+}
 const apiUser = new Api()
 
-export const SignUpForm = () => {
+export const SignUpForm = ({ handleLoading, loading }: Props) => {
   const router = useRouter()
   const username = useForm('')
   const email = useForm('email')
   const password = useForm('password')
   const [error, setError] = useState<boolean | string>('')
-  const [loading, setLoading] = useState(false)
   const [hidden, setHidden] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -22,7 +27,7 @@ export const SignUpForm = () => {
     const validateInputs = email.validate() && password.validate()
     if (validateInputs) {
       try {
-        setLoading(true)
+        handleLoading(true)
         const response = await apiUser.post(
           {
             username: username.value,
@@ -41,7 +46,7 @@ export const SignUpForm = () => {
       } catch (err) {
         alert(err)
       } finally {
-        setLoading(false)
+        handleLoading(false)
       }
     }
   }
@@ -64,13 +69,10 @@ export const SignUpForm = () => {
         </span>
       </div>
       {error && <p className={styles.userErro}>{error}</p>}
-      {!loading ? (
-        <button type="submit">Cadastrar</button>
-      ) : (
-        <button disabled type="submit">
-          Cadastrando...
-        </button>
-      )}
+      <Button size={25} state={loading} type="submit">
+        <AiOutlineLogin size={25} />
+        <p>Cadastrar</p>
+      </Button>
     </form>
   )
 }

@@ -4,7 +4,13 @@ import { FcGoogle } from 'react-icons/fc'
 import Head from 'next/head'
 import { signIn } from 'next-auth/react'
 import { SignUpForm } from '../components/SignUpForm'
+import { useState, useCallback } from 'react'
+import { Button } from '../../../components'
 export const SignUp = () => {
+  const [loading, setLoading] = useState(false)
+  const handleLoading = useCallback((state: boolean) => {
+    setLoading(state)
+  }, [])
   return (
     <>
       <Head>
@@ -13,11 +19,15 @@ export const SignUp = () => {
       <section className={styles.content}>
         <GiBookshelf className={styles.booksIcon} size={40} color="#001f3f" />
         <h1>Cadastrar</h1>
-        <SignUpForm />
-        <button className={styles.googleLogin} onClick={() => signIn()}>
-          {' '}
+        <SignUpForm handleLoading={handleLoading} loading={loading} />
+        <Button
+          state={loading}
+          size={25}
+          className={styles.googleLogin}
+          onClick={() => signIn()}
+        >
           <FcGoogle size={25} /> Entrar com Google
-        </button>
+        </Button>
       </section>
     </>
   )
