@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import styles from './styles.module.css'
 import { GiBookshelf } from 'react-icons/gi'
 import { FcGoogle } from 'react-icons/fc'
-import { signIn } from 'next-auth/react'
+import { signIn, signOut } from 'next-auth/react'
 import Head from 'next/head'
 import { UserForm } from '../components/Form'
 import { Button } from '../../../components'
@@ -15,7 +15,7 @@ export const Login = () => {
   const handleSignIn = () => {
     try {
       setLoading(true)
-      signIn()
+      signIn('google', { callbackUrl: 'http://localhost:3000/Login' })
     } catch (err) {
       console.error(err)
     } finally {
@@ -31,6 +31,7 @@ export const Login = () => {
       <section className={styles.content}>
         <GiBookshelf className={styles.booksIcon} size={40} color="#001f3f" />
         <h1>Entrar</h1>
+        <h1 onClick={() => signOut()}>delete</h1>
         <UserForm loading={loading} handleLoading={handleLoading} />
 
         <Button

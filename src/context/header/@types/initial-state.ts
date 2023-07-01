@@ -5,7 +5,7 @@ export interface IHeaderState {
 }
 
 export const initialState: IHeaderState = {
-  username: '',
+  username: 'undefined',
   amountList: 0,
   menuMob: false,
 }

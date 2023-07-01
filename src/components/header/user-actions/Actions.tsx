@@ -7,11 +7,10 @@ import { useRouter } from 'next/router'
 import { FiShoppingCart } from 'react-icons/fi'
 import styles from './styles.module.css'
 import { useHeaderContext } from '../../../context/header/HeaderContext'
-import Router from 'next/router'
 import { Api } from '../../../utils/api'
 import { parseCookies } from 'nookies'
 import { HandleCookies } from '../../../utils/handle-cookie'
-
+import { signOut } from 'next-auth/react'
 const userApi = new Api()
 const handleCookies = new HandleCookies()
 const Actions = () => {
@@ -23,8 +22,9 @@ const Actions = () => {
     await userApi.post({ accessToken }, 'logout')
     handleCookies.destroyCookie('literando_accessToken')
     handleCookies.destroyCookie('literando_username')
-    Router.reload()
+    signOut()
   }
+
   return (
     <article
       className={
@@ -39,13 +39,14 @@ const Actions = () => {
         <li>
           <p>
             <BiUser className={styles.user} size={25} />
-            Olá, {username === ''
+            Olá,{' '}
+            {username === 'undefined'
               ? 'usuário'
               : `${username.toLowerCase()}`}{' '}
             <MdOutlineNavigateNext className={styles.arrow} size={25} />
           </p>
           <div className={styles.links}>
-            {username === '' ? (
+            {username === 'undefined' ? (
               <button
                 onClick={() => {
                   dispatch({ type: 'REVERT_MENU_MOB_STATE' })
@@ -64,7 +65,7 @@ const Actions = () => {
                 Sair
               </button>
             )}
-            {username === '' && (
+            {username === 'undefined' && (
               <Link
                 href="/SignUp"
                 onClick={() => dispatch({ type: 'REVERT_MENU_MOB_STATE' })}
