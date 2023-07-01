@@ -33,7 +33,6 @@ export const Book = ({
       <section className={styles.aboutBook}>
         <article className={styles.contentBook}>
           <Info
-            accessToken={accessToken}
             book={book}
             favoriteBook={validateFavoriteBooks}
             query={query}

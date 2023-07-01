@@ -7,25 +7,47 @@ import { useEffect } from 'react'
 import Image from 'next/image'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import { HandleBookDatabase } from '../../../../utils/handle-book-database'
-
+import { useRouter } from 'next/router'
+import { parseCookies } from 'nookies'
 const handleBookDatabase = new HandleBookDatabase()
-export const Info = ({ favoriteBook, book, accessToken, query }: IInfoBook) => {
+export const Info = ({ favoriteBook, book, query }: IInfoBook) => {
+  const router = useRouter()
   const [showDescription, setShowDescription] = useState<boolean>(false)
   const [favorite, setFavorite] = useState<null | boolean>(null)
   const [loading, setLoading] = useState(false)
 
   const handleAdd = async () => {
-    setLoading(true)
-    await handleBookDatabase.addBook(accessToken, book)
-    setFavorite(true)
-    setLoading(false)
+    const { literando_accessToken: accessToken } = parseCookies()
+    if (accessToken) {
+      try {
+        setLoading(true)
+        await handleBookDatabase.addBook(accessToken, book)
+        setFavorite(true)
+      } catch (err) {
+        console.error(err)
+      } finally {
+        setLoading(false)
+      }
+    } else {
+      router.push('/Login')
+    }
   }
 
   const handleExclude = async () => {
-    setLoading(true)
-    await handleBookDatabase.removeBook(accessToken, book.id)
-    setFavorite(false)
-    setLoading(false)
+    const { literando_accessToken: accessToken } = parseCookies()
+    if (accessToken) {
+      try {
+        setLoading(true)
+        await handleBookDatabase.removeBook(accessToken, book.id)
+        setFavorite(false)
+      } catch (err) {
+        console.error(err)
+      } finally {
+        setLoading(false)
+      }
+    } else {
+      router.push('/Login')
+    }
   }
 
   useEffect(() => {
