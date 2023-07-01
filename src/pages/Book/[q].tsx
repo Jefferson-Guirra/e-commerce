@@ -10,20 +10,18 @@ interface Props {
   query: string
   user: string
   validateFavoriteBooks: boolean
-  accessToken: string
 }
 type Params = {
   q: string
 }
 const apiBook = new Api()
-const Book = ({ book, query, accessToken, validateFavoriteBooks }: Props) => {
+const Book = ({ book, query, validateFavoriteBooks }: Props) => {
   const formatBook: IBookIdApi = JSON.parse(book)
 
   return (
     <BookContainer
       book={formatBook}
       query={query}
-      accessToken={accessToken}
       validateFavoriteBooks={validateFavoriteBooks}
     />
   )
@@ -33,7 +31,7 @@ export default Book
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { q } = ctx.params as Params
-  const cookies = parseCookies(ctx)
+  const { literando_accessToken: accessToken } = parseCookies(ctx)
 
   if (!q) {
     return {
@@ -43,7 +41,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     }
   }
-  const accessToken: string | null = GET_COOKIE_USER()
+
   const bookInfo = await SEARCH_BOOKS_ID(q)
 
   if (!bookInfo) {
@@ -56,10 +54,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 
   const validateFavoriteBooks = async (): Promise<boolean> => {
-    if (cookies.literando_accessToken) {
+    if (accessToken) {
       const response = await apiBook.get(
         {
-          accessToken: JSON.parse(cookies.literando_accessToken),
+          accessToken: JSON.parse(accessToken),
           bookId: q,
         },
         'booklist/getbook'
@@ -70,19 +68,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
   }
 
-  function GET_COOKIE_USER() {
-    if (cookies.literando_accessToken) {
-      return JSON.parse(cookies.literando_accessToken) as string
-    } else {
-      return null
-    }
-  }
-
   return {
     props: {
       book: JSON.stringify(bookInfo),
       query: q,
-      accessToken,
       validateFavoriteBooks: await validateFavoriteBooks(),
     },
   }

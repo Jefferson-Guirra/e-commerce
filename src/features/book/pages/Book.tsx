@@ -7,12 +7,7 @@ import { SliderBooks } from '../../../components'
 import { Info, Buy } from '../components'
 import { IBookProps } from '../@types/IBookProps'
 
-export const Book = ({
-  book,
-  query,
-  accessToken,
-  validateFavoriteBooks,
-}: IBookProps) => {
+export const Book = ({ book, query, validateFavoriteBooks }: IBookProps) => {
   const [similarBooks, setSimilarBooks] = useState<IBooksApi | undefined>(
     undefined
   )
