@@ -1,0 +1,26 @@
+.btn {
+  color: #fafafa;
+  font-weight: bold;
+  border: none;
+  border-radius: 7px;
+  font-size: 1rem;
+  background-color: var(--primary-color);
+  padding-block: 1rem;
+  height: 50px;
+  width: 150px;
+  margin: 0 auto;
+  transition: all 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn:disabled svg {
+  animation: 0.5s show-loading infinite linear;
+}
+
+@keyframes show-loading {
+  to {
+    transform: rotate(360deg);
+  }
+}

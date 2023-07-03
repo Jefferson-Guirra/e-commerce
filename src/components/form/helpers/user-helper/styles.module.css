@@ -1,0 +1,14 @@
+.container {
+  font-size: 0.875rem;
+  color: #5c6c75;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.container .line {
+  display: block;
+  height: 2px;
+  background-color: #dfe2e2;
+  flex: 1;
+}
