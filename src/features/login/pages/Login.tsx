@@ -1,47 +1,39 @@
 import { useCallback, useState } from 'react'
-import styles from './styles.module.css'
+import styles from '../../../styles/user-actions.module.css'
 import { GiBookshelf } from 'react-icons/gi'
-import { FcGoogle } from 'react-icons/fc'
-import { signIn, signOut } from 'next-auth/react'
 import Head from 'next/head'
-import { UserForm } from '../components/Form'
-import { Button } from '../../../components'
+import Link from 'next/link'
+import { PresentationCover } from '../../../components'
+import { LoginForm } from '../components/form/LoginForm'
+
 export const Login = () => {
   const [loading, setLoading] = useState(false)
   const handleLoading = useCallback((state: boolean) => {
     setLoading(state)
   }, [])
 
-  const handleSignIn = () => {
-    try {
-      setLoading(true)
-      signIn('google', { callbackUrl: 'http://localhost:3000/Login' })
-    } catch (err) {
-      console.error(err)
-    } finally {
-      setLoading(false)
-    }
-  }
-
   return (
     <>
       <Head>
         <title>Literando | Entrar</title>
       </Head>
-      <section className={styles.content}>
-        <GiBookshelf className={styles.booksIcon} size={40} color="#001f3f" />
-        <h1>Entrar</h1>
-        <h1 onClick={() => signOut()}>delete</h1>
-        <UserForm loading={loading} handleLoading={handleLoading} />
-
-        <Button
-          state={loading}
-          size={25}
-          className={styles.googleLogin}
-          onClick={handleSignIn}
-        >
-          <FcGoogle size={25} /> <p>Entrar com Google </p>
-        </Button>
+      <section className={styles.container}>
+        <article className={styles.content}>
+          <header>
+            <GiBookshelf
+              className={styles.booksIcon}
+              size={37}
+              color="#001f3f"
+            />
+            <h2>Entrar na conta</h2>
+            <Link href="/SignUp">
+              Ainda não possue conta? <span>Cadastre-se</span>
+            </Link>
+          </header>
+          <LoginForm handleLoading={handleLoading} loading={loading} />
+          <span className={styles['cover-bottom']}></span>
+        </article>
+        <PresentationCover />
       </section>
     </>
   )
