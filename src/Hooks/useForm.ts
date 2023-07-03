@@ -32,10 +32,10 @@ const types: Props = {
 
 const useForm = (type: string | boolean) => {
   const [value, setValue] = React.useState('')
-  const [erro, setError] = React.useState<string | null>(null)
+  const [error, setError] = React.useState<string | null>(null)
   function onChange({ target }: React.ChangeEvent<HTMLInputElement>) {
     setValue(target.value)
-    if (erro) validate(target.value)
+    if (error) validate(target.value)
   }
 
   const validate: Validate = (value: string) => {
@@ -60,7 +60,7 @@ const useForm = (type: string | boolean) => {
     value,
     setValue,
     onChange,
-    erro,
+    error,
     validate: () => validate(value),
     onBlur: () => validate(value),
   }
