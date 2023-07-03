@@ -1,9 +1,10 @@
 .container {
-  margin-bottom: 1.5rem;
+  color: #3d4f58;
 }
 
 .container .label {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
+  font-weight: bold;
   cursor: pointer;
   display: block;
 }
@@ -13,7 +14,7 @@
   background-color: transparent;
   position: relative;
   color: #000000;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   width: 100%;
   border: none;
   background-color: #fafafaa2;

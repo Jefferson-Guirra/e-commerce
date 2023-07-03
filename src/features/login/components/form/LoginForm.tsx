@@ -1,56 +1,64 @@
-import { AiOutlineLoading3Quarters } from 'react-icons/ai'
-import { FcGoogle } from 'react-icons/fc'
-import { useRouter } from 'next/router'
-import useForm from '../../../Hooks/useForm'
-import { Api } from '../../../utils/api'
-import { useCallback, useState } from 'react'
-import { Form } from '../../../components'
-import { signIn } from 'next-auth/react'
+import { Form } from '../../../../components'
+import useForm from '../../../../Hooks/useForm'
 import { PiEyeClosedLight, PiEyeLight } from 'react-icons/pi'
+import { useState } from 'react'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
+import { HandleCookies } from '../../../../utils/handle-cookie'
+import { Api } from '../../../../utils/api'
+import { useRouter } from 'next/router'
+import { signIn } from 'next-auth/react'
+import { FcGoogle } from 'react-icons/fc'
+const apiUser = new Api()
+const handleCookies = new HandleCookies()
 
 interface Props {
-  loading: boolean
   handleLoading: (state: boolean) => void
+  loading: boolean
 }
-const apiUser = new Api()
-
-export const SignUpForm = ({ handleLoading, loading }: Props) => {
-  const router = useRouter()
-  const username = useForm('')
-  const email = useForm('email')
+export const LoginForm = ({ handleLoading, loading }: Props) => {
   const [error, setError] = useState('')
+  const router = useRouter()
+  const email = useForm('email')
   const password = useForm('password')
 
-  const handleRemoveGlobalError = useCallback(() => {
+  const handleRemoveGlobalError = () => {
     setError('')
-  }, [])
+  }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const validateInputs = email.validate() && password.validate()
-    if (validateInputs) {
-      try {
-        setError('')
-        handleLoading(true)
+    try {
+      handleLoading(true)
+      setError('')
+      const validateInputs = email.validate() && password.validate()
+
+      if (validateInputs) {
         const response = await apiUser.post(
           {
-            username: username.value,
-            password: password.value,
             email: email.value,
+            password: password.value,
           },
-          'signup'
+          'login'
         )
 
+        const handleLogin = () => {
+          const { accessToken, username } = response.body
+
+          handleCookies.insert('literando_accessToken', accessToken)
+          handleCookies.insert('literando_username', username)
+          router.push('/')
+        }
+
         const statusCodeValidate: any = {
-          200: () => router.push('/Login'),
-          401: () => setError('Endereço de email já cadastrado'),
+          200: () => handleLogin(),
+          401: () => setError('Email e ou senha incorretos.'),
           500: () => setError('Error interno'),
         }
+
         statusCodeValidate[response.statusCode]()
-      } catch (err) {
-        alert(err)
-      } finally {
-        handleLoading(false)
       }
+    } finally {
+      handleLoading(false)
     }
   }
 
@@ -61,6 +69,7 @@ export const SignUpForm = ({ handleLoading, loading }: Props) => {
       console.error(err)
     }
   }
+
   return (
     <Form.Root onSubmit={handleSubmit}>
       <Form.ActionButton
@@ -72,16 +81,10 @@ export const SignUpForm = ({ handleLoading, loading }: Props) => {
       </Form.ActionButton>
       <Form.Helper />
       <Form.InputText
-        label="Usuário"
-        id="username"
-        type="text"
         handleRemoveGlobalError={handleRemoveGlobalError}
-        {...username}
-      />
-      <Form.InputText
         label="Email"
-        type="email"
-        handleRemoveGlobalError={handleRemoveGlobalError}
+        id="email"
+        name="email"
         {...email}
       />
       <Form.InputPassword
@@ -95,10 +98,10 @@ export const SignUpForm = ({ handleLoading, loading }: Props) => {
         name="senha"
         {...password}
       />
-      {error && <Form.Error text={error} />}
-      <Form.Button text="Entrar" type="submit" disabled={loading}>
-        <Form.Icon size={25} icon={AiOutlineLoading3Quarters} />
+      <Form.Button disabled={loading} text="Entrar" type="submit">
+        <AiOutlineLoading3Quarters size={25} color="#000000" />
       </Form.Button>
+      <Form.Error text={error} />
     </Form.Root>
   )
 }
