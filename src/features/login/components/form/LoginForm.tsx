@@ -8,6 +8,7 @@ import { Api } from '../../../../utils/api'
 import { useRouter } from 'next/router'
 import { signIn } from 'next-auth/react'
 import { FcGoogle } from 'react-icons/fc'
+import { BiRightArrowAlt } from 'react-icons/bi'
 const apiUser = new Api()
 const handleCookies = new HandleCookies()
 
@@ -98,10 +99,15 @@ export const LoginForm = ({ handleLoading, loading }: Props) => {
         name="senha"
         {...password}
       />
-      <Form.Button disabled={loading} text="Entrar" type="submit">
-        <AiOutlineLoading3Quarters size={25} color="#000000" />
+      {error && <Form.Error text={error} />}
+      <Form.Button
+        disabled={loading}
+        text="Entrar"
+        type="submit"
+        iconProps={{ Icon: BiRightArrowAlt, color: '#fafafa', size: 27 }}
+      >
+        <AiOutlineLoading3Quarters size={27} color="#fafafa" />
       </Form.Button>
-      <Form.Error text={error} />
     </Form.Root>
   )
 }
