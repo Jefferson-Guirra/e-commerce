@@ -36,7 +36,7 @@
   color: var(--primary-color) !important;
 }
 .container .content {
-  width: 30%;
+  width: 23.875rem;
   position: relative;
   z-index: 2;
   overflow: hidden;
@@ -99,4 +99,15 @@
   height: 2px;
   background-color: #dfe2e2;
   flex: 1;
+}
+
+@media (max-width: 1150px) {
+  .container .content .cover-bottom {
+    display: none;
+  }
+}
+@media (max-width: 865px) {
+  .container .content {
+    width: 100%;
+  }
 }
