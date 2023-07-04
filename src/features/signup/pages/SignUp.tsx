@@ -24,7 +24,7 @@ export const SignUp = () => {
               color="#001f3f"
             />
             <h2>Cadastrar</h2>
-            <Link href="/LOgin">
+            <Link href="/Login">
               Possui conta? <span>Efetuar login</span>
             </Link>
           </header>
