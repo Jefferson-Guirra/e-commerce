@@ -7,6 +7,7 @@ import { useCallback, useState } from 'react'
 import { Form } from '../../../components'
 import { signIn } from 'next-auth/react'
 import { PiEyeClosedLight, PiEyeLight } from 'react-icons/pi'
+import { BiRightArrowAlt } from 'react-icons/bi'
 
 interface Props {
   loading: boolean
@@ -96,8 +97,13 @@ export const SignUpForm = ({ handleLoading, loading }: Props) => {
         {...password}
       />
       {error && <Form.Error text={error} />}
-      <Form.Button text="Entrar" type="submit" disabled={loading}>
-        <Form.Icon size={25} icon={AiOutlineLoading3Quarters} />
+      <Form.Button
+        disabled={loading}
+        text="Cadastrar"
+        type="submit"
+        iconProps={{ Icon: BiRightArrowAlt, color: '#fafafa', size: 27 }}
+      >
+        <AiOutlineLoading3Quarters size={27} color="#fafafa" />
       </Form.Button>
     </Form.Root>
   )
