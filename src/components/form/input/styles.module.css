@@ -3,6 +3,10 @@
   position: relative;
 }
 
+.container span svg {
+  transition: all 0.5s;
+}
+
 .container .label {
   font-size: 1.1rem;
   font-weight: bold;
@@ -28,6 +32,18 @@
   background-color: transparent;
   outline: none;
   box-shadow: 0px 0px 5px var(--primary-color);
+}
+
+.container .input.input-error:hover,
+.container
+  .input.input-error:focus
+  .container
+  .input.input-error:-webkit-autofill {
+  box-shadow: 0px 0px 5px #f31;
+}
+
+.container .input.input-error {
+  border-color: #f31;
 }
 
 .container .error {

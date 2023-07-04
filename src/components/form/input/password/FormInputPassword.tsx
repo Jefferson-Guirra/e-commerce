@@ -10,7 +10,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   color: string
   label: string
   onChange: ({ target }: React.ChangeEvent<HTMLInputElement>) => void
-  error: string | null
+  error: string
 }
 
 export const FormInputPassword = ({
@@ -41,9 +41,9 @@ export const FormInputPassword = ({
     <div className={styles.container}>
       <span onClick={handleIcon}>
         {!hidden ? (
-          <Invisible size={size} color={color} />
+          <Invisible size={size} color={error === '' ? color : '#f31'} />
         ) : (
-          <Visible size={size} color={color} />
+          <Visible size={size} color={error === '' ? color : '#f31'} />
         )}
       </span>
       <label className={styles.label} htmlFor={name}>
@@ -52,7 +52,11 @@ export const FormInputPassword = ({
       <input
         {...rest}
         onChange={decoratorOnChange}
-        className={styles.input}
+        className={
+          error === ''
+            ? styles.input
+            : `${styles.input} ${styles['input-error']}`
+        }
         id={name}
         type={!hidden ? 'password' : 'text'}
       />

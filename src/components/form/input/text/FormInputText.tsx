@@ -30,7 +30,15 @@ export const FormInputText = ({
         {' '}
         {label}
       </label>
-      <input onChange={decoratorOnChange} {...rest} className={styles.input} />
+      <input
+        onChange={decoratorOnChange}
+        {...rest}
+        className={
+          error === ''
+            ? styles.input
+            : `${styles.input} ${styles['input-error']}`
+        }
+      />
       <p className={styles.error}>{error}</p>
     </div>
   )
