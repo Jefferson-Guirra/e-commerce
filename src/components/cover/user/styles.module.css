@@ -5,3 +5,9 @@
 .container img {
   border-radius: 0;
 }
+
+@media (max-width: 865px) {
+  .container {
+    display: none;
+  }
+}
