@@ -17,7 +17,7 @@ const apiUser = new Api()
 
 export const SignUpForm = ({ handleLoading, loading }: Props) => {
   const router = useRouter()
-  const username = useForm('')
+  const username = useForm('default')
   const email = useForm('email')
   const [error, setError] = useState('')
   const password = useForm('password')
@@ -27,7 +27,8 @@ export const SignUpForm = ({ handleLoading, loading }: Props) => {
   }, [])
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const validateInputs = email.validate() && password.validate()
+    const validateInputs =
+      email.validate() && password.validate() && username.validate()
     if (validateInputs) {
       try {
         setError('')
