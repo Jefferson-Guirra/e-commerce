@@ -26,12 +26,11 @@ export const Login = () => {
               color="#001f3f"
             />
             <h2>Entrar na conta</h2>
-            <Link href="/SignUp">
-              Ainda não possue conta? <span>Cadastre-se</span>
-            </Link>
           </header>
           <LoginForm handleLoading={handleLoading} loading={loading} />
-          <span className={styles['cover-bottom']}></span>
+          <Link href="/SignUp">
+            Não tem uma conta? <span>Inscreva-se</span>
+          </Link>
         </article>
         <PresentationCover />
       </section>

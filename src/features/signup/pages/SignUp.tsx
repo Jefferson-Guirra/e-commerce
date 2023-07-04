@@ -24,11 +24,11 @@ export const SignUp = () => {
               color="#001f3f"
             />
             <h2>Cadastrar</h2>
-            <Link href="/Login">
-              Possui conta? <span>Efetuar login</span>
-            </Link>
           </header>
           <SignUpForm handleLoading={handleLoading} loading={loading} />
+          <Link href="/Login">
+            Já tem uma conta? <span>Entrar</span>
+          </Link>
         </article>
         <PresentationCover />
       </section>
