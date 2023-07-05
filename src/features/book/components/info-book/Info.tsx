@@ -9,6 +9,7 @@ import { MdKeyboardArrowDown } from 'react-icons/md'
 import { HandleBookDatabase } from '../../../../utils/handle-book-database'
 import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
+import { ButtonComposite } from '../../../../components'
 const handleBookDatabase = new HandleBookDatabase()
 export const Info = ({ favoriteBook, book, query }: IInfoBook) => {
   const router = useRouter()
@@ -21,8 +22,13 @@ export const Info = ({ favoriteBook, book, query }: IInfoBook) => {
     if (accessToken) {
       try {
         setLoading(true)
-        await handleBookDatabase.addBook(accessToken, book)
-        setFavorite(true)
+        const response = await handleBookDatabase.addBook(
+          JSON.parse(accessToken),
+          book
+        )
+        if (response.statusCode === 200) {
+          setFavorite(true)
+        }
       } catch (err) {
         console.error(err)
       } finally {
@@ -38,8 +44,13 @@ export const Info = ({ favoriteBook, book, query }: IInfoBook) => {
     if (accessToken) {
       try {
         setLoading(true)
-        await handleBookDatabase.removeBook(accessToken, book.id)
-        setFavorite(false)
+        const response = await handleBookDatabase.removeBook(
+          JSON.parse(accessToken),
+          book.id
+        )
+        if (response.statusCode === 200) {
+          setFavorite(false)
+        }
       } catch (err) {
         console.error(err)
       } finally {
@@ -73,21 +84,31 @@ export const Info = ({ favoriteBook, book, query }: IInfoBook) => {
         <h2>{book.title}</h2>
         <p className={styles.subTitle}>{book.subtitle}</p>
         {!favorite ? (
-          <button
+          <ButtonComposite.Default
+            text="Minha lista"
+            className={styles.button}
             disabled={loading}
             onClick={() => handleAdd()}
-            className={`${styles.button}`}
           >
-            <BsFillHeartFill size={15} color="#999999" /> Minha lista
-          </button>
+            <ButtonComposite.Icon
+              icon={BsFillHeartFill}
+              size={15}
+              color="#999999"
+            />
+          </ButtonComposite.Default>
         ) : (
-          <button
+          <ButtonComposite.Default
+            text="Minha lista"
+            className={styles.button}
             disabled={loading}
             onClick={() => handleExclude()}
-            className={styles.button}
           >
-            <BsFillHeartFill size={15} color="#f31" /> Minha lista
-          </button>
+            <ButtonComposite.Icon
+              icon={BsFillHeartFill}
+              size={15}
+              color="#f31"
+            />
+          </ButtonComposite.Default>
         )}
         <div>
           <span>{'Autor(a): '}</span>
