@@ -6,5 +6,16 @@
 }
 
 .container button:disabled {
+  cursor: wait;
   opacity: 0.7s;
+}
+
+.container.loading button:disabled svg {
+  animation: 0.7s loading-svg infinite linear;
+}
+
+@keyframes loading-svg {
+  to {
+    transform: rotate(360deg);
+  }
 }

@@ -7,7 +7,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const ButtonAction = ({ text, children, disabled, ...rest }: Props) => {
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${styles.loading}`}>
       {!disabled ? (
         <button {...rest}>{text}</button>
       ) : (
