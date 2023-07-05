@@ -71,23 +71,9 @@
   justify-content: center;
 }
 
-.buyContainer .actionsBuy .btn:disabled {
-  opacity: initial;
-  cursor: wait;
-}
-.buyContainer .actionsBuy .btn:disabled svg {
-  margin: 0 auto;
-  animation: 0.5s show-loading-button infinite linear;
-}
 .buyContainer .actionsBuy .btn:hover {
   background-color: var(--primary-color) !important;
   color: #fff;
-}
-
-@keyframes show-loading-button {
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 @media (max-width: 1200px) {
