@@ -20,7 +20,7 @@ export const Buy = ({ book }: IBuyProps) => {
       try {
         setLoading(true)
         await handleBuyBookDatabase.validateAdd(
-          accessToken,
+          JSON.parse(accessToken),
           book.id,
           dispatch,
           1
@@ -43,7 +43,7 @@ export const Buy = ({ book }: IBuyProps) => {
       try {
         setLoading(true)
         await handleBuyBookDatabase.validateAdd(
-          accessToken,
+          JSON.parse(accessToken),
           book.id,
           dispatch,
           1
