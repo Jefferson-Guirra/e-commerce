@@ -20,13 +20,10 @@
 }
 
 .infoBook .textBook .button {
-  display: flex;
-  align-items: flex-start;
   font-size: 1rem;
   width: fit-content;
   padding-right: 1rem;
   background-color: transparent;
-  gap: 0.2rem;
 }
 
 .infoBook .textBook .itemText {
