@@ -5,6 +5,7 @@ import { DataBook } from '../data-book/DataBook'
 import Image from 'next/image'
 import { parseCookies } from 'nookies'
 import { useBuyContext } from '../../../../context/books-buy-list/BuyBookContext'
+import { List } from '../../../../components'
 
 const generateRandomNumberInterval = (min: number, max: number) => {
   const number = Math.floor(Math.random() * (max - min + 1) + min)
@@ -36,10 +37,13 @@ export const BuyBookCard = ({
   }
   return (
     <article className={styles.cardContent}>
-      <article className={styles['header-card']}>
-        <h2>{publisher}</h2>
-        <input type="checkbox" onChange={handleChange} />
-      </article>
+      <List.HeaderCard title={publisher}>
+        <List.Input
+          className="checkbox"
+          type="checkbox"
+          onChange={handleChange}
+        />
+      </List.HeaderCard>
       <article className={styles.infoBook}>
         <Link href={`/Book/${bookId}`} className={styles.img}>
           <Image
