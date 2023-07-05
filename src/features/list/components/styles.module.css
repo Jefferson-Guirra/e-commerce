@@ -36,8 +36,9 @@
   color: gray;
 }
 
-.cardBooks .info .remove {
+.cardBooks .info .btn {
   font-family: 'Lato', sans-serif;
+  justify-content: center;
   width: 100%;
   padding: 0.5rem;
   border-radius: 7px;
@@ -51,7 +52,7 @@
   margin-top: auto;
 }
 
-.cardBooks .info .remove:hover {
+.cardBooks .info .btn:hover {
   background-color: var(--primary-color);
   color: #fff;
 }
