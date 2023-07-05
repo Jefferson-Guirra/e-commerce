@@ -1,0 +1,10 @@
+.container button {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.container button:disabled {
+    opacity: 0.7s;
+}
