@@ -54,14 +54,6 @@ button {
   cursor: pointer;
 }
 
-button:disabled {
-  cursor: wait;
-}
-
-button:disabled svg {
-  opacity: 0.5;
-}
-
 .title {
   display: flex;
   gap: 0.5rem;
@@ -96,124 +88,6 @@ button:disabled svg {
 
 .swiper-pagination-bullet-active {
   background-color: var(--primary-color) !important;
-}
-
-.bookWrapper {
-  background-color: transparent;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 500;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.spin {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 15px solid var(--second-color);
-  border-top-color: transparent;
-  animation: 0.5s rotation infinite linear;
-}
-
-.loader {
-  margin: 5% auto 50px;
-}
-
-.book {
-  border: 2px solid var(--primary-color);
-  background-color: var(--second-color);
-  width: 80px;
-  border-radius: 2px;
-  height: 65px;
-  position: relative;
-  perspective: 150px;
-}
-
-.page {
-  display: block;
-  width: 40px;
-  height: 65px;
-  border: 2px solid var(--primary-color);
-  border-left: 1px solid var(--primary-color);
-  border-radius: 0px 2px 2px 0px;
-  margin: 0;
-  position: absolute;
-  right: -2px;
-  top: -2px;
-  overflow: hidden;
-  background: var(--second-color);
-  transform-style: preserve-3d;
-  -webkit-transform-origin: left center;
-  transform-origin: left center;
-}
-
-.book .page:nth-child(1) {
-  -webkit-animation: pageTurn 1s cubic-bezier(0, 0.39, 1, 0.68) 0.9s infinite;
-  animation: pageTurn 1s cubic-bezier(0, 0.39, 1, 0.68) 0.9s infinite;
-}
-
-.book .page:nth-child(2) {
-  -webkit-animation: pageTurn 1s cubic-bezier(0, 0.39, 1, 0.68) 0.75s infinite;
-  animation: pageTurn 1s cubic-bezier(0, 0.39, 1, 0.68) 0.75s infinite;
-}
-
-.book .page:nth-child(3) {
-  -webkit-animation: pageTurn 1s cubic-bezier(0, 0.39, 1, 0.68) 0.5s infinite;
-  animation: pageTurn 1s cubic-bezier(0, 0.39, 1, 0.68) 0.5s infinite;
-}
-
-/* Page turn */
-
-@-webkit-keyframes pageTurn {
-  0% {
-    -webkit-transform: rotateY(0deg);
-    transform: rotateY(0deg);
-  }
-  20% {
-    background: var(--second-color);
-  }
-  40% {
-    background: var(--second-color);
-    -webkit-transform: rotateY(-180deg);
-    transform: rotateY(-180deg);
-  }
-  100% {
-    background: var(--second-color);
-    -webkit-transform: rotateY(-180deg);
-    transform: rotateY(-180deg);
-  }
-}
-
-@keyframes pageTurn {
-  0% {
-    transform: rotateY(0deg);
-  }
-  20% {
-    background: var(--second-color);
-  }
-  40% {
-    background: var(--second-color);
-    transform: rotateY(-180deg);
-  }
-  100% {
-    background: var(--second-color);
-    transform: rotateY(-180deg);
-  }
-}
-
-@keyframes rotation {
-  from {
-    transform: initial;
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 @media (max-width: 955px) {
