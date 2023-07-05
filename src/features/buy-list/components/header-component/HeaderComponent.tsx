@@ -1,11 +1,11 @@
 import React from 'react'
-import styles from './styles.module.css'
 import { useBuyContext } from '../../../../context/books-buy-list/BuyBookContext'
 import { BiUndo } from 'react-icons/bi'
 import { HiTrash } from 'react-icons/hi'
 import { AddBuyBookModel } from '../../../../server/domain/usecases/book-buy-list/add-book-buy-list'
 import { Api } from '../../../../utils/api'
 import { useHeaderContext } from '../../../../context/header/HeaderContext'
+import { List } from '../../../../components'
 
 const formatLength = (length: number) => {
   if (length >= 100) {
@@ -51,32 +51,28 @@ export const HeaderComponent = ({ handleReset }: IProps) => {
   }
 
   return (
-    <article className={styles.container}>
-      <h1>Meu Carrinho</h1>
-
-      <div className={styles['actions-exclude']}>
-        {deleteBooksStorage.length > 0 && (
-          <button
-            disabled={collectionLoading}
-            onClick={handleDeleteCollectionBooks}
-            className={styles['exclude-group-button']}
-          >
-            <HiTrash size={27} fill="#001f3f" />
-            <span>
-              <p>{formatLength(deleteBooksStorage.length)}</p>
-            </span>
-          </button>
-        )}
-        {resetBooksStorage.length > 0 && (
-          <button
-            disabled={collectionLoading}
-            className={styles.reset}
-            onClick={() => handleReset(true)}
-          >
-            <BiUndo size={30} fill="#001f3f" />
-          </button>
-        )}
-      </div>
-    </article>
+    <List.Header title="Meu carrinho">
+      {deleteBooksStorage.length > 0 && (
+        <List.Button
+          disabled={collectionLoading}
+          onClick={handleDeleteCollectionBooks}
+          className="remove-all"
+        >
+          <List.Icon icon={HiTrash} size={27} color="#001f3f" />
+          <span>
+            <p>{formatLength(deleteBooksStorage.length)}</p>
+          </span>
+        </List.Button>
+      )}
+      {resetBooksStorage.length > 0 && (
+        <List.Button
+          disabled={collectionLoading}
+          className={'reset'}
+          onClick={() => handleReset(true)}
+        >
+          <List.Icon icon={BiUndo} size={30} color="#001f3f" />
+        </List.Button>
+      )}
+    </List.Header>
   )
 }
