@@ -40,8 +40,11 @@ export const Buy = ({ book }: IBuyProps) => {
           JSON.parse(accessToken),
           book
         )
-        if (response.statusCode === 401) {
+        if (response.statusCode !== 200) {
+          dispatch({ type: 'REMOVE_AMOUNT_LIST', payload: { removeAmount: 1 } })
+          response.statusCode === 401 && alert('É necessário efetuar login.')
           console.error(response)
+          return
         }
       } finally {
         setLoading(false)
@@ -66,8 +69,10 @@ export const Buy = ({ book }: IBuyProps) => {
           JSON.parse(accessToken),
           book
         )
-        if (response.statusCode === 401) {
-          alert('É necessário efetuar login.')
+        if (response.statusCode !== 200) {
+          dispatch({ type: 'REMOVE_AMOUNT_LIST', payload: { removeAmount: 1 } })
+          response.statusCode === 401 && alert('É necessário efetuar login.')
+          console.error(response)
           return
         }
         router.push('/Buy')
