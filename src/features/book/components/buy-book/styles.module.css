@@ -60,21 +60,34 @@
   text-align: center;
 }
 
-.buyContainer .actionsBuy button {
+.buyContainer .actionsBuy .btn {
   width: 100%;
   font-size: 1.1rem;
   padding-block: 0.7rem;
   border-radius: 15px;
   transition: 1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.buyContainer .actionsBuy button:hover {
+
+.buyContainer .actionsBuy .btn:disabled {
+  opacity: initial;
+  cursor: wait;
+}
+.buyContainer .actionsBuy .btn:disabled svg {
+  margin: 0 auto;
+  animation: 0.5s show-loading-button infinite linear;
+}
+.buyContainer .actionsBuy .btn:hover {
   background-color: var(--primary-color) !important;
   color: #fff;
 }
 
-.buyContainer .actionsBuy button:disabled {
-  cursor: wait;
-  opacity: 0.5;
+@keyframes show-loading-button {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 1200px) {

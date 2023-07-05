@@ -5,8 +5,19 @@ import { IBuyProps } from './@types/IBuyProps'
 import { useRouter } from 'next/router'
 import { HandleBuyBookDatabase } from '../../../../utils/handle-buy-book-database'
 import { useHeaderContext } from '../../../../context/header/HeaderContext'
-import { Button } from '../../../../components'
 import { parseCookies } from 'nookies'
+import { ButtonComposite } from '../../../../components'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
+
+const Loading = () => {
+  return (
+    <ButtonComposite.Icon
+      icon={AiOutlineLoading3Quarters}
+      size={21}
+      color="#fafafa"
+    />
+  )
+}
 
 const handleBuyBookDatabase = new HandleBuyBookDatabase()
 export const Buy = ({ book }: IBuyProps) => {
@@ -25,7 +36,10 @@ export const Buy = ({ book }: IBuyProps) => {
           dispatch,
           1
         )
-        const response = await handleBuyBookDatabase.addBook(accessToken, book)
+        const response = await handleBuyBookDatabase.addBook(
+          JSON.parse(accessToken),
+          book
+        )
         if (response.statusCode === 401) {
           console.error(response)
         }
@@ -48,11 +62,15 @@ export const Buy = ({ book }: IBuyProps) => {
           dispatch,
           1
         )
-        const response = await handleBuyBookDatabase.addBook(accessToken, book)
+        const response = await handleBuyBookDatabase.addBook(
+          JSON.parse(accessToken),
+          book
+        )
         if (response.statusCode === 401) {
           alert('É necessário efetuar login.')
           return
         }
+        router.push('/Buy')
       } finally {
         setLoading(false)
       }
@@ -104,22 +122,25 @@ export const Buy = ({ book }: IBuyProps) => {
             <span>R$</span>
             {book.price.toFixed(2).toString().replace('.', ',')}
           </p>
-          <Button
-            onClick={handleAddBuyBookList}
-            state={loading}
-            size={21}
+          <ButtonComposite.Action
+            text="Adicionar ao carrinho"
+            onClick={handleAddBuyBook}
+            disabled={loading}
+            className={styles.btn}
             style={{ backgroundColor: '#ffd814' }}
           >
-            <p>Adicionar ao carrinho</p>
-          </Button>
-          <Button
-            onClick={handleAddBuyBook}
-            state={loading}
+            <Loading />
+          </ButtonComposite.Action>
+
+          <ButtonComposite.Action
+            text="Comprar"
+            onClick={handleAddBuyBookList}
+            disabled={loading}
+            className={styles.btn}
             style={{ backgroundColor: '#ffa500' }}
-            size={21}
           >
-            <p>Comprar</p>
-          </Button>
+            <Loading />
+          </ButtonComposite.Action>
         </article>
       ) : (
         <p style={{ color: '#f31', textAlign: 'center' }}>Indisponível</p>
