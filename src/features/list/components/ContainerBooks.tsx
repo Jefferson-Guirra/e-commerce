@@ -4,7 +4,8 @@ import styles from './styles.module.css'
 import { useState } from 'react'
 import { handleTime } from '../../../utils/handle-time'
 import Image from 'next/image'
-import { Button } from '../../../components'
+import { ButtonComposite } from '../../../components'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 
 export const ContainerBooks = ({
   books,
@@ -36,14 +37,18 @@ export const ContainerBooks = ({
             </div>
             <p id="author">{book.authors[0]}</p>
             <p>Adicionado: {handleTime(book.date)} </p>
-            <Button
-              state={loading}
-              size={21}
-              className={styles.remove}
+            <ButtonComposite.Action
+              disabled={loading}
+              className={styles.btn}
+              text="Remover"
               onClick={() => handleExclude(book.bookId)}
             >
-              <p>Remover</p>
-            </Button>
+              <ButtonComposite.Icon
+                icon={AiOutlineLoading3Quarters}
+                size={21}
+                color="#ffa500"
+              />
+            </ButtonComposite.Action>
           </div>
         </article>
       ))}
