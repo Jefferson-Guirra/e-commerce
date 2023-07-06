@@ -1,6 +1,6 @@
 export * from './card-book/BuyBookCard'
 export * from './buy-component/BuyComponent'
-export * from './data-book/DataBook'
+export * from './actions-book/Actions'
 export * from './header-component/HeaderComponent'
 export * from './loading-component/LoadingComponent'
 export * from './reset-component/ResetComponent'

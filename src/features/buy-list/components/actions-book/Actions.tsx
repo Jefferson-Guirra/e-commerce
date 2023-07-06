@@ -7,12 +7,11 @@ import { useBuyContext } from '../../../../context/books-buy-list/BuyBookContext
 import { Api } from '../../../../utils/api'
 import { parseCookies } from 'nookies'
 import { useHeaderContext } from '../../../../context/header/HeaderContext'
-import { LiaTrashAlt } from 'react-icons/lia'
 import { List } from '../../../../components'
 
 const apiBook = new Api()
 
-export const DataBook = ({ bookId, amount }: IDataProps) => {
+export const Actions = ({ bookId, amount }: IDataProps) => {
   const [amountBook, setAmountBook] = useState(amount)
   const { loading, dispatch } = useBuyContext()
   const { dispatch: dispatchHeader } = useHeaderContext()

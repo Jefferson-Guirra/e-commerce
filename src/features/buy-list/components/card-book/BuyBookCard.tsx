@@ -1,16 +1,10 @@
 import styles from './styles.module.css'
-import Link from 'next/link'
 import { IBuyBookCardProps } from './@types/IBuyBookCardProps'
-import { DataBook } from '../data-book/DataBook'
-import Image from 'next/image'
+import { Actions } from '../actions-book/Actions'
 import { parseCookies } from 'nookies'
 import { useBuyContext } from '../../../../context/books-buy-list/BuyBookContext'
 import { List } from '../../../../components'
 
-const generateRandomNumberInterval = (min: number, max: number) => {
-  const number = Math.floor(Math.random() * (max - min + 1) + min)
-  return number.toFixed(2).toString().replace('.', ',')
-}
 export const BuyBookCard = ({
   publisher,
   id,
@@ -49,7 +43,7 @@ export const BuyBookCard = ({
           <List.Img src={imgUrl} alt={`Imagem do livro ${title}`} />
         </List.Link>
         <article className={styles.content}>
-          <DataBook amount={amount} bookId={bookId} />
+          <Actions amount={amount} bookId={bookId} />
           <List.Data
             title={title}
             price={amount * price}
