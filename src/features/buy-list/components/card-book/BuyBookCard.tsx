@@ -44,11 +44,11 @@ export const BuyBookCard = ({
           onChange={handleChange}
         />
       </List.HeaderCard>
-      <List.Info>
+      <article className={styles.container}>
         <List.Link href={`/Book/${bookId}`}>
           <List.Img src={imgUrl} alt={`Imagem do livro ${title}`} />
         </List.Link>
-        <List.Container>
+        <article className={styles.content}>
           <DataBook
             amount={amount}
             bookId={bookId}
@@ -64,8 +64,8 @@ export const BuyBookCard = ({
             language={language}
             page={pageCount}
           />
-        </List.Container>
-      </List.Info>
+        </article>
+      </article>
       <List.Shipping />
     </List.Root>
   )

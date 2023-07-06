@@ -75,9 +75,6 @@ export const DataBook = ({
   return (
     <div className={styles.dataBook}>
       <div className={styles.header}>
-        <div className={styles.bookTitle}>
-          <p>{title}</p>
-        </div>
         <div className={styles.actions}>
           <form
             onSubmit={(e) => handleSubmit(e)}
@@ -111,7 +108,6 @@ export const DataBook = ({
               />
             </button>
           </form>
-          <p>R$: {(price * amount).toFixed(2).toString().replace('.', ',')}</p>
           <button
             disabled={loading}
             className={styles.btnExclude}
@@ -120,18 +116,6 @@ export const DataBook = ({
             <IoClose size={20} color="#363636" />
           </button>
         </div>
-      </div>
-      <div className={styles.textInfo}>
-        <p>Ano: </p>
-        <span>{publisherDate.replace(/\-\d+/g, '')}</span>
-      </div>
-      <div className={styles.textInfo}>
-        <p className={styles.textInfo}>Páginas: </p>
-        <span>{pageCount}</span>
-      </div>
-      <div className={styles.textInfo}>
-        <p>Idioma: </p>
-        <span>{language}</span>
       </div>
     </div>
   )

@@ -1,5 +1,4 @@
 .dataBook {
-  width: 100%;
   display: flex;
   gap: 0.5rem;
   flex-direction: column;
@@ -23,8 +22,8 @@
 
 .dataBook .header .actions {
   display: flex;
-  flex: 1;
   align-items: center;
+  width: 100%;
   justify-content: space-between;
   position: relative;
   height: 1rem;
@@ -78,50 +77,4 @@
 
 .dataBook .textInfo span {
   font-weight: normal;
-}
-
-@media (max-width: 810px) {
-  .dataBook {
-    gap: 1rem;
-  }
-
-  .dataBook .header {
-    height: fit-content;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-
-  .dataBook .header .bookTitle {
-    order: 1;
-    width: 100%;
-  }
-
-  .dataBook .header .actions {
-    order: 0;
-    margin-bottom: 1rem;
-    width: 100%;
-    flex-wrap: wrap;
-  }
-
-  .dataBook .header .actions p {
-    text-align: center;
-    order: 0;
-    width: 100%;
-  }
-  .dataBook .header .actions .amount-form {
-    order: 1;
-  }
-  .dataBook .header .actions .btnExclude {
-    order: 2;
-  }
-}
-
-@media (max-width: 480px) {
-  .dataBook,
-  .header,
-  .actions {
-    gap: 0rem;
-    justify-content: space-between;
-  }
 }
