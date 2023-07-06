@@ -1,80 +1,11 @@
-.dataBook {
-  display: flex;
-  gap: 0.5rem;
-  flex-direction: column;
-}
-
-.dataBook .header {
-  display: flex;
-  justify-content: space-between;
-  height: 1rem;
-  align-items: flex-end;
-}
-.dataBook .header .bookTitle {
-  width: 30%;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  z-index: 50;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.dataBook .header .actions {
+.container {
   display: flex;
   align-items: center;
-  width: 100%;
   justify-content: space-between;
-  position: relative;
-  height: 1rem;
+  width:180px;
 }
 
-.dataBook .header .actions .amount-form {
-  display: flex;
-}
-
-.dataBook .header .actions .amount-form input {
-  width: 30px;
-  text-align: center;
-  border: 1px solid transparent;
-  background-color: transparent;
-}
-
-.dataBook .header .actions .amount-form input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-}
-
-.dataBook .header .actions .amount-form input:focus {
-  outline: none;
-  border: 1px solid #ffa500;
-}
-
-.dataBook .header .actions .btnExclude {
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
+.form{
   display: flex;
   align-items: center;
-  justify-content: center;
-  transition: 1s;
-}
-
-.dataBook .header .actions .btnExclude:hover {
-  background-color: #f31;
-}
-.dataBook .header .actions .btnExclude:hover svg {
-  fill: #fff;
-}
-.dataBook .header .actions .btnExclude svg {
-  transition: 0.5s;
-}
-
-.dataBook .textInfo {
-  font-weight: bold;
-  display: flex;
-  gap: 0.2rem;
-}
-
-.dataBook .textInfo span {
-  font-weight: normal;
 }

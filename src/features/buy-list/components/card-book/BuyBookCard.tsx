@@ -49,15 +49,7 @@ export const BuyBookCard = ({
           <List.Img src={imgUrl} alt={`Imagem do livro ${title}`} />
         </List.Link>
         <article className={styles.content}>
-          <DataBook
-            amount={amount}
-            bookId={bookId}
-            language={language}
-            pageCount={pageCount}
-            price={price}
-            title={title}
-            publisherDate={publisherDate}
-          />
+          <DataBook amount={amount} bookId={bookId} />
           <List.Data
             title={title}
             price={amount * price}

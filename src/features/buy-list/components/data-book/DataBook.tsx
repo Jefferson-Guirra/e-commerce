@@ -7,18 +7,12 @@ import { useBuyContext } from '../../../../context/books-buy-list/BuyBookContext
 import { Api } from '../../../../utils/api'
 import { parseCookies } from 'nookies'
 import { useHeaderContext } from '../../../../context/header/HeaderContext'
+import { LiaTrashAlt } from 'react-icons/lia'
+import { List } from '../../../../components'
 
 const apiBook = new Api()
 
-export const DataBook = ({
-  title,
-  bookId,
-  amount,
-  price,
-  language,
-  publisherDate,
-  pageCount,
-}: IDataProps) => {
+export const DataBook = ({ bookId, amount }: IDataProps) => {
   const [amountBook, setAmountBook] = useState(amount)
   const { loading, dispatch } = useBuyContext()
   const { dispatch: dispatchHeader } = useHeaderContext()
@@ -38,7 +32,7 @@ export const DataBook = ({
           payload: { updateBook: book.body },
         })
       } finally {
-        dispatch({ type: 'FETCH_ERROR' })
+        dispatch({ type: 'FETCH_SUCCESS' })
       }
     }
   }
@@ -65,7 +59,7 @@ export const DataBook = ({
         payload: { deleteBook: response.body },
       })
     } finally {
-      dispatch({ type: 'FETCH_ERROR' })
+      dispatch({ type: 'FETCH_SUCCESS' })
     }
   }
 
@@ -73,50 +67,43 @@ export const DataBook = ({
     setAmountBook(amount)
   }, [amount])
   return (
-    <div className={styles.dataBook}>
-      <div className={styles.header}>
-        <div className={styles.actions}>
-          <form
-            onSubmit={(e) => handleSubmit(e)}
-            onBlur={() => handleUpdateAmountBook(bookId, amountBook)}
-            className={styles['amount-form']}
-          >
-            <button disabled={loading}>
-              <MdRemove
-                onClick={() =>
-                  handleUpdateAmountBook(bookId, (amountBook - 1) as number)
-                }
-                size={20}
-                color="#363636"
-              />
-            </button>
-            <input
-              type="number"
-              min="1"
-              value={amountBook}
-              onChange={({ target }: React.ChangeEvent<HTMLInputElement>) =>
-                setAmountBook(Number(target.value))
-              }
-            />
-            <button disabled={loading}>
-              <MdAdd
-                onClick={() =>
-                  handleUpdateAmountBook(bookId, (amountBook + 1) as number)
-                }
-                size={20}
-                color="#363636"
-              />
-            </button>
-          </form>
-          <button
+    <>
+      <article className={styles.container}>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <List.Button
             disabled={loading}
-            className={styles.btnExclude}
-            onClick={() => handleExcludeBuyBook(bookId)}
+            className="update"
+            onClick={() => handleUpdateAmountBook(bookId, amountBook - 1)}
           >
-            <IoClose size={20} color="#363636" />
-          </button>
-        </div>
-      </div>
-    </div>
+            <List.Icon icon={MdRemove} size={20} color="#363636" />
+          </List.Button>
+
+          <List.Input
+            type="number"
+            className="number"
+            min="1"
+            value={amountBook}
+            onChange={({ target }) => setAmountBook(Number(target.value))}
+            onBlur={() => handleUpdateAmountBook(bookId, amountBook)}
+          />
+
+          <List.Button
+            type="submit"
+            className="update"
+            disabled={loading}
+            onClick={() => handleUpdateAmountBook(bookId, amountBook + 1)}
+          >
+            <List.Icon icon={MdAdd} size={20} color="#363636" />
+          </List.Button>
+        </form>
+        <List.Button
+          disabled={loading}
+          onClick={() => handleExcludeBuyBook(bookId)}
+          className="delete"
+        >
+          <List.Icon icon={IoClose} size={20} color="#363636" />
+        </List.Button>
+      </article>
+    </>
   )
 }

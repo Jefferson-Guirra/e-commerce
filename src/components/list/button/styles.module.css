@@ -2,14 +2,15 @@
 .btn-remove-all {
   background-color: transparent;
 }
-.btn-delete {
+
+.btn-delete,
+.btn-update {
+  border-radius: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  transition: 1s;
+  transition: 0.7s;
+  border: 1px solid transparent;
 }
 
 .btn-delete:hover {
@@ -20,7 +21,12 @@
   transition: 1s;
 }
 .btn-delete:hover svg {
-  fill: #fff;
+  fill: #fafafa;
+}
+
+.btn-update:hover {
+  border: 1px solid var(--second-color);
+
 }
 
 .btn-remove-all {
