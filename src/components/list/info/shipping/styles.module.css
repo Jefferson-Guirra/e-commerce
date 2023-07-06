@@ -23,7 +23,7 @@
 @media (max-width: 500px) {
   .container .content {
     flex-wrap: wrap;
-    font-size: 0.9rem;
+    font-size: 0.875rem;
   }
 
   .container .content .subtitle {
