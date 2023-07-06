@@ -1,14 +1,13 @@
 .link::after {
-    content: 'capa ilustrativa';
-    display: block;
-    font-size: 0.875rem;
-    color: gray;
-    text-align: center;
+  content: 'capa ilustrativa';
+  display: block;
+  font-size: 0.875rem;
+  color: gray;
+  text-align: center;
 }
 
 @media (max-width: 810px) {
-    .link{
-        margin:  0 auto;
-    }
-    
+  .link {
+    margin: 0 auto;
+  }
 }
