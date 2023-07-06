@@ -15,7 +15,7 @@ import { useBuyContext } from '../../../context/books-buy-list/BuyBookContext'
 
 //Sandbox-id:AbJhKpgKw6gr0oH9PRqCr35jMcfKfaKYtRF_LGoDeOeiQhrsBsEsL_N_fXggNgGFnCFtyS55WsZJB4tI
 
-export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
+export const BooksList = ({ books, accessToken }: IBuyBooksProps) => {
   const {
     dispatch,
     books: booksState,

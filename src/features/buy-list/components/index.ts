@@ -1,4 +1,4 @@
-export * from './card-book/CarBook'
+export * from './card-book/CardBook'
 export * from './buy-component/BuyComponent'
 export * from './actions-book/Actions'
 export * from './header-component/HeaderComponent'
