@@ -59,15 +59,7 @@ export const BuyBookCard = ({
           publisherDate={publisherDate}
         />
       </article>
-
-      <article className={styles.buyInfoCard}>
-        <h3>Entrega Básica</h3>
-        <div className={styles.infoBuy}>
-          <span id="free">Frete grátis </span>
-          <p>neste vendedor nas compras a partir de</p>
-          <span> R$ {generateRandomNumberInterval(60, 150)}</span>
-        </div>
-      </article>
+      <List.Shipping />
     </article>
   )
 }
