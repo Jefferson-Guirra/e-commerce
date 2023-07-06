@@ -35,6 +35,14 @@
   padding: 0.5rem;
 }
 
+.user-actions li p .presentation {
+  display: block;
+  max-width: 126px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .user-actions li p svg {
   transition: 1s;
 }

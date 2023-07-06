@@ -39,10 +39,13 @@ const Actions = () => {
         <li>
           <p>
             <BiUser className={styles.user} size={25} />
-            Olá,{' '}
-            {username === 'undefined'
-              ? 'usuário'
-              : `${username.toLowerCase()}`}{' '}
+            <span className={styles.presentation}>
+              Olá,
+              {username === 'undefined'
+                ? ' usuário'
+                : ` ${username.toLowerCase()}`}
+            </span>
+
             <MdOutlineNavigateNext className={styles.arrow} size={25} />
           </p>
           <div className={styles.links}>
