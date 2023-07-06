@@ -75,6 +75,7 @@ export const LoginForm = ({ handleLoading, loading }: Props) => {
     <Form.Root onSubmit={handleSubmit}>
       <Form.ActionButton
         disabled={loading}
+        type="button"
         text="Google"
         onClick={() => handleNextAuthLogin('http://localhost:3000/Login')}
       >

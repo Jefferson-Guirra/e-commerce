@@ -68,6 +68,7 @@ export const SignUpForm = ({ handleLoading, loading }: Props) => {
       <Form.ActionButton
         disabled={loading}
         text="Google"
+        type="button"
         onClick={() => handleNextAuthLogin('http://localhost:3000/Login')}
       >
         <Form.Icon size={25} icon={FcGoogle} />
