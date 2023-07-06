@@ -47,22 +47,24 @@ export const BuyBookCard = ({
       <List.Info>
         <List.Link href={`/Book/${bookId}`}>
           <List.Img src={imgUrl} alt={`Imagem do livro ${title}`} />
+        </List.Link>
+        <List.Container>
+          <DataBook
+            amount={amount}
+            bookId={bookId}
+            language={language}
+            pageCount={pageCount}
+            price={price}
+            title={title}
+            publisherDate={publisherDate}
+          />
           <List.Data
             title={title}
             price={amount * price}
             language={language}
             page={pageCount}
           />
-        </List.Link>
-        <DataBook
-          amount={amount}
-          bookId={bookId}
-          language={language}
-          pageCount={pageCount}
-          price={price}
-          title={title}
-          publisherDate={publisherDate}
-        />
+        </List.Container>
       </List.Info>
       <List.Shipping />
     </List.Root>

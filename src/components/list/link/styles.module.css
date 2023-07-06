@@ -1,12 +1,4 @@
 .link {
   color: var(--four-color);
-  display: flex;
-  gap: 1rem;
   position: relative;
-}
-
-@media (max-width: 810px) {
-  .link {
-    margin: 0 auto;
-  }
 }
