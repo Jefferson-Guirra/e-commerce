@@ -5,7 +5,7 @@ import { parseCookies } from 'nookies'
 import { useBuyContext } from '../../../../context/books-buy-list/BuyBookContext'
 import { List } from '../../../../components'
 
-export const BuyBookCard = ({
+export const CardBook = ({
   publisher,
   id,
   title,

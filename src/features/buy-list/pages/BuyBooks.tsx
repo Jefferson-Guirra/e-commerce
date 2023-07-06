@@ -6,7 +6,7 @@ import { useEffect } from 'react'
 import {
   HeaderComponent,
   LoadingComponent,
-  BuyBookCard,
+  CardBook,
   BuyComponent,
   ResetComponent,
   PurchaseComponent,
@@ -24,7 +24,6 @@ export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
   } = useBuyContext()
   const [purchase, setPurchase] = useState(false)
   const [reset, setReset] = useState(false)
-  const router = useRouter()
 
   const handleReset = (state: boolean) => {
     setReset(state)
@@ -38,7 +37,7 @@ export const BuyBooks = ({ books, accessToken }: IBuyBooksProps) => {
       <section className={styles.content}>
         <HeaderComponent handleReset={handleReset} />
         {booksState.map((book) => (
-          <BuyBookCard key={book.id} {...book} />
+          <CardBook key={book.id} {...book} />
         ))}
       </section>
       <article className={styles.price}>
