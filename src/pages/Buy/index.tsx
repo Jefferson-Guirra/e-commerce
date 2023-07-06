@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
 import Head from 'next/head'
-import { BuyListContainer } from '../../features'
+import { BooksListContainer } from '../../features'
 import { Api } from '../../utils/api'
 import { AddBuyBookModel } from '../../server/domain/usecases/book-buy-list/add-book-buy-list'
 
@@ -21,7 +21,7 @@ const Buy = ({ books, accessToken }: Props) => {
       <Head>
         <title>Meu Carrinho</title>
       </Head>
-      <BuyListContainer
+      <BooksListContainer
         books={booksFormat}
         accessToken={JSON.parse(accessToken)}
       />
