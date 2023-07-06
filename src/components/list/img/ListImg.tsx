@@ -13,7 +13,7 @@ export const ListImg = (props: Props) => {
         quality={100}
         height={0}
         blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM0NTXfDgACogFakP/skwAAAABJRU5ErkJggg=="
-        style={{ height: '180px', borderRadius: '0px' }}
+        style={{ height: '180px', borderRadius: '3px' }}
         width={100}
       />
     </div>
