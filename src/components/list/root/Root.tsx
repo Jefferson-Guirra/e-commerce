@@ -3,6 +3,6 @@ import styles from './styles.module.css'
 interface Props {
   children: ReactNode
 }
-export const ListCard = ({ children }: Props) => {
+export const Root = ({ children }: Props) => {
   return <section className={styles.card}>{children}</section>
 }

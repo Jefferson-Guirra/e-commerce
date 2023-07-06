@@ -36,7 +36,7 @@ export const BuyBookCard = ({
     }
   }
   return (
-    <List.Card>
+    <List.Root>
       <List.HeaderCard title={publisher}>
         <List.Input
           className="checkbox"
@@ -65,6 +65,6 @@ export const BuyBookCard = ({
         />
       </List.Info>
       <List.Shipping />
-    </List.Card>
+    </List.Root>
   )
 }

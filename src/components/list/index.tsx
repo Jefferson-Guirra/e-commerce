@@ -1,5 +1,5 @@
 import { ListButton } from './button/ListButton'
-import { ListCard } from './card/ListCard'
+import { Root } from './root/Root'
 import { ListInfo } from './content/info/ListInfo'
 import { ListHeader } from './header/Header'
 import { ListHeaderCard } from './header/card/ListHeaderCard'
@@ -11,8 +11,8 @@ import { ListInput } from './input/ListInput'
 import { ListLink } from './link/ListLink'
 
 export const List = {
+  Root,
   Button: ListButton,
-  Card: ListCard,
   Info: ListInfo,
   Header: ListHeader,
   Icon: ListIcon,
