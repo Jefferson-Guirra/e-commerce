@@ -1,16 +1,16 @@
 .btn {
-    border-radius: 0px 7px 7px 0px;
-    display: flex;
-    padding: 0.2rem;
-    align-items: center;
-    background-color: var(--second-color);
-    transition: 0.7s;
+  border-radius: 0px 7px 7px 0px;
+  display: flex;
+  padding: 0.2rem;
+  align-items: center;
+  background-color: var(--second-color);
+  transition: 0.7s;
 }
 
 .btn:hover {
-    background-color: var(--primary-color);
+  background-color: var(--primary-color);
 }
 
 .btn:hover svg {
-    fill: var(--second-color);
+  fill: var(--second-color);
 }
