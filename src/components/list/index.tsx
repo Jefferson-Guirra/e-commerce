@@ -2,7 +2,9 @@ import { ListButton } from './button/ListButton'
 import { ListHeader } from './header/Header'
 import { ListHeaderCard } from './header/card/ListHeaderCard'
 import { ListIcon } from './icon/ListIcon'
+import ListImg from './img/ListImg'
 import { ListInput } from './input/ListInput'
+import ListLink from './link/ListLink'
 
 export const List = {
   Button: ListButton,
@@ -10,4 +12,6 @@ export const List = {
   Icon: ListIcon,
   HeaderCard: ListHeaderCard,
   Input: ListInput,
+  Link: ListLink,
+  Img: ListImg,
 }

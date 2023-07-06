@@ -45,18 +45,10 @@ export const BuyBookCard = ({
         />
       </List.HeaderCard>
       <article className={styles.infoBook}>
-        <Link href={`/Book/${bookId}`} className={styles.img}>
-          <Image
-            quality={100}
-            src={imgUrl}
-            height={0}
-            priority
-            style={{ width: '100%', height: 'auto' }}
-            width={100}
-            alt={`Imagem do livro ${title}`}
-            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM0NTXfDgACogFakP/skwAAAABJRU5ErkJggg=="
-          />
-        </Link>
+        <List.Link href={`/Book/${bookId}`}>
+          <List.Img src={imgUrl} alt={`Imagem do livro ${title}`} />
+        </List.Link>
+
         <DataBook
           amount={amount}
           bookId={bookId}
