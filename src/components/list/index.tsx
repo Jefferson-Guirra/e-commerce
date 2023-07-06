@@ -9,6 +9,7 @@ import { ListDataBook } from './info/data-book/ListDataBook'
 import { ListShipping } from './info/shipping/ListShipping'
 import { ListInput } from './input/ListInput'
 import { ListLink } from './link/ListLink'
+import { ListContainer } from './containers/ListContainer'
 
 export const List = {
   Root,
@@ -22,4 +23,5 @@ export const List = {
   Img: ListImg,
   Data: ListDataBook,
   Shipping: ListShipping,
+  Container: ListContainer,
 }
