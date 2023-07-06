@@ -7,12 +7,10 @@ interface Props extends LinkProps {
   children: ReactNode
 }
 
-const ListLink = ({ children, ...rest }: Props) => {
+export const ListLink = ({ children, ...rest }: Props) => {
   return (
     <Link className={styles.link} {...rest}>
       {children}
     </Link>
   )
 }
-
-export default ListLink

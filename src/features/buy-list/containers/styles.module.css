@@ -12,3 +12,9 @@
     min-height: calc(100vh - 154px);
   }
 }
+
+@media (max-width: 600px) {
+  .container {
+    padding: 2rem 1rem;
+  }
+}

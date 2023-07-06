@@ -1,6 +1,5 @@
 .container {
   border-left: 4px solid var(--four-color);
-  height: 100%;
   padding: 0.5rem;
   font-size: 1rem;
 }
@@ -12,12 +11,13 @@
 
 .container .content {
   display: flex;
+  flex-direction: column;
   gap: 0.2rem;
-  margin-block: 0.5rem;
 }
 
 .container .content span {
   font-weight: bold;
+  margin-left: 0.3rem;
 }
 
 @media (max-width: 500px) {

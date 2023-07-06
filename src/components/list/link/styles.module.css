@@ -1,9 +1,8 @@
-.link::after {
-  content: 'capa ilustrativa';
-  display: block;
-  font-size: 0.875rem;
-  color: gray;
-  text-align: center;
+.link {
+  color: var(--four-color);
+  display: flex;
+  gap: 1rem;
+  position: relative;
 }
 
 @media (max-width: 810px) {

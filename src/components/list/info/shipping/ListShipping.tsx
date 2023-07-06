@@ -13,11 +13,12 @@ export const ListShipping = () => {
   const shipping = useMemo(() => generateRandomNumberInterval(60, 150), [])
   return (
     <article className={styles.container}>
-      <h3>Entrega Básica</h3>
       <div className={styles.content}>
-        <span className={styles.subtitle}>Frete grátis </span>
-        <p>neste vendedor nas compras a partir de</p>
-        <span>{shipping}</span>
+        <h2 className={styles.subtitle}>Frete grátis </h2>
+        <p>
+          neste vendedor nas compras a partir de
+          <span>{shipping}</span>
+        </p>
       </div>
     </article>
   )
