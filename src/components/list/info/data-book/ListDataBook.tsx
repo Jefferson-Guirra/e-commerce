@@ -11,7 +11,7 @@ const formatPrice = (number: number) => {
 export const ListDataBook = ({ title, price, page, language }: Props) => {
   return (
     <div className={styles.container}>
-      <p>
+      <p className={styles.title}>
         <span>Título:</span> {title}
       </p>
       <p>

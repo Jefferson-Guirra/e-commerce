@@ -13,3 +13,18 @@
   font-weight: bold;
   color: var(--four-color);
 }
+
+@media (max-width: 520px) {
+  .container .title {
+    max-width: 250px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 450px) {
+  .container .title {
+    max-width: 180px;
+  }
+}
