@@ -90,6 +90,10 @@ button {
   background-color: var(--primary-color) !important;
 }
 
+button:disabled {
+  cursor: wait;
+}
+
 @media (max-width: 955px) {
   body {
     padding-top: 154px;

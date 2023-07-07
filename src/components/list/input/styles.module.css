@@ -1,3 +1,4 @@
+.input-reset-checkbox,
 .input-checkbox {
   accent-color: var(--second-color);
 }
@@ -15,4 +16,11 @@
 }
 .input-number::-webkit-inner-spin-button {
   -webkit-appearance: none;
+}
+
+.input-reset-checkbox {
+  display: block;
+  width: 17px;
+  height: 17px;
+  margin-left: auto;
 }

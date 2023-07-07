@@ -28,3 +28,9 @@
     max-width: 180px;
   }
 }
+
+@media (max-width: 380px) {
+  .container .title {
+    max-width: 150px;
+  }
+}

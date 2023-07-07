@@ -1,0 +1,30 @@
+.container {
+  position: absolute;
+  padding-top: 2rem;
+  top: 0;
+  height: 100%;
+  width: calc(100% - 2rem);
+  background-color: #8080805d;
+}
+
+.container .content {
+  position: relative;
+  margin-top: 2rem;
+  margin-inline: auto;
+  max-width: 700px;
+  background-color: #eee;
+  padding: 1rem;
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  max-height: 550px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  gap: 1rem;
+}
+
+@media (max-width: 400px) {
+  .container .content {
+    max-height: 350px;
+  }
+}

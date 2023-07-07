@@ -7,6 +7,7 @@ import { IoClose } from 'react-icons/io5'
 import { AddBuyBookModel } from '../../../../server/domain/usecases/book-buy-list/add-book-buy-list'
 import { Api } from '../../../../utils/api'
 import { useHeaderContext } from '../../../../context/header/HeaderContext'
+import { List } from '../../../../components'
 interface IProps {
   reset: boolean
   accessToken: string
@@ -70,44 +71,41 @@ export const ResetComponent = ({ reset, handleReset, accessToken }: IProps) => {
   return (
     <>
       {reset && (
-        <section onClick={handleCLick} className={styles.container}>
-          <article className={styles.content}>
-            <button className={styles['btn-close']}>
-              <IoClose size={30} color="#fff" />
-            </button>
-            <ul className={styles['list-container']}>
+        <List.Reset.Root onClick={handleCLick}>
+          <article className={styles.container}>
+            <List.Button className="close" onClick={() => handleReset(false)}>
+              <List.Icon icon={IoClose} size={30} color="#fff" />
+            </List.Button>
+            <div className={styles.content}>
               {resetBooksStorage.map((book) => (
-                <li key={book.bookId}>
-                  <Image
-                    width={100}
-                    style={{ maxWidth: '100px' }}
-                    height={100}
-                    src={book.imgUrl}
-                    alt={`imagem do livro ${book.title}`}
-                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM0NTXfDgACogFakP/skwAAAABJRU5ErkJggg=="
-                  />
-                  <article className={styles.info}>
-                    <div className={styles['data-book']}>
-                      <h3>{book.title}</h3>
-                      <p>páginas: {book.pageCount}</p>
-                      <p>idioma: {book.language}</p>
-                      <p>adicionado: {handleTime(book.date)}</p>
-                    </div>
-                    <input
+                <div className={styles['card']} key={book.id}>
+                  <List.Link href={`/Book/${book.id}`}>
+                    <List.Img
+                      src={`${book.imgUrl}`}
+                      alt={`imagem do livro ${book.title}`}
+                    />
+                  </List.Link>
+                  <div className={styles['info-book']}>
+                    <List.Data
+                      title={book.title}
+                      language={book.language}
+                      page={book.pageCount}
+                      price={book.price}
+                    />
+                    <List.Input
+                      className="reset-checkbox"
                       type="checkbox"
                       onChange={(e) => handleChange(e, book)}
                     />
-                  </article>
-                </li>
+                  </div>
+                </div>
               ))}
-            </ul>
-            <div className={styles.submit}>
-              <button onClick={handleSubmit} className={styles['btn-submit']}>
-                {bookList.length > 0 ? 'desfazer' : 'desfazer todos'}
-              </button>
             </div>
+            <List.Button className="reset-all" onClick={handleSubmit}>
+              {bookList.length > 0 ? 'desfazer' : 'desfazer todos'}
+            </List.Button>
           </article>
-        </section>
+        </List.Reset.Root>
       )}
     </>
   )
