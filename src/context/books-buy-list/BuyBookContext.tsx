@@ -255,9 +255,22 @@ export const BuyStorage = ({ children }: IProps) => {
 
       case 'RESET_COLLECTION_BOOKS':
         const { collection } = action.payload
+        if (state.deleteBooksStorage.length > 0) {
+          return {
+            ...state,
+            loading: false,
+            resetBooksStorage: state.resetBooksStorage.filter(
+              (book) => !collection.find(({ bookId }) => bookId === book.bookId)
+            ),
+            collectionLoading: false,
+          }
+        }
         return {
           ...state,
           loading: false,
+          price:
+            state.price +
+            collection.reduce((acc, vl) => acc + vl.price * vl.amount, 0),
           books: [...state.books, ...collection],
           collectionLoading: false,
           resetBooksStorage: state.resetBooksStorage.filter(
