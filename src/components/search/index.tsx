@@ -7,5 +7,5 @@ export const Search = {
   Root: Root,
   Input: SearchInput,
   Icon: SearchIcon,
-  button: SearchButton,
+  Button: SearchButton,
 }
