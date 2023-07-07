@@ -1,11 +1,6 @@
 .input {
   font-size: 1.1rem;
   flex: 1;
-  border: 1px solid transparent;
-  transition: all 0.7s;
-}
-
-.input:hover {
-  border: 1px solid var(--second-color);
-  box-shadow: 0px 0px 3px var(--second-color);
+  border: none;
+  padding: 0.5rem;
 }
