@@ -1,7 +1,7 @@
-import { AddBuyBookModel } from '../../../server/domain/usecases/book-buy-list/add-book-buy-list'
+import { AddBookModel } from '../../../server/domain/usecases/book-list/add-book-list'
 
 export type Actions =
-  | { type: 'INIT'; payload: { books: AddBuyBookModel[] } }
+  | { type: 'INIT'; payload: { books: AddBookModel[] } }
   | {
       type: 'ADD_SELECTED_BOOK'
       payload: { bookId: string; accessToken: string }
@@ -10,9 +10,9 @@ export type Actions =
       type: 'REMOVE_SELECTED_BOOK'
       payload: { bookId: string }
     }
-  | { type: 'REMOVE_BOOK'; payload: { book: AddBuyBookModel } }
+  | { type: 'REMOVE_BOOK'; payload: { bookId: string } }
   | { type: 'REMOVE_ALL_BOOKS' }
-  | { type: 'RESET_BOOKS'; payload: { books: AddBuyBookModel[] } }
+  | { type: 'RESET_BOOKS'; payload: { books: AddBookModel[] } }
   | { type: 'RESET_ALL_BOOKS' }
   | { type: 'FETCH_START' }
   | { type: 'FETCH_SUCCESS' }

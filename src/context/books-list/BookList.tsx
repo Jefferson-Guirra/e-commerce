@@ -7,6 +7,7 @@ import {
 } from 'react'
 import { initialState, ListState } from './@types/initial-state'
 import { Actions } from './@types/actions'
+import { AddBookModel } from '../../server/domain/usecases/book-list/add-book-list'
 
 interface Context extends ListState {
   dispatch: Dispatch<Actions>
@@ -38,14 +39,17 @@ export const BookListStorage = ({ children }: Props) => {
           ),
         }
       case 'REMOVE_BOOK':
+        const findBook = state.booksList.find(
+          ({ bookId }) => bookId === action.payload.bookId
+        ) as AddBookModel
         return {
           ...state,
           booksList: state.booksList.filter(
-            ({ bookId }) => bookId !== action.payload.book.bookId
+            ({ bookId }) => bookId !== action.payload.bookId
           ),
-          resetStorage: [...state.booksList, action.payload.book],
+          resetStorage: [...state.resetStorage, findBook],
           deleteStorage: state.deleteStorage.filter(
-            ({ bookId }) => bookId !== action.payload.book.bookId
+            ({ bookId }) => bookId !== action.payload.bookId
           ),
         }
       case 'REMOVE_ALL_BOOKS':

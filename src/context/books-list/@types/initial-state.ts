@@ -1,9 +1,9 @@
-import { AddBuyBookModel } from '../../../server/domain/usecases/book-buy-list/add-book-buy-list'
+import { AddBookModel } from '../../../server/domain/usecases/book-list/add-book-list'
 
 export interface ListState {
-  booksList: AddBuyBookModel[]
+  booksList: AddBookModel[]
   deleteStorage: { bookId: string; accessToken: string }[]
-  resetStorage: AddBuyBookModel[]
+  resetStorage: AddBookModel[]
   loading: boolean
   collectionLoading: boolean
 }
