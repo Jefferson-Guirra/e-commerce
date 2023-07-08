@@ -8,7 +8,6 @@ import {
   LoadingComponent,
   ResetComponent,
 } from '../components'
-import { useBuyContext } from '../../../context/books-buy-list/BuyBookContext'
 import { Search } from '../../../components'
 import { useListContext } from '../../../context/books-list/BookList'
 import { AddBookModel } from '../../../server/domain/usecases/book-list/add-book-list'
@@ -43,7 +42,8 @@ export const Books = ({ books }: Props) => {
     <>
       <section className={styles.content}>
         <HeaderComponent handleReset={handleReset} />
-        {booksList.length > 0 && (
+        {!booksList.length && <p style={{ color: '#f31' }}>Lista vazia</p>}
+        {!!booksList.length && (
           <Search.Root>
             <Search.Input
               value={input}
@@ -55,7 +55,7 @@ export const Books = ({ books }: Props) => {
             </Search.Button>
           </Search.Root>
         )}
-        {filteredBooks.length > 0
+        {!!filteredBooks.length
           ? filteredBooks.map((book) => <ListCard {...book} key={book.id} />)
           : booksList.map((book) => <ListCard {...book} key={book.id} />)}
       </section>
