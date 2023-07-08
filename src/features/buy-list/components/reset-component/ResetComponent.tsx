@@ -1,21 +1,19 @@
 import { useState } from 'react'
 import { useBuyContext } from '../../../../context/books-buy-list/BuyBookContext'
 import styles from './styles.module.css'
-import Image from 'next/image'
-import { handleTime } from '../../../../utils/handle-time'
 import { IoClose } from 'react-icons/io5'
 import { AddBuyBookModel } from '../../../../server/domain/usecases/book-buy-list/add-book-buy-list'
 import { Api } from '../../../../utils/api'
 import { useHeaderContext } from '../../../../context/header/HeaderContext'
 import { List } from '../../../../components'
-interface IProps {
+import { parseCookies } from 'nookies'
+interface Props {
   reset: boolean
-  accessToken: string
   handleReset: (state: boolean) => void
 }
 
 const apiBook = new Api()
-export const ResetComponent = ({ reset, handleReset, accessToken }: IProps) => {
+export const ResetComponent = ({ reset, handleReset }: Props) => {
   const { dispatch: dispatchHeader } = useHeaderContext()
   const { resetBooksStorage, dispatch } = useBuyContext()
   const [bookList, setBookList] = useState<AddBuyBookModel[]>([])
@@ -40,6 +38,7 @@ export const ResetComponent = ({ reset, handleReset, accessToken }: IProps) => {
     }
   }
   const resetBooksCollection = async (collection: AddBuyBookModel[]) => {
+    const accessToken = JSON.parse(parseCookies().literando_accessToken)
     try {
       dispatch({ type: 'FETCH_COLLECTION_START' })
       for (const book of collection) {
@@ -53,18 +52,18 @@ export const ResetComponent = ({ reset, handleReset, accessToken }: IProps) => {
   }
   const handleSubmit = () => {
     handleReset(false)
-    if (bookList.length > 0) {
+    if (!!bookList.length) {
       resetBooksCollection(bookList)
       dispatchHeader({
         type: 'ADD_AMOUNT_LIST',
         payload: { amount: bookList.length },
       })
     } else {
+      resetBooksCollection(resetBooksStorage)
       dispatchHeader({
         type: 'ADD_AMOUNT_LIST',
         payload: { amount: resetBooksStorage.length },
       })
-      resetBooksCollection(resetBooksStorage)
     }
     setBookList([])
   }
@@ -102,7 +101,7 @@ export const ResetComponent = ({ reset, handleReset, accessToken }: IProps) => {
               ))}
             </div>
             <List.Button className="reset-all" onClick={handleSubmit}>
-              {bookList.length > 0 ? 'desfazer' : 'desfazer todos'}
+              {!!bookList.length ? 'desfazer' : 'desfazer todos'}
             </List.Button>
           </article>
         </List.Reset.Root>

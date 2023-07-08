@@ -72,11 +72,7 @@ export const BooksList = ({ books, accessToken }: IBuyBooksProps) => {
       )}
       <PurchaseComponent setState={setPurchase} listSize={booksState.length} />
 
-      <ResetComponent
-        accessToken={accessToken}
-        reset={reset}
-        handleReset={handleReset}
-      />
+      <ResetComponent reset={reset} handleReset={handleReset} />
       <BuyComponent
         purchase={purchase}
         setValue={setPurchase}
