@@ -43,16 +43,18 @@ export const Books = ({ books }: Props) => {
     <>
       <section className={styles.content}>
         <HeaderComponent handleReset={handleReset} />
-        <Search.Root>
-          <Search.Input
-            value={input}
-            onChange={({ target }) => setInput(target.value)}
-            placeholder="...buscar"
-          />
-          <Search.Button>
-            <Search.Icon icon={BiSearch} size={30} color="#001f3f" />
-          </Search.Button>
-        </Search.Root>
+        {booksList.length > 0 && (
+          <Search.Root>
+            <Search.Input
+              value={input}
+              onChange={({ target }) => setInput(target.value)}
+              placeholder="...buscar"
+            />
+            <Search.Button>
+              <Search.Icon icon={BiSearch} size={30} color="#001f3f" />
+            </Search.Button>
+          </Search.Root>
+        )}
         {filteredBooks.length > 0
           ? filteredBooks.map((book) => <ListCard {...book} key={book.id} />)
           : booksList.map((book) => <ListCard {...book} key={book.id} />)}

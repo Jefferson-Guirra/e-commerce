@@ -46,16 +46,18 @@ export const BooksList = ({ books, accessToken }: IBuyBooksProps) => {
     <>
       <section className={styles.content}>
         <HeaderComponent handleReset={handleReset} />
-        <Search.Root>
-          <Search.Input
-            value={input}
-            onChange={({ target }) => setInput(target.value)}
-            placeholder="...buscar"
-          />
-          <Search.Button>
-            <Search.Icon icon={BiSearch} size={30} color="#001f3f" />
-          </Search.Button>
-        </Search.Root>
+        {booksState.length > 0 && (
+          <Search.Root>
+            <Search.Input
+              value={input}
+              onChange={({ target }) => setInput(target.value)}
+              placeholder="...buscar"
+            />
+            <Search.Button>
+              <Search.Icon icon={BiSearch} size={30} color="#001f3f" />
+            </Search.Button>
+          </Search.Root>
+        )}
         {filteredBooks.length > 0
           ? filteredBooks.map((book) => <CardBook {...book} key={book.id} />)
           : booksState.map((book) => <CardBook {...book} key={book.id} />)}
