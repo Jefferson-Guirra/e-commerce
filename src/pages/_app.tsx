@@ -3,8 +3,6 @@ import type { AppProps } from 'next/app'
 import { Footer, HeaderContainer } from '../components'
 import { SessionProvider } from 'next-auth/react'
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 import { AppProvider } from '../context/context'
 
 const initialOptions = {
