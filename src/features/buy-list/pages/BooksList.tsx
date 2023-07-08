@@ -46,7 +46,8 @@ export const BooksList = ({ books, accessToken }: IBuyBooksProps) => {
     <>
       <section className={styles.content}>
         <HeaderComponent handleReset={handleReset} />
-        {booksState.length > 0 && (
+        {!booksState.length && <p style={{ color: '#f31' }}>Lista vazia</p>}
+        {!!booksState.length && (
           <Search.Root>
             <Search.Input
               value={input}
@@ -58,15 +59,17 @@ export const BooksList = ({ books, accessToken }: IBuyBooksProps) => {
             </Search.Button>
           </Search.Root>
         )}
-        {filteredBooks.length > 0
+        {!!filteredBooks.length
           ? filteredBooks.map((book) => <CardBook {...book} key={book.id} />)
           : booksState.map((book) => <CardBook {...book} key={book.id} />)}
       </section>
-      <article className={styles.price}>
-        <p>
-          Total do carrinho: R${price.toFixed(2).toString().replace('.', ',')}
-        </p>
-      </article>
+      {!!booksState.length && (
+        <article className={styles.price}>
+          <p>
+            Total do carrinho: R${price.toFixed(2).toString().replace('.', ',')}
+          </p>
+        </article>
+      )}
       <PurchaseComponent setState={setPurchase} listSize={booksState.length} />
 
       <ResetComponent
