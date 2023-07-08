@@ -1,4 +1,3 @@
-import { UserStorage } from './user/UserContext'
 import { HeaderStorage } from './header/HeaderContext'
 import { BookListStorage } from './books-list/BookList'
 interface ContextProps {
@@ -10,9 +9,7 @@ export const AppProvider = ({ children }: ContextProps) => {
   return (
     <BuyStorage>
       <BookListStorage>
-        <UserStorage>
-          <HeaderStorage>{children}</HeaderStorage>
-        </UserStorage>
+        <HeaderStorage>{children}</HeaderStorage>
       </BookListStorage>
     </BuyStorage>
   )

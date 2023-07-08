@@ -1,7 +1,0 @@
-export * from './IDataBook'
-export * from './IAccountModel'
-export * from './IArguments'
-export * from './IValidateUserProps'
-export * from './IGetBookProps'
-export * from './IAddBookProps'
-export * from './IAddAccount'
