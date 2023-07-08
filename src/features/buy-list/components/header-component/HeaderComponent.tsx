@@ -1,4 +1,3 @@
-import React from 'react'
 import { useBuyContext } from '../../../../context/books-buy-list/BuyBookContext'
 import { BiUndo } from 'react-icons/bi'
 import { HiTrash } from 'react-icons/hi'
