@@ -120,7 +120,7 @@
     display: none;
   }
 }
-@media (max-width: 865px) {
+@media (max-width: 885px) {
   .container .content {
     width: 100%;
   }

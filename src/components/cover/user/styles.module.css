@@ -6,7 +6,7 @@
   border-radius: 0;
 }
 
-@media (max-width: 865px) {
+@media (max-width: 885px) {
   .container {
     display: none;
   }
