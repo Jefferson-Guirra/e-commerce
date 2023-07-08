@@ -1,4 +1,4 @@
-import * as C from '../../styles/notFound'
+import styles from '../../styles/not-found.module.css'
 import Head from 'next/head'
 
 const NotFound = () => {
@@ -7,9 +7,9 @@ const NotFound = () => {
       <Head>
         <title>Error | não encontrado</title>
       </Head>
-      <C.container>
+      <main className={styles.container}>
         <h1>Livro não encontrado.</h1>
-      </C.container>
+      </main>
     </>
   )
 }
