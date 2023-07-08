@@ -1,6 +1,7 @@
 import styles from './styles.module.css'
-import { ListBooks } from '../pages/ListBooks'
 import { AddBookModel } from '../../../server/domain/usecases/book-list/add-book-list'
+import { Books } from '../pages/Books'
+
 interface IListContainer {
   books: AddBookModel[]
   accessToken: string
@@ -8,7 +9,7 @@ interface IListContainer {
 export const ListContainer = (props: IListContainer) => {
   return (
     <main className={styles.container}>
-      <ListBooks {...props} />
+      <Books books={props.books} />
     </main>
   )
 }
