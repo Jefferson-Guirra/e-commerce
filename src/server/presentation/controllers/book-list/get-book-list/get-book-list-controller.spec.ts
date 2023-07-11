@@ -1,7 +1,7 @@
 import { AddBookModel } from '../../../../domain/usecases/book-list/add-book-list'
 import { GetBookList } from '../../../../domain/usecases/book-list/get-book-list'
 import { MissingParamError } from '../../../errors/missing-params-error'
-import { badRequest, ok, serverError } from '../../../helpers/http'
+import { badRequest, ok, serverError } from '../../../helpers/http/http'
 import { HttpRequest } from '../../../protocols/http'
 import { Validation } from '../../../protocols/validate'
 import { GetBookListController } from './get-book-list-controller'

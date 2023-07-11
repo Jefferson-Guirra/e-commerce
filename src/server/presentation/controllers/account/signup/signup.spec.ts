@@ -2,11 +2,15 @@ import { SignupController } from './signup-controller'
 import { Validation } from '../../../protocols/validate'
 import { HttpRequest } from '../../../protocols/http'
 import { MissingParamError } from '../../../errors/missing-params-error'
-import { badRequest, serverError, unauthorized } from '../../../helpers/http'
+import {
+  badRequest,
+  serverError,
+  unauthorized,
+} from '../../../helpers/http/http'
 import { AccountModel } from '../../../../domain/models/account/account'
 import { AddAccount } from '../../../../domain/usecases/account/add-account'
 import { AddAccountModel } from '../../../../domain/usecases/account/add-account'
-import { ok } from '../../../helpers/http'
+import { ok } from '../../../helpers/http/http'
 interface SutTypes {
   sut: SignupController
   validationStub: Validation

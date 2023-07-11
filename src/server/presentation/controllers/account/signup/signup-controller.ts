@@ -1,10 +1,14 @@
 import { AddAccountModel } from '../../../../domain/usecases/account/add-account'
 import { AddAccount } from '../../../../domain/usecases/account/add-account'
-import { badRequest, serverError, unauthorized } from '../../../helpers/http'
+import {
+  badRequest,
+  serverError,
+  unauthorized,
+} from '../../../helpers/http/http'
 import { Controller } from '../../../protocols/controller'
 import { HttpRequest, HttpResponse } from '../../../protocols/http'
 import { Validation } from '../../../protocols/validate'
-import { ok } from '../../../helpers/http'
+import { ok } from '../../../helpers/http/http'
 
 export class SignupController implements Controller {
   constructor(

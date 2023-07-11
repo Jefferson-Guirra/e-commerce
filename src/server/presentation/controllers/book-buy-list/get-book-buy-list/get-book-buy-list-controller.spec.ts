@@ -1,7 +1,7 @@
 import { AddBuyBookModel } from '../../../../domain/usecases/book-buy-list/add-book-buy-list'
 import { GetBookBuyList } from '../../../../domain/usecases/book-buy-list/get-book-buy-list'
 import { MissingParamError } from '../../../errors/missing-params-error'
-import { badRequest, ok, unauthorized } from '../../../helpers/http'
+import { badRequest, ok, unauthorized } from '../../../helpers/http/http'
 import { HttpRequest } from '../../../protocols/http'
 import { Validation } from '../../../protocols/validate'
 import { GetBookBuyListController } from './get-book-buy-list-controller'

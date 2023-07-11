@@ -6,7 +6,7 @@ import {
   serverError,
   unauthorized,
   ok,
-} from '../../../helpers/http'
+} from '../../../helpers/http/http'
 import { MissingParamError } from '../../../errors/missing-params-error'
 import { BookModel } from '../../../../domain/models/book/book'
 import {

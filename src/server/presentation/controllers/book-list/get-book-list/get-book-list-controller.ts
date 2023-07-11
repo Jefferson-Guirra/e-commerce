@@ -1,5 +1,5 @@
 import { GetBookList } from '../../../../domain/usecases/book-list/get-book-list'
-import { badRequest, ok, serverError } from '../../../helpers/http'
+import { badRequest, ok, serverError } from '../../../helpers/http/http'
 import { Controller } from '../../../protocols/controller'
 import { HttpRequest, HttpResponse } from '../../../protocols/http'
 import { Validation } from '../../../protocols/validate'

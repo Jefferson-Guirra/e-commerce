@@ -6,7 +6,7 @@ import {
   ok,
   serverError,
   unauthorized,
-} from '../../../helpers/http'
+} from '../../../helpers/http/http'
 import { MissingParamError } from '../../../errors/missing-params-error'
 import { AccountLogout } from '../../../../domain/usecases/account/logout-account'
 
