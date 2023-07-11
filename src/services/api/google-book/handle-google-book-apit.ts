@@ -53,7 +53,7 @@ export class GoogleBookApi
       try {
         const genreFormat = genres.reduce((acc, v) => acc + `+${v}`)
         const response = await fetch(
-          `https://www.googleapis.com/books/v1/volumes?q=subject:${genreFormat}&maxResults=40&filter=paid-ebooks&orderBy=relevance&key=${googleBookApiKey}`
+          `https://www.googleapis.com/books/v1/volumes?q=subject:${genreFormat}&maxResults=20&filter=paid-ebooks&orderBy=relevance&key=${googleBookApiKey}`
         )
         const data: GoogleBooks = await response.json()
 
@@ -116,7 +116,7 @@ export class GoogleBookApi
   async searchByTitle(title: string): Promise<GoogleBooksFormat | undefined> {
     try {
       const response = await fetch(
-        `https://www.googleapis.com/books/v1/volumes?q=${title}&maxResults=40&filter=paid-ebooks`
+        `https://www.googleapis.com/books/v1/volumes?q=${title}&maxResults=20&filter=paid-ebooks`
       )
       const data: GoogleBooks = await response.json()
 
