@@ -1,20 +1,27 @@
 import { useState, useEffect, useCallback } from 'react'
-import { SEARCH_BOOKS_GENRES } from '../../../services/api/usecases'
-import { IBooksApi } from '../../../services/api/@types'
 import styles from './styles.module.css'
 import Head from 'next/head'
 import { SliderBooks } from '../../../components'
 import { Info, Buy } from '../components'
 import { IBookProps } from '../@types/IBookProps'
+import { GoogleBookApi } from '../../../services/api/google-book/handle-google-book-apit'
+import { GoogleBooksFormat } from '../../../services/api/google-book/@types/google-books-format'
+
+const googleBookApi = new GoogleBookApi()
 
 export const Book = ({ book, query, validateFavoriteBooks }: IBookProps) => {
-  const [similarBooks, setSimilarBooks] = useState<IBooksApi | undefined>(
-    undefined
-  )
+  const [similarBooks, setSimilarBooks] = useState<
+    GoogleBooksFormat | undefined
+  >(undefined)
 
   const getSimillarBooks = useCallback(async () => {
-    const books = await SEARCH_BOOKS_GENRES(book.categories, book.title).getData
-    setSimilarBooks(books)
+    const getBooksByGenres = await googleBookApi.searchByGenres(book.categories)
+    if (!getBooksByGenres?.totalItems) {
+      const getBooksByTitle = await googleBookApi.searchByTitle(book.title)
+      setSimilarBooks(getBooksByTitle)
+    } else {
+      setSimilarBooks(getBooksByGenres)
+    }
   }, [])
 
   useEffect(() => {

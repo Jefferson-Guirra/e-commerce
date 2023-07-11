@@ -1,18 +1,18 @@
 import styles from './styles.module.css'
-import { IBooksApi } from '../../../services/api/@types'
 import { SliderBooks } from '../../../components'
+import { GoogleBooksFormat } from '../../../services/api/google-book/@types/google-books-format'
 
-export interface IHomeBooksProps {
+export interface BooksProps {
   title: string
-  bookList: IBooksApi
+  items: GoogleBooksFormat
 }
-export const HomeBooks = ({ title, bookList }: IHomeBooksProps) => {
+export const HomeBooks = ({ title, items }: BooksProps) => {
   return (
     <section className={styles['books-container']}>
       <div className={styles.title}>
         <h2>{title}</h2>
       </div>
-      <SliderBooks bookList={bookList} />
+      <SliderBooks bookList={items} />
     </section>
   )
 }

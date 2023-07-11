@@ -1,4 +1,4 @@
-export interface IBookIdApi {
+export interface GoogleBookFormat {
   title: string
   language: string
   price: number

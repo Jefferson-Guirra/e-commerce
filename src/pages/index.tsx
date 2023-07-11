@@ -1,7 +1,9 @@
 import { GetStaticProps } from 'next'
-import { SEARCH_BOOKS_GENRES } from '../services/api/usecases'
 import { HomeContainer } from '../features'
 import { IHomeProps } from '../features/@types/IHomeProps'
+import { GoogleBookApi } from '../services/api/google-book/handle-google-book-apit'
+
+const googleBookApi = new GoogleBookApi()
 
 export default function Home(props: IHomeProps) {
   return <HomeContainer {...props} />
@@ -9,13 +11,13 @@ export default function Home(props: IHomeProps) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const fictionBooks = JSON.stringify(
-    await SEARCH_BOOKS_GENRES(['fiction']).getData
+    await googleBookApi.searchByGenres(['fiction'])
   )
   const dramaBooks = JSON.stringify(
-    await SEARCH_BOOKS_GENRES(['drama']).getData
+    await googleBookApi.searchByGenres(['drama'])
   )
   const fantasyBooks = JSON.stringify(
-    await SEARCH_BOOKS_GENRES(['fantasy']).getData
+    await googleBookApi.searchByGenres(['fantasy'])
   )
   return {
     props: {

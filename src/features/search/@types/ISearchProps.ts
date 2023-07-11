@@ -1,7 +1,7 @@
-import { IBooksApi } from '../../../services/api/@types'
+import { GoogleBooksFormat } from '../../../services/api/google-book/@types/google-books-format'
 
 export interface ISearchProps {
-  books: IBooksApi
+  books: GoogleBooksFormat
   q: string
   handlePagination: (value: number) => void
   page: number

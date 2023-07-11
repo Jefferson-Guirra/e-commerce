@@ -1,19 +1,19 @@
 import React from 'react'
 import styles from './styles.module.css'
-import { IBooksApi } from '../../../services/api/@types'
 import Image from 'next/image'
 import { IHomeProps } from '../../@types/IHomeProps'
-import { HomeBooks, IHomeBooksProps } from '../components/HomeBooks'
+import { HomeBooks, BooksProps } from '../components/HomeBooks'
+import { GoogleBooksFormat } from '../../../services/api/google-book/@types/google-books-format'
 
-const handleFormatBook = (bookList: string) => {
-  return JSON.parse(bookList) as IBooksApi
+const handleFormatBook = (items: string) => {
+  return JSON.parse(items) as GoogleBooksFormat
 }
 
 export function Home({ fictionBooks, dramaBooks, fantasyBooks }: IHomeProps) {
-  const BooksFormat: IHomeBooksProps[] = [
-    { title: 'Ficção', bookList: handleFormatBook(fictionBooks) },
-    { title: 'Drama', bookList: handleFormatBook(dramaBooks) },
-    { title: 'Fantasia', bookList: handleFormatBook(fantasyBooks) },
+  const BooksFormat: BooksProps[] = [
+    { title: 'Ficção', items: handleFormatBook(fictionBooks) },
+    { title: 'Drama', items: handleFormatBook(dramaBooks) },
+    { title: 'Fantasia', items: handleFormatBook(fantasyBooks) },
   ]
   return (
     <>
@@ -31,7 +31,7 @@ export function Home({ fictionBooks, dramaBooks, fantasyBooks }: IHomeProps) {
               height={0}
               style={{ width: '100%', height: '100%' }}
               alt="img book"
-              src={`https://books.google.com/books/publisher/content/images/frontcover/${BooksFormat[0].bookList.books[15].id}?fife=w340-h300&source=gbs_api`}
+              src={`https://books.google.com/books/publisher/content/images/frontcover/${BooksFormat[0].items.items[15].id}?fife=w340-h300&source=gbs_api`}
               blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM0NTXfDgACogFakP/skwAAAABJRU5ErkJggg=="
             />
           </div>
@@ -41,7 +41,7 @@ export function Home({ fictionBooks, dramaBooks, fantasyBooks }: IHomeProps) {
               height={0}
               style={{ width: '100%', height: '100%' }}
               alt="img book"
-              src={`https://books.google.com/books/publisher/content/images/frontcover/${BooksFormat[1].bookList.books[13].id}?fife=w340-h300&source=gbs_api`}
+              src={`https://books.google.com/books/publisher/content/images/frontcover/${BooksFormat[1].items.items[13].id}?fife=w340-h300&source=gbs_api`}
               blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM0NTXfDgACogFakP/skwAAAABJRU5ErkJggg=="
             />
           </div>
@@ -51,18 +51,14 @@ export function Home({ fictionBooks, dramaBooks, fantasyBooks }: IHomeProps) {
               height={0}
               style={{ width: '100%', height: '100%' }}
               alt="img book"
-              src={`https://books.google.com/books/publisher/content/images/frontcover/${BooksFormat[2].bookList.books[9].id}?fife=w340-h300&source=gbs_api`}
+              src={`https://books.google.com/books/publisher/content/images/frontcover/${BooksFormat[2].items.items[9].id}?fife=w340-h300&source=gbs_api`}
               blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM0NTXfDgACogFakP/skwAAAABJRU5ErkJggg=="
             />
           </div>
         </article>
       </section>
       {BooksFormat.map((book) => (
-        <HomeBooks
-          key={book.title}
-          title={book.title}
-          bookList={book.bookList}
-        />
+        <HomeBooks key={book.title} {...book} />
       ))}
     </>
   )

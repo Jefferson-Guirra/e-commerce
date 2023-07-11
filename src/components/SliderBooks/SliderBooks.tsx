@@ -3,10 +3,10 @@ import { useRouter } from 'next/router'
 import { Slider } from '../Slider/Slider'
 import Image from 'next/image'
 import { SwiperProps, SwiperSlide } from 'swiper/react'
-import { IBooksApi } from '../../services/api/@types'
+import { GoogleBooksFormat } from '../../services/api/google-book/@types/google-books-format'
 
 type Props = {
-  bookList: IBooksApi
+  bookList: GoogleBooksFormat
 }
 const settings: SwiperProps = {
   slidesPerView: 6,
@@ -33,7 +33,7 @@ export const SliderBooks = ({ bookList }: Props) => {
   const router = useRouter()
   return (
     <Slider settings={settings}>
-      {bookList.books.map((item, index) => (
+      {bookList.items.map((item, index) => (
         <SwiperSlide key={index}>
           <div
             className={styles.container}

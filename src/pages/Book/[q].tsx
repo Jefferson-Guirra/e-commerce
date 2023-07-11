@@ -1,9 +1,11 @@
 import { GetServerSideProps } from 'next'
 import { BookContainer } from '../../features'
-import { IBookIdApi } from '../../services/api/@types/IBookIdApi'
-import { SEARCH_BOOKS_ID } from '../../services/api/usecases'
 import { parseCookies } from 'nookies'
 import { Api } from '../../utils/api'
+import { GoogleBookApi } from '../../services/api/google-book/handle-google-book-apit'
+import { GoogleBookFormat } from '../../services/api/google-book/@types/google-book-format'
+
+const googleBookApi = new GoogleBookApi()
 
 interface Props {
   book: string
@@ -16,7 +18,7 @@ type Params = {
 }
 const apiBook = new Api()
 const Book = ({ book, query, validateFavoriteBooks }: Props) => {
-  const formatBook: IBookIdApi = JSON.parse(book)
+  const formatBook: GoogleBookFormat = JSON.parse(book)
 
   return (
     <BookContainer
@@ -42,9 +44,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
   }
 
-  const bookInfo = await SEARCH_BOOKS_ID(q)
+  const book = await googleBookApi.searchById(q)
 
-  if (!bookInfo) {
+  if (!book) {
     return {
       redirect: {
         destination: '/NotFound',
@@ -70,7 +72,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   return {
     props: {
-      book: JSON.stringify(bookInfo),
+      book: JSON.stringify(book),
       query: q,
       validateFavoriteBooks: await validateFavoriteBooks(),
     },

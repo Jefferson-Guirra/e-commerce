@@ -19,7 +19,7 @@ export const Search = ({ books, q, handlePagination, page }: ISearchProps) => {
         <h1>{title}</h1>
       </div>
       <section className={styles.containerBook}>
-        {books.books.map((item, index) => (
+        {books.items.map((item, index) => (
           <article key={index} className={styles.contentBook}>
             <Link href={`/Book/${item.id}`} className={styles.cardBook}>
               <div className={styles.img}>
