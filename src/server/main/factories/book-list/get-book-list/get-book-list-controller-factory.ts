@@ -3,7 +3,7 @@ import { AccountMongoRepository } from '../../../../infra/db/account/account-mon
 import { BookListMongoRepository } from '../../../../infra/db/book-list/book-list-mongo-repository'
 import { GetBookListController } from '../../../../presentation/controllers/book-list/get-book-list/get-book-list-controller'
 import { Controller } from '../../../../presentation/protocols/controller'
-import { GetBookListValidator } from '../../../../presentation/validators/book-list/get-book-list-validator'
+import { GetBookListValidator } from '../../../../presentation/helpers/validators/book-list/get-book-list-validator'
 
 export const makeGetBookListController = (): Controller => {
   const validator = new GetBookListValidator()
