@@ -4,6 +4,9 @@ import Link from 'next/link'
 import { ISearchProps } from '../@types/ISearchProps'
 import Image from 'next/image'
 
+const formatNumber = (value: number): string => {
+  return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+}
 export const Search = ({ books, q, handlePagination, page }: ISearchProps) => {
   const title = q.replace(/\w+:/g, '')
   const maxPagination = Math.floor(books.totalItems / 15)
@@ -34,7 +37,7 @@ export const Search = ({ books, q, handlePagination, page }: ISearchProps) => {
               <div className={styles.text}>
                 <p>{item.title}</p>
               </div>
-              <button>{`A partir de R$ ${item.price}`}</button>
+              <button>{`A partir de ${formatNumber(item.price)}`}</button>
             </Link>
           </article>
         ))}
