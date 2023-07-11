@@ -22,14 +22,15 @@ export const Search = ({ books, q, handlePagination, page }: ISearchProps) => {
         {books.items.map((item, index) => (
           <article key={index} className={styles.contentBook}>
             <Link href={`/Book/${item.id}`} className={styles.cardBook}>
-              <div className={styles.img}>
-                <Image
-                  fill
-                  src={`https://books.google.com/books/publisher/content/images/frontcover/${item.id}?fife=w340-h600&source=gbs_api`}
-                  alt={`Imagem do Livro ${item.title}`}
-                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM0NTXfDgACogFakP/skwAAAABJRU5ErkJggg=="
-                />
-              </div>
+              <Image
+                width={400}
+                height={0}
+                style={{ width: '100%', height: '400px' }}
+                priority
+                src={`https://books.google.com/books/publisher/content/images/frontcover/${item.id}?fife=w340-h600&source=gbs_api`}
+                alt={`Imagem do Livro ${item.title}`}
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM0NTXfDgACogFakP/skwAAAABJRU5ErkJggg=="
+              />
               <div className={styles.text}>
                 <p>{item.title}</p>
               </div>
