@@ -53,10 +53,8 @@
 }
 
 .container:hover {
-  border: 1px solid #d9d9d9;
-  -webkit-box-shadow: 0px 0px 5px 1px rgba(217, 217, 217, 1);
-  -moz-box-shadow: 0px 0px 5px 1px rgba(217, 217, 217, 1);
-  box-shadow: 0px 0px 5px 1px rgba(217, 217, 217, 1);
+  border: 1px solid #36363649;
+  box-shadow: 0px 0px 3px #36363649;
 }
 
 .container:hover .info .button {
