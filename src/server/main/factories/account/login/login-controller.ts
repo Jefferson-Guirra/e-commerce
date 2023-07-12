@@ -5,11 +5,11 @@ import { AccountMongoRepository } from '../../../../infra/db/account/account-mon
 import { LogMongoRepository } from '../../../../infra/db/log/log-mongo-repository'
 import { LoginController } from '../../../../presentation/controllers/account/login/login-controller'
 import { Controller } from '../../../../presentation/protocols/controller'
-import { LoginValidate } from '../../../../presentation/helpers/validators/account/login-validate'
 import { LogControllerDecorator } from '../../../decorators/log-controller-decorator'
+import { makeLoginValidator } from './login-validator-factory'
 
 export const makeLoginController = (): Controller => {
-  const validate = new LoginValidate()
+  const validate = makeLoginValidator()
   const bcryptAdapter = new BcrypterAdapter(12)
   const jwtAdapter = new JwtAdapter(process.env.JWT_SECRET as string)
   const accountMongoRepository = new AccountMongoRepository()
