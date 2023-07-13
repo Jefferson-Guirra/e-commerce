@@ -4,9 +4,10 @@ import { BookListMongoRepository } from '../../../../infra/db/book-list/book-lis
 import { GetBookListController } from '../../../../presentation/controllers/book-list/get-book-list/get-book-list-controller'
 import { Controller } from '../../../../presentation/protocols/controller'
 import { GetBookListValidator } from '../../../../presentation/helpers/validators/book-list/get-book-list-validator'
+import { makeGetBookValidator } from './get-book-list-validator-factory'
 
 export const makeGetBookListController = (): Controller => {
-  const validator = new GetBookListValidator()
+  const validator = makeGetBookValidator()
   const accountMongoRepository = new AccountMongoRepository()
   const bookListMongoRepository = new BookListMongoRepository()
   const dbGetBookList = new DbGetBookList(
