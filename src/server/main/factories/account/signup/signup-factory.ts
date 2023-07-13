@@ -4,11 +4,11 @@ import { AccountMongoRepository } from '../../../../infra/db/account/account-mon
 import { LogMongoRepository } from '../../../../infra/db/log/log-mongo-repository'
 import { SignupController } from '../../../../presentation/controllers/account/signup/signup-controller'
 import { Controller } from '../../../../presentation/protocols/controller'
-import { Validate } from '../../../../presentation/helpers/validators/account/validate'
 import { LogControllerDecorator } from '../../../decorators/log-controller-decorator'
+import { makeSignupValidator } from './signup-validator-factory'
 
 export const makeSignUpController = (): Controller => {
-  const validation = new Validate()
+  const validation = makeSignupValidator()
   const accountMongoRepository = new AccountMongoRepository()
   const bcrypterAdapter = new BcrypterAdapter(12)
   const addAccountRepository = new DbAddAccountRepository(
