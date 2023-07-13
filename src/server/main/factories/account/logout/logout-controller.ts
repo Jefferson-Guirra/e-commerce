@@ -2,9 +2,9 @@ import { DbLogoutAccount } from '../../../../data/usecases/account/logout-accoun
 import { AccountMongoRepository } from '../../../../infra/db/account/account-mongo-repository'
 import { LogoutController } from '../../../../presentation/controllers/account/logout/logout-controller'
 import { Controller } from '../../../../presentation/protocols/controller'
-import { LogoutValidate } from '../../../../presentation/helpers/validators/account/logout-validate'
+import { RequiredFieldValidator } from '../../../../presentation/helpers/validators/required-field-validator'
 export const makeLogoutController = (): Controller => {
-  const logoutValidate = new LogoutValidate()
+  const logoutValidate = new RequiredFieldValidator('accessToken')
   const accountMongoRepository = new AccountMongoRepository()
   const dbLogoutAccount = new DbLogoutAccount(
     accountMongoRepository,
