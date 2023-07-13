@@ -4,11 +4,11 @@ import { BookListMongoRepository } from '../../../../infra/db/book-list/book-lis
 import { LogMongoRepository } from '../../../../infra/db/log/log-mongo-repository'
 import { AddBookListController } from '../../../../presentation/controllers/book-list/add-book-list/add-book-list-controller'
 import { Controller } from '../../../../presentation/protocols/controller'
-import { AddBookListValidator } from '../../../../presentation/helpers/validators/book-list/add-book-list-validator'
 import { LogControllerDecorator } from '../../../decorators/log-controller-decorator'
+import { makeAddBookValidator } from './add-book-list-validator-factory'
 
 export const makeAddBookListController = (): Controller => {
-  const validate = new AddBookListValidator()
+  const validate = makeAddBookValidator()
   const accountMongoRepository = new AccountMongoRepository()
   const bookListMongoRepository = new BookListMongoRepository()
   const logMongoRepository = new LogMongoRepository()
