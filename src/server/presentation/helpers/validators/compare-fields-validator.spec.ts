@@ -20,4 +20,10 @@ describe('compareFieldsValidator', () => {
     const error = sut.validation(makeFakeRequest('12345'))
     expect(error).toEqual(new InvalidParamsError('fieldToCompare'))
   })
+
+  test('should not return if Validation success', () => {
+    const sut = makeSut()
+    const error = sut.validation(makeFakeRequest())
+    expect(error).toBeFalsy()
+  })
 })
