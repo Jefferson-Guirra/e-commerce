@@ -39,7 +39,7 @@ export const SignUpForm = ({ handleLoading, loading }: Props) => {
             password: password.value,
             email: email.value,
           },
-          'signup'
+          'account/signup'
         )
 
         const statusCodeValidate: any = {
