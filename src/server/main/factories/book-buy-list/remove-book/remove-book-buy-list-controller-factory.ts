@@ -3,10 +3,10 @@ import { AccountMongoRepository } from '../../../../infra/db/account/account-mon
 import { BuyBooksListMongoRepository } from '../../../../infra/db/book-buy-list/book-buy-list-mongo-repository'
 import { DeleteBuyBookListController } from '../../../../presentation/controllers/book-buy-list/delete-book-buy-list/delete-book-buy-list-controller'
 import { Controller } from '../../../../presentation/protocols/controller'
-import { DeleteBuyBookListValidator } from '../../../../presentation/helpers/validators/book-buy-list/delete-buy-book-list-validator'
+import { makeRemoveBookBuyListValidator } from './remove-book-buy-list-validator-factory'
 
 export const makeRemoveBookBuyListController = (): Controller => {
-  const validator = new DeleteBuyBookListValidator()
+  const validator = makeRemoveBookBuyListValidator()
   const accountMongoRepository = new AccountMongoRepository()
   const buyBooksListMongoRepository = new BuyBooksListMongoRepository()
   const dbDeleteBuyBookList = new DbDeleteBuyBookList(
