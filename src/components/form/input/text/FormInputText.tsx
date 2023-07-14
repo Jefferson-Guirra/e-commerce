@@ -2,6 +2,7 @@ import { ChangeEvent, InputHTMLAttributes } from 'react'
 import styles from '../styles.module.css'
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   handleRemoveGlobalError: () => void
+  changeError: (value: string) => void
   setValue: React.Dispatch<React.SetStateAction<string>>
   validate: (value: string) => boolean
   label: string
@@ -13,6 +14,7 @@ export const FormInputText = ({
   label,
   onChange: userFormOnChange,
   handleRemoveGlobalError,
+  changeError,
   name,
   error,
   validate,
@@ -31,6 +33,8 @@ export const FormInputText = ({
         {label}
       </label>
       <input
+        id={name}
+        name={name}
         onChange={decoratorOnChange}
         {...rest}
         className={

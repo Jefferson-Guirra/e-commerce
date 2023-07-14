@@ -4,6 +4,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   handleRemoveGlobalError: () => void
   validate: (value: string) => boolean
   setValue: React.Dispatch<React.SetStateAction<string>>
+  changeError: (value: string) => void
   visible: ElementType
   invisible: ElementType
   size: number
@@ -17,6 +18,7 @@ export const FormInputPassword = ({
   setValue,
   validate,
   onChange: userFormChange,
+  changeError,
   handleRemoveGlobalError,
   label,
   error,
@@ -58,6 +60,7 @@ export const FormInputPassword = ({
             : `${styles.input} ${styles['input-error']}`
         }
         id={name}
+        name={name}
         type={!hidden ? 'password' : 'text'}
       />
       <p className={styles.error}>{error}</p>

@@ -21,6 +21,7 @@ export const SignUpForm = ({ handleLoading, loading }: Props) => {
   const email = useForm('email')
   const [error, setError] = useState('')
   const password = useForm('password')
+  const passwordConfirmation = useForm('password')
 
   const handleRemoveGlobalError = useCallback(() => {
     setError('')
@@ -28,30 +29,39 @@ export const SignUpForm = ({ handleLoading, loading }: Props) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const validateInputs =
-      email.validate() && password.validate() && username.validate()
+      email.validate() &&
+      password.validate() &&
+      username.validate() &&
+      passwordConfirmation.validate()
     if (validateInputs) {
-      try {
-        setError('')
-        handleLoading(true)
-        const response = await apiUser.post(
-          {
-            username: username.value,
-            password: password.value,
-            email: email.value,
-          },
-          'account/signup'
-        )
+      if (password.value === passwordConfirmation.value) {
+        try {
+          setError('')
+          handleLoading(true)
+          const response = await apiUser.post(
+            {
+              username: username.value,
+              password: password.value,
+              passwordConfirmation: passwordConfirmation.value,
+              email: email.value,
+            },
+            'account/signup'
+          )
 
-        const statusCodeValidate: any = {
-          200: () => router.push('/Login'),
-          401: () => setError('Endereço de email já cadastrado'),
-          500: () => setError('Error interno'),
+          const statusCodeValidate: any = {
+            200: () => router.push('/Login'),
+            401: () => setError('Endereço de email já cadastrado'),
+            500: () => setError('Error interno'),
+          }
+          statusCodeValidate[response.statusCode]()
+        } catch (err) {
+          alert(err)
+        } finally {
+          handleLoading(false)
         }
-        statusCodeValidate[response.statusCode]()
-      } catch (err) {
-        alert(err)
-      } finally {
-        handleLoading(false)
+      } else {
+        password.changeError('Senhas não correspondem.')
+        passwordConfirmation.changeError('Senhas não correspondem.')
       }
     }
   }
@@ -98,6 +108,19 @@ export const SignUpForm = ({ handleLoading, loading }: Props) => {
         name="senha"
         {...password}
       />
+
+      <Form.InputPassword
+        handleRemoveGlobalError={handleRemoveGlobalError}
+        color="#3d4f58"
+        size={25}
+        invisible={PiEyeClosedLight}
+        visible={PiEyeLight}
+        label="Confirmar Senha"
+        id="passwordConfirmation"
+        name="passwordConfirmation"
+        {...passwordConfirmation}
+      />
+
       {error && <Form.Error text={error} />}
       <Form.Button
         disabled={loading}

@@ -49,11 +49,16 @@ const useForm = (type: Props) => {
     return validation
   }
 
+  const changeError = (value: string): void => {
+    setError(value)
+  }
+
   return {
     value,
     setValue,
     onChange,
     error,
+    changeError,
     validate: () => validate(value),
     onBlur: () => validate(value),
   }
