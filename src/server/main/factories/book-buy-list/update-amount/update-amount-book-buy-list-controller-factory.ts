@@ -3,10 +3,10 @@ import { AccountMongoRepository } from '../../../../infra/db/account/account-mon
 import { BuyBooksListMongoRepository } from '../../../../infra/db/book-buy-list/book-buy-list-mongo-repository'
 import { UpdateAmountBookBuyListController } from '../../../../presentation/controllers/book-buy-list/update-amount-book-buy-list/update-amount-book-buy-list-controller'
 import { Controller } from '../../../../presentation/protocols/controller'
-import { UpdateAmountBookBuyListValidator } from '../../../../presentation/helpers/validators/book-buy-list/add-amount-book-buy-list-validator'
+import { makeUpdateAmountBookBuyListValidator } from './update-amount-book-buy-list-validator-factory'
 
 export const makeUpdateAmountBookBuyListController = (): Controller => {
-  const validator = new UpdateAmountBookBuyListValidator()
+  const validator = makeUpdateAmountBookBuyListValidator()
   const accountMongoRepository = new AccountMongoRepository()
   const bookBuyListMongoRepository = new BuyBooksListMongoRepository()
   const dbUpdateAmountBookBuyList = new DbUpdateAmountBookBuyList(
