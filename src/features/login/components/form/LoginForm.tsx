@@ -39,7 +39,7 @@ export const LoginForm = ({ handleLoading, loading }: Props) => {
             email: email.value,
             password: password.value,
           },
-          'login'
+          'account/login'
         )
 
         const handleLogin = () => {
