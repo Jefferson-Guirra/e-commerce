@@ -1,5 +1,5 @@
 .container {
-  height: calc(100vh - 103px);
+  height: 57.1875rem;
 }
 
 @media (max-width: 955px) {
