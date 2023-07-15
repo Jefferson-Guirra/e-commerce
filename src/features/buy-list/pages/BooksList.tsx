@@ -1,5 +1,5 @@
 import styles from './styles.module.css'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { IBuyBooksProps } from '../@types/IBuyBooksProps'
 import { useEffect } from 'react'
 import { BiSearch } from 'react-icons/bi'
@@ -72,7 +72,7 @@ export const BooksList = ({ books, accessToken }: IBuyBooksProps) => {
       )}
       <PurchaseComponent setState={setPurchase} listSize={booksState.length} />
 
-      <ResetComponent reset={reset} handleReset={handleReset} />
+      {reset && <ResetComponent handleReset={handleReset} />}
       <BuyComponent
         purchase={purchase}
         setValue={setPurchase}

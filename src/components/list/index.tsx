@@ -9,6 +9,7 @@ import { ListShipping } from './info/shipping/ListShipping'
 import { ListInput } from './input/ListInput'
 import { ListLink } from './link/ListLink'
 import { ListResetRoot } from './root/reset/ListResetRoot'
+import { ListResetComponent } from './reset/ListReset'
 
 export const List = {
   Root,
@@ -23,5 +24,6 @@ export const List = {
   Shipping: ListShipping,
   Reset: {
     Root: ListResetRoot,
+    Component: ListResetComponent,
   },
 }
