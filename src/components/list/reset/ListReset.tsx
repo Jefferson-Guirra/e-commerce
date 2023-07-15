@@ -3,21 +3,22 @@ import styles from './styles.module.css'
 import { IoClose } from 'react-icons/io5'
 import { List } from '../../list'
 import { AddBuyBookModel } from '../../../server/domain/usecases/book-buy-list/add-book-buy-list'
-interface Props {
-  books: AddBuyBookModel[]
+import { AddBookModel } from '../../../server/domain/usecases/book-list/add-book-list'
+export interface ResetProps {
+  books: AddBookModel[] | AddBuyBookModel[]
   handleReset: (state: boolean) => void
-  resetDatabase: (books: AddBuyBookModel[]) => Promise<void>
+  resetDatabase: (books: Array<AddBookModel | AddBuyBookModel>) => Promise<void>
 }
 
 export const ListResetComponent = ({
   handleReset,
   resetDatabase,
   books,
-}: Props) => {
-  const [bookList, setBookList] = useState<AddBuyBookModel[]>([])
+}: ResetProps) => {
+  const [bookList, setBookList] = useState<any[]>([])
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    book: AddBuyBookModel
+    book: AddBuyBookModel | AddBookModel
   ) => {
     if (e.target.checked) {
       setBookList((state) => [...state, book])

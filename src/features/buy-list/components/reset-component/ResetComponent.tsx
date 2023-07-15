@@ -5,6 +5,8 @@ import { Api } from '../../../../utils/api'
 import { useHeaderContext } from '../../../../context/header/HeaderContext'
 import { List } from '../../../../components'
 import { parseCookies } from 'nookies'
+import { ResetProps } from '../../../../components/list/reset/ListReset'
+import { AddBookModel } from '../../../../server/domain/usecases/book-list/add-book-list'
 interface Props {
   handleReset: (state: boolean) => void
 }
@@ -35,22 +37,25 @@ export const ResetComponent = ({ handleReset }: Props) => {
     }
   }
 
-  const resetDatabase = useCallback(async (books: AddBuyBookModel[]) => {
-    handleReset(false)
-    if (!!books.length) {
-      await resetBooksCollection(books)
-      dispatchHeader({
-        type: 'ADD_AMOUNT_LIST',
-        payload: { amount: books.length },
-      })
-    } else {
-      await resetBooksCollection(resetBooksStorage)
-      dispatchHeader({
-        type: 'ADD_AMOUNT_LIST',
-        payload: { amount: resetBooksStorage.length },
-      })
-    }
-  }, [])
+  const resetDatabase: ResetProps['resetDatabase'] = useCallback(
+    async (books) => {
+      handleReset(false)
+      if (!!books.length) {
+        await resetBooksCollection(books as AddBuyBookModel[])
+        dispatchHeader({
+          type: 'ADD_AMOUNT_LIST',
+          payload: { amount: books.length },
+        })
+      } else {
+        await resetBooksCollection(resetBooksStorage)
+        dispatchHeader({
+          type: 'ADD_AMOUNT_LIST',
+          payload: { amount: resetBooksStorage.length },
+        })
+      }
+    },
+    []
+  )
 
   return (
     <List.Reset.Root onClick={handleCLick}>

@@ -59,7 +59,7 @@ export const Books = ({ books }: Props) => {
           ? filteredBooks.map((book) => <ListCard {...book} key={book.id} />)
           : booksList.map((book) => <ListCard {...book} key={book.id} />)}
       </section>
-      <ResetComponent reset={reset} handleReset={handleReset} />
+      {reset && <ResetComponent handleReset={handleReset} />}
       <LoadingComponent />
     </>
   )
