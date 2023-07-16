@@ -1,5 +1,5 @@
-import { IBookIdApi } from '../services/api/@types'
 import { BookModel } from '../server/domain/models/book/book'
+import { GoogleBookFormat } from '../services/api/google-book/@types/google-book-format'
 import { Api } from './api'
 import { AddBookDatabase } from './protocols/add-book-databse'
 import { ExcludeBookDatabase } from './protocols/exlcude-book-database'
@@ -10,7 +10,10 @@ const apiBook = new Api()
 export class HandleBookDatabase
   implements AddBookDatabase, ExcludeBookDatabase
 {
-  async addBook(accessToken: string, book: IBookIdApi): Promise<HttpResponse> {
+  async addBook(
+    accessToken: string,
+    book: GoogleBookFormat
+  ): Promise<HttpResponse> {
     const { id, ...booksFields } = book
     const addBook: BookModel = {
       accessToken,
