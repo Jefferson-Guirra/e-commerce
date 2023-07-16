@@ -32,7 +32,12 @@ export const ResetComponent = ({ handleReset }: Props) => {
         await apiBook.post({ accessToken, ...bookFields }, 'buybooklist/add')
       }
       dispatch({ type: 'RESET_COLLECTION_BOOKS', payload: { collection } })
-    } catch {
+      dispatchHeader({
+        type: 'ADD_AMOUNT_LIST',
+        payload: { amount: collection.length },
+      })
+    } catch (err) {
+      console.error(err)
       dispatch({ type: 'FETCH_COLLECTION_ERROR' })
     }
   }
@@ -42,16 +47,8 @@ export const ResetComponent = ({ handleReset }: Props) => {
       handleReset(false)
       if (!!books.length) {
         await resetBooksCollection(books as AddBuyBookModel[])
-        dispatchHeader({
-          type: 'ADD_AMOUNT_LIST',
-          payload: { amount: books.length },
-        })
       } else {
         await resetBooksCollection(resetBooksStorage)
-        dispatchHeader({
-          type: 'ADD_AMOUNT_LIST',
-          payload: { amount: resetBooksStorage.length },
-        })
       }
     },
     []
