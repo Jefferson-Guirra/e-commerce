@@ -6,7 +6,6 @@ import { useHeaderContext } from '../../../../context/header/HeaderContext'
 import { List } from '../../../../components'
 import { parseCookies } from 'nookies'
 import { ResetProps } from '../../../../components/list/reset/ListReset'
-import { AddBookModel } from '../../../../server/domain/usecases/book-list/add-book-list'
 interface Props {
   handleReset: (state: boolean) => void
 }
