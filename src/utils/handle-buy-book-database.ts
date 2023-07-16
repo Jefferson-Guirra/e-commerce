@@ -1,4 +1,3 @@
-import { IBookIdApi } from '../services/api/@types'
 import { Api } from './api'
 import { AddBuyBookDatabase } from './protocols/add-buy-book-database'
 import { BookModel } from '../server/domain/models/book/book'
@@ -6,12 +5,16 @@ import { HttpResponse } from '../server/presentation/protocols/http'
 import { ValidateAddBuyBook } from './protocols/validate-add-buy-book-datadase'
 import { Dispatch } from 'react'
 import { IActions } from '../context/header/@types/Iactions'
+import { GoogleBookFormat } from '../services/api/google-book/@types/google-book-format'
 
 const apiBook = new Api()
 export class HandleBuyBookDatabase
   implements AddBuyBookDatabase, ValidateAddBuyBook
 {
-  async addBook(accessToken: string, book: IBookIdApi): Promise<HttpResponse> {
+  async addBook(
+    accessToken: string,
+    book: GoogleBookFormat
+  ): Promise<HttpResponse> {
     const { id, ...booksFields } = book
     const addBuyBook: BookModel = {
       accessToken,
