@@ -1,5 +1,8 @@
-import { IBookIdApi } from '../../services/api/@types'
 import { HttpResponse } from '../../server/presentation/protocols/http'
+import { GoogleBookFormat } from '../../services/api/google-book/@types/google-book-format'
 export interface AddBookDatabase {
-  addBook: (accessToken: string, book: IBookIdApi) => Promise<HttpResponse>
+  addBook: (
+    accessToken: string,
+    book: GoogleBookFormat
+  ) => Promise<HttpResponse>
 }
