@@ -4,7 +4,6 @@ import { LoginContainer } from '../../features'
 import nookies from 'nookies'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]'
-import { MongoHelper } from '../../server/infra/db/helpers/mongo-helper'
 import { handleSession } from '../../utils/handle-next-auth-session'
 
 const Login = () => {
@@ -52,7 +51,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
           path: '/',
         }
       )
-      await handleSession({ session })
+      handleSession({ session })
       return {
         redirect: {
           destination: '/',
