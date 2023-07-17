@@ -58,26 +58,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     }
   }
-  /*if (!user?.token) {
-    return {
-      redirect: {
-        destination: '/Login',
-        permanent: false,
-      },
-    }
-  }*/
-
-  /*const books = JSON.stringify(
-    await GetBooks({ id: user.token, idCollection: 'books' })
-  )*/
-
-  /*function GET_COOKIE_USER() {
-    const cookies = parseCookies(ctx)
-    if (cookies.user) {
-      return JSON.parse(cookies.user) as User
-    }
-    return null
-  }*/
 
   return {
     props: {
