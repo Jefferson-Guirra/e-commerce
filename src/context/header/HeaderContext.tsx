@@ -9,7 +9,7 @@ import {
 import { IHeaderState, initialState } from './@types/initial-state'
 import { IActions } from './@types/Iactions'
 import { Api } from '../../utils/api'
-import { HandleCookies } from '../../utils/handle-cookie'
+import { parseCookies } from 'nookies'
 
 interface IContext extends IHeaderState {
   dispatch: Dispatch<IActions>
@@ -20,8 +20,9 @@ interface Props {
   children: ReactNode
 }
 const api = new Api()
-const handleCookies = new HandleCookies()
 export const HeaderStorage = ({ children }: Props) => {
+  const { literando_accessToken: accessToken, literando_username: username } =
+    parseCookies()
   const reducer = (state: IHeaderState, action: IActions): IHeaderState => {
     switch (action.type) {
       case 'INIT':
@@ -60,11 +61,6 @@ export const HeaderStorage = ({ children }: Props) => {
       payload: { amountList: books.body.length, username },
     })
   }
-
-  const [accessToken, username] = handleCookies.getCookies([
-    'literando_accessToken',
-    'literando_username',
-  ])
 
   useEffect(() => {
     if (accessToken && username) {
