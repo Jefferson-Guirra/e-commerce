@@ -7,7 +7,7 @@ interface BookApi {
 }
 
 export class Api implements BookApi {
-  private readonly originUrl = 'http://localhost:3000/api/'
+  private readonly originUrl = 'https://literando.vercel.app/api/'
   async get(body: any, url: string): Promise<HttpResponse> {
     const promise = await fetch(this.originUrl + url, {
       method: 'POST',
