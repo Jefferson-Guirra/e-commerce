@@ -1,0 +1,100 @@
+.btn-reset,
+.btn-remove-all {
+  background-color: transparent;
+}
+
+.btn-delete,
+.btn-update {
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.7s;
+  border: 1px solid transparent;
+}
+
+.btn-delete:hover {
+  background-color: #f31;
+}
+
+.btn-delete:disabled {
+  opacity: 0.7;
+}
+
+.btn-delete svg {
+  transition: 1s;
+}
+.btn-delete:hover svg {
+  fill: #fafafa;
+}
+
+.btn-update:hover {
+  border: 1px solid var(--second-color);
+}
+
+.btn-remove-all {
+  position: relative;
+  background-color: transparent;
+}
+
+.btn-remove-all:hover svg {
+  animation: 1s svg-remove ease;
+}
+
+.btn-remove-all span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -10px;
+  right: -5px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: var(--second-color);
+  font-size: 0.7rem;
+  color: #fff;
+  transition: all 0.5s;
+}
+
+.btn-remove-all:hover span {
+  background-color: #f31;
+}
+
+.btn-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #f31;
+  z-index: 2;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  transform: translate3d(50%, -50%, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-reset-all {
+  text-align: center;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  border-radius: 7px;
+  display: block;
+  margin: 2rem auto;
+  color: #fff;
+  background-color: var(--primary-color);
+  transition: all 0.7s;
+}
+
+/*---------------------------------------ANIMATIONS--------------------------------------------*/
+
+@keyframes svg-remove {
+  from {
+    transform: rotate(-60deg);
+  }
+  to {
+    transform: initial;
+  }
+}

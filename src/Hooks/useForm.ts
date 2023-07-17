@@ -1,64 +1,66 @@
-import React from 'react'
+import { useState } from 'react'
 
-type Validate =(value:string)=>boolean
+type Props = 'default' | 'email' | 'password'
 
-type Props ={
-  [key:string]:{
-    regex:any,
-    message: string,
-    number?:{
-      regex:any,
-      message:string
-    }
-  }
-}
-
-const types : Props = {
-  email: {
-    regex:
+const ValidateValue = (value: string, type: Props) => {
+  const validations = {
+    email:
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-    message: 'Preencha um email válido.',
-    number:{
-      regex: /^\d+$/,
-      message: 'Utilize apenas números.'
-    }
-  },
-  password: {
-    regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/,
-    message:
-      'A senha deve conter 1 caracter maíusculo, 1 minúsculo e 1 digito. Com no mínimo 8 caracteres.'
+    password: value.length >= 6,
+    default: value.length >= 1,
   }
+  const validate = {
+    email: validations.email.test(value),
+    default: validations.default,
+    password: validations.password,
+  }
+  return validate[type]
 }
 
-const useForm = (type:string | boolean) => {
-  const [value, setValue] = React.useState('')
-  const [erro, setError] = React.useState<string | null>(null)
+const errorMessage = (value: string, type: Props) => {
+  const defaultErrorMessage = 'Campo obrigatório.'
+  const message = {
+    email:
+      value.length === 0 ? defaultErrorMessage : 'Preencha um email válido.',
+    default: defaultErrorMessage,
+    password:
+      value.length === 0
+        ? defaultErrorMessage
+        : 'Senha deve ter no mínimo 6 caracteres.',
+  }
+  return message[type]
+}
+
+const useForm = (type: Props) => {
+  const [value, setValue] = useState('')
+  const [error, setError] = useState<string>('')
   function onChange({ target }: React.ChangeEvent<HTMLInputElement>) {
     setValue(target.value)
-    if (erro) validate(target.value)
+    if (error) validate(target.value)
   }
 
-  const validate:Validate = (value:string)=> {
-    if (type === false) return true
-
-    if (value.length === 0) {
-      setError('Campo Obrigatório.')
-      return false
-    } else if (typeof type !== 'boolean' && types[type] && !types[type].regex.test(value)) {
-      setError(types[type].message)
-      return false
+  const validate = (value: string): boolean => {
+    const validation = ValidateValue(value, type)
+    if (!validation) {
+      setError(errorMessage(value, type))
     } else {
-      setError(null)
-      return true
+      setError('')
     }
+    return validation
   }
+
+  const changeError = (value: string): void => {
+    setError(value)
+  }
+
   return {
     value,
     setValue,
     onChange,
-    erro,
+    error,
+    changeError,
     validate: () => validate(value),
-    onBlur: () => validate(value)
+    onBlur: () => validate(value),
   }
 }
 

@@ -1,0 +1,11 @@
+.form {
+  display: flex;
+  transition: 0.7s;
+  border-radius: 7px;
+  overflow: hidden;
+  border: 1px solid var(--second-color);
+}
+
+.form:hover {
+  box-shadow: 0px 0px 2px var(--second-color);
+}

@@ -1,0 +1,14 @@
+.container {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 2.875rem;
+  justify-content: space-between;
+}
+
+.container .actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}

@@ -1,0 +1,13 @@
+.container {
+  flex: 1;
+}
+
+.container img {
+  border-radius: 0;
+}
+
+@media (max-width: 885px) {
+  .container {
+    display: none;
+  }
+}

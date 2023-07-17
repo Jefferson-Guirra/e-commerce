@@ -1,0 +1,7 @@
+.books-container {
+  width: 100%;
+}
+
+.books-container .title {
+  margin-bottom: 1rem;
+}

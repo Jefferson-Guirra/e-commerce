@@ -1,0 +1,15 @@
+.btn {
+  display: flex;
+  padding: 0.2rem;
+  align-items: center;
+  background-color: var(--second-color);
+  transition: 0.7s;
+}
+
+.btn:hover {
+  background-color: var(--primary-color);
+}
+
+.btn:hover svg {
+  fill: var(--second-color);
+}

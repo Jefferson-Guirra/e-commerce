@@ -1,0 +1,26 @@
+.input-reset-checkbox,
+.input-checkbox {
+  accent-color: var(--second-color);
+}
+
+.input-number {
+  width: 30px;
+  text-align: center;
+  border: 1px solid transparent;
+  background-color: transparent;
+  transition: 0.7s;
+}
+
+.input-number:hover {
+  border: 1px solid var(--second-color);
+}
+.input-number::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.input-reset-checkbox {
+  display: block;
+  width: 17px;
+  height: 17px;
+  margin-left: auto;
+}

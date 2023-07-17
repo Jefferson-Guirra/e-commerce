@@ -1,0 +1,28 @@
+.container {
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-weight: bold;
+  color: #eee;
+  transition: 1s;
+}
+
+.container svg {
+  transition: 1s;
+  margin-right: 0.5rem;
+}
+
+.container:hover {
+  color: #ffa500;
+}
+
+.container:hover svg {
+  fill: #fff;
+}
+
+@media (max-width: 955px) {
+  .container {
+    order: 1;
+  }
+}

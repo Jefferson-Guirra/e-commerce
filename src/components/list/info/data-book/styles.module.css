@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex-shrink: 0;
+}
+
+.container p {
+  font-size: 0.875rem;
+}
+.container p span {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--four-color);
+}
+
+@media (max-width: 520px) {
+  .container .title {
+    max-width: 250px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 450px) {
+  .container .title {
+    max-width: 180px;
+  }
+}
+
+@media (max-width: 380px) {
+  .container .title {
+    max-width: 150px;
+  }
+}

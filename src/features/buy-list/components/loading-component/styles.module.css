@@ -1,0 +1,32 @@
+.container {
+  display: block;
+  position: absolute;
+  width: calc(100% - 2rem);
+  height: calc(100vh - 103px);
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container span {
+  display: block;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 15px solid var(--second-color);
+  border-top-color: transparent;
+  animation: 1s show-loading infinite linear;
+}
+
+@keyframes show-loading {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 955px) {
+  .container {
+    height: calc(100vh - 154px);
+  }
+}

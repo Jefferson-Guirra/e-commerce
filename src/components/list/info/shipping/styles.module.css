@@ -1,0 +1,32 @@
+.container {
+  border-left: 4px solid var(--four-color);
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.container h2 {
+  padding: 0;
+  border: none;
+}
+
+.container .content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.container .content span {
+  font-weight: bold;
+  margin-left: 0.3rem;
+}
+
+@media (max-width: 500px) {
+  .container .content {
+    flex-wrap: wrap;
+    font-size: 0.875rem;
+  }
+
+  .container .content .subtitle {
+    width: 100%;
+  }
+}

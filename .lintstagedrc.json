@@ -1,0 +1,8 @@
+{
+    "*.{js,jsx,ts,tsx}": [
+        "npx eslint 'src/**/*' --fix",
+        "npx prettier --write 'src/**/*'",
+        "npm run test:staged",
+        "git add"
+    ]
+}

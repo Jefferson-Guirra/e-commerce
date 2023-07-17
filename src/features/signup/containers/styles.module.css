@@ -1,0 +1,10 @@
+.container {
+  height: 57.1875rem;
+}
+
+@media (max-width: 955px) {
+  .container {
+    height: inherit;
+    min-height: calc(100vh - 154px);
+  }
+}

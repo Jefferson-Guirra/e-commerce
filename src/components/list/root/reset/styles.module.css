@@ -1,0 +1,8 @@
+.container {
+  position: absolute;
+  padding-top: 2rem;
+  top: 0;
+  height: 100%;
+  width: calc(100% - 2rem);
+  background-color: #8080805d;
+}

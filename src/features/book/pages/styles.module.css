@@ -1,0 +1,20 @@
+.aboutBook {
+  display: flex;
+  gap: 1rem;
+}
+
+.contentBook {
+  display: flex;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+@media (max-width: 1200px) {
+  .contentBook {
+    flex-direction: column;
+  }
+}
+
+.resultBooks {
+  margin-top: 5rem;
+}

@@ -1,0 +1,15 @@
+.container {
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+.container::after {
+  content: 'capa ilustrativa';
+  display: block;
+  font-size: 0.875rem;
+  width: 100%;
+  text-align: center;
+  top: 100%;
+  position: absolute;
+  color: gray;
+  text-align: center;
+}
