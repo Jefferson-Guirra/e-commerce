@@ -3,7 +3,7 @@ import { Api } from '../../../../utils/api'
 import { List } from '../../../../components'
 import { useListContext } from '../../../../context/books-list/BookList'
 import { parseCookies } from 'nookies'
-import { AddBookModel } from '../../../../server/domain/usecases/book-list/add-book-list'
+import { AddBookModel } from '../../../../@types/book/add-book-model'
 import { ResetProps } from '../../../../components/list/reset/ListReset'
 
 interface IProps {

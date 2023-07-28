@@ -1,4 +1,4 @@
-import { AddBuyBookModel } from '../../../server/domain/usecases/book-buy-list/add-book-buy-list'
+import { AddBuyBookModel } from '../../../@types/buy-book/add-buy-book-model'
 
 export interface BuyBooksState {
   books: AddBuyBookModel[]

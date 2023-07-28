@@ -1,7 +1,7 @@
 import { useBuyContext } from '../../../../context/books-buy-list/BuyBookContext'
 import { BiUndo } from 'react-icons/bi'
 import { HiTrash } from 'react-icons/hi'
-import { AddBuyBookModel } from '../../../../server/domain/usecases/book-buy-list/add-book-buy-list'
+import { AddBuyBookModel } from '../../../../@types/buy-book/add-buy-book-model'
 import { Api } from '../../../../utils/api'
 import { useHeaderContext } from '../../../../context/header/HeaderContext'
 import { List } from '../../../../components'

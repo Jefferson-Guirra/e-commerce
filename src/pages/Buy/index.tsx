@@ -3,7 +3,7 @@ import { parseCookies } from 'nookies'
 import Head from 'next/head'
 import { BooksListContainer } from '../../features'
 import { Api } from '../../utils/api'
-import { AddBuyBookModel } from '../../server/domain/usecases/book-buy-list/add-book-buy-list'
+import { AddBuyBookModel } from '../../@types/buy-book/add-buy-book-model'
 
 //Sandbox-id:AbJhKpgKw6gr0oH9PRqCr35jMcfKfaKYtRF_LGoDeOeiQhrsBsEsL_N_fXggNgGFnCFtyS55WsZJB4tI
 

@@ -7,11 +7,9 @@ import { List } from '../../../../components'
 
 export const CardBook = ({
   publisher,
-  id,
   title,
   amount,
   price,
-  publisherDate,
   language,
   pageCount,
   bookId,

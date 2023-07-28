@@ -5,7 +5,7 @@ import { IoClose } from 'react-icons/io5'
 import { Dispatch, SetStateAction } from 'react'
 import { Api } from '../../../../utils/api'
 import { useBuyContext } from '../../../../context/books-buy-list/BuyBookContext'
-import { AddBuyBookModel } from '../../../../server/domain/usecases/book-buy-list/add-book-buy-list'
+import { AddBuyBookModel } from '../../../../@types/buy-book/add-buy-book-model'
 
 interface Props {
   purchase: boolean

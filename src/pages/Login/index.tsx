@@ -4,7 +4,6 @@ import { LoginContainer } from '../../features'
 import nookies from 'nookies'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]'
-import { handleSession } from '../../utils/handle-next-auth-session'
 
 const Login = () => {
   return (
@@ -31,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     }
   }
-  if (session) {
+  /*if (session) {
     try {
       nookies.set(
         ctx,
@@ -61,7 +60,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     } catch (err) {
       console.error(err)
     }
-  }
+  }*/
 
   return {
     props: {},

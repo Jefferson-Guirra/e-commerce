@@ -7,7 +7,7 @@ import {
 } from 'react'
 import { initialState, ListState } from './@types/initial-state'
 import { Actions } from './@types/actions'
-import { AddBookModel } from '../../server/domain/usecases/book-list/add-book-list'
+import { AddBookModel } from '../../@types/book/add-book-model'
 
 interface Context extends ListState {
   dispatch: Dispatch<Actions>

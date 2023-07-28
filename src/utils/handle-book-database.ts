@@ -1,9 +1,9 @@
-import { BookModel } from '../server/domain/models/book/book'
+import { BookModel } from '../@types/book/book-model'
 import { GoogleBookFormat } from '../services/api/google-book/@types/google-book-format'
 import { Api } from './api'
 import { AddBookDatabase } from './protocols/add-book-databse'
 import { ExcludeBookDatabase } from './protocols/exlcude-book-database'
-import { HttpResponse } from '../server/presentation/protocols/http'
+import { HttpResponse } from '../@types/request/http'
 
 const apiBook = new Api()
 
