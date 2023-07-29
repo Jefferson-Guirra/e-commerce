@@ -4,7 +4,9 @@ import { authOptions } from '../api/auth/[...nextauth]'
 import { SignUpContainer } from '../../features'
 import { getServerSession } from 'next-auth'
 import nookies from 'nookies'
+import { Api } from '../../utils/api'
 
+const api = new Api()
 const SignUp = () => {
   return (
     <>
@@ -31,8 +33,21 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
   }
 
-  /*if (session) {
+  if (session) {
     try {
+      const response = await api.send('next-auth-signup', 'POST', {
+        username: session.user.name,
+        email: session.user.email,
+        accessToken: session.user.accessToken,
+      })
+      if (response.statusCode === 401) {
+        await api.send('next-auth-login', 'PUT', {
+          routeName: 'https://literando.onrender.com/api/next-auth-login',
+          privateKey: process.env.PRIVATE_KEY_LOGIN_ROUTE,
+          email: session.user.email,
+          accessToken: session.user.accessToken,
+        })
+      }
       nookies.set(
         ctx,
         'literando_accessToken',
@@ -42,6 +57,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
           page: '/',
         }
       )
+
       nookies.set(
         ctx,
         'literando_username',
@@ -51,7 +67,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
           path: '/',
         }
       )
-      await handleSession({ session })
+
       return {
         redirect: {
           destination: '/',
@@ -61,7 +77,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     } catch (err) {
       console.error(err)
     }
-  }*/
+  }
   return {
     props: {},
   }
