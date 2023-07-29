@@ -1,4 +1,3 @@
-import { HttpResponse } from '../../../../../server/presentation/protocols/http'
 export interface IBuyBookCardProps {
   publisher: string
   id: string

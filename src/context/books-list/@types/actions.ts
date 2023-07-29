@@ -1,4 +1,4 @@
-import { AddBookModel } from '../../../server/domain/usecases/book-list/add-book-list'
+import { AddBookModel } from '../../../@types/book/add-book-model'
 
 export type Actions =
   | { type: 'INIT'; payload: { books: AddBookModel[] } }

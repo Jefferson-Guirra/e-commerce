@@ -2,8 +2,8 @@ import { useState } from 'react'
 import styles from './styles.module.css'
 import { IoClose } from 'react-icons/io5'
 import { List } from '../../list'
-import { AddBuyBookModel } from '../../../server/domain/usecases/book-buy-list/add-book-buy-list'
-import { AddBookModel } from '../../../server/domain/usecases/book-list/add-book-list'
+import { AddBuyBookModel } from '../../../@types/buy-book/add-buy-book-model'
+import { AddBookModel } from '../../../@types/book/add-book-model'
 export interface ResetProps {
   books: AddBookModel[] | AddBuyBookModel[]
   handleReset: (state: boolean) => void

@@ -1,4 +1,4 @@
-import { HttpResponse } from '../../server/presentation/protocols/http'
+import { HttpResponse } from '../../@types/request/http'
 import { GoogleBookFormat } from '../../services/api/google-book/@types/google-book-format'
 export interface AddBookDatabase {
   addBook: (

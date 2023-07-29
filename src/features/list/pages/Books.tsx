@@ -10,7 +10,7 @@ import {
 } from '../components'
 import { Search } from '../../../components'
 import { useListContext } from '../../../context/books-list/BookList'
-import { AddBookModel } from '../../../server/domain/usecases/book-list/add-book-list'
+import { AddBookModel } from '../../../@types/book/add-book-model'
 
 interface Props {
   books: AddBookModel[]

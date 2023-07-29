@@ -1,5 +1,5 @@
 import styles from './styles.module.css'
-import { AddBookModel } from '../../../server/domain/usecases/book-list/add-book-list'
+import { AddBookModel } from '../../../@types/book/add-book-model'
 import { Books } from '../pages/Books'
 
 interface IListContainer {
