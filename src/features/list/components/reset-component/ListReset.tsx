@@ -27,7 +27,7 @@ export const ResetComponent = ({ handleReset }: IProps) => {
       dispatch({ type: 'FETCH_COLLECTION_START' })
       for (const book of collection) {
         const { date, id, queryDoc, ...bookFields } = book
-        await apiBook.post({ accessToken, ...bookFields }, 'booklist/add')
+        await apiBook.send('add-book', 'POST', { accessToken, ...bookFields })
       }
       dispatch({ type: 'RESET_BOOKS', payload: { books: collection } })
     } catch {

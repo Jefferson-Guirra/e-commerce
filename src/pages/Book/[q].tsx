@@ -57,13 +57,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const validateFavoriteBooks = async (): Promise<boolean> => {
     if (accessToken) {
-      const response = await apiBook.get(
-        {
-          accessToken: JSON.parse(accessToken),
-          bookId: q,
-        },
-        'booklist/getbook'
-      )
+      const response = await apiBook.send('get-book', 'POST', {
+        accessToken: JSON.parse(accessToken),
+        bookId: q,
+      })
       return !!response.body
     } else {
       return false

@@ -43,10 +43,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
   }
 
-  const response = await apiBook.get(
-    { accessToken: JSON.parse(cookies.literando_accessToken) },
-    'buybooklist'
-  )
+  const response = await apiBook.send('get-buy-books', 'POST', {
+    accessToken: JSON.parse(cookies.literando_accessToken),
+  })
 
   if (response.statusCode === 401) {
     return {

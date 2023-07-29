@@ -31,7 +31,7 @@ export const BuyComponent = ({
     dispatch({ type: 'FETCH_COLLECTION_START' })
     for (const book of books) {
       const { bookId } = book
-      await apiBook.delete({ accessToken, bookId }, 'buybooklist/delete')
+      await apiBook.send('remove-buy-book', 'DELETE', { accessToken, bookId })
     }
     dispatch({ type: 'FETCH_CLEAR_STATE' })
   }

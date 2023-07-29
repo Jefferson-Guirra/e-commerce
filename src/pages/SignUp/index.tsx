@@ -3,7 +3,6 @@ import { GetServerSideProps } from 'next'
 import { authOptions } from '../api/auth/[...nextauth]'
 import { SignUpContainer } from '../../features'
 import { getServerSession } from 'next-auth'
-import { handleSession } from '../../utils/handle-next-auth-session'
 import nookies from 'nookies'
 
 const SignUp = () => {
@@ -32,7 +31,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
   }
 
-  if (session) {
+  /*if (session) {
     try {
       nookies.set(
         ctx,
@@ -62,7 +61,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     } catch (err) {
       console.error(err)
     }
-  }
+  }*/
   return {
     props: {},
   }

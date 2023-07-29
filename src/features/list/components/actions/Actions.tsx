@@ -18,7 +18,7 @@ export const Actions = ({ bookId: idBook }: Props) => {
     const accessToken = JSON.parse(parseCookies().literando_accessToken)
     try {
       dispatch({ type: 'FETCH_START' })
-      await bookApi.delete({ accessToken, idBook }, 'booklist/remove')
+      await bookApi.send('remove-book', 'DELETE', { accessToken, idBook })
       dispatch({ type: 'REMOVE_BOOK', payload: { bookId: idBook } })
     } catch (err) {
       console.error(err)

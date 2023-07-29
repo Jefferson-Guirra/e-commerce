@@ -29,10 +29,10 @@ export const HeaderComponent = ({ handleReset }: Props) => {
       const deletedBooks: AddBuyBookModel[] = []
       for (const props of deleteStorage) {
         const { accessToken, bookId } = props
-        const response = await apiBook.delete(
-          { accessToken, idBook: bookId },
-          'booklist/remove'
-        )
+        const response = await apiBook.send('remove-book', 'DELETE', {
+          accessToken,
+          idBook: bookId,
+        })
         deletedBooks.push(response.body)
       }
       dispatch({ type: 'REMOVE_ALL_BOOKS' })

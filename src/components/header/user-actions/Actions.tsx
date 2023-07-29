@@ -19,7 +19,7 @@ const Actions = () => {
 
   const handleLogout = async () => {
     const accessToken = JSON.parse(parseCookies().literando_accessToken)
-    await userApi.post({ accessToken }, 'account/logout')
+    await userApi.send('acccount/logout', 'PUT', { accessToken })
     handleCookies.destroyCookie('literando_accessToken')
     handleCookies.destroyCookie('literando_username')
     signOut()

@@ -22,7 +22,7 @@ export class HandleBuyBookDatabase
       imgUrl: `https://books.google.com/books/publisher/content/images/frontcover/${book.id}?fife=w340-h400&source=gbs_api`,
       ...booksFields,
     }
-    const response = await apiBook.post(addBuyBook, 'buybooklist/add')
+    const response = await apiBook.send('add-buy-book', 'POST', addBuyBook)
     return response
   }
 
@@ -32,10 +32,10 @@ export class HandleBuyBookDatabase
     dispatch: Dispatch<IActions>,
     amount: number
   ): Promise<void> {
-    const response = await apiBook.post(
-      { accessToken, bookId },
-      'buybooklist/get-book'
-    )
+    const response = await apiBook.send('get-buy-book', 'POST', {
+      accessToken,
+      bookId,
+    })
     if (!response.body && response.statusCode === 200) {
       dispatch({ type: 'ADD_AMOUNT_LIST', payload: { amount } })
     }

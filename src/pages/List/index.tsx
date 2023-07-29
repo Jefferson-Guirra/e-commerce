@@ -43,12 +43,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
   }
   const bookUserApi = new Api()
-  const response = await bookUserApi.get(
-    {
-      accessToken: JSON.parse(literando_accessToken),
-    },
-    'booklist'
-  )
+  const response = await bookUserApi.send('get-books', 'POST', {
+    accessToken: JSON.parse(literando_accessToken),
+  })
 
   if (response.statusCode === 401) {
     return {

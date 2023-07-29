@@ -38,15 +38,12 @@ export const SignUpForm = ({ handleLoading, loading }: Props) => {
         try {
           setError('')
           handleLoading(true)
-          const response = await apiUser.post(
-            {
-              username: username.value,
-              password: password.value,
-              passwordConfirmation: passwordConfirmation.value,
-              email: email.value,
-            },
-            'account/signup'
-          )
+          const response = await apiUser.send('signup', 'POST', {
+            username: username.value,
+            password: password.value,
+            passwordConfirmation: passwordConfirmation.value,
+            email: email.value,
+          })
 
           const statusCodeValidate: any = {
             200: () => router.push('/Login'),
