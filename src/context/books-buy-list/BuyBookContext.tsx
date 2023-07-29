@@ -23,7 +23,10 @@ export const BuyStorage = ({ children }: IProps) => {
         return {
           ...state,
           books: action.payload.books,
-          price: state.books.reduce((acc, v) => acc + v.amount * v.price, 0),
+          price: action.payload.books.reduce(
+            (acc, v) => acc + v.amount * v.price,
+            0
+          ),
         }
 
       case 'ADD_SELECT_BOOK':
