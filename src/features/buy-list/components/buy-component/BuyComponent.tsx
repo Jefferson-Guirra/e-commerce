@@ -5,7 +5,7 @@ import { IoClose } from 'react-icons/io5'
 import { Dispatch, SetStateAction } from 'react'
 import { Api } from '../../../../utils/api'
 import { useBuyContext } from '../../../../context/books-buy-list/BuyBookContext'
-import { AddBuyBookModel } from '../../../../server/domain/usecases/book-buy-list/add-book-buy-list'
+import { AddBuyBookModel } from '../../../../@types/buy-book/add-buy-book-model'
 
 interface Props {
   purchase: boolean
@@ -31,7 +31,7 @@ export const BuyComponent = ({
     dispatch({ type: 'FETCH_COLLECTION_START' })
     for (const book of books) {
       const { bookId } = book
-      await apiBook.delete({ accessToken, bookId }, 'buybooklist/delete')
+      await apiBook.send('remove-buy-book', 'DELETE', { accessToken, bookId })
     }
     dispatch({ type: 'FETCH_CLEAR_STATE' })
   }

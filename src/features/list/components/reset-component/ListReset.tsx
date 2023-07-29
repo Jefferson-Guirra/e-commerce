@@ -3,7 +3,7 @@ import { Api } from '../../../../utils/api'
 import { List } from '../../../../components'
 import { useListContext } from '../../../../context/books-list/BookList'
 import { parseCookies } from 'nookies'
-import { AddBookModel } from '../../../../server/domain/usecases/book-list/add-book-list'
+import { AddBookModel } from '../../../../@types/book/add-book-model'
 import { ResetProps } from '../../../../components/list/reset/ListReset'
 
 interface IProps {
@@ -27,7 +27,7 @@ export const ResetComponent = ({ handleReset }: IProps) => {
       dispatch({ type: 'FETCH_COLLECTION_START' })
       for (const book of collection) {
         const { date, id, queryDoc, ...bookFields } = book
-        await apiBook.post({ accessToken, ...bookFields }, 'booklist/add')
+        await apiBook.send('add-book', 'POST', { accessToken, ...bookFields })
       }
       dispatch({ type: 'RESET_BOOKS', payload: { books: collection } })
     } catch {

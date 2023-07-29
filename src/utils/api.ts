@@ -1,49 +1,14 @@
-import { HttpResponse } from '../server/presentation/protocols/http'
+import { HttpResponse } from '../@types/request/http'
+type ApiMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 interface BookApi {
-  get: (body: any, url: string) => Promise<HttpResponse>
-  post: (body: any, url: string) => Promise<HttpResponse>
-  delete: (body: any, url: string) => Promise<HttpResponse>
-  put: (body: any, url: string) => Promise<HttpResponse>
+  send: (url: string, method: ApiMethod, body: any) => Promise<HttpResponse>
 }
 
 export class Api implements BookApi {
-  private readonly originUrl = 'https://literando.vercel.app/api/'
-  async get(body: any, url: string): Promise<HttpResponse> {
+  private readonly originUrl = 'https://literando.onrender.com/api/'
+  async send(url: string, method: ApiMethod, body: any): Promise<HttpResponse> {
     const promise = await fetch(this.originUrl + url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    })
-    return await promise.json()
-  }
-
-  async post(body: any, url: string): Promise<HttpResponse> {
-    const promise = await fetch(this.originUrl + url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    })
-    return await promise.json()
-  }
-
-  async delete(body: any, url: string): Promise<HttpResponse> {
-    const promise = await fetch(this.originUrl + url, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    })
-    return await promise.json()
-  }
-
-  async put(body: any, url: string): Promise<HttpResponse> {
-    const promise = await fetch(this.originUrl + url, {
-      method: 'DELETE',
+      method,
       headers: {
         'Content-Type': 'application/json',
       },

@@ -1,7 +1,7 @@
 import { useBuyContext } from '../../../../context/books-buy-list/BuyBookContext'
 import { BiUndo } from 'react-icons/bi'
 import { HiTrash } from 'react-icons/hi'
-import { AddBuyBookModel } from '../../../../server/domain/usecases/book-buy-list/add-book-buy-list'
+import { AddBuyBookModel } from '../../../../@types/buy-book/add-buy-book-model'
 import { Api } from '../../../../utils/api'
 import { useHeaderContext } from '../../../../context/header/HeaderContext'
 import { List } from '../../../../components'
@@ -30,10 +30,10 @@ export const HeaderComponent = ({ handleReset }: IProps) => {
       const deletedBooks: AddBuyBookModel[] = []
       for (const props of deleteBooksStorage) {
         const { accessToken, bookId } = props
-        const response = await apiBook.delete(
-          { accessToken, bookId },
-          'buybooklist/delete'
-        )
+        const response = await apiBook.send('remove-buy-book', 'DELETE', {
+          accessToken,
+          bookId,
+        })
         deletedBooks.push(response.body)
       }
       dispatchHeader({

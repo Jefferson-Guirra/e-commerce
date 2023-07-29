@@ -1,5 +1,5 @@
 import styles from './styles.module.css'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { IBuyBooksProps } from '../@types/IBuyBooksProps'
 import { useEffect } from 'react'
 import { BiSearch } from 'react-icons/bi'

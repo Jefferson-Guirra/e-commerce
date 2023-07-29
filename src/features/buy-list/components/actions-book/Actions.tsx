@@ -22,10 +22,11 @@ export const Actions = ({ bookId, amount }: IDataProps) => {
     if (validate) {
       try {
         dispatch({ type: 'FETCH_START' })
-        const book = await apiBook.put(
-          { accessToken, bookId, amount: value },
-          'buybooklist/update-amount'
-        )
+        const book = await apiBook.send('update-amount-buy-book', 'PUT', {
+          accessToken,
+          bookId,
+          amount: value,
+        })
         dispatch({
           type: 'FETCH_UPDATE_SUCCESS',
           payload: { updateBook: book.body },
@@ -45,10 +46,10 @@ export const Actions = ({ bookId, amount }: IDataProps) => {
     const { literando_accessToken: accessToken } = parseCookies()
     try {
       dispatch({ type: 'FETCH_START' })
-      const response = await apiBook.delete(
-        { accessToken: JSON.parse(accessToken), bookId },
-        'buybooklist/delete'
-      )
+      const response = await apiBook.send('remove-buy-book', 'DELETE', {
+        accessToken: JSON.parse(accessToken),
+        bookId,
+      })
       dispatchHeader({
         type: 'REMOVE_AMOUNT_LIST',
         payload: { removeAmount: 1 },

@@ -34,13 +34,10 @@ export const LoginForm = ({ handleLoading, loading }: Props) => {
       const validateInputs = email.validate() && password.validate()
 
       if (validateInputs) {
-        const response = await apiUser.post(
-          {
-            email: email.value,
-            password: password.value,
-          },
-          'account/login'
-        )
+        const response = await apiUser.send('login', 'PUT', {
+          email: email.value,
+          password: password.value,
+        })
 
         const handleLogin = () => {
           const { accessToken, username } = response.body

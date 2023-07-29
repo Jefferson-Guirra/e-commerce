@@ -55,7 +55,7 @@ export const HeaderStorage = ({ children }: Props) => {
   const [headerState, dispatch] = useReducer(reducer, initialState)
 
   const getInitProps = async (accessToken: string, username: string) => {
-    const books = await api.get({ accessToken }, 'buybooklist')
+    const books = await api.send('get-buy-books', 'POST', { accessToken })
     dispatch({
       type: 'INIT',
       payload: { amountList: books.body.length, username },

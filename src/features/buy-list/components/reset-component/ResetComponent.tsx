@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { useBuyContext } from '../../../../context/books-buy-list/BuyBookContext'
-import { AddBuyBookModel } from '../../../../server/domain/usecases/book-buy-list/add-book-buy-list'
+import { AddBuyBookModel } from '../../../../@types/buy-book/add-buy-book-model'
 import { Api } from '../../../../utils/api'
 import { useHeaderContext } from '../../../../context/header/HeaderContext'
 import { List } from '../../../../components'
@@ -28,7 +28,10 @@ export const ResetComponent = ({ handleReset }: Props) => {
       dispatch({ type: 'FETCH_COLLECTION_START' })
       for (const book of collection) {
         const { date, id, queryDoc, ...bookFields } = book
-        await apiBook.post({ accessToken, ...bookFields }, 'buybooklist/add')
+        await apiBook.send('add-buy-book', 'POST', {
+          accessToken,
+          ...bookFields,
+        })
       }
       dispatch({ type: 'RESET_COLLECTION_BOOKS', payload: { collection } })
       dispatchHeader({
