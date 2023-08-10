@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import { signIn } from 'next-auth/react'
 import { FcGoogle } from 'react-icons/fc'
 import { BiRightArrowAlt } from 'react-icons/bi'
+import styles from './styles.module.css'
 const apiUser = new Api()
 const handleCookies = new HandleCookies()
 
@@ -100,6 +101,9 @@ export const LoginForm = ({ handleLoading, loading }: Props) => {
         {...password}
       />
       {error && <Form.Error text={error} />}
+      {error === 'Email e ou senha incorretos.' && (
+        <button className={styles.btn}>esqueceu a senha?</button>
+      )}
       <Form.Button
         disabled={loading}
         text="Entrar"
