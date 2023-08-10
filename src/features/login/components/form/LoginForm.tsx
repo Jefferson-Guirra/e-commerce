@@ -74,9 +74,7 @@ export const LoginForm = ({ handleLoading, loading }: Props) => {
         disabled={loading}
         type="button"
         text="Google"
-        onClick={() =>
-          handleNextAuthLogin('https://literando.vercel.app/Login')
-        }
+        onClick={() => handleNextAuthLogin('http://localhost:3000/Login')}
       >
         <Form.Icon size={25} icon={FcGoogle} />
       </Form.ActionButton>

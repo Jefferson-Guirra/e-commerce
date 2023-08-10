@@ -5,7 +5,7 @@ interface BookApi {
 }
 
 export class Api implements BookApi {
-  private readonly originUrl = 'https://literando.onrender.com/api/'
+  private readonly originUrl = 'https://literando-api.up.railway.app/api/'
   async send(url: string, method: ApiMethod, body: any): Promise<HttpResponse> {
     const promise = await fetch(this.originUrl + url, {
       method,
