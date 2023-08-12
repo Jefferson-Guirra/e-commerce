@@ -60,9 +60,9 @@ export const LoginForm = ({ handleLoading, loading }: Props) => {
     }
   }
 
-  const handleNextAuthLogin = (callbackUrl: string) => {
+  const handleNextAuthLogin = () => {
     try {
-      signIn('google', { callbackUrl })
+      signIn('google', { callbackUrl: 'https://literando.vercel.app/Login' })
     } catch (err) {
       console.error(err)
     }
@@ -74,9 +74,7 @@ export const LoginForm = ({ handleLoading, loading }: Props) => {
         disabled={loading}
         type="button"
         text="Google"
-        onClick={() =>
-          handleNextAuthLogin('https://literando.vercel.app/Login')
-        }
+        onClick={() => handleNextAuthLogin()}
       >
         <Form.Icon size={25} icon={FcGoogle} />
       </Form.ActionButton>
