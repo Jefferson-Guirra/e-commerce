@@ -1,0 +1,17 @@
+.container {
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.container h1 {
+  color: #3d4f58;
+  font-size: 2rem;
+  text-align: center;
+}
+.form {
+  width: 100%;
+  max-width: 500px;
+  margin: auto 0;
+  align-self: center;
+}
