@@ -26,9 +26,35 @@
   width: 100%;
 }
 
+.icon-email {
+  border: 2px solid var(--second-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  padding: 0.3rem;
+  border-radius: 10px 3px 10px 3px;
+}
+
+.icon-email svg {
+  animation: show-pop 1s infinite linear;
+}
+
+@keyframes show-pop {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.1, 1.1);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
 @keyframes show-line {
-  to{
+  to {
     width: 100%;
   }
-
 }
