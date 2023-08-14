@@ -50,39 +50,11 @@
   background-color: #889397;
 }
 .container .content {
-  width: 23.875rem;
-  position: relative;
-  z-index: 2;
-  overflow: hidden;
+  width: 23.875rem;;
   padding: 3rem 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-}
-
-.container .content .cover-top {
-  content: '';
-  display: block;
-  position: absolute;
-  z-index: -1;
-  left: -110px;
-  top: -150px;
-  rotate: -30deg;
-  width: calc(100% + 200px);
-  height: 31.5%;
-  background-color: var(--second-color);
-}
-
-.container .content .cover-bottom {
-  content: '';
-  display: block;
-  position: absolute;
-  left: 0;
-  width: calc(100% + 200px);
-  rotate: -30deg;
-  height: 31.5%;
-  bottom: -73px;
-  background-color: var(--primary-color);
 }
 
 .container .btn-google {
@@ -115,11 +87,6 @@
   flex: 1;
 }
 
-@media (max-width: 1150px) {
-  .container .content .cover-bottom {
-    display: none;
-  }
-}
 @media (max-width: 885px) {
   .container .content {
     width: 100%;
