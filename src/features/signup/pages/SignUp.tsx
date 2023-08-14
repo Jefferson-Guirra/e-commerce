@@ -30,7 +30,7 @@ export const SignUp = () => {
             Já tem uma conta? <span>Entrar</span>
           </Link>
         </article>
-        <PresentationCover />
+        <PresentationCover url="/images/presentation-cover.jpg" />
       </section>
     </>
   )

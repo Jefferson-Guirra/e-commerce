@@ -104,7 +104,7 @@ export const ResetPassword = ({ accessToken }: ResetProps) => {
           </Form.Root>
         </div>
       </article>
-      <PresentationCover />
+      <PresentationCover url="/images/password-cover.jpg" />
     </section>
   )
 }
