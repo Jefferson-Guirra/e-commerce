@@ -1,9 +1,6 @@
 .container {
-  background-color: #fafafa;
-  display: flex;
   height: 100%;
-  border: 0.3px solid #889397;
-  border-inline: none;
+  display: flex;
 }
 
 .container header {
