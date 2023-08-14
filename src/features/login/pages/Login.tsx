@@ -32,7 +32,7 @@ export const Login = () => {
             Não tem uma conta? <span>Inscreva-se</span>
           </Link>
         </article>
-        <PresentationCover />
+        <PresentationCover url="/images/presentation-cover.jpg" />
       </section>
     </>
   )
