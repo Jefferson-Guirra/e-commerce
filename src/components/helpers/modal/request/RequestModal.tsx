@@ -18,7 +18,7 @@ export const RequestModal = ({
 }: Props) => {
   const handleMessage = (response: HttpResponse): string => {
     const message = {
-      '200': `<p> Email enviado para:</p> <p>${response.body?.email}</p>`,
+      '200': `<p> Email para alteração de senha enviado:</p> <p>${response.body?.email}</p>`,
       '401': '<p>Usuário não cadastrado.</p>',
       '500': '<p>Erro interno no servidor.<p>',
     }
