@@ -15,7 +15,7 @@ Todas as informações contidas foram retiradas da <a href="https://developers.g
 
 ## 📚 Seções
 
-O site é composto por quatro seções:
+O site é composto por oito seções:
 
 - **Home:** Apresenta livros separados por gêneros;
 - **Livro:** Página dinâmica que exibe o livro escolhido e títulos similares;
@@ -36,13 +36,12 @@ O site é composto por quatro seções:
 
 O projeto visou a criação de um E-commerce a partir de tais tecnologias:
 
-- Nextjs;
-- Context-React;
 - TypeScript;
-- Html;
-- Styled-components;
-- Firebase ( Banco de dados )
-- Api Externa ( Google Books );
+- React / Nextjs;
+- React-context-api;
+- Css-modules;
+- Api Pessoal ( Literando-api );
+- Api Externa ( Google-books );
 - NextAuth ( Biblioteca )
 - React-icons ( Biblioteca )
 - Swiper ( Biblioteca )
