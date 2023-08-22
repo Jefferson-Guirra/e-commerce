@@ -59,7 +59,7 @@ O projeto não foi concluído tarefas de 1 a 3 finalizadas:
 - [ ] Adicionar funcionalidade de verificação de email.
 
 
-Compatível `<Windows / Linux / Mac>`."
+. Compatível `<Windows / Linux / Mac>`."
 
 <br>
 
