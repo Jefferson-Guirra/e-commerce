@@ -22,9 +22,9 @@ O site é composto por quatro seções:
 - **Pesquisa:** Rota dinâmica que exibe os resultados de pesquisa;
 - **Minha Lista:** nesta seção temos a lista de livros favoritos do usuário;
 - **Meu Carrrinho:** Exibe os produtos adicionados ao carrinho pelo cliente;
-- **Login - Cadastrar:** Seção de login do usuario;
-- **Cadastro - Cadastrar:** Página de criação do usuário;
-- **Alterar senha - Cadastrar:** Rota usada para redefinição de senha do usuário
+- **Login:** Seção de login do usuario;
+- **Cadastro:** Página de criação do usuário;
+- **Alterar senha:** Rota usada para redefinição de senha do usuário
 
 
 
