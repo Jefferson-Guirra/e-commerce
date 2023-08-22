@@ -24,7 +24,7 @@ O site é composto por quatro seções:
 - **Meu Carrrinho:** Exibe os produtos adicionados ao carrinho pelo cliente;
 - **Login:** Seção de login do usuario;
 - **Cadastro:** Página de criação do usuário;
-- - **Alterar senha:** Rota usada para redefinição de senha do usuário;
+- **Alterar senha:** Rota usada para redefinição de senha do usuário;
 
 
 
