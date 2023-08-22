@@ -6,7 +6,7 @@
 
 > E-commerce de livros.
 <br>
-Todas as informações contidas foram retiradas da <a href="https://developers.google.com/books"> Google Books Api´s.</a>  e <a href="https://github.com/Jefferson-Guirra/literando-api"> Google Books Api´s.</a>
+Todas as informações contidas foram retiradas da <a href="https://developers.google.com/books"> Google Books Api´s.</a>  e <a href="https://github.com/Jefferson-Guirra/literando-api"> literando api.</a>
 <br>
 
 <br>
