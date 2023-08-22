@@ -56,10 +56,10 @@ O projeto não foi concluído tarefas de 1 a 3 finalizadas:
 - [x] Refatorar todo o codigo antigo.
 - [x] Integrar com literando-api.
 - [x] Adicionar funcionalidade de alteraração de senha.
-- [f] Adicionar funcionalidade de verificação de email.
+- [] Adicionar funcionalidade de verificação de email.
 
 
-* Compatível `<Windows / Linux / Mac>`."
+Compatível `<Windows / Linux / Mac>`."
 
 <br>
 
