@@ -15,8 +15,6 @@ Todas as informações contidas foram retiradas da <a href="https://developers.g
 
 # 📚 Seções
 
----
-
 O site é composto por oito seções:
 
 - **Home:** Apresenta livros separados por gêneros;
@@ -48,7 +46,6 @@ O projeto visou a criação de um E-commerce a partir de tais tecnologias:
 - React-icons ( Biblioteca )
 - Swiper ( Biblioteca )
 
----
 
 ### Ajustes e melhorias
 
