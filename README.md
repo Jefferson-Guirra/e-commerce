@@ -47,7 +47,7 @@ O projeto visou a criação de um E-commerce a partir de tais tecnologias:
 - Swiper ( Biblioteca )
 
 
-### Ajustes e melhorias
+## Ajustes e melhorias
 
 O projeto não foi concluído tarefas de 1 a 3 finalizadas:
 
