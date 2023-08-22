@@ -13,7 +13,7 @@ Todas as informações contidas foram retiradas da <a href="https://developers.g
 
 <h4 align="center"><a href="https://literando.vercel.app/" target="_blank">Clique para visitar o projeto</a></h4>
 
-📚 Seções
+# 📚 Seções
 
 ---
 
