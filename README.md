@@ -24,7 +24,8 @@ O site é composto por quatro seções:
 - **Meu Carrrinho:** Exibe os produtos adicionados ao carrinho pelo cliente;
 - **Login:** Seção de login do usuario;
 - **Cadastro:** Página de criação do usuário;
-- **Alterar senha:** Rota usada para redefinição de senha do usuário;
+- - **Alterar senha:** Rota usada para redefinição de senha do usuário;
+
 
 
 
@@ -55,7 +56,7 @@ O projeto não foi concluído tarefas de 1 a 3 finalizadas:
 - [x] Refatorar todo o codigo antigo.
 - [x] Integrar com literando-api.
 - [x] Adicionar funcionalidade de alteraração de senha.
-- [] Adicionar funcionalidade de verificação de email.
+- [ ] Adicionar funcionalidade de verificação de email.
 
 
 * Compatível `<Windows / Linux / Mac>`."
