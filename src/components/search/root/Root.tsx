@@ -4,9 +4,13 @@ interface Props extends FormHTMLAttributes<HTMLFormElement> {
   children: ReactNode
 }
 
-const Root = ({ children, ...rest }: Props) => {
+const Root = ({ children, onSubmit, ...rest }: Props) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    onSubmit && onSubmit(e)
+  }
   return (
-    <form className={styles.form} {...rest}>
+    <form onSubmit={handleSubmit} className={styles.form} {...rest}>
       {children}
     </form>
   )
