@@ -122,6 +122,7 @@
 
 @media (max-width: 955px) {
   .actions {
+    display: none;
     transition: 1s;
     position: absolute;
     background-color: var(--primary-color);
