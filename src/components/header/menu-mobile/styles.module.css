@@ -29,13 +29,13 @@
 .list li {
   display: block;
 }
-.list a{
+.list a {
   transition: 0.7s;
   display: block;
   padding: 1rem 1.5rem;
 }
 
-.list li a{
+.list li a {
   gap: 0.5rem;
   display: flex;
   align-items: flex-end;
@@ -73,12 +73,8 @@
   background-color: var(--primary-color);
 }
 
-
-
-
 @media (max-width: 400px) {
   .container {
     width: 100%;
   }
-  
 }

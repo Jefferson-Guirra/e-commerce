@@ -93,8 +93,8 @@ button:disabled {
   cursor: wait;
 }
 
-svg{
-  transition:0.5s
+svg {
+  transition: 0.5s;
 }
 
 @media (max-width: 955px) {
