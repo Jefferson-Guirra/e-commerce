@@ -46,7 +46,7 @@ export const BooksList = ({ books, accessToken }: IBuyBooksProps) => {
     <>
       <section className={styles.content}>
         <HeaderComponent handleReset={handleReset} />
-        {!booksState.length && <p style={{ color: '#f31' }}>Lista vazia</p>}
+        {!booksState.length && <p style={{ color: '#f31' }}>Carrinho vazio</p>}
         {!!booksState.length && (
           <Search.Root>
             <Search.Input
