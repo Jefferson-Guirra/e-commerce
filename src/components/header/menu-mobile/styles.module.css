@@ -15,13 +15,6 @@
   border-radius: 0px 0px 7px 7px;
 }
 
-.container.active {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: initial;
-  top: 100%;
-}
-
 .list {
   width: 100%;
 }
@@ -71,6 +64,15 @@
 .list a:hover .items-icon .number-items {
   color: var(--second-color);
   background-color: var(--primary-color);
+}
+
+@media (max-width: 955px) {
+  .container.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: initial;
+    top: 100%;
+  }
 }
 
 @media (max-width: 400px) {
